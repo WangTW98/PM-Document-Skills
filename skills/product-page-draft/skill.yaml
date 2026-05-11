@@ -1,0 +1,43 @@
+name: "product-page-draft"
+version: "0.2.0"
+description: "Generate one detailed page-level draft Markdown file from one Sitemap 页面生成总表 row in product/release/product-overview-release.md."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-overview-release.md"
+  - "target page ID, page name, or one sitemap row"
+outputs:
+  - "<页面级MD文件 from Sitemap 页面生成总表>"
+resources:
+  references:
+    - "references/page-draft-template.md"
+    - "references/page-draft-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-overview-release.md"
+  source_section: "Sitemap 页面生成总表"
+  output_path_source: "页面级MD文件"
+  one_page_per_invocation: true
+  filename_rule: "exactly use the target row's 页面级MD文件 value"
+  must_include:
+    - "source sitemap row metadata"
+    - "Mermaid mind map or flowchart"
+    - "page layout section table"
+    - "complete page element inventory"
+    - "element state matrix with triggers and style definitions"
+    - "interaction action matrix"
+    - "data structures and API contracts"
+    - "boundary states and error handling"
+    - "media/resource table when relevant"
+    - "page-level assumptions and confirmation list with PA-/PQ- IDs"
+  must_avoid:
+    - "generating more than one page in one invocation"
+    - "vague unnamed elements"
+    - "missing state triggers"
+    - "interfaces without request and response structures"
+    - "editing product/release/product-overview-release.md"
