@@ -6,6 +6,8 @@ Use this checklist before writing the final response.
 
 - The selected input file is one page under `product/development/pages`.
 - No more than one draft page file was read for release processing.
+- The selected draft page contains `## 7. 埋点事件统计设计`.
+- The selected draft page contains `埋点事件ID` and at least one `EVT-*` event ID.
 - Exactly one release page file was created or updated under `product/release/pages`.
 - The release page filename preserves the input page filename relative to `product/development/pages`.
 - The document version is `Release`.

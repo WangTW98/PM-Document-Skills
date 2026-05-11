@@ -45,11 +45,14 @@ Optional blocker output when release cannot be produced:
 
 2. Read and parse the draft.
    - Load the selected page MD.
+   - Verify the draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
+   - If the draft lacks analytics content, do not create a release page. Write a blocker file saying the page draft must be regenerated with `product-page-draft` version `0.4.0` or later.
    - Locate the final `页面假设与待确认统一清单` section.
    - Parse every page assumption row (`PA-001`, `PA-002`, ...) and page confirmation row (`PQ-001`, `PQ-002`, ...).
    - Scan the entire draft for inline `PA-*` and `PQ-*` references; every reference must be represented in the final list.
 
 3. Validate release readiness.
+   - Analytics content is release-critical. Missing `## 7. 埋点事件统计设计`, missing `埋点事件ID`, or missing `EVT-*` must block release.
    - Every `PA-*` item must have a usable `用户确认状态` and `Release 处理方式`.
    - Every `PQ-*` item must have a usable `用户确认结果` and `Release 处理方式`.
    - Treat values like `待用户确认`, blank cells, `待确认`, `保留为风险`, or vague text without a concrete decision as unresolved.
@@ -85,6 +88,7 @@ Optional blocker output when release cannot be produced:
 - Do not keep `PA-*` / `PQ-*` IDs for traceability inside the release file; traceability belongs in the draft page.
 - Do not silently keep an element, state, action, API, or data field whose release handling says to delete it.
 - Do not invent user confirmation. If the draft does not contain a concrete release decision for a material item, block release.
+- Do not create a release page from a stale draft that lacks analytics event statistics; block and require page draft regeneration.
 
 ## Output Quality Bar
 

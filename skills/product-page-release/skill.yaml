@@ -1,5 +1,5 @@
 name: "product-page-release"
-version: "0.3.0"
+version: "0.4.0"
 description: "Generate exactly one confirmed release page Markdown file per invocation from one draft page by applying PA-/PQ- release handling decisions and removing uncertainty."
 language: "zh-CN"
 entrypoint: "SKILL.md"
@@ -38,6 +38,7 @@ contract:
   must_avoid:
     - "processing multiple page draft files in one invocation"
     - "directory-wide release generation"
+    - "creating release pages from stale drafts without analytics event statistics"
   must_preserve:
     - "confirmed page objective and source metadata"
     - "Mermaid page diagram"

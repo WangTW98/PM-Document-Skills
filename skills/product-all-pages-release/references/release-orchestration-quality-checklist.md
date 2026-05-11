@@ -8,6 +8,7 @@ Use this checklist before finishing an orchestration run.
 - Every sitemap row appears in the status queue unless the row is malformed and recorded as blocked.
 - The current run selected pages by ascending `生成顺序`.
 - Each selected page used the row's `页面级MD文件` as the draft source file.
+- Draft source pages used for release contain `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
 - Each release page path was derived by replacing `product/development/pages` with `product/release/pages`.
 - No page was marked `已完成` unless the release file exists.
 - No completed release page was overwritten unless the user explicitly requested regeneration.

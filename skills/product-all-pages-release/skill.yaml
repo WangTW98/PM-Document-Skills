@@ -1,5 +1,5 @@
 name: "product-all-pages-release"
-version: "0.2.0"
+version: "0.3.0"
 description: "Orchestrate page-by-page generation of all release page Markdown files from draft pages and the release product overview sitemap."
 language: "zh-CN"
 entrypoint: "SKILL.md"
@@ -45,3 +45,4 @@ contract:
     - "overwriting completed release pages without explicit user request"
     - "inventing missing draft source paths"
     - "editing product/release/product-overview-release.md"
+    - "releasing stale draft pages without analytics event statistics"

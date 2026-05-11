@@ -45,6 +45,7 @@ Generated release page outputs:
    - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
    - If its release output file already exists and passes the page release checklist, mark it `已完成` instead of regenerating.
    - If the draft source file does not exist, mark it `已阻塞` and record that `product-page-draft` must generate the draft page first.
+   - If the draft source file exists but lacks `## 7. 埋点事件统计设计`, lacks `埋点事件ID`, or lacks any `EVT-*` event ID, mark it `已阻塞` and record that `product-page-draft` must regenerate the draft with analytics before release.
    - If required fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
 
 4. Release exactly one page.
@@ -80,6 +81,7 @@ For each selected page, obey these `product-page-release` rules:
 
 - Process exactly one draft page per selected sitemap row.
 - Input source is the row's `页面级MD文件`.
+- Source draft page must already contain the mandatory analytics section and `EVT-*` event IDs from `product-page-draft`.
 - Output path preserves the draft page filename relative to `product/development/pages`, under `product/release/pages`.
 - Apply every `PA-*` / `PQ-*` Release handling decision from the draft page's final `页面假设与待确认统一清单`.
 - Remove all `PA-*`, `PQ-*`, assumptions, open questions, uncertainty markers, and confirmation workflow sections.
@@ -95,6 +97,7 @@ For each selected page, obey these `product-page-release` rules:
 - Do not mark a page complete unless the release file exists at the expected `product/release/pages` path.
 - Do not mark a page complete if the release page still contains `PA-*`, `PQ-*`, `假设`, or `待确认`.
 - Do not mark a page complete if the release page lacks `埋点事件ID` or any `EVT-*` event ID.
+- Do not attempt release from a stale draft page that lacks analytics event statistics; block it and request draft regeneration.
 
 ## Resources
 
