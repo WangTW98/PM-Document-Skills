@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product All Pages Draft"
+  short_description: "Orchestrate all sitemap page drafts"
+  default_prompt: "Use $product-all-pages-draft to read product/release/product-overview-release.md, maintain product/development/pages/_generation-status.md, and generate all page drafts one sitemap row at a time using product-page-draft rules."

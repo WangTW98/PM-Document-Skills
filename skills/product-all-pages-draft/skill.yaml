@@ -1,0 +1,41 @@
+name: "product-all-pages-draft"
+version: "0.1.0"
+description: "Orchestrate page-by-page generation of all draft page Markdown files from the release product overview sitemap."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-overview-release.md"
+outputs:
+  - "product/development/pages/_generation-status.md"
+  - "<页面级MD文件 from each Sitemap 页面生成总表 row>"
+resources:
+  references:
+    - "references/generation-status-template.md"
+    - "references/orchestration-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-overview-release.md"
+  source_section: "Sitemap 页面生成总表"
+  status_file: "product/development/pages/_generation-status.md"
+  page_generation_skill: "product-page-draft"
+  page_output_path_source: "页面级MD文件"
+  processing_order: "ascending 生成顺序"
+  one_page_per_generation_step: true
+  resume_safe: true
+  must_include:
+    - "status queue for every sitemap row"
+    - "current page tracking"
+    - "completion records"
+    - "blocked records with actionable reasons"
+    - "page-by-page generation following product-page-draft"
+  must_avoid:
+    - "generating a combined multi-page requirements document"
+    - "marking pages complete without files"
+    - "overwriting completed pages without explicit user request"
+    - "inventing missing 页面级MD文件 paths"
+    - "editing product/release/product-overview-release.md"
