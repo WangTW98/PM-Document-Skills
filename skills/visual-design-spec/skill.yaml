@@ -1,0 +1,56 @@
+name: "visual-design-spec"
+version: "0.1.0"
+description: "Generate a portable Google Stitch DESIGN.md-style visual design system, structured tokens, standalone preview, and usage handoff files from visual design descriptions or source references."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "natural-language visual design description"
+  - "brand direction, mood words, audience, product type, or style references"
+  - "uploaded or referenced screenshots, mockups, brand documents, logos, color notes, or typography notes"
+  - "optional product overview or sitemap files"
+outputs:
+  - "design/<design-system-slug>/00-index.md"
+  - "design/<design-system-slug>/DESIGN.md"
+  - "design/<design-system-slug>/visual-spec.md"
+  - "design/<design-system-slug>/tokens.json"
+  - "design/<design-system-slug>/preview.html"
+  - "design/<design-system-slug>/usage.md"
+  - "design/<design-system-slug>/handoff/html-generation-guide.md"
+  - "design/<design-system-slug>/handoff/figma-remote-mcp-guide.md"
+resources:
+  references:
+    - "references/design-md-contract.md"
+    - "references/output-file-contract.md"
+    - "references/preview-html-contract.md"
+  assets:
+    - "assets/preview-starter.html"
+compatibility:
+  runner_neutral: true
+  generated_artifacts_runner_neutral: true
+  requires_specific_editor: false
+  requires_specific_design_tool: false
+contract:
+  output_root: "design"
+  output_directory_pattern: "design/<design-system-slug>"
+  canonical_design_file: "design/<design-system-slug>/DESIGN.md"
+  preview_file: "design/<design-system-slug>/preview.html"
+  directory_slug_rules:
+    - "derive from the user's product name, brand name, style direction, or core visual prompt"
+    - "use lowercase letters, digits, and hyphens only"
+    - "avoid generic names such as visual-system, design-system, new-design, or preview"
+    - "create a non-destructive v2/v3 variant if the slug already exists"
+  must_include:
+    - "Google Stitch DESIGN.md-style YAML front matter plus Markdown rationale"
+    - "platform-neutral semantic design tokens"
+    - "human-readable expanded visual specification"
+    - "valid JSON token mirror"
+    - "standalone browser-previewable HTML file with inline CSS and no external dependencies"
+    - "usage instructions for humans and AI agents"
+    - "handoff instructions for HTML generation"
+    - "handoff instructions for Figma Remote MCP design creation"
+    - "responsive adaptation rules for mobile, tablet, desktop, and wide desktop"
+  must_avoid:
+    - "runtime dependence on Codex, VS Code, Antigravity, Google Stitch, Figma, Tailwind, React, or any specific framework"
+    - "vague design instructions without exact token values"
+    - "preview files that require network access, build steps, CDNs, or external fonts"

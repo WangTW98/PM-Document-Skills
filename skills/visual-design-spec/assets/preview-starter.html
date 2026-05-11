@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Visual Design System Preview</title>
+  <style>
+    :root {
+      --color-canvas: #f7f8fa;
+      --color-surface: #ffffff;
+      --color-surface-muted: #eef2f7;
+      --color-text: #15171a;
+      --color-muted: #667085;
+      --color-primary: #2563eb;
+      --color-primary-soft: #dbeafe;
+      --color-primary-contrast: #ffffff;
+      --color-success: #12805c;
+      --color-warning: #b54708;
+      --color-danger: #b42318;
+      --color-border: #d9dee7;
+      --radius-card: 12px;
+      --radius-control: 8px;
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --shadow-card: 0 12px 30px rgba(16, 24, 40, 0.08);
+      font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-canvas);
+      color: var(--color-text);
+      line-height: 1.5;
+    }
+
+    main {
+      width: min(1180px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: var(--space-10) 0;
+    }
+
+    section {
+      margin-top: var(--space-8);
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 920px;
+      font-size: 44px;
+      line-height: 1.08;
+      margin-bottom: var(--space-4);
+    }
+
+    h2 {
+      font-size: 24px;
+      line-height: 1.2;
+      margin-bottom: var(--space-4);
+    }
+
+    h3 {
+      font-size: 16px;
+      margin-bottom: var(--space-2);
+    }
+
+    .eyebrow {
+      color: var(--color-primary);
+      font-size: 13px;
+      font-weight: 750;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .muted {
+      color: var(--color-muted);
+    }
+
+    .panel {
+      background: var(--color-surface);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      box-shadow: var(--shadow-card);
+      padding: var(--space-6);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      align-items: end;
+      margin-bottom: var(--space-4);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.1fr 0.9fr;
+      gap: var(--space-4);
+    }
+
+    .swatch {
+      min-height: 172px;
+      border-radius: var(--radius-card);
+      border: 1px solid var(--color-border);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+    }
+
+    .swatch strong,
+    .token {
+      font-family: ui-monospace, "SFMono-Regular", Consolas, monospace;
+      font-size: 12px;
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .chip {
+      border: 1px solid var(--color-border);
+      border-radius: 999px;
+      padding: 6px 10px;
+      background: var(--color-surface);
+      color: var(--color-muted);
+      font-size: 13px;
+    }
+
+    .button-row,
+    .field-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-3);
+      align-items: center;
+    }
+
+    .button {
+      min-height: 44px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-control);
+      padding: 0 var(--space-4);
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .button.primary {
+      background: var(--color-primary);
+      color: var(--color-primary-contrast);
+    }
+
+    .button.secondary {
+      background: var(--color-surface);
+      color: var(--color-text);
+      border-color: var(--color-border);
+    }
+
+    .button.quiet {
+      background: transparent;
+      color: var(--color-primary);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.48;
+    }
+
+    label {
+      display: grid;
+      gap: var(--space-1);
+      min-width: min(100%, 260px);
+      font-size: 13px;
+      font-weight: 650;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 44px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-control);
+      padding: 0 var(--space-3);
+      font: inherit;
+      background: var(--color-surface);
+      color: var(--color-text);
+    }
+
+    .error input {
+      border-color: var(--color-danger);
+    }
+
+    .helper {
+      color: var(--color-muted);
+      font-size: 12px;
+      font-weight: 450;
+    }
+
+    .error .helper {
+      color: var(--color-danger);
+    }
+
+    .nav-demo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-3);
+      padding: var(--space-3);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-card);
+      background: var(--color-surface);
+    }
+
+    .nav-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+    }
+
+    .nav-links a {
+      color: var(--color-muted);
+      text-decoration: none;
+      padding: 8px 10px;
+      border-radius: var(--radius-control);
+      font-size: 14px;
+    }
+
+    .nav-links a.active {
+      background: var(--color-primary-soft);
+      color: var(--color-primary);
+      font-weight: 700;
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+      overflow-wrap: anywhere;
+    }
+
+    .data-table th,
+    .data-table td {
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-3);
+      text-align: left;
+    }
+
+    .data-table th {
+      color: var(--color-muted);
+      font-size: 12px;
+      text-transform: uppercase;
+    }
+
+    .state {
+      border-radius: var(--radius-card);
+      padding: var(--space-4);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+    }
+
+    .state.success {
+      border-color: rgba(18, 128, 92, 0.36);
+      color: var(--color-success);
+    }
+
+    .state.warning {
+      border-color: rgba(181, 71, 8, 0.36);
+      color: var(--color-warning);
+    }
+
+    .state.danger {
+      border-color: rgba(180, 35, 24, 0.36);
+      color: var(--color-danger);
+    }
+
+    .responsive-demo {
+      display: grid;
+      grid-template-columns: 220px minmax(0, 1fr);
+      gap: var(--space-4);
+    }
+
+    .sidebar-sample {
+      background: var(--color-surface-muted);
+      border-radius: var(--radius-card);
+      padding: var(--space-4);
+    }
+
+    .content-sample {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-4);
+    }
+
+    :focus-visible {
+      outline: 3px solid rgba(37, 99, 235, 0.35);
+      outline-offset: 2px;
+    }
+
+    @media (max-width: 900px) {
+      h1 {
+        font-size: 34px;
+      }
+
+      .grid,
+      .two-col {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .responsive-demo {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar-sample {
+        display: flex;
+        gap: var(--space-2);
+        overflow-x: auto;
+      }
+    }
+
+    @media (max-width: 640px) {
+      main {
+        width: min(100% - 24px, 1180px);
+        padding: var(--space-6) 0;
+      }
+
+      h1 {
+        font-size: 28px;
+      }
+
+      .section-head,
+      .nav-demo,
+      .button-row,
+      .field-grid {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .grid,
+      .two-col,
+      .content-sample {
+        grid-template-columns: 1fr;
+      }
+
+      .panel {
+        padding: var(--space-4);
+      }
+
+      .data-table,
+      .data-table thead,
+      .data-table tbody,
+      .data-table tr,
+      .data-table th,
+      .data-table td {
+        display: block;
+      }
+
+      .data-table thead {
+        display: none;
+      }
+
+      .data-table td {
+        padding: var(--space-2) 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header class="panel">
+      <p class="eyebrow">Visual Design System</p>
+      <h1>Replace this starter with the generated design thesis</h1>
+      <p class="muted">Use this file only as a structural starter. Generated previews must replace every placeholder value, token, rationale, and example.</p>
+      <div class="chip-row" aria-label="Design mood tags">
+        <span class="chip">Replace mood</span>
+        <span class="chip">Replace density</span>
+        <span class="chip">Replace audience</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Color Roles</h2>
+          <p class="muted">Each swatch should explain token name, hex value, contrast intent, and where the color should or should not appear.</p>
+        </div>
+        <span class="token">DESIGN.md / tokens.color</span>
+      </div>
+      <div class="grid">
+        <article class="swatch" style="background: var(--color-primary); color: var(--color-primary-contrast);">
+          <div><strong>color.action.primary</strong><br>#2563EB</div>
+          <p>Primary actions and selected states. Avoid using for passive decoration.</p>
+        </article>
+        <article class="swatch" style="background: var(--color-surface);">
+          <div><strong>color.background.surface</strong><br>#FFFFFF</div>
+          <p>Main panels, cards, and forms. Pair with border tokens for separation.</p>
+        </article>
+        <article class="swatch" style="background: var(--color-text); color: white;">
+          <div><strong>color.text.default</strong><br>#15171A</div>
+          <p>Primary reading text. Keep body copy at accessible sizes.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div class="panel">
+        <h2>Typography</h2>
+        <p class="eyebrow">Label / metadata</p>
+        <h1 style="font-size: 32px;">Heading level 1 sample</h1>
+        <h2>Heading level 2 sample</h2>
+        <p>Body text should demonstrate the actual font stack, line height, paragraph rhythm, and text color chosen for the design system.</p>
+        <p class="muted">Muted text supports secondary information, helper copy, timestamps, and table metadata.</p>
+      </div>
+      <div class="panel">
+        <h2>Spacing, Shape & Elevation</h2>
+        <p class="muted">Show real spacing steps, control radius, card radius, border behavior, and shadow depth.</p>
+        <div class="chip-row">
+          <span class="chip">space.2 = 8px</span>
+          <span class="chip">space.4 = 16px</span>
+          <span class="chip">radius.control = 8px</span>
+          <span class="chip">radius.card = 12px</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Components</h2>
+      <div class="button-row">
+        <button class="button primary">Primary action</button>
+        <button class="button secondary">Secondary action</button>
+        <button class="button quiet">Quiet action</button>
+        <button class="button secondary" disabled>Disabled</button>
+      </div>
+      <div class="field-grid" style="margin-top: var(--space-5);">
+        <label>Input label<input placeholder="Placeholder"></label>
+        <label>Select label<select><option>Selected option</option></select></label>
+        <label class="error">Error label<input value="Invalid value"><span class="helper">Explain what went wrong and how to fix it.</span></label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Navigation & Data Pattern</h2>
+      <div class="panel">
+        <nav class="nav-demo" aria-label="Preview navigation">
+          <strong>Brand</strong>
+          <div class="nav-links">
+            <a class="active" href="#">Overview</a>
+            <a href="#">Reports</a>
+            <a href="#">Settings</a>
+          </div>
+          <button class="button primary">Create</button>
+        </nav>
+        <table class="data-table" style="margin-top: var(--space-5);">
+          <thead>
+            <tr><th>Token</th><th>Role</th><th>Behavior</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>surface.card</td><td>Grouped content</td><td>Uses border, radius, and one elevation level.</td></tr>
+            <tr><td>text.muted</td><td>Secondary detail</td><td>Never use below accessible contrast thresholds.</td></tr>
+            <tr><td>action.primary</td><td>Main command</td><td>One dominant action per section.</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2>States</h2>
+      <div class="grid">
+        <div class="state">Empty state: explain what content is missing and offer a next action.</div>
+        <div class="state success">Success state: confirm completion without overwhelming the layout.</div>
+        <div class="state warning">Warning state: flag reversible risk before destructive action.</div>
+        <div class="state danger">Error state: use strong contrast and recovery guidance.</div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Responsive Behavior</h2>
+      <p class="muted">Generated previews should explain how the visual system adapts from desktop to tablet and mobile.</p>
+      <div class="responsive-demo">
+        <aside class="sidebar-sample">
+          <span class="chip">Desktop sidebar</span>
+          <span class="chip">Tablet rail</span>
+          <span class="chip">Mobile tabs</span>
+        </aside>
+        <div class="content-sample">
+          <div class="state">Grid cards collapse from 2-3 columns to one column.</div>
+          <div class="state">Tables convert to stacked records on narrow screens.</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Agent Handoff Summary</h2>
+      <p class="muted">List the most important tokens, responsive rules, and anti-drift constraints here so downstream AI agents can inspect the preview and understand implementation priorities.</p>
+      <div class="chip-row">
+        <span class="chip">Read DESIGN.md first</span>
+        <span class="chip">Use semantic tokens</span>
+        <span class="chip">Preserve contrast</span>
+        <span class="chip">Test responsive states</span>
+      </div>
+    </section>
+  </main>
+</body>
+</html>

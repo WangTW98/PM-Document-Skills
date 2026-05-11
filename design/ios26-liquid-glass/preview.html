@@ -1,0 +1,650 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS26 Liquid Glass - Visual Design System</title>
+  <style>
+    :root {
+      --color-canvas: #000000;
+      --color-surface: rgba(255, 255, 255, 0.05);
+      --color-surface-muted: rgba(255, 255, 255, 0.02);
+      --color-surface-overlay: rgba(255, 255, 255, 0.12);
+      --color-text: #FFFFFF;
+      --color-text-muted: rgba(255, 255, 255, 0.6);
+      --color-text-disabled: rgba(255, 255, 255, 0.3);
+      --color-primary-bg: rgba(255, 255, 255, 0.15);
+      --color-accent-blue: #0A84FF;
+      --color-accent-purple: #BF5AF2;
+      --color-accent-pink: #FF375F;
+      --color-accent-cyan: #32ADE6;
+      --color-success: #30D158;
+      --color-warning: #FF9F0A;
+      --color-danger: #FF453A;
+      --color-border: rgba(255, 255, 255, 0.1);
+      --color-border-highlight: rgba(255, 255, 255, 0.25);
+      
+      --radius-sm: 8px;
+      --radius-md: 14px;
+      --radius-lg: 24px;
+      --radius-xl: 32px;
+      --radius-full: 9999px;
+      
+      --space-1: 4px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 24px;
+      --space-6: 32px;
+      --space-7: 48px;
+      --space-8: 64px;
+      
+      --shadow-glow: 0 0 24px rgba(10, 132, 255, 0.3);
+      --shadow-glass: inset 0 1px 1px rgba(255, 255, 255, 0.15), 0 8px 24px rgba(0, 0, 0, 0.4);
+      
+      --blur-effect: blur(24px) saturate(150%);
+      
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      background: var(--color-canvas);
+      color: var(--color-text);
+      line-height: 1.5;
+      overflow-x: hidden;
+      position: relative;
+    }
+
+    /* Ambient Liquid Background Glows */
+    .ambient-glow {
+      position: absolute;
+      border-radius: 50%;
+      filter: blur(100px);
+      z-index: -1;
+      opacity: 0.5;
+      animation: drift 15s ease-in-out infinite alternate;
+    }
+    
+    @keyframes drift {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(50px, 50px) scale(1.1); }
+    }
+
+    .glow-1 { top: -100px; left: -100px; width: 400px; height: 400px; background: var(--color-accent-blue); }
+    .glow-2 { top: 20%; right: -50px; width: 500px; height: 500px; background: var(--color-accent-purple); animation-delay: -5s; }
+    .glow-3 { bottom: -100px; left: 20%; width: 600px; height: 600px; background: var(--color-accent-pink); animation-delay: -10s; }
+
+    main {
+      width: min(1200px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: var(--space-8) 0;
+      position: relative;
+      z-index: 1;
+    }
+
+    section {
+      margin-top: var(--space-8);
+    }
+
+    h1, h2, h3, p {
+      margin-top: 0;
+    }
+
+    h1 {
+      font-size: 40px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.02em;
+    }
+
+    h2 {
+      font-size: 28px;
+      font-weight: 600;
+      line-height: 1.2;
+      margin-bottom: var(--space-4);
+      letter-spacing: -0.01em;
+    }
+
+    h3 {
+      font-size: 20px;
+      font-weight: 600;
+      margin-bottom: var(--space-2);
+    }
+
+    .eyebrow {
+      color: var(--color-accent-cyan);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: var(--space-2);
+    }
+
+    .muted {
+      color: var(--color-text-muted);
+    }
+
+    .glass-panel {
+      background: var(--color-surface);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow-glass);
+      padding: var(--space-6);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: var(--space-4);
+      align-items: end;
+      margin-bottom: var(--space-4);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+
+    .two-col {
+      display: grid;
+      grid-template-columns: 1.2fr 0.8fr;
+      gap: var(--space-5);
+    }
+
+    .swatch {
+      height: 140px;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--color-border);
+      padding: var(--space-4);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .swatch strong,
+    .token {
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 12px;
+      color: var(--color-text-muted);
+    }
+
+    .chip-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-2);
+      margin-top: var(--space-4);
+    }
+
+    .chip {
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      padding: 8px 16px;
+      background: var(--color-surface-muted);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      color: var(--color-text);
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .button-row,
+    .field-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: var(--space-4);
+      align-items: center;
+    }
+
+    .button {
+      min-height: 48px;
+      border: 1px solid transparent;
+      border-radius: var(--radius-full);
+      padding: 0 var(--space-6);
+      font: inherit;
+      font-size: 16px;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.2, 0.8, 0.2, 1);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .button.primary {
+      background: var(--color-primary-bg);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      border: 1px solid var(--color-border-highlight);
+      color: var(--color-text);
+      box-shadow: var(--shadow-glow);
+    }
+
+    .button.primary:hover {
+      background: rgba(255, 255, 255, 0.25);
+      transform: scale(1.02);
+    }
+
+    .button.secondary {
+      background: transparent;
+      color: var(--color-text);
+      border: 1px solid var(--color-border);
+    }
+
+    .button.secondary:hover {
+      background: var(--color-surface);
+      backdrop-filter: var(--blur-effect);
+    }
+
+    .button.quiet {
+      background: transparent;
+      color: var(--color-accent-blue);
+    }
+
+    .button:disabled {
+      cursor: not-allowed;
+      opacity: 0.3;
+      transform: none !important;
+    }
+
+    label {
+      display: grid;
+      gap: var(--space-2);
+      min-width: min(100%, 280px);
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--color-text-muted);
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-md);
+      padding: 0 var(--space-4);
+      font: inherit;
+      background: var(--color-surface-muted);
+      color: var(--color-text);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      transition: border-color 0.2s;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: var(--color-accent-blue);
+      box-shadow: 0 0 0 3px rgba(10, 132, 255, 0.3);
+    }
+
+    .error input {
+      border-color: var(--color-danger);
+    }
+
+    .helper {
+      font-size: 12px;
+      margin-top: var(--space-1);
+    }
+
+    .error .helper {
+      color: var(--color-danger);
+    }
+
+    .nav-demo {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: var(--space-4);
+      padding: var(--space-2) var(--space-4);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-full);
+      background: var(--color-surface);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      box-shadow: var(--shadow-glass);
+    }
+
+    .nav-links {
+      display: flex;
+      gap: var(--space-1);
+    }
+
+    .nav-links a {
+      color: var(--color-text-muted);
+      text-decoration: none;
+      padding: 10px 16px;
+      border-radius: var(--radius-full);
+      font-size: 14px;
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .nav-links a:hover {
+      color: var(--color-text);
+    }
+
+    .nav-links a.active {
+      background: var(--color-surface-overlay);
+      color: var(--color-text);
+    }
+
+    .data-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 14px;
+    }
+
+    .data-table th,
+    .data-table td {
+      border-bottom: 1px solid var(--color-border);
+      padding: var(--space-4) var(--space-2);
+      text-align: left;
+    }
+
+    .data-table th {
+      color: var(--color-text-muted);
+      font-size: 12px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .state {
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      border: 1px solid var(--color-border);
+      background: var(--color-surface);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-2);
+    }
+
+    .state.success {
+      border-color: rgba(48, 209, 88, 0.3);
+      box-shadow: inset 0 0 40px rgba(48, 209, 88, 0.1);
+    }
+
+    .state.warning {
+      border-color: rgba(255, 159, 10, 0.3);
+      box-shadow: inset 0 0 40px rgba(255, 159, 10, 0.1);
+    }
+
+    .state.danger {
+      border-color: rgba(255, 69, 58, 0.3);
+      box-shadow: inset 0 0 40px rgba(255, 69, 58, 0.1);
+    }
+
+    .responsive-demo {
+      display: grid;
+      grid-template-columns: 240px minmax(0, 1fr);
+      gap: var(--space-5);
+    }
+
+    .sidebar-sample {
+      background: var(--color-surface);
+      backdrop-filter: var(--blur-effect);
+      -webkit-backdrop-filter: var(--blur-effect);
+      border: 1px solid var(--color-border);
+      border-radius: var(--radius-lg);
+      padding: var(--space-5);
+      box-shadow: var(--shadow-glass);
+      display: flex;
+      flex-direction: column;
+      gap: var(--space-3);
+    }
+
+    .content-sample {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: var(--space-5);
+    }
+
+    @media (max-width: 1024px) {
+      .grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      main {
+        width: calc(100% - 32px);
+      }
+      
+      h1 { font-size: 32px; }
+      h2 { font-size: 24px; }
+      
+      .two-col, .responsive-demo, .content-sample {
+        grid-template-columns: 1fr;
+      }
+      
+      .sidebar-sample {
+        flex-direction: row;
+        overflow-x: auto;
+        padding: var(--space-3);
+        border-radius: var(--radius-md);
+      }
+      
+      .nav-demo {
+        flex-direction: column;
+        border-radius: var(--radius-lg);
+        padding: var(--space-4);
+      }
+    }
+
+    @media (max-width: 480px) {
+      .grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .data-table thead {
+        display: none;
+      }
+      
+      .data-table td {
+        display: block;
+        border-bottom: none;
+        padding: var(--space-1) 0;
+      }
+      
+      .data-table tr {
+        display: block;
+        border-bottom: 1px solid var(--color-border);
+        padding: var(--space-3) 0;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Ambient background lighting for the liquid glass effect -->
+  <div class="ambient-glow glow-1"></div>
+  <div class="ambient-glow glow-2"></div>
+  <div class="ambient-glow glow-3"></div>
+
+  <main>
+    <header class="glass-panel">
+      <div class="eyebrow">Design System 1.0</div>
+      <h1>iOS26 Liquid Glass</h1>
+      <p class="muted">A hyper-modern, fluid, and immersive interface utilizing deep translucency, variable blurs, and colorful underlying glows. This preview demonstrates the tokens applied over an ambient animated background.</p>
+      <div class="chip-row">
+        <span class="chip">Immersive</span>
+        <span class="chip">Glassmorphism</span>
+        <span class="chip">Dark Mode Default</span>
+      </div>
+    </header>
+
+    <section>
+      <div class="section-head">
+        <div>
+          <h2>Color & Materials</h2>
+          <p class="muted">Colors act as light sources or glass tints rather than flat fills.</p>
+        </div>
+      </div>
+      <div class="grid">
+        <article class="swatch glass-panel">
+          <div><span style="color:var(--color-text);">color.background.surface</span><br><span class="token">rgba(255, 255, 255, 0.05)</span></div>
+          <p style="font-size: 13px; color: var(--color-text-muted);">The primary material. Always apply backdrop-filter blur.</p>
+        </article>
+        <article class="swatch glass-panel" style="background: var(--color-primary-bg); box-shadow: var(--shadow-glow);">
+          <div><span style="color:var(--color-text);">action.primary.background</span><br><span class="token">rgba(255, 255, 255, 0.15)</span></div>
+          <p style="font-size: 13px; color: var(--color-text-muted);">Highly prominent actions. Emits a glow.</p>
+        </article>
+        <article class="swatch glass-panel" style="background: var(--color-surface-muted);">
+          <div><span style="color:var(--color-text);">color.border.default</span><br><span class="token">rgba(255, 255, 255, 0.1)</span></div>
+          <p style="font-size: 13px; color: var(--color-text-muted);">Defines the physical edge of the glass.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="two-col">
+      <div class="glass-panel">
+        <div class="eyebrow">Typography</div>
+        <h2>San Francisco Scale</h2>
+        <p class="muted">Typography is highly legible, floating clearly above the translucent surfaces.</p>
+        <div style="margin-top: var(--space-5);">
+          <h1 style="font-size: 40px;">Title xxl</h1>
+          <h2 style="font-size: 28px;">Title xl</h2>
+          <h3 style="font-size: 20px;">Heading lg</h3>
+          <p style="font-size: 16px;">Body base. The quick brown fox jumps over the lazy dog. Legibility is preserved by ensuring high contrast against the glass.</p>
+          <p class="muted" style="font-size: 14px;">Body small. Used for secondary descriptions and helper text.</p>
+          <div class="token" style="font-size: 12px; margin-top: var(--space-2);">Metadata / Code xs</div>
+        </div>
+      </div>
+      <div class="glass-panel">
+        <div class="eyebrow">Structure</div>
+        <h2>Shape & Depth</h2>
+        <p class="muted">Everything is highly rounded and layered.</p>
+        <div class="chip-row">
+          <span class="chip">radius.lg = 24px (Cards)</span>
+          <span class="chip">radius.full = 9999px (Controls)</span>
+          <span class="chip">blur(24px) saturate(150%)</span>
+          <span class="chip">inset highlight (Rim lighting)</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-panel">
+      <h2>Interactive Components</h2>
+      <div class="button-row">
+        <button class="button primary">Primary Action</button>
+        <button class="button secondary">Secondary Action</button>
+        <button class="button quiet">Quiet Action</button>
+        <button class="button primary" disabled>Disabled</button>
+      </div>
+      <div class="field-grid" style="margin-top: var(--space-6);">
+        <label>
+          Search
+          <input placeholder="Type something...">
+        </label>
+        <label>
+          Category
+          <select>
+            <option>All items</option>
+            <option>Recent</option>
+          </select>
+        </label>
+        <label class="error">
+          Email address
+          <input value="invalid-email">
+          <span class="helper">Please enter a valid email.</span>
+        </label>
+      </div>
+    </section>
+
+    <section>
+      <h2>Navigation & Data</h2>
+      <div class="glass-panel" style="padding: var(--space-4);">
+        <nav class="nav-demo" aria-label="Main navigation">
+          <div style="font-weight: 700; font-size: 18px;">LiquidApp</div>
+          <div class="nav-links">
+            <a class="active" href="#">Dashboard</a>
+            <a href="#">Transactions</a>
+            <a href="#">Settings</a>
+          </div>
+          <button class="button primary" style="min-height: 40px; font-size: 14px;">New</button>
+        </nav>
+        
+        <div style="margin-top: var(--space-6); padding: 0 var(--space-4);">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th>Component</th>
+                <th>Radius</th>
+                <th>Material</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: var(--color-text); font-weight: 500;">Main Cards</td>
+                <td class="muted">24px (lg)</td>
+                <td class="muted">surface + blur</td>
+              </tr>
+              <tr>
+                <td style="color: var(--color-text); font-weight: 500;">Buttons</td>
+                <td class="muted">Fully rounded</td>
+                <td class="muted">surface overlay</td>
+              </tr>
+              <tr>
+                <td style="color: var(--color-text); font-weight: 500;">Inputs</td>
+                <td class="muted">14px (md)</td>
+                <td class="muted">surface muted</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2>State Communication</h2>
+      <div class="grid">
+        <div class="state success">
+          <div style="color: var(--color-success); font-weight: 600;">Success</div>
+          <p class="muted" style="font-size: 14px;">Operation completed perfectly. The glow confirms success without breaking the glass aesthetic.</p>
+        </div>
+        <div class="state warning">
+          <div style="color: var(--color-warning); font-weight: 600;">Warning</div>
+          <p class="muted" style="font-size: 14px;">Requires attention. Uses a subtle colored shadow and border tint.</p>
+        </div>
+        <div class="state danger">
+          <div style="color: var(--color-danger); font-weight: 600;">Error</div>
+          <p class="muted" style="font-size: 14px;">Destructive or failed action. High contrast required.</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="glass-panel">
+      <div class="eyebrow">Layout</div>
+      <h2>Responsive Behavior</h2>
+      <p class="muted">Notice how panels flow into grids on large screens and stack natively on mobile.</p>
+      <div class="responsive-demo" style="margin-top: var(--space-5);">
+        <aside class="sidebar-sample">
+          <div class="token" style="margin-bottom: var(--space-3);">Sidebar (Desktop) / Rail (Tablet) / Tab bar (Mobile)</div>
+          <div class="button secondary" style="min-height: 36px; border-radius: 8px;">Home</div>
+          <div class="button secondary" style="min-height: 36px; border-radius: 8px; border-color: transparent;">Search</div>
+          <div class="button secondary" style="min-height: 36px; border-radius: 8px; border-color: transparent;">Profile</div>
+        </aside>
+        <div class="content-sample">
+          <div class="state">
+            <h3 style="font-size: 16px;">Grid Card 1</h3>
+            <p class="muted" style="font-size: 13px;">Collapses to a single column on mobile screens under 768px.</p>
+          </div>
+          <div class="state">
+            <h3 style="font-size: 16px;">Grid Card 2</h3>
+            <p class="muted" style="font-size: 13px;">Maintains 24px padding inside cards regardless of breakpoint.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
