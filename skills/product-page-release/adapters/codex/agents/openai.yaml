@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Page Release"
+  short_description: "Turn one page draft into release spec"
+  default_prompt: "Use $product-page-release to read one product/development/pages/*.md draft, apply its final PA-/PQ- release handling decisions, and write the confirmed page spec under product/release/pages with no assumptions or open questions."

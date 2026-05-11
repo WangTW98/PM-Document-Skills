@@ -1,0 +1,44 @@
+name: "product-page-release"
+version: "0.1.0"
+description: "Generate one confirmed release page Markdown file from one draft page by applying PA-/PQ- release handling decisions and removing uncertainty."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/pages/<page>.md"
+outputs:
+  - "product/release/pages/<page>.md"
+  - "product/release/pages/<page>.release-blockers.md"
+resources:
+  references:
+    - "references/page-release-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_skill: "product-page-draft"
+  input_directory: "product/development/pages"
+  output_directory: "product/release/pages"
+  one_page_per_invocation: true
+  filename_rule: "preserve the source page filename relative to product/development/pages"
+  must_apply:
+    - "all Release 处理方式 values from the final 页面假设与待确认统一清单"
+    - "all user confirmation results that replace, remove, or confirm draft page content"
+  must_remove:
+    - "PA-* and PQ-* references"
+    - "page assumptions"
+    - "page open questions"
+    - "draft-only confirmation lists"
+    - "uncertainty markers"
+  must_preserve:
+    - "confirmed page objective and source metadata"
+    - "Mermaid page diagram"
+    - "layout section table"
+    - "page element inventory"
+    - "element state matrix"
+    - "interaction action matrix"
+    - "data structures and API contracts"
+    - "boundary states and error handling"
+    - "media/resource table when relevant"
