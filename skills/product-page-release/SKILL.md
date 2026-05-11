@@ -1,6 +1,6 @@
 ---
 name: product-page-release
-description: Generate one confirmed release page Markdown document from a draft page file under product/development/pages. Use when an AI agent needs to read a single page draft created by product-page-draft, apply the user's Release handling decisions from the final 页面假设与待确认统一清单, remove all PA-/PQ- references, assumptions, open questions, draft-only notes, and uncertain language, then write the confirmed page document under product/release/pages.
+description: Generate exactly one confirmed release page Markdown document per invocation from a draft page file under product/development/pages. Use when an AI agent needs to read a single page draft created by product-page-draft, apply the user's Release handling decisions from the final 页面假设与待确认统一清单, remove all PA-/PQ- references, assumptions, open questions, draft-only notes, and uncertain language, then write the confirmed page document under product/release/pages. Never process multiple page files in one execution; this prevents context overflow, hallucination, and inaccurate cross-page changes.
 ---
 
 # Product Page Release
@@ -9,6 +9,8 @@ description: Generate one confirmed release page Markdown document from a draft 
 
 Create the release version of exactly one page MD from `product/development/pages`. The release page is confirmed source material for downstream design, UI, API, and implementation work, so it must not contain unresolved assumptions, open questions, `PA-*` / `PQ-*` IDs, or wording that asks the user to confirm page details.
 
+This skill is intentionally single-page-only. If a user asks to release multiple pages or all pages, process only the first explicitly selected page, or ask the user to choose one page. Do not loop through a directory.
+
 This skill is runner-neutral. Any AI system can use it by reading this file and the references under `references/`; platform-specific metadata belongs under `adapters/`.
 
 ## Inputs And Outputs
@@ -16,6 +18,8 @@ This skill is runner-neutral. Any AI system can use it by reading this file and 
 Required input:
 
 - A single draft page file under `product/development/pages/*.md`.
+
+Batch input is not allowed. If multiple draft page files are provided, stop and ask the user to select exactly one.
 
 Default output:
 
@@ -34,6 +38,8 @@ Optional blocker output when release cannot be produced:
 
 1. Select one source page.
    - Use the page file explicitly named by the user.
+   - If the user specifies multiple page files, do not process any file; ask the user to choose exactly one.
+   - If the user asks for all pages or a directory-level release, do not iterate; explain that this skill processes one page per execution and ask for the first target page.
    - If the user does not specify a file, list candidate files under `product/development/pages` excluding `_generation-status.md` and ask the user to choose one.
    - Process exactly one page draft per invocation.
 
@@ -71,6 +77,8 @@ Optional blocker output when release cannot be produced:
 
 ## Release Rules
 
+- Process exactly one source page and write at most one release page or one blocker file per invocation.
+- Never scan and release every file in `product/development/pages` in the same execution.
 - The release page is not a changelog. It is the confirmed page specification.
 - Do not include a section explaining which assumptions were removed.
 - Do not include unresolved risks, questions, TODOs, or confirmation workflow sections.
