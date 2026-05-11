@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Sitemap Overview"
+  short_description: "Turn product draft briefs into release docs"
+  default_prompt: "Use $product-sitemap-overview to read product/development/product-overview-draft.md, apply the final A-/Q- release handling decisions, and write product/release/product-overview-release.md with no assumptions or open questions."

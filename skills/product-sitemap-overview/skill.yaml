@@ -1,0 +1,39 @@
+name: "product-sitemap-overview"
+version: "0.1.0"
+description: "Generate a confirmed release product overview from the draft by applying A-/Q- release handling decisions and removing uncertainty."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/product-overview-draft.md"
+outputs:
+  - "product/release/product-overview-release.md"
+  - "product/release/product-overview-release-blockers.md"
+resources:
+  references:
+    - "references/release-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_skill: "product-sitemap-brief"
+  input_draft: "product/development/product-overview-draft.md"
+  output_release: "product/release/product-overview-release.md"
+  output_blockers: "product/release/product-overview-release-blockers.md"
+  must_apply:
+    - "all Release 处理方式 values from the final assumption and confirmation list"
+    - "all user confirmation results that replace, remove, or confirm draft content"
+  must_remove:
+    - "A-* and Q-* references"
+    - "assumptions"
+    - "open questions"
+    - "draft-only confirmation lists"
+    - "uncertainty markers"
+  must_preserve:
+    - "confirmed product overview"
+    - "complete sitemap table"
+    - "Mermaid sitemap visualization"
+    - "page generation queue"
+    - "page-level Markdown paths"
