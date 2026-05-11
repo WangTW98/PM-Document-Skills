@@ -1,5 +1,5 @@
 name: "product-all-pages-draft"
-version: "0.1.0"
+version: "0.2.0"
 description: "Orchestrate page-by-page generation of all draft page Markdown files from the release product overview sitemap."
 language: "zh-CN"
 entrypoint: "SKILL.md"
@@ -33,9 +33,11 @@ contract:
     - "completion records"
     - "blocked records with actionable reasons"
     - "page-by-page generation following product-page-draft"
+    - "mandatory analytics section validation for every generated page"
   must_avoid:
     - "generating a combined multi-page requirements document"
     - "marking pages complete without files"
+    - "marking pages complete without analytics event section and EVT-* IDs"
     - "overwriting completed pages without explicit user request"
     - "inventing missing 页面级MD文件 paths"
     - "editing product/release/product-overview-release.md"

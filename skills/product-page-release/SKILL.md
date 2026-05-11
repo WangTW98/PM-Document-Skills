@@ -64,7 +64,7 @@ Optional blocker output when release cannot be produced:
 
 5. Rewrite the page as release content.
    - Set document version to `Release`.
-   - Preserve confirmed page objective, source sitemap row metadata, Mermaid diagram, layout sections, element inventory, state matrix, action matrix, data model, API contracts, edge cases, and media/resources when still relevant.
+   - Preserve confirmed page objective, source sitemap row metadata, Mermaid diagram, layout sections, element inventory, state matrix, action matrix, analytics event statistics, data model, API contracts, edge cases, and media/resources when still relevant.
    - Remove the draft-only `页面级假设 / 待确认编号规则`, `页面假设与待确认统一清单`, and release-check wording.
    - Remove every `PA-001`, `PQ-001`, `页面假设`, `页面待确认`, `假设`, `待确认`, `待用户确认`, `置信度`, and uncertainty marker from the release page.
    - Reconcile tables after removals or replacements: element IDs, action IDs, API IDs, data references, state references, and Mermaid nodes must still match.
@@ -91,6 +91,7 @@ Optional blocker output when release cannot be produced:
 - The release page must be usable without reading the draft page.
 - The page file must contain only confirmed product/page requirements.
 - Mermaid diagram must match the final element/action/state tables.
+- Analytics event statistics must remain in the release page with confirmed `EVT-*` IDs, event names, counted occurrences, properties, deduplication, upload timing, attribution, and funnel relationship.
 - Element IDs, Action IDs, API IDs, and referenced data objects must remain internally consistent.
 - API request/response contracts must not contain unresolved alternative fields or vague placeholders.
 

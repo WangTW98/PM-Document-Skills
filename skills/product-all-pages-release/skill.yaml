@@ -1,5 +1,5 @@
 name: "product-all-pages-release"
-version: "0.1.0"
+version: "0.2.0"
 description: "Orchestrate page-by-page generation of all release page Markdown files from draft pages and the release product overview sitemap."
 language: "zh-CN"
 entrypoint: "SKILL.md"
@@ -38,6 +38,7 @@ contract:
     - "completion records"
     - "blocked records with actionable reasons"
     - "page-by-page release following product-page-release"
+    - "analytics event validation for every release page"
   must_avoid:
     - "generating a combined multi-page release document"
     - "marking pages complete without files"

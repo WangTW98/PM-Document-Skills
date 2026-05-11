@@ -56,9 +56,11 @@ Rules:
    - State triggers may come from global page properties, local form values, validation, permission, membership, quota, device capability, route parameters, or API response fields.
 
 4. Define interactions and APIs.
-   - For each element action, describe trigger, precondition, validation, API call or local action, request JSON, response JSON, success effect, failure effect, analytics event ID, analytics event name, and navigation result.
-   - Create an analytics event section for the page. Define event IDs, event names, trigger timing, counted occurrences, event properties, deduplication rules, upload timing, success/failure attribution, and funnel relationship.
+   - For each element action, describe trigger, precondition, validation, API call or local action, request JSON, response JSON, success effect, failure effect, analytics event ID, analytics event name, tracking requirement, and navigation result.
+   - Create an analytics event section for every page. This section is mandatory, even for simple pages.
+   - Define event IDs, event names, trigger timing, counted occurrences, event properties, deduplication rules, upload timing, success/failure attribution, and funnel relationship.
    - Include analytics events for page exposure, key clicks, form submit attempts, validation failures, API success/failure, media interactions, payment/quota prompts, navigation exits, and other page-specific business actions when relevant.
+   - At minimum, every page must include one page exposure event (`EVT-001` or equivalent). Every primary action and every API-triggering action must have an `EVT-*` event ID. Secondary actions that are intentionally not tracked must state `不埋点` and provide a reason.
    - If an API is not described in the overview, infer a practical contract and mark it with `PA-*` or `PQ-*`.
    - Include shared data structures and per-element data binding.
 
@@ -86,6 +88,10 @@ Use page-scoped IDs so the page draft can later be converted into a release page
 ## Hard Rules
 
 - Generate only one page per invocation.
+- Every generated page must include `## 7. 埋点事件统计设计`.
+- Every generated page must include at least one `EVT-*` analytics event ID.
+- The `交互 Action 与执行效果` table must include `埋点事件ID`, `埋点事件名称`, and `不埋点原因` columns.
+- Do not mark analytics as optional. If an action is not tracked, explain why in `不埋点原因`.
 - Do not skip element details because the overview is high level; infer practical details and mark uncertainty.
 - Do not produce only prose. The output must contain Mermaid plus detailed tables.
 - Do not generate UI implementation code.

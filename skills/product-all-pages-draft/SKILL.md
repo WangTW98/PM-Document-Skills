@@ -41,7 +41,8 @@ Generated page outputs:
 
 3. Select one unfinished page.
    - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
-   - If its output file already exists and passes the page draft checklist, mark it `已完成` instead of regenerating.
+   - If its output file already exists and passes the current `product-page-draft` checklist, including the mandatory analytics section and `EVT-*` event IDs, mark it `已完成` instead of regenerating.
+   - If its output file exists but lacks `## 7. 埋点事件统计设计`, lacks `埋点事件ID`, or lacks any `EVT-*` event ID, treat it as stale and regenerate it unless the user explicitly forbids regeneration.
    - If required fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
 
 4. Generate exactly one page.
@@ -79,6 +80,7 @@ For each selected page, obey these `product-page-draft` rules:
 - Output path must exactly match the row's `页面级MD文件`.
 - Include Mermaid plus detailed tables.
 - Include page elements, states, triggers, style definitions, interactions, actions, edge cases, APIs, request/response data structures, media/resources, and page-level `PA-*` / `PQ-*` assumptions when needed.
+- Include the mandatory analytics event contract from `product-page-draft`: Action table columns `埋点事件ID`, `埋点事件名称`, `不埋点原因`, plus `## 7. 埋点事件统计设计` with at least one `EVT-*` page exposure event.
 - Keep all page-level uncertainty inside that page file's final `页面假设与待确认统一清单`.
 
 ## Hard Rules
@@ -89,6 +91,7 @@ For each selected page, obey these `product-page-draft` rules:
 - Do not invent missing `页面级MD文件` paths. Block the row instead.
 - Do not alter `product/release/product-overview-release.md`.
 - Do not mark a page complete unless the page file exists at the exact sitemap path.
+- Do not mark a page complete if it lacks the mandatory analytics section or `EVT-*` event IDs.
 
 ## Resources
 

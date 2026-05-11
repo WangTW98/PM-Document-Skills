@@ -14,6 +14,8 @@ Use this checklist before writing the final response.
 - The final release page does not include the draft's `页面假设与待确认统一清单`.
 - All formerly uncertain content has been applied, replaced, or removed according to the draft page's release handling.
 - Mermaid diagram, layout section table, element inventory, state matrix, action matrix, data model, API contracts, edge cases, and media/resources remain internally consistent.
+- Analytics event statistics remain in the release page.
+- The release page contains `埋点事件ID` and at least one `EVT-*` event ID.
 - No element state references a deleted element.
 - No action references a deleted element.
 - No API references a deleted action.

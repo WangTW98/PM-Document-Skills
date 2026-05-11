@@ -94,6 +94,7 @@ For each selected page, obey these `product-page-release` rules:
 - Do not alter `product/release/product-overview-release.md`.
 - Do not mark a page complete unless the release file exists at the expected `product/release/pages` path.
 - Do not mark a page complete if the release page still contains `PA-*`, `PQ-*`, `假设`, or `待确认`.
+- Do not mark a page complete if the release page lacks `埋点事件ID` or any `EVT-*` event ID.
 
 ## Resources
 

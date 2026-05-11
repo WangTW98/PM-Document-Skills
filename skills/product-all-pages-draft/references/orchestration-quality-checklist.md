@@ -9,6 +9,8 @@ Use this checklist before finishing an orchestration run.
 - The current run selected pages by ascending `生成顺序`.
 - Each generated page used the exact `页面级MD文件` output path.
 - No page was marked `已完成` unless the file exists.
+- No page was marked `已完成` unless it contains `## 7. 埋点事件统计设计`.
+- No page was marked `已完成` unless it contains `埋点事件ID` and at least one `EVT-*` event ID.
 - No completed page was overwritten unless the user explicitly requested regeneration.
 - Blocked pages include concrete, actionable reasons.
 - If the run stopped before all pages were complete, `_generation-status.md` clearly shows the next `待生成` page.
