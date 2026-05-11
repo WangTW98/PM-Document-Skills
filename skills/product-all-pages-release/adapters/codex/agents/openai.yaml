@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product All Pages Release"
+  short_description: "Orchestrate all page release specs"
+  default_prompt: "Use $product-all-pages-release to read product/release/product-overview-release.md, maintain product/release/pages/_generation-status.md, and generate all release page specs one sitemap row at a time using product-page-release rules."

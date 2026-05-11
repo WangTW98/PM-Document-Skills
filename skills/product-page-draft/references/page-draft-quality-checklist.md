@@ -11,6 +11,8 @@ Use this checklist before finishing each page draft.
 - Every important page element has an element ID and specific name.
 - Every important element has state definitions with triggers, style, available actions, disabled actions, feedback, and recovery.
 - Every user action lists preconditions, validation, effects, success handling, and failure handling.
+- Every user action that needs tracking includes an `埋点事件ID` and event name.
+- The page includes an analytics event section covering event IDs, counted occurrences, properties, deduplication, upload timing, attribution, and funnel relationship.
 - API contracts include method, path, request structure, response structure, and behavior based on returned fields.
 - Boundary states and error handling cover empty, loading, network error, permission, validation, quota, payment, backend failure, and device capability where relevant.
 - Inferred content is marked with `PA-*` or `PQ-*`.

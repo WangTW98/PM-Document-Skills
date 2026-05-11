@@ -56,14 +56,16 @@ Rules:
    - State triggers may come from global page properties, local form values, validation, permission, membership, quota, device capability, route parameters, or API response fields.
 
 4. Define interactions and APIs.
-   - For each element action, describe trigger, precondition, validation, API call or local action, request JSON, response JSON, success effect, failure effect, analytics event if relevant, and navigation result.
+   - For each element action, describe trigger, precondition, validation, API call or local action, request JSON, response JSON, success effect, failure effect, analytics event ID, analytics event name, and navigation result.
+   - Create an analytics event section for the page. Define event IDs, event names, trigger timing, counted occurrences, event properties, deduplication rules, upload timing, success/failure attribution, and funnel relationship.
+   - Include analytics events for page exposure, key clicks, form submit attempts, validation failures, API success/failure, media interactions, payment/quota prompts, navigation exits, and other page-specific business actions when relevant.
    - If an API is not described in the overview, infer a practical contract and mark it with `PA-*` or `PQ-*`.
    - Include shared data structures and per-element data binding.
 
 5. Draft the MD.
    - Use `references/page-draft-template.md`.
    - Include a Mermaid `mindmap` or `flowchart` that mirrors the page structure and interactions.
-   - Use tables for element inventory, state matrix, action matrix, API contracts, data structures, and edge cases.
+   - Use tables for element inventory, state matrix, action matrix, analytics events, API contracts, data structures, and edge cases.
    - Put all page-level assumptions/open questions in a final unified list.
 
 6. Verify and save.
