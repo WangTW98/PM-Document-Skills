@@ -1,0 +1,47 @@
+name: "product-page-mock-draft"
+version: "0.2.0"
+description: "Generate one content-only mock draft Markdown file from one release page, focused on display text, media, mock data, states, and static/dynamic source labels."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/pages/<page>.md"
+outputs:
+  - "product/development/mock/<page>.md"
+resources:
+  references:
+    - "references/page-mock-draft-template.md"
+    - "references/page-mock-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_directory: "product/release/pages"
+  output_directory: "product/development/mock"
+  one_page_per_invocation: true
+  filename_rule: "preserve the source release page filename relative to product/release/pages"
+  content_only: true
+  assumption_prefix: "MA"
+  confirmation_prefix: "MQ"
+  must_include:
+    - "page content overview"
+    - "source mapping matrix for release page layout sections, element inventory, state matrix, and action table"
+    - "Mermaid content structure"
+    - "section-level content table"
+    - "element content inventory"
+    - "form and option mock content"
+    - "list/card/table mock data"
+    - "media content descriptions"
+    - "state-specific display copy"
+    - "visible content mapping from interaction actions"
+    - "static versus dynamic source labels for every content row"
+    - "mock assumptions and confirmation list with MA-/MQ- IDs"
+  must_avoid:
+    - "interaction execution logic"
+    - "analytics or tracking logic"
+    - "API endpoint definitions"
+    - "request and response schemas"
+    - "backend behavior"
+    - "implementation code"
