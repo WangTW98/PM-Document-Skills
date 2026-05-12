@@ -1,0 +1,56 @@
+name: "product-page-design-release"
+version: "0.1.0"
+description: "Generate exactly one page-level release design Markdown file by combining one product/release/mock page with one selected design system under design/."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/mock/<page>.md"
+  - "design/<design-system>/DESIGN.md"
+  - "design/<design-system>/tokens.json"
+  - "design/<design-system>/visual-spec.md"
+  - "design/<design-system>/handoff/figma-remote-mcp-guide.md"
+outputs:
+  - "product/release/design/<page>.md"
+resources:
+  references:
+    - "references/page-design-release-template.md"
+    - "references/page-design-release-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  mock_source_directory: "product/release/mock"
+  design_constraint_root: "design"
+  output_directory: "product/release/design"
+  one_page_per_invocation: true
+  requires_selected_design_system: true
+  filename_rule: "preserve the release mock page filename relative to product/release/mock"
+  content_and_style_only: true
+  downstream_target: "Figma Remote MCP"
+  must_include:
+    - "source metadata"
+    - "selected design-system constraints"
+    - "human-readable style narrative"
+    - "Mermaid or mindmap page structure"
+    - "section layout and style table"
+    - "element visual treatment table"
+    - "content-to-style binding table"
+    - "state display style table"
+    - "responsive layout rules"
+    - "AI-readable YAML style structure"
+    - "Figma Remote MCP handoff notes"
+  must_avoid:
+    - "processing more than one page per invocation"
+    - "using page content sources outside product/release/mock"
+    - "using unselected design systems"
+    - "interaction execution logic"
+    - "analytics or tracking logic"
+    - "API endpoint definitions"
+    - "request and response schemas"
+    - "backend behavior"
+    - "business process logic"
+    - "implementation code"
+    - "creating Figma nodes directly"
