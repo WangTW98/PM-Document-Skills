@@ -1,0 +1,59 @@
+name: "product-page-mock-release"
+version: "0.1.0"
+description: "Generate one confirmed content-only mock release Markdown file from one mock draft page, applying MA-/MQ- release handling and removing all assumptions/open questions."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/mock/<page>.md"
+outputs:
+  - "product/release/mock/<page>.md"
+resources:
+  references:
+    - "references/page-mock-release-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_directory: "product/development/mock"
+  output_directory: "product/release/mock"
+  one_page_per_invocation: true
+  filename_rule: "preserve the source mock draft filename relative to product/development/mock"
+  content_only: true
+  upstream_skills:
+    - "product-page-mock-draft"
+    - "product-page-mock-brief"
+  assumption_prefix: "MA"
+  confirmation_prefix: "MQ"
+  must_apply:
+    - "Mock 假设与待确认统一清单"
+    - "用户确认状态"
+    - "用户确认结果"
+    - "Release 处理方式"
+  must_preserve_when_confirmed:
+    - "page content overview"
+    - "source mapping matrix"
+    - "Mermaid content structure"
+    - "section-level content table"
+    - "element content inventory"
+    - "form and option mock content"
+    - "list/card/table mock data"
+    - "media content descriptions"
+    - "state-specific display copy"
+    - "visible content mapping from interaction actions"
+    - "static versus dynamic source labels"
+  must_remove:
+    - "MA-/MQ- references"
+    - "assumptions and open questions"
+    - "draft-only confirmation workflow sections"
+    - "uncertain language"
+  must_avoid:
+    - "processing more than one mock page per invocation"
+    - "interaction execution logic"
+    - "analytics or tracking logic"
+    - "API endpoint definitions"
+    - "request and response schemas"
+    - "backend behavior"
+    - "implementation code"

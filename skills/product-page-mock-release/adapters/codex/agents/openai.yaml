@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Page Mock Release"
+  short_description: "Confirm one mock page spec"
+  default_prompt: "Use $product-page-mock-release to read one product/development/mock/*.md mock draft, apply its MA-/MQ- Release handling decisions, and create a confirmed content-only release mock under product/release/mock."

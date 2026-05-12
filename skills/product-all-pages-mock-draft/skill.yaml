@@ -1,0 +1,49 @@
+name: "product-all-pages-mock-draft"
+version: "0.1.0"
+description: "Orchestrate page-by-page generation of all content-only mock draft Markdown files from release pages and the release product overview sitemap."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-overview-release.md"
+  - "product/release/pages/<page>.md"
+outputs:
+  - "product/development/mock/_generation-status.md"
+  - "product/development/mock/<page>.md"
+resources:
+  references:
+    - "references/mock-generation-status-template.md"
+    - "references/mock-orchestration-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-overview-release.md"
+  source_section: "Sitemap 页面生成总表"
+  release_pages_directory: "product/release/pages"
+  mock_output_directory: "product/development/mock"
+  status_file: "product/development/mock/_generation-status.md"
+  page_mock_skill: "product-page-mock-draft"
+  sitemap_page_path_source: "页面级MD文件"
+  release_path_rule: "replace leading product/development/pages with product/release/pages"
+  mock_path_rule: "replace leading product/release/pages with product/development/mock"
+  processing_order: "ascending 生成顺序"
+  one_page_per_mock_step: true
+  resume_safe: true
+  must_include:
+    - "status queue for every sitemap row"
+    - "current page tracking"
+    - "completion records"
+    - "blocked records with actionable reasons"
+    - "page-by-page mock generation following product-page-mock-draft"
+    - "source table mapping validation for every mock file"
+    - "static/dynamic source validation for every content row"
+  must_avoid:
+    - "generating a combined multi-page mock document"
+    - "marking pages complete without files"
+    - "overwriting completed mock files without explicit user request"
+    - "inventing missing release page source paths"
+    - "editing product/release/product-overview-release.md"
+    - "editing files under product/release/pages"
