@@ -1,6 +1,6 @@
 ---
 name: visual-design-spec
-description: Generate a platform-neutral visual design system from a user's visual style description, brand direction, screenshots, product context, or UI mood references. Use when an AI agent needs to create a Google Stitch DESIGN.md-style specification, structured design tokens, a human-readable visual design guide, a standalone HTML preview, and usage instructions for later HTML page generation or Figma Remote MCP design creation without depending on Codex, VS Code, Antigravity, Stitch, Figma, or any specific runtime.
+description: Generate a platform-neutral visual design system from a user's visual style description, brand direction, screenshots, product context, or UI mood references. Use when an AI agent needs to create a Google Stitch DESIGN.md-style specification, structured design tokens, a human-readable visual design guide, a standalone HTML preview, and usage instructions for later HTML page generation or Figma Remote MCP design creation while remaining compatible with Codex, Gemini, and other Markdown-oriented AI runners without depending on Codex, VS Code, Antigravity, Stitch, Figma, or any specific runtime.
 ---
 
 # Visual Design Spec
@@ -9,7 +9,17 @@ description: Generate a platform-neutral visual design system from a user's visu
 
 Create a complete, portable visual design specification from the user's design description. The output must be usable by humans and AI agents, and must include both machine-readable rules and a standalone preview that shows the generated visual language.
 
-This skill is runner-neutral. Any AI system can use it by reading this file and the resources under `references/`; do not make the generated artifacts depend on a specific editor, agent, framework, design tool, or operating environment.
+This skill is runner-neutral. Any AI system can use it by reading this file and the resources under `references/`; do not make the generated artifacts depend on a specific editor, agent, framework, design tool, or operating environment. Codex-specific and Gemini-specific adapters live under `adapters/`, but the canonical workflow remains this `SKILL.md`.
+
+## Runner Compatibility
+
+This skill must work in both Codex and Gemini style runners:
+
+- Codex metadata: `adapters/codex/agents/openai.yaml`.
+- Gemini instructions: `adapters/gemini/GEMINI.md`.
+- Legacy Codex metadata may also exist at `agents/openai.yaml`; keep it aligned when changing prompts.
+- Generated design artifacts must be usable by either runner without requiring runner-specific tools.
+- Any generated `usage.md` must include a short section for Codex and a short section for Gemini, both pointing to the same canonical files and avoiding platform-specific assumptions.
 
 ## Inputs
 
@@ -73,7 +83,7 @@ The structure is part of the product. Keep filenames stable so later AI skills c
 4. Generate expanded support files.
    - `visual-spec.md`: human-readable full design manual with rationale, examples, assumptions, and implementation notes.
    - `tokens.json`: JSON mirror of the key tokens from `DESIGN.md` for parsers that prefer structured data.
-   - `usage.md`: explain how humans and AI agents should use the files, which file is canonical, and how to update the system.
+   - `usage.md`: explain how humans and AI agents should use the files, which file is canonical, and how to update the system. Include equivalent Codex and Gemini usage examples that read the same `DESIGN.md`, `tokens.json`, `visual-spec.md`, and preview files.
    - `handoff/html-generation-guide.md`: instructions for an AI page-generation skill to apply the visual system.
    - `handoff/figma-remote-mcp-guide.md`: instructions for an AI agent using Figma Remote MCP to create design drafts from the system.
    - All generated files must reference the actual `design/<design-system-slug>/` path chosen for the current run.
@@ -90,6 +100,7 @@ The structure is part of the product. Keep filenames stable so later AI skills c
    - Check that `DESIGN.md`, `tokens.json`, and `preview.html` use the same token values.
    - Ensure the preview can be opened directly in a browser from the filesystem.
    - Confirm all usage instructions are platform-neutral and do not assume a specific AI agent or design tool.
+   - Confirm `usage.md` includes both Codex and Gemini invocation guidance.
 
 ## Quality Bar
 
@@ -100,6 +111,7 @@ The structure is part of the product. Keep filenames stable so later AI skills c
 - Include negative guidance. State what future agents must avoid so the system does not drift.
 - Keep the generated system cohesive. Do not combine many unrelated aesthetic references without resolving them into one visual language.
 - Make the preview useful to non-designers: it should reveal whether the system feels correct before any page is generated.
+- Keep Codex and Gemini adapter instructions consistent with this file. Adapter files may explain how to invoke the skill, but must not redefine the output contract.
 
 ## Resources
 

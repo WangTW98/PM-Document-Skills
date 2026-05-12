@@ -37,7 +37,7 @@ contract:
     - "current page tracking"
     - "completion records"
     - "blocked records with actionable reasons"
-    - "page-by-page release following product-page-release"
+    - "page-by-page release following product-page-release, including 用户补充描述 application"
     - "analytics event validation for every release page"
   must_avoid:
     - "generating a combined multi-page release document"

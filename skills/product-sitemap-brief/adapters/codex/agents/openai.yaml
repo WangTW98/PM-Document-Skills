@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Sitemap Brief"
   short_description: "Draft product briefs with complete sitemaps"
-  default_prompt: "Use $product-sitemap-brief to analyze my product idea and attached documents, then create the product overview Markdown under product/development with a complete page-generation sitemap table, Mermaid hierarchy, and final A-/Q- numbered assumptions list."
+  default_prompt: "Use $product-sitemap-brief to analyze my product idea and attached documents, then create the product overview Markdown under product/development with a complete page-generation sitemap table, Mermaid hierarchy, A-/Q- numbered assumptions list, and final 用户补充描述 section."

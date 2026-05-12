@@ -1,6 +1,6 @@
 ---
 name: product-page-mock-draft
-description: Create one content-only page mock draft Markdown document from a release page spec under product/release/pages. Use when an AI agent needs to define detailed display content and mock data for every visible page element, including text, images, audio/video, banners, form option copy, empty/loading/error-state copy, static versus dynamic content source labels, and page-level assumptions/open questions when the release page is incomplete. Outputs same-name mock draft files under product/development/mock and excludes interaction actions, analytics, tracking, and business execution logic.
+description: Create one content-only page mock draft Markdown document from a release page spec under product/release/pages. Use when an AI agent needs to define detailed display content and mock data for every visible page element, including text, images, audio/video, banners, form option copy, empty/loading/error-state copy, static versus dynamic content source labels, page-level assumptions/open questions, and a final 用户补充描述 section for natural-language mock content edits. Outputs same-name mock draft files under product/development/mock and excludes interaction actions, analytics, tracking, and business execution logic.
 ---
 
 # Product Page Mock Draft
@@ -63,6 +63,7 @@ If the user does not specify a page, list available files under `product/release
 
 5. Draft and save.
    - Use `references/page-mock-draft-template.md`.
+   - Append `## 13. 用户补充描述` as the final section. Keep it editable and placeholder-only so the user can write natural-language changes to visible copy, labels, options, media, sample data, state copy, static/dynamic labels, or accessibility text before release.
    - Ensure `product/development/mock` exists.
    - Write exactly one mock draft file.
    - Run `references/page-mock-quality-checklist.md` before finishing.
@@ -88,6 +89,8 @@ Exclude:
 ## Hard Rules
 
 - Generate only one mock page per invocation.
+- Every generated mock draft must end with `## 13. 用户补充描述`.
+- The `用户补充描述` section must be content-only, editable by the user, and must not contain generated requirements unless they are instructions telling the user where to write their supplement.
 - Output path must preserve the release page filename under `product/development/mock`.
 - The mock page H1 must match the release page H1.
 - Every element from the release page that displays user-visible content must appear in the mock content inventory.

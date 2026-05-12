@@ -1,6 +1,6 @@
 name: "product-layout-draft"
-version: "0.1.0"
-description: "Create product/development/layout/product-layout-draft.md from product/release/product-overview-release.md and its Sitemap 页面生成总表, defining project-level app/web layout assumptions and confirmation items that product-layout-release converts into the formal downstream layout dependency."
+version: "0.2.0"
+description: "Create product/development/layout/product-layout-draft.md from product/release/product-overview-release.md and its Sitemap 页面生成总表, defining project-level app/web layout assumptions, confirmation items, and a final user supplement section that product-layout-release converts into the formal downstream layout dependency."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -39,6 +39,7 @@ contract:
     - "role and permission layout effects"
     - "downstream skill usage rules"
     - "layout assumptions and confirmation list with LA-/LQ- IDs"
+    - "final 用户补充描述 section for user natural-language layout modifications"
   must_avoid:
     - "page-level detailed requirements"
     - "API contracts"

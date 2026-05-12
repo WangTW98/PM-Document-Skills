@@ -44,8 +44,8 @@ Generated mock outputs:
 
 3. Select one unfinished page.
    - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
-   - If its mock output file already exists and passes the current `product-page-mock-draft` checklist, mark it `已完成` instead of regenerating.
-   - If its mock output file exists but lacks `来源对照矩阵`, lacks `内容来源类型`, or does not map the release page's layout/element/state/action tables, treat it as stale and regenerate it unless the user explicitly forbids regeneration.
+   - If its mock output file already exists and passes the current `product-page-mock-draft` checklist, including the final `用户补充描述` section, mark it `已完成` instead of regenerating.
+   - If its mock output file exists but lacks `来源对照矩阵`, lacks `内容来源类型`, lacks `用户补充描述`, or does not map the release page's layout/element/state/action tables, treat it as stale and regenerate it unless the user explicitly forbids regeneration.
    - If the release page source file does not exist, mark it `已阻塞` and record that `product-page-release` must generate the release page first.
    - If required fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
 
@@ -88,6 +88,7 @@ For each selected page, obey these `product-page-mock-draft` rules:
 - Strictly map source rows from `页面布局与内容区块`, `页面元素清单`, `元素状态矩阵`, and `交互 Action 与执行效果` into mock content or explicit unmapped reasons.
 - Every content row must label `内容来源类型` as `静态` or `动态`, with `动态来源说明` for dynamic content.
 - Keep all mock-level uncertainty inside that mock file's final `Mock 假设与待确认统一清单`.
+- End every generated mock draft with `## 13. 用户补充描述` according to `product-page-mock-draft`.
 
 ## Hard Rules
 

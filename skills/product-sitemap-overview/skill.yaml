@@ -1,6 +1,6 @@
 name: "product-sitemap-overview"
-version: "0.1.0"
-description: "Generate a confirmed release product overview from the draft by applying A-/Q- release handling decisions and removing uncertainty."
+version: "0.2.0"
+description: "Generate a confirmed release product overview from the draft by applying A-/Q- release handling decisions, analyzing 用户补充描述, applying those user modifications, and removing uncertainty."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -25,11 +25,13 @@ contract:
   must_apply:
     - "all Release 处理方式 values from the final assumption and confirmation list"
     - "all user confirmation results that replace, remove, or confirm draft content"
+    - "all non-empty 用户补充描述 natural-language modifications"
   must_remove:
     - "A-* and Q-* references"
     - "assumptions"
     - "open questions"
     - "draft-only confirmation lists"
+    - "raw 用户补充描述 section and notes"
     - "uncertainty markers"
   must_preserve:
     - "confirmed product overview"

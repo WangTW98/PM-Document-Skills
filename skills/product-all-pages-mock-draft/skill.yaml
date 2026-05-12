@@ -37,7 +37,7 @@ contract:
     - "current page tracking"
     - "completion records"
     - "blocked records with actionable reasons"
-    - "page-by-page mock generation following product-page-mock-draft"
+    - "page-by-page mock generation following product-page-mock-draft, including final 用户补充描述"
     - "source table mapping validation for every mock file"
     - "static/dynamic source validation for every content row"
   must_avoid:

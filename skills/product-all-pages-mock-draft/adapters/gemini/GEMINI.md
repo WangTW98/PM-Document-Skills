@@ -10,5 +10,5 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 4. Read `references/mock-orchestration-quality-checklist.md` before ending a run.
 5. Load `product/release/product-overview-release.md` and parse `Sitemap 页面生成总表`.
 6. Process pages by ascending `生成顺序`.
-7. For each selected page, follow `skills/product-page-mock-draft/SKILL.md` and generate exactly one mock file before updating status.
+7. For each selected page, follow `skills/product-page-mock-draft/SKILL.md` and generate exactly one mock file before updating status, including the final `用户补充描述` section.
 8. Continue until all rows are complete or until the run should pause to preserve accuracy; status must make resumption unambiguous.

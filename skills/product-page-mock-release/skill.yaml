@@ -1,6 +1,6 @@
 name: "product-page-mock-release"
-version: "0.1.1"
-description: "Generate exactly one confirmed content-only mock release Markdown file from one product/development/mock page per execution, applying MA-/MQ- release handling and removing all assumptions/open questions."
+version: "0.2.0"
+description: "Generate exactly one confirmed content-only mock release Markdown file from one product/development/mock page per execution, applying MA-/MQ- release handling, analyzing 用户补充描述, applying those user modifications, and removing all assumptions/open questions."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -32,6 +32,7 @@ contract:
     - "用户确认状态"
     - "用户确认结果"
     - "Release 处理方式"
+    - "all non-empty 用户补充描述 natural-language modifications"
   must_preserve_when_confirmed:
     - "page content overview"
     - "source mapping matrix"
@@ -48,6 +49,7 @@ contract:
     - "MA-/MQ- references"
     - "assumptions and open questions"
     - "draft-only confirmation workflow sections"
+    - "raw 用户补充描述 section and notes"
     - "uncertain language"
   must_avoid:
     - "processing more than one mock page per invocation"

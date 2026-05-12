@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Page Mock Release"
   short_description: "Confirm one mock page spec"
-  default_prompt: "Use $product-page-mock-release to read exactly one product/development/mock/*.md mock draft, apply its MA-/MQ- Release handling decisions, and create one confirmed content-only release mock under product/release/mock. Do not process directories or multiple pages."
+  default_prompt: "Use $product-page-mock-release to read exactly one product/development/mock/*.md mock draft, apply its MA-/MQ- Release handling decisions plus any 用户补充描述 modifications, and create one confirmed content-only release mock under product/release/mock with no raw supplement notes. Do not process directories or multiple pages."

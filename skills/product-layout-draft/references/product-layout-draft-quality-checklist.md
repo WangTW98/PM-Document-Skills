@@ -19,4 +19,6 @@ Use this checklist before writing the final response.
 - The Mermaid diagram matches the surface/shell/page hierarchy.
 - Every `LA-*` and `LQ-*` used in the document appears in the final unified list.
 - Inferred layout choices are marked with `LA-*` or `LQ-*`.
+- The document ends with `## 12. 用户补充描述`.
+- The `用户补充描述` section contains an editable fenced text area for user natural-language layout modifications and does not contain generated layout requirements.
 - The document does not define detailed page-level elements, API contracts, analytics events, or final visual design tokens.

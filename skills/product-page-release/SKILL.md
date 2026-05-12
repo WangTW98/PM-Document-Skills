@@ -46,7 +46,7 @@ Optional blocker output when release cannot be produced:
 2. Read and parse the draft.
    - Load the selected page MD.
    - Verify the draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
-   - If the draft lacks analytics content, do not create a release page. Write a blocker file saying the page draft must be regenerated with `product-page-draft` version `0.4.0` or later.
+   - If the draft lacks analytics content, do not create a release page. Write a blocker file saying the page draft must be regenerated with `product-page-draft` version `0.5.0` or later.
    - Locate the final `页面假设与待确认统一清单` section.
    - Parse every page assumption row (`PA-001`, `PA-002`, ...) and page confirmation row (`PQ-001`, `PQ-002`, ...).
    - Scan the entire draft for inline `PA-*` and `PQ-*` references; every reference must be represented in the final list.

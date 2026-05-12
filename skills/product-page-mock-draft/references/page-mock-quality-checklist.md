@@ -22,3 +22,5 @@ Use this checklist before finishing each mock draft.
 - Image/audio/video/file-preview content includes descriptions and alternative text where relevant.
 - Inferred content is marked with `MA-*` or `MQ-*`.
 - Every `MA-*` and `MQ-*` reference appears in the final unified list.
+- The document ends with `## 13. 用户补充描述`.
+- The `用户补充描述` section contains an editable fenced text area for user natural-language mock content modifications and does not contain generated content requirements.

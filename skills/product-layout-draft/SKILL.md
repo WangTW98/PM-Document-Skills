@@ -1,6 +1,6 @@
 ---
 name: product-layout-draft
-description: "Create product/development/layout/product-layout-draft.md from product/release/product-overview-release.md. Use when an AI agent needs a project-level application layout draft based on the release overview and Sitemap 页面生成总表, covering APP/web/admin/mini-program surfaces, global shell, navigation, page containers, shared regions, responsive behavior, layout inheritance, and layout assumptions/open questions that product-layout-release will convert into the formal downstream layout contract."
+description: "Create product/development/layout/product-layout-draft.md from product/release/product-overview-release.md. Use when an AI agent needs a project-level application layout draft based on the release overview and Sitemap 页面生成总表, covering APP/web/admin/mini-program surfaces, global shell, navigation, page containers, shared regions, responsive behavior, layout inheritance, layout assumptions/open questions, and a final 用户补充描述 section that product-layout-release will convert into the formal downstream layout contract."
 ---
 
 # Product Layout Draft
@@ -56,6 +56,7 @@ If the file is missing, stop and ask the user to generate the release overview f
 
 5. Draft and save.
    - Use `references/product-layout-draft-template.md`.
+   - Append `## 12. 用户补充描述` as the final section. Keep it editable and placeholder-only so the user can write natural-language changes to shell, navigation, page templates, responsive rules, global states, role/permission layout, or sitemap-to-layout mapping before release.
    - Ensure `product/development/layout` exists.
    - Write `product/development/layout/product-layout-draft.md`.
    - Run `references/product-layout-draft-quality-checklist.md` before finishing.
@@ -71,6 +72,7 @@ The layout draft must include:
 - Layout dependency rules for downstream skills: exactly how page draft, mock draft, and design release skills should apply this layout document.
 - Mermaid layout map: a Markdown-previewable hierarchy showing surfaces, shells, root pages, child pages, and exceptional flows.
 - Layout assumptions and open questions with stable IDs and final unified list.
+- User supplement section: draft documents must end with `用户补充描述`; release generation must analyze and apply non-empty supplement content.
 
 ## Downstream Dependency Contract
 
@@ -88,6 +90,7 @@ Rules for downstream skills:
 
 - Do not generate page-level requirements; this skill creates project-level layout architecture only.
 - Do not create release layout files; this skill writes only `product/development/layout/product-layout-draft.md`.
+- Do not omit the final `用户补充描述` section.
 - Do not omit sitemap rows from the sitemap-to-layout mapping.
 - Do not leave a surface without a shell definition.
 - Do not leave root/child/navigation behavior implicit.

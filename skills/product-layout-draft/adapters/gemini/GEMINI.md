@@ -12,3 +12,4 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 6. Parse `Sitemap 页面生成总表`.
 7. Create `product/development/layout/product-layout-draft.md` for user confirmation before `product-layout-release` creates the formal release layout.
 8. Mark incomplete layout decisions with `LA-*` and `LQ-*`, and include them in the final unified list.
+9. End the draft with `## 12. 用户补充描述` so the user can add natural-language layout modifications before release.

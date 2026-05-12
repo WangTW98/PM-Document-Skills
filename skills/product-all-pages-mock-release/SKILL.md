@@ -50,7 +50,7 @@ Generated release mock outputs:
    - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
    - If its release mock output file already exists and passes the current `product-page-mock-release` checklist, mark it `已完成` instead of regenerating.
    - If the `product/development/mock/...` source file does not exist, mark it `已阻塞` and record that the required mock draft source is missing.
-   - If the `product/development/mock/...` source file exists but lacks `Mock 假设与待确认统一清单`, lacks `内容来源类型`, or lacks the core mock content sections, mark it `已阻塞` and record that the mock draft source must be corrected.
+   - If the `product/development/mock/...` source file exists but lacks `Mock 假设与待确认统一清单`, lacks `内容来源类型`, lacks `用户补充描述`, or lacks the core mock content sections, mark it `已阻塞` and record that the mock draft source must be corrected.
    - If required fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
 
 4. Release exactly one mock page.
@@ -89,6 +89,7 @@ For each selected page, obey these `product-page-mock-release` rules:
 - The sitemap's `页面级MD文件` is only a filename key used to locate the same page under `product/development/mock`.
 - Output path preserves the mock draft filename relative to `product/development/mock`, under `product/release/mock`.
 - Apply every `MA-*` / `MQ-*` Release handling decision from the mock draft page's final `Mock 假设与待确认统一清单`.
+- Apply every non-empty `用户补充描述` instruction from the mock draft page.
 - Remove all `MA-*`, `MQ-*`, assumptions, open questions, uncertainty markers, and confirmation workflow sections.
 - Preserve confirmed display content, mock data, media descriptions, state copy, action visible-content mapping, and static/dynamic content source labels.
 - Keep the release mock content-only: no interaction execution, analytics/tracking, API definitions, request/response structures, backend behavior, or implementation code.

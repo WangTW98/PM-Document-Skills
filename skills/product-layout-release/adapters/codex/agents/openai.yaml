@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Layout Release"
   short_description: "Confirm project layout contract"
-  default_prompt: "Use $product-layout-release to read product/development/layout/product-layout-draft.md, apply LA-/LQ- Release handling decisions, and create product/release/layout/product-layout-release.md as the confirmed layout dependency."
+  default_prompt: "Use $product-layout-release to read product/development/layout/product-layout-draft.md, apply LA-/LQ- Release handling decisions plus any 用户补充描述 modifications, and create product/release/layout/product-layout-release.md as the confirmed layout dependency with no raw supplement notes."

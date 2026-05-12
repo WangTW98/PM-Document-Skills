@@ -58,10 +58,20 @@ Explain:
 - `tokens.json` is for tooling.
 - `preview.html` is for visual inspection.
 - How to ask an AI agent to generate pages from the system.
+- How to invoke the same workflow from Codex and Gemini, using equivalent prompts and the same canonical files.
 - How to ask an AI agent using Figma Remote MCP to create a Figma draft.
 - How to update tokens safely without breaking consistency.
 - How to validate whether generated UI follows the system.
 - How to create an additional design system later by generating a new slugged directory under `design/`.
+
+Include a `Codex Usage` subsection and a `Gemini Usage` subsection. Both must point to the same canonical files:
+
+- `DESIGN.md` as source of truth.
+- `tokens.json` for structured token parsing.
+- `visual-spec.md` for expanded rationale.
+- `preview.html` for visual inspection.
+
+Do not describe one runner as more authoritative than the other.
 
 ## `handoff/html-generation-guide.md`
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Visual Design Spec"
+  short_description: "Generate portable DESIGN.md visual systems with preview files"
+  default_prompt: "Use $visual-design-spec to turn my visual design description into a portable DESIGN.md-based visual design specification with preview, tokens, Codex/Gemini usage instructions, and handoff files."

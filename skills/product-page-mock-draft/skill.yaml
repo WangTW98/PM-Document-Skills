@@ -1,6 +1,6 @@
 name: "product-page-mock-draft"
-version: "0.2.0"
-description: "Generate one content-only mock draft Markdown file from one release page, focused on display text, media, mock data, states, and static/dynamic source labels."
+version: "0.3.0"
+description: "Generate one content-only mock draft Markdown file from one release page, focused on display text, media, mock data, states, static/dynamic source labels, and a final user supplement section."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -40,6 +40,7 @@ contract:
     - "visible content mapping from interaction actions"
     - "static versus dynamic source labels for every content row"
     - "mock assumptions and confirmation list with MA-/MQ- IDs"
+    - "final 用户补充描述 section for user natural-language mock content modifications"
   must_avoid:
     - "interaction execution logic"
     - "analytics or tracking logic"
@@ -47,3 +48,4 @@ contract:
     - "request and response schemas"
     - "backend behavior"
     - "implementation code"
+    - "omitting the final user supplement section"

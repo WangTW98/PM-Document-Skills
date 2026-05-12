@@ -12,3 +12,4 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 6. Treat the sitemap table as the canonical downstream task list. Every page, child page, tertiary page, and meaningful subview must have a row with `页面ID`, `父页面ID`, `层级`, `生成顺序`, and `页面级MD文件`.
 7. Ensure the Mermaid hierarchy mirrors the sitemap table exactly.
 8. Mark all assumptions and open questions inline with stable IDs (`A-001`, `Q-001`) and include every ID in the final `假设与待确认统一清单`.
+9. End draft output with `## 6. 用户补充描述` so the user can add natural-language product and sitemap modifications before release.

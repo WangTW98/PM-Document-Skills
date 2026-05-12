@@ -1,6 +1,6 @@
 name: "visual-design-spec"
-version: "0.1.0"
-description: "Generate a portable Google Stitch DESIGN.md-style visual design system, structured tokens, standalone preview, and usage handoff files from visual design descriptions or source references."
+version: "0.2.0"
+description: "Generate a portable Google Stitch DESIGN.md-style visual design system, structured tokens, standalone preview, and Codex/Gemini-compatible usage handoff files from visual design descriptions or source references."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -27,6 +27,10 @@ resources:
     - "assets/preview-starter.html"
 compatibility:
   runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+  legacy_codex_agent_metadata: "agents/openai.yaml"
   generated_artifacts_runner_neutral: true
   requires_specific_editor: false
   requires_specific_design_tool: false
@@ -47,6 +51,7 @@ contract:
     - "valid JSON token mirror"
     - "standalone browser-previewable HTML file with inline CSS and no external dependencies"
     - "usage instructions for humans and AI agents"
+    - "Codex and Gemini usage instructions that point to the same canonical artifacts"
     - "handoff instructions for HTML generation"
     - "handoff instructions for Figma Remote MCP design creation"
     - "responsive adaptation rules for mobile, tablet, desktop, and wide desktop"
@@ -54,3 +59,4 @@ contract:
     - "runtime dependence on Codex, VS Code, Antigravity, Google Stitch, Figma, Tailwind, React, or any specific framework"
     - "vague design instructions without exact token values"
     - "preview files that require network access, build steps, CDNs, or external fonts"
+    - "runner-specific output contracts that only work in Codex or only work in Gemini"

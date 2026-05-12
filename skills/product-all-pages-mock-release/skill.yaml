@@ -39,7 +39,7 @@ contract:
     - "current page tracking"
     - "completion records"
     - "blocked records with actionable reasons"
-    - "page-by-page mock release following product-page-mock-release"
+    - "page-by-page mock release following product-page-mock-release, including 用户补充描述 application"
     - "MA-/MQ- release handling validation for every mock page"
   must_avoid:
     - "generating a combined multi-page mock release document"

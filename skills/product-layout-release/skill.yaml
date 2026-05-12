@@ -1,6 +1,6 @@
 name: "product-layout-release"
-version: "0.1.0"
-description: "Generate product/release/layout/product-layout-release.md from product/development/layout/product-layout-draft.md by applying LA-/LQ- release handling and removing all layout assumptions/open questions."
+version: "0.2.0"
+description: "Generate product/release/layout/product-layout-release.md from product/development/layout/product-layout-draft.md by applying LA-/LQ- release handling, analyzing 用户补充描述, applying those user modifications, and removing all layout assumptions/open questions."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -28,6 +28,7 @@ contract:
     - "用户确认状态"
     - "用户确认结果"
     - "Release 处理方式"
+    - "all non-empty 用户补充描述 natural-language modifications"
   must_preserve_when_confirmed:
     - "product layout summary"
     - "surface and shell definitions"
@@ -42,6 +43,7 @@ contract:
     - "LA-/LQ- references"
     - "layout assumptions and open questions"
     - "draft-only confirmation workflow sections"
+    - "raw 用户补充描述 section and notes"
     - "uncertain language"
   downstream_dependency_for:
     - "product-page-draft"

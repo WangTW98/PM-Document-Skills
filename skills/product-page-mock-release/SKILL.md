@@ -1,13 +1,13 @@
 ---
 name: product-page-mock-release
-description: "Generate exactly one confirmed release mock Markdown document per invocation from a single mock draft page file under product/development/mock. Use when an AI agent needs to read one product/development/mock/... file, apply the user's Release handling decisions from the final Mock 假设与待确认统一清单, remove all MA-/MQ- references, assumptions, open questions, draft-only notes, and uncertain language, then write the confirmed content-only mock document under product/release/mock. This skill is strictly one-page-per-execution: never process multiple mock files, a directory, or all pages in one run; stop and ask for one page to avoid context overflow, hallucination, and inaccurate content."
+description: "Generate exactly one confirmed release mock Markdown document per invocation from a single mock draft page file under product/development/mock. Use when an AI agent needs to read one product/development/mock/... file, apply the user's Release handling decisions from the Mock 假设与待确认统一清单, analyze and apply the draft's final 用户补充描述 natural-language mock content edits, remove all MA-/MQ- references, assumptions, open questions, draft-only notes, supplement sections, and uncertain language, then write the confirmed content-only mock document under product/release/mock. This skill is strictly one-page-per-execution: never process multiple mock files, a directory, or all pages in one run; stop and ask for one page to avoid context overflow, hallucination, and inaccurate content."
 ---
 
 # Product Page Mock Release
 
 ## Overview
 
-Create the release version of exactly one mock page MD from `product/development/mock`. The selected `product/development/mock/...` file is the only valid input source for this skill. The release mock page is confirmed display-content material for downstream visual design, UI copy, sample data, prototype, and implementation work, so it must not contain unresolved assumptions, open questions, `MA-*` / `MQ-*` IDs, or wording that asks the user to confirm mock content.
+Create the release version of exactly one mock page MD from `product/development/mock`. The selected `product/development/mock/...` file is the only valid input source for this skill. The release mock page is confirmed display-content material for downstream visual design, UI copy, sample data, prototype, and implementation work, so it must not contain unresolved assumptions, open questions, `MA-*` / `MQ-*` IDs, the draft `用户补充描述` section, or wording that asks the user to confirm mock content.
 
 This skill is intentionally single-page-only. If a user asks to release multiple mock pages, a directory, or all mock pages, do not process any page in this skill invocation; ask the user to choose exactly one `product/development/mock/...` page, or route the task to an orchestration skill such as `product-all-pages-mock-release`.
 
@@ -61,29 +61,40 @@ This limit is mandatory and exists to reduce context overflow, hallucination, an
    - Parse every mock assumption row (`MA-001`, `MA-002`, ...) and every mock confirmation row (`MQ-001`, `MQ-002`, ...).
    - Scan the entire draft for inline `MA-*` and `MQ-*` references; every reference must be represented in the final list.
    - Verify the draft contains the expected mock content sections, especially source mapping, element content, state copy, action visible-content mapping, and static/dynamic source labels.
+   - Locate `## 13. 用户补充描述` when present.
+   - Extract the user-written natural-language supplement. Treat empty content, `无`, `none`, or placeholder-only text as no supplement.
 
 3. Validate release readiness.
    - Every `MA-*` item must have a usable `用户确认状态` and `Release 处理方式`.
    - Every `MQ-*` item must have a usable `用户确认结果` and `Release 处理方式`.
    - Treat values like `待用户确认`, blank cells, `待确认`, `保留为风险`, or vague text without a concrete decision as unresolved.
    - If any unresolved item affects display copy, image/audio/video content, form labels/options, placeholders, state copy, empty/error/loading copy, sample records, static/dynamic labels, or accessibility text, do not create the release mock page. Write a blocker file with the blocking rows and exact missing fields.
+   - If `用户补充描述` contains ambiguous or contradictory instructions that materially affect display copy, image/audio/video content, form labels/options, placeholders, state copy, empty/error/loading copy, sample records, static/dynamic labels, or accessibility text, block release and write a blocker file with the conflicting supplement items.
 
-4. Apply release handling decisions.
+4. Analyze and apply user supplement.
+   - Treat non-empty `用户补充描述` content as user-confirmed release modification instructions for display content and mock data.
+   - Convert the supplement into concrete changes grouped by affected area: page content overview, source mapping, section-level content, element content inventory, form/option content, list/card/table mock data, media content, state-specific display copy, action visible-content mapping, and content source summary.
+   - Apply supplement changes to all dependent sections, not just one row. For example, changing a button label must update element content, action visible-content mapping, state copy when relevant, and source mapping references.
+   - If a supplement instruction asks for interaction execution, analytics, API contracts, backend behavior, or implementation code, do not add those business-layer details. Convert only user-visible content implications when possible; block release if the requested change cannot be represented as content-only mock data.
+   - If a supplement instruction conflicts with an `MA-*` / `MQ-*` release handling row, prefer the more specific user supplement only when it is concrete and clearly refers to the same content item. If the conflict changes visible meaning and cannot be resolved confidently, block release.
+   - Do not carry the `用户补充描述` section or raw notes into the release mock file.
+
+5. Apply release handling decisions.
    - `确认为正式内容` / `写入正式内容`: rewrite the related mock content as confirmed display content and remove the ID marker.
    - `删除` / `不需要`: remove the related copy, media description, form option, state content, mock record, or note.
    - `按用户修改替换` / `改为：...`: replace the draft content with the user's confirmed wording.
    - `已否定`: remove or replace every affected mention; do not keep it as a note.
    - If multiple decisions conflict, prefer the more specific item and block release if the conflict changes visible content meaning.
 
-5. Rewrite the mock as release content.
+6. Rewrite the mock as release content.
    - Set document version to `Release`.
    - Preserve confirmed page content overview, source mapping matrix, Mermaid content structure, section-level content, element content inventory, form and option content, list/card/table mock data, media content, state-specific display copy, action visible-content mapping, and content source summary when still relevant.
    - Preserve `静态` / `动态` and `动态来源说明` labels for content rows.
-   - Remove the draft-only `Mock 假设 / 待确认编号规则`, `Mock 假设与待确认统一清单`, and release-check wording.
+   - Remove the draft-only `Mock 假设 / 待确认编号规则`, `Mock 假设与待确认统一清单`, `用户补充描述`, and release-check wording.
    - Remove every `MA-001`, `MQ-001`, `Mock 假设`, `Mock 待确认`, `假设`, `待确认`, `待用户确认`, `置信度`, and uncertainty marker from the release mock page.
    - Reconcile tables after removals or replacements: section IDs, element IDs, state IDs, data IDs, media IDs, source references, and Mermaid nodes must still match.
 
-6. Save and verify.
+7. Save and verify.
    - Ensure `product/release/mock` exists.
    - Preserve the input mock filename relative to `product/development/mock`.
    - Write the release mock page under `product/release/mock`.
@@ -98,9 +109,11 @@ This limit is mandatory and exists to reduce context overflow, hallucination, an
 - The release mock page is not a changelog. It is the confirmed page display-content and mock-data specification.
 - Do not include a section explaining which assumptions were removed.
 - Do not include unresolved risks, questions, TODOs, or confirmation workflow sections.
+- Do not include the draft `用户补充描述` section in the release mock file; apply it into confirmed content or block if ambiguous.
 - Do not keep `MA-*` / `MQ-*` IDs for traceability inside the release mock file; traceability belongs in the draft mock page.
 - Do not silently keep content whose release handling says to delete it.
 - Do not invent user confirmation. If the mock draft does not contain a concrete release decision for a material item, block release.
+- Do not ignore non-empty `用户补充描述`; it is part of the user's release input.
 - Do not introduce API endpoint definitions, request/response schemas, interaction execution steps, analytics events, backend behavior, or implementation code.
 
 ## Output Quality Bar
@@ -112,6 +125,7 @@ This limit is mandatory and exists to reduce context overflow, hallucination, an
 - Dynamic content must retain a concrete source category such as `接口返回`, `用户资料`, `本地缓存`, `系统状态`, `权限状态`, `会员状态`, `上传文件`, or `生成结果`.
 - Mermaid content structure, section content, element content, state content, media content, and mock data tables must remain internally consistent.
 - No `MA-*` / `MQ-*` IDs, assumption labels, confirmation prompts, or draft-only release-handling columns may remain.
+- Any non-empty user supplement from the draft must be reflected in the relevant release mock sections, with source mapping, content inventory, state copy, media content, mock data, and content source summary reconciled.
 
 ## Resources
 

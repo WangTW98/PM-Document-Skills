@@ -1,6 +1,6 @@
 ---
 name: product-sitemap-brief
-description: Analyze natural-language product ideas and uploaded source materials such as Word documents, PDFs, screenshots, images, mind maps, notes, PRDs, research files, or business briefs to produce a project-level Markdown product overview and detailed sitemap. Use when an AI agent needs to clarify product design requirements, infer missing scope with marked assumptions, define product type, target users, business goals, user paths, feature scope, roles and permissions, key operations, monetization/payment/notification/review/admin needs, and especially a layout-aware sitemap for later page-level skill generation. Outputs draft or release Markdown files under product/development.
+description: Analyze natural-language product ideas and uploaded source materials such as Word documents, PDFs, screenshots, images, mind maps, notes, PRDs, research files, or business briefs to produce a project-level Markdown product overview and detailed sitemap. Use when an AI agent needs to clarify product design requirements, infer missing scope with marked assumptions, define product type, target users, business goals, user paths, feature scope, roles and permissions, key operations, monetization/payment/notification/review/admin needs, and especially a layout-aware sitemap for later page-level skill generation. Draft outputs must end with 用户补充描述 for natural-language product/sitemap edits. Outputs draft or release Markdown files under product/development.
 ---
 
 # Product Sitemap Brief
@@ -34,6 +34,7 @@ This skill is runner-neutral. Any AI system can use it by reading this file and 
    - Put the strongest detail in `Sitemap / 信息架构`; later page-level skills will rely on it.
    - Produce both a complete sitemap table and a Mermaid diagram that represents the same hierarchy.
    - Maintain a final `假设与待确认统一清单` section and ensure every inline `A-*` or `Q-*` reference appears there exactly once.
+   - For draft output, append `## 6. 用户补充描述` as the final section. Keep it editable and placeholder-only so the user can write natural-language product, sitemap, role, permission, payment, notification, review, admin, or page-scope changes before release.
    - Use stable headings and lists so the user can manually edit the Markdown.
 
 4. Save the result.
@@ -49,7 +50,8 @@ The document must include:
 - Product overview: product type, positioning, target users, core business goals, core user paths, page scope, function scope, roles and permissions, key operations, and likely commercial/payment/subscription/notification/review/admin needs.
 - Sitemap: primary layout shape and complete page hierarchy. For every page, subpage, tertiary page, and deeper page when needed, list the parent-child relationship, generation order, corresponding product function, target role, primary operations, key data/content, important states, dependencies, and suggested page-level Markdown output path.
 - Sitemap visualization: a Mermaid `flowchart` or `mindmap` block that mirrors the sitemap table and can be previewed in Markdown tools that support Mermaid.
-- Assumptions and open questions: explicitly label inferred or incomplete items as `假设` or `待确认` with stable IDs, and repeat all of them in the final unified list.
+- Assumptions and open questions: explicitly label inferred or incomplete items as `假设` or `待确认` with stable IDs, and repeat all of them in the unified list.
+- User supplement section: draft documents must end with `用户补充描述`; release generation must analyze and apply non-empty supplement content.
 - Source notes: summarize which user descriptions and uploaded documents informed the draft.
 
 ## Assumption and Confirmation IDs
@@ -128,7 +130,8 @@ Use a conservative product-manager lens:
 - Keep confirmed facts and assumptions visually distinct.
 - Keep the Markdown easy for the user to edit manually.
 - Prefer specific page names such as `课程详情页`, `订单退款审核页`, `团队成员权限设置页`, not generic names such as `详情页`.
-- The final section must let a user confirm or edit all assumptions and open questions without searching the full document.
+- The assumption list must let a user confirm or edit all assumptions and open questions without searching the full document.
+- The final section must be `用户补充描述` so users can add free-form product and sitemap changes before release.
 
 ## Resources
 

@@ -9,6 +9,7 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 3. Use `references/page-mock-release-quality-checklist.md` before finalizing output.
 4. Load exactly one mock draft page under `product/development/mock`.
 5. Apply every concrete `MA-*` / `MQ-*` Release handling decision from the final `Mock 假设与待确认统一清单`.
-6. Save the confirmed release mock to `product/release/mock` using the same relative filename.
-7. Do not process directories, all pages, or multiple mock files in one execution. Stop after one page to avoid context overflow and inaccurate content.
-8. Do not include assumptions, open questions, interaction execution, analytics, API contracts, backend behavior, or implementation code.
+6. Locate `## 13. 用户补充描述`; if it contains non-placeholder user modifications, analyze and apply them to the release mock content.
+7. Save the confirmed release mock to `product/release/mock` using the same relative filename.
+8. Do not process directories, all pages, or multiple mock files in one execution. Stop after one page to avoid context overflow and inaccurate content.
+9. Do not include assumptions, open questions, raw `用户补充描述` notes, interaction execution, analytics, API contracts, backend behavior, or implementation code.

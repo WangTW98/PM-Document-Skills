@@ -32,7 +32,7 @@ contract:
     - "current page tracking"
     - "completion records"
     - "blocked records with actionable reasons"
-    - "page-by-page generation following product-page-draft"
+    - "page-by-page generation following product-page-draft, including final 用户补充描述"
     - "mandatory analytics section validation for every generated page"
   must_avoid:
     - "generating a combined multi-page requirements document"
