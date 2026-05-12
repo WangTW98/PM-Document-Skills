@@ -1,6 +1,6 @@
 ---
 name: product-page-draft
-description: Generate one page-level draft Markdown document at a time from product/release/product-overview-release.md, using exactly one row from the Sitemap 页面生成总表. Use when an AI agent needs to create detailed page requirements under product/development/pages for a selected page, including page elements, controls, media, banners, states, triggers, style definitions, interactions, actions, edge cases, error handling, data structures, API contracts, Mermaid mind map, tables, and page-level assumptions/open questions when the release overview is incomplete. Each invocation must generate only one page draft.
+description: Generate one page-level draft Markdown document at a time from product/release/product-overview-release.md, using exactly one row from the Sitemap 页面生成总表. Use when an AI agent needs to create detailed page requirements under product/development/pages for a selected page, including page elements, controls, media, banners, states, triggers, style definitions, interactions, actions, edge cases, error handling, data structures, API contracts, Mermaid mind map, tables, page-level assumptions/open questions, and a final user supplement section for natural-language page edits. Each invocation must generate only one page draft.
 ---
 
 # Product Page Draft
@@ -75,7 +75,9 @@ Rules:
    - Use `references/page-draft-template.md`.
    - Include a Mermaid `mindmap` or `flowchart` that mirrors the page structure and interactions.
    - Use tables for element inventory, state matrix, action matrix, analytics events, API contracts, data structures, and edge cases.
-   - Put all page-level assumptions/open questions in a final unified list.
+   - Put all page-level assumptions/open questions in a unified list near the end of the document.
+   - Append `## 12. 用户补充描述` as the final section of the page draft. This section is intentionally blank except for concise instructions and a fenced placeholder area where the user can write natural-language modifications to this specific page before release.
+   - State that `product-page-release` must analyze and apply the user's supplement when generating the release page.
 
 6. Verify and save.
    - Ensure the parent directory of the row's `页面级MD文件` exists.
@@ -89,12 +91,14 @@ Use page-scoped IDs so the page draft can later be converted into a release page
 - Page assumptions: `PA-001`, `PA-002`, ...
 - Page confirmation questions: `PQ-001`, `PQ-002`, ...
 - Mark inline content as `（页面假设 PA-001：...）` or `（页面待确认 PQ-001：...）`.
-- Every `PA-*` and `PQ-*` used anywhere in the page MD must appear in the final `页面假设与待确认统一清单`.
+- Every `PA-*` and `PQ-*` used anywhere in the page MD must appear in `页面假设与待确认统一清单`.
 - Reuse the same ID when the same uncertainty appears in multiple tables.
 
 ## Hard Rules
 
 - Generate only one page per invocation.
+- Every generated page must end with `## 12. 用户补充描述`.
+- The `用户补充描述` section must be page-specific, editable by the user, and must not contain generated product requirements unless they are instructions telling the user where to write their supplement.
 - Every generated page must include `## 7. 埋点事件统计设计`.
 - Every generated page must include at least one `EVT-*` analytics event ID.
 - The `交互 Action 与执行效果` table must include `埋点事件ID`, `埋点事件名称`, and `不埋点原因` columns.

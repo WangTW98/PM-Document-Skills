@@ -1,6 +1,6 @@
 name: "product-page-draft"
-version: "0.4.0"
-description: "Generate one detailed page-level draft Markdown file from one Sitemap 页面生成总表 row in product/release/product-overview-release.md."
+version: "0.5.0"
+description: "Generate one detailed page-level draft Markdown file from one Sitemap 页面生成总表 row in product/release/product-overview-release.md, ending with a user supplement section for natural-language page edits."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -40,6 +40,7 @@ contract:
     - "boundary states and error handling"
     - "media/resource table when relevant"
     - "page-level assumptions and confirmation list with PA-/PQ- IDs"
+    - "final 用户补充描述 section for user natural-language modifications"
   must_avoid:
     - "generating more than one page in one invocation"
     - "vague unnamed elements"
@@ -48,3 +49,4 @@ contract:
     - "primary actions without EVT-* tracking event IDs"
     - "interfaces without request and response structures"
     - "editing product/release/product-overview-release.md"
+    - "omitting the final user supplement section"

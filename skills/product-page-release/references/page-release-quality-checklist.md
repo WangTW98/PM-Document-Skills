@@ -8,13 +8,17 @@ Use this checklist before writing the final response.
 - No more than one draft page file was read for release processing.
 - The selected draft page contains `## 7. 埋点事件统计设计`.
 - The selected draft page contains `埋点事件ID` and at least one `EVT-*` event ID.
+- `## 12. 用户补充描述` was located when present, and its content was classified as empty/placeholder or non-empty user modification instructions.
+- Every non-empty user supplement instruction was analyzed and applied to all affected release sections, or release was blocked with a clear conflict/ambiguity reason.
 - Exactly one release page file was created or updated under `product/release/pages`.
 - The release page filename preserves the input page filename relative to `product/development/pages`.
 - The document version is `Release`.
 - The document contains no `PA-001`, `PA-002`, `PQ-001`, `PQ-002`, or other `PA-\d+` / `PQ-\d+` references.
 - The document contains no `页面假设`, `页面待确认`, `假设`, `待确认`, `待用户确认`, `Release 处理方式`, `用户确认状态`, `用户确认结果`, or `置信度`.
+- The document contains no `用户补充描述` section or raw user supplement notes.
 - The final release page does not include the draft's `页面假设与待确认统一清单`.
 - All formerly uncertain content has been applied, replaced, or removed according to the draft page's release handling.
+- User supplement changes are reflected consistently in Mermaid diagram, layout sections, element inventory, state matrix, action matrix, analytics events, data model, API contracts, edge cases, and media/resources when those areas are affected.
 - Mermaid diagram, layout section table, element inventory, state matrix, action matrix, data model, API contracts, edge cases, and media/resources remain internally consistent.
 - Analytics event statistics remain in the release page.
 - The release page contains `埋点事件ID` and at least one `EVT-*` event ID.

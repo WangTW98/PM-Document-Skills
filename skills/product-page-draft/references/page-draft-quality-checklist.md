@@ -24,4 +24,6 @@ Use this checklist before finishing each page draft.
 - Boundary states and error handling cover empty, loading, network error, permission, validation, quota, payment, backend failure, and device capability where relevant.
 - Inferred content is marked with `PA-*` or `PQ-*`.
 - Every `PA-*` and `PQ-*` reference appears in the final unified list.
+- The document ends with `## 12. 用户补充描述`.
+- The `用户补充描述` section contains an editable fenced text area for user natural-language page modifications and does not contain generated requirements.
 - No unrelated sitemap page is generated in the same run.

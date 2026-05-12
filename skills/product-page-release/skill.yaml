@@ -1,6 +1,6 @@
 name: "product-page-release"
-version: "0.4.0"
-description: "Generate exactly one confirmed release page Markdown file per invocation from one draft page by applying PA-/PQ- release handling decisions and removing uncertainty."
+version: "0.5.0"
+description: "Generate exactly one confirmed release page Markdown file per invocation from one draft page by applying PA-/PQ- release handling decisions, analyzing 用户补充描述, applying those user modifications, and removing uncertainty."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -29,16 +29,19 @@ contract:
   must_apply:
     - "all Release 处理方式 values from the final 页面假设与待确认统一清单"
     - "all user confirmation results that replace, remove, or confirm draft page content"
+    - "all non-empty 用户补充描述 natural-language modifications"
   must_remove:
     - "PA-* and PQ-* references"
     - "page assumptions"
     - "page open questions"
     - "draft-only confirmation lists"
+    - "raw 用户补充描述 section and notes"
     - "uncertainty markers"
   must_avoid:
     - "processing multiple page draft files in one invocation"
     - "directory-wide release generation"
     - "creating release pages from stale drafts without analytics event statistics"
+    - "ignoring non-empty user supplement instructions"
   must_preserve:
     - "confirmed page objective and source metadata"
     - "Mermaid page diagram"
