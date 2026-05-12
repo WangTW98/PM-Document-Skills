@@ -7,6 +7,10 @@ Use this checklist after creating the Figma design and before finalizing.
 - Only one page design MD was processed.
 - Only one Figma page design was created.
 - The page design MD contains `布局完整性审核`, and every audit item is `通过` or `已解决`.
+- Target application form was determined before writing: mobile app, PC web, responsive web, admin console, mini-program, tablet app, or another explicit form.
+- The selected design system supports the target application form.
+- If the user did not specify a form, `product/release/product-overview-release.md` and the selected page MD were used to infer the selected page's form.
+- If the product overview contains multiple forms, the created Figma design matches the selected page's specific form rather than an unrelated product surface.
 - The design was created in the intended Figma file.
 - The design was created on the intended Figma page.
 - The top-level Figma layer/frame name exactly follows `<md-file-name> / <page-name-from-md>`, for example `010-login.md / 登录页`.
@@ -21,6 +25,7 @@ Use this checklist after creating the Figma design and before finalizing.
 - Auto-layout direction, padding, gap, alignment, and resizing behavior were applied where specified.
 - Min/max sizes, fill/hug/fixed sizing, wrapping/truncation, overflow, clip-content, scroll-axis, and layer-order rules match the MD.
 - Responsive variants or frame sizes were created when specified.
+- Frame size, navigation pattern, component behavior, and responsive variants match the verified application form.
 - Responsive variants do not contain visible collisions, hidden key controls, unreadable compression, or inconsistent hierarchy.
 - State display variants were created when specified as visual states.
 - No unintended overlap, stacking, clipping, compressed unreadable text, hidden controls, or incorrect layer order exists in the created Figma output.

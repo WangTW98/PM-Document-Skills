@@ -30,6 +30,7 @@ Optional inputs:
 
 - Insert mode: create new top-level frame, append next to an existing frame, replace a marked frame, or create inside a section.
 - Frame size preference: mobile, tablet, desktop, responsive set, or dimensions from the page design MD.
+- User-requested application form, such as mobile app, PC web, responsive web, admin console, mini-program, tablet app, kiosk, or another surface.
 - Whether to reuse existing Figma styles/components when available.
 
 If multiple page MD files, a directory, or "all pages" are provided, stop and ask the user to choose exactly one `product/release/design/...` file. Do not batch pages in this skill.
@@ -66,6 +67,31 @@ Before writing anything, resolve and verify the destination.
    - If the target page is clear but no target node is specified, create a new top-level frame on that Figma page using the required MD-derived layer name.
    - If replacing an existing frame, only replace when the user explicitly requested replacement or the target node is clearly marked for this page.
 
+## Application Form Compatibility Gate
+
+Before writing anything to Figma, determine whether the requested page should be created as a mobile app, PC web page, responsive web page, admin console, mini-program, tablet app, or another application form, then verify that the selected design system supports that form.
+
+Run this gate after reading the page MD and design system, but before Figma write operations.
+
+1. Determine the requested application form.
+   - First, parse the user's current instruction for explicit words such as `APP`, `移动端`, `手机端`, `iOS`, `Android`, `小程序`, `PC`, `网页`, `Web`, `响应式`, `管理后台`, `运营后台`, `控制台`, `桌面端`, `平板`, or `大屏`.
+   - If the user explicitly requests a form, treat that as the target form for this invocation.
+   - If the user does not explicitly specify a form, read `product/release/product-overview-release.md` when it exists and infer the relevant form from the product introduction, surface descriptions, sitemap rows, page ID, page name, parent page, and source mock/design MD metadata.
+   - Product overview may include multiple forms, such as APP + PC admin, APP + responsive web, or mini-program + operations console. In that case, infer the form for the selected page, not for the whole product globally.
+   - If multiple forms remain plausible for the selected page after reading the page MD and product overview, stop and ask the user to choose one before Figma creation.
+
+2. Determine the selected design system's supported application forms.
+   - Read the design system referenced by the page MD or selected by the user, especially `design/<design-system>/DESIGN.md`, `tokens.json`, `visual-spec.md`, `usage.md`, and `handoff/figma-remote-mcp-guide.md` when present.
+   - Extract supported forms from explicit sections such as platform, surface, breakpoint, responsive behavior, frame sizes, target devices, component rules, navigation patterns, and Figma handoff notes.
+   - Treat explicit exclusion as authoritative. For example, if the design system only defines PC web/admin layouts and has no mobile app rules, it does not support mobile APP creation.
+   - Responsive web support is not automatically the same as native mobile app support. It can satisfy a mobile browser/responsive web request, but not an APP request unless the design system explicitly supports app/mobile-native patterns.
+
+3. Compare requested form and supported forms.
+   - If the requested/inferred form is supported, record the form in the creation plan and use the matching frame size, navigation pattern, responsive variant, and component behavior.
+   - If unsupported, stop immediately before Figma write operations. Explain the mismatch clearly: requested form, selected design system path, supported forms found, missing requirements, and the required next step such as selecting another design system or generating/updating a compatible design system.
+   - Do not silently adapt a PC-only design system into an APP design, or an APP-only design system into a PC/admin/web design.
+   - Do not create a Figma page using a generic frame size when form compatibility is unresolved.
+
 ## Codex Figma MCP Notes
 
 When using Codex with the Figma MCP tools:
@@ -99,15 +125,21 @@ When using Codex with the Figma MCP tools:
    - Use natural language style sections to resolve visual nuance and hierarchy.
    - Exclude interaction execution, analytics, API contracts, backend behavior, business process logic, and implementation code.
 
-3. Resolve Figma destination.
+3. Verify application form compatibility.
+   - Run the Application Form Compatibility Gate.
+   - Record the target form, inference source, selected design system path, supported forms, and compatibility result.
+   - Stop before Figma destination resolution if the selected design system does not support the target form.
+
+4. Resolve Figma destination.
    - Parse the provided Figma URL.
    - Inspect the Figma file, actual pages, and target node when available.
    - Decide the exact target page and insertion node.
    - If there is any doubt about the target page, stop before writing.
 
-4. Create Figma structure.
+5. Create Figma structure.
    - Create a top-level frame named exactly `<md-file-name> / <page-name-from-md>`, such as `010-login.md / 登录页`.
    - Use the same naming rule for a target insertion frame when the user asks to create inside a section or append near a target node.
+   - Use the frame size, surface pattern, navigation pattern, and responsive variant that match the verified target application form.
    - Apply frame size and responsive variants from the MD.
    - Build the hierarchy from top to bottom: page frame, layout regions, sections, groups, cards, text, media placeholders, form controls, tables/lists, and state variants when relevant.
    - Use auto layout directions, padding, gaps, alignment, constraints, and resizing rules from the MD.
@@ -117,9 +149,10 @@ When using Codex with the Figma MCP tools:
    - Preserve text content exactly from the release design MD unless Figma line wrapping requires visual layout adjustment.
    - When text or content would visibly collide or overflow at the target frame size, adjust the Figma layout according to the MD's responsive/overflow rules rather than shrinking text arbitrarily or allowing overlap.
 
-5. Verify created design.
+6. Verify created design.
    - Re-inspect or screenshot the created target node when tooling allows.
    - Confirm the design was created in the intended file and page.
+   - Confirm the created Figma frame matches the verified application form and was not generated with an unsupported design-system variant.
    - Confirm the top-level Figma layer/frame name exactly equals `<md-file-name> / <page-name-from-md>`.
    - Confirm the Figma node names follow the MD hierarchy.
    - Confirm visible content, layout hierarchy, token usage, and responsive variants match the MD.
@@ -134,6 +167,7 @@ The Figma output should contain:
 
 - One named top-level page frame or target insertion frame.
 - The top-level Figma layer/frame must be named exactly `<md-file-name> / <page-name-from-md>`, for example `010-login.md / 登录页`.
+- Frame size, navigation pattern, and responsive variant must match the verified application form: mobile app, PC web, responsive web, admin console, mini-program, tablet app, or other supported form.
 - Section frames matching the page MD structure.
 - Element nodes matching the page MD content and style definitions.
 - Text nodes using confirmed display copy.
@@ -150,7 +184,11 @@ The Figma output should contain:
 - Do not process directories or all pages.
 - Do not write to Figma before parsing and verifying the Figma URL.
 - Do not write to Figma before identifying the correct target page.
+- Do not write to Figma before verifying application form compatibility between the user's request / inferred page surface and the selected design system.
 - Do not use a default page when the destination is ambiguous.
+- Do not use a PC-only design system to create mobile APP designs, or an APP-only design system to create PC/web/admin designs.
+- Do not treat responsive web support as APP support unless the design system explicitly supports APP/mobile-native patterns.
+- Do not proceed when the product overview and selected page imply multiple possible forms and the user has not clarified which one to create.
 - Do not create or alter unrelated Figma pages, frames, or components.
 - Do not create interaction prototypes, analytics layers, API annotations, backend diagrams, or business workflow nodes.
 - Do not invent content missing from the release design MD unless it is necessary as a visual placeholder; if so, label it as a visual placeholder node.
