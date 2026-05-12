@@ -1,15 +1,15 @@
 ---
 name: product-page-mock-release
-description: Generate exactly one confirmed release mock Markdown document per invocation from a mock draft page file under product/development/mock. Use when an AI agent needs to read a single content-only mock draft created by product-page-mock-draft or product-page-mock-brief, apply the user's Release handling decisions from the final Mock 假设与待确认统一清单, remove all MA-/MQ- references, assumptions, open questions, draft-only notes, and uncertain language, then write the confirmed content-only mock document under product/release/mock. Never process multiple mock files in one execution; this prevents context overflow, hallucination, and inaccurate cross-page changes.
+description: "Generate exactly one confirmed release mock Markdown document per invocation from a single mock draft page file under product/development/mock. Use when an AI agent needs to read one product/development/mock/... file, apply the user's Release handling decisions from the final Mock 假设与待确认统一清单, remove all MA-/MQ- references, assumptions, open questions, draft-only notes, and uncertain language, then write the confirmed content-only mock document under product/release/mock. This skill is strictly one-page-per-execution: never process multiple mock files, a directory, or all pages in one run; stop and ask for one page to avoid context overflow, hallucination, and inaccurate content."
 ---
 
 # Product Page Mock Release
 
 ## Overview
 
-Create the release version of exactly one mock page MD from `product/development/mock`. The release mock page is confirmed display-content material for downstream visual design, UI copy, sample data, prototype, and implementation work, so it must not contain unresolved assumptions, open questions, `MA-*` / `MQ-*` IDs, or wording that asks the user to confirm mock content.
+Create the release version of exactly one mock page MD from `product/development/mock`. The selected `product/development/mock/...` file is the only valid input source for this skill. The release mock page is confirmed display-content material for downstream visual design, UI copy, sample data, prototype, and implementation work, so it must not contain unresolved assumptions, open questions, `MA-*` / `MQ-*` IDs, or wording that asks the user to confirm mock content.
 
-This skill is intentionally single-page-only. If a user asks to release multiple mock pages or all mock pages, process only the first explicitly selected page, or ask the user to choose one page. Do not loop through a directory.
+This skill is intentionally single-page-only. If a user asks to release multiple mock pages, a directory, or all mock pages, do not process any page in this skill invocation; ask the user to choose exactly one `product/development/mock/...` page, or route the task to an orchestration skill such as `product-all-pages-mock-release`.
 
 This skill is content-only. It confirms display text, labels, options, media descriptions, sample records, state copy, and static/dynamic source labels. It must not introduce interaction execution, analytics, tracking, API contracts, backend behavior, or implementation logic.
 
@@ -21,7 +21,7 @@ Required input:
 
 - A single mock draft page file under `product/development/mock/*.md`.
 
-Batch input is not allowed. If multiple mock draft page files are provided, stop and ask the user to select exactly one.
+Batch input is not allowed. If multiple mock draft page files, a directory, or a request for all pages is provided, stop before reading page content and ask the user to select exactly one `product/development/mock/...` file.
 
 Default output:
 
@@ -41,9 +41,19 @@ Optional blocker output when release cannot be produced:
 1. Select one source mock draft.
    - Use the mock draft file explicitly named by the user.
    - If the user specifies multiple mock files, do not process any file; ask the user to choose exactly one.
-   - If the user asks for all mock pages or a directory-level release, do not iterate; explain that this skill processes one mock page per execution and ask for the first target page.
+   - If the user asks for all mock pages or a directory-level release, do not iterate and do not automatically choose the first page; explain that this skill processes one mock page per execution and ask for one target page.
    - If the user does not specify a file, list candidate files under `product/development/mock` excluding `_generation-status.md` and ask the user to choose one.
    - Process exactly one mock draft per invocation.
+
+## Single-Page Execution Limit
+
+This limit is mandatory and exists to reduce context overflow, hallucination, and inaccurate page content:
+
+- Read exactly one `product/development/mock/...` source page per invocation.
+- Write at most one `product/release/mock/...` release page or one blocker file per invocation.
+- Do not summarize, merge, compare, or partially process multiple mock pages in the same invocation.
+- Do not keep looping after one page is released.
+- If the user wants all pages released, this skill must not perform the batch itself; use `product-all-pages-mock-release`, which calls this single-page rule once per page and records status between pages.
 
 2. Read and parse the mock draft.
    - Load the selected mock draft MD.
@@ -83,6 +93,8 @@ Optional blocker output when release cannot be produced:
 
 - Process exactly one source mock page and write at most one release mock page or one blocker file per invocation.
 - Never scan and release every file in `product/development/mock` in the same execution.
+- Never release multiple mock pages in one invocation, even if the files are small or already confirmed.
+- Never use any source outside `product/development/mock/...` as the single-page input.
 - The release mock page is not a changelog. It is the confirmed page display-content and mock-data specification.
 - Do not include a section explaining which assumptions were removed.
 - Do not include unresolved risks, questions, TODOs, or confirmation workflow sections.

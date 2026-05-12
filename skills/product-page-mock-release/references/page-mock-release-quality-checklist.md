@@ -6,6 +6,9 @@ Use this checklist before writing the final response.
 
 - The selected input file is one page under `product/development/mock`.
 - No more than one mock draft page file was read for release processing.
+- No directory-level, all-pages, or multi-page release was performed by this single-page skill.
+- The run stopped after producing at most one release mock page or one blocker file.
+- No single-page input source outside `product/development/mock` was used.
 - Exactly one release mock page file was created or updated under `product/release/mock`, or exactly one blocker file was written.
 - The release mock filename preserves the input mock filename relative to `product/development/mock`.
 - The document version is `Release`.

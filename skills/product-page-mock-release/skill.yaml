@@ -1,6 +1,6 @@
 name: "product-page-mock-release"
-version: "0.1.0"
-description: "Generate one confirmed content-only mock release Markdown file from one mock draft page, applying MA-/MQ- release handling and removing all assumptions/open questions."
+version: "0.1.1"
+description: "Generate exactly one confirmed content-only mock release Markdown file from one product/development/mock page per execution, applying MA-/MQ- release handling and removing all assumptions/open questions."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -20,11 +20,11 @@ contract:
   source_directory: "product/development/mock"
   output_directory: "product/release/mock"
   one_page_per_invocation: true
+  strict_single_page_execution: true
+  batch_or_directory_input_behavior: "stop and ask the user to select exactly one product/development/mock file"
+  rationale: "avoid context overflow, hallucination, and inaccurate content"
   filename_rule: "preserve the source mock draft filename relative to product/development/mock"
   content_only: true
-  upstream_skills:
-    - "product-page-mock-draft"
-    - "product-page-mock-brief"
   assumption_prefix: "MA"
   confirmation_prefix: "MQ"
   must_apply:
@@ -51,6 +51,10 @@ contract:
     - "uncertain language"
   must_avoid:
     - "processing more than one mock page per invocation"
+    - "reading more than one product/development/mock source page per invocation"
+    - "directory-level release inside this single-page skill"
+    - "continuing to the next page after one release is completed"
+    - "using any source outside product/development/mock as single-page input"
     - "interaction execution logic"
     - "analytics or tracking logic"
     - "API endpoint definitions"

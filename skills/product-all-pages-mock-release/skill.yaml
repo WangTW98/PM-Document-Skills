@@ -1,0 +1,55 @@
+name: "product-all-pages-mock-release"
+version: "0.1.0"
+description: "Orchestrate page-by-page generation of all confirmed content-only mock release Markdown files from mock draft pages and the release product overview sitemap."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-overview-release.md"
+  - "product/development/mock/<page>.md"
+outputs:
+  - "product/release/mock/_generation-status.md"
+  - "product/release/mock/<page>.md"
+  - "product/release/mock/<page>.release-blockers.md"
+resources:
+  references:
+    - "references/mock-release-generation-status-template.md"
+    - "references/mock-release-orchestration-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-overview-release.md"
+  source_section: "Sitemap 页面生成总表"
+  mock_draft_directory: "product/development/mock"
+  mock_release_directory: "product/release/mock"
+  status_file: "product/release/mock/_generation-status.md"
+  page_mock_release_skill: "product-page-mock-release"
+  sitemap_page_path_source: "页面级MD文件"
+  mock_draft_path_rule: "use product/development/mock/<same-relative-page-filename>.md as the only valid single-page input source"
+  mock_release_path_rule: "preserve the product/development/mock relative filename under product/release/mock"
+  processing_order: "ascending 生成顺序"
+  one_page_per_release_step: true
+  resume_safe: true
+  content_only: true
+  must_include:
+    - "status queue for every sitemap row"
+    - "current page tracking"
+    - "completion records"
+    - "blocked records with actionable reasons"
+    - "page-by-page mock release following product-page-mock-release"
+    - "MA-/MQ- release handling validation for every mock page"
+  must_avoid:
+    - "generating a combined multi-page mock release document"
+    - "marking pages complete without files"
+    - "overwriting completed mock release pages without explicit user request"
+    - "using any single-page input source outside product/development/mock"
+    - "inventing missing product/development/mock source paths"
+    - "editing product/release/product-overview-release.md"
+    - "editing source mock draft files under product/development/mock"
+    - "interaction execution logic"
+    - "analytics or tracking logic"
+    - "API endpoint definitions"
+    - "backend behavior"
