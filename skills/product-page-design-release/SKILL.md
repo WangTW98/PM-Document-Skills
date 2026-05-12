@@ -12,7 +12,7 @@ Create a complete page-level design release MD for exactly one page. The output 
 - Confirmed page content from one `product/release/mock/...` file.
 - User-selected design constraints from one top-level `design/<design-system>/` directory.
 
-The generated file under `product/release/design` must be readable by humans and structured enough for AI agents to create a Figma design through Figma Remote MCP. It describes what appears on the page and how it should look: layout, hierarchy, typography, color roles, spacing, component styling, media treatment, responsive adaptation, and accessibility notes.
+The generated file under `product/release/design` must be readable by humans and structured enough for AI agents to create a Figma design through Figma Remote MCP. It describes what appears on the page and how it should look: layout, hierarchy, typography, color roles, spacing, component styling, media treatment, responsive adaptation, and accessibility notes. It must also prove that the page has a clear layout structure with no predictable stacking, compression, clipping, layer-order, or overlap problems.
 
 This skill is display-only. It must not include interaction execution, analytics, tracking, API contracts, backend behavior, implementation code, or business process logic.
 
@@ -71,6 +71,9 @@ If the user provides multiple mock pages, a directory of mock pages, or multiple
    - Bind every major content section and visible element from the release mock page to a design treatment.
    - Use design token names and exact values from the selected design system where available.
    - When a visual decision is necessary but not explicitly covered by the design system, choose a reasonable design decision consistent with the selected system and mark it as a `设计决策` inside the release file, not as a pending assumption.
+   - Define layout safety rules for every frame and major element: parent-child hierarchy, layout direction, sizing mode, min/max dimensions, padding, gap, alignment, wrapping, overflow policy, z-index/layer order, and responsive collapse behavior.
+   - Add a layout integrity audit section that checks the proposed design for overlapping content, ambiguous hierarchy, compressed text, clipped media, hidden controls, uncontrolled absolute positioning, and conflicting responsive rules.
+   - If a layout risk exists, resolve it in the design release before saving. Do not leave unresolved risks as notes for the downstream Figma agent.
 
 5. Remove business-layer content.
    - Exclude API endpoints, request/response fields, database/data-processing logic, analytics event IDs, tracking details, permissions workflow, payment workflow, review workflow, and backend execution rules.
@@ -81,6 +84,7 @@ If the user provides multiple mock pages, a directory of mock pages, or multiple
    - Ensure `product/release/design` exists.
    - Write exactly one same-name page design MD under `product/release/design`.
    - Run `references/page-design-release-quality-checklist.md` manually before finishing.
+   - Do not finish if the output lacks a layout integrity audit or contains unresolved overlap, clipping, stacking, compression, or layer-order risks.
 
 ## Single-Page Rule
 
@@ -98,6 +102,7 @@ The page design release must include:
 - Page layout mindmap or Mermaid structure.
 - Section-by-section layout and style table.
 - Element-level visual treatment table.
+- Layout integrity audit table covering hierarchy, spacing, sizing, overflow, responsive behavior, and layer order.
 - Typography/color/spacing/elevation/token binding table.
 - Responsive layout table for mobile, tablet, desktop, and wide desktop when applicable.
 - State display style table for loading, empty, error, disabled, success, permission/limited-content, and media failure states when relevant.
@@ -113,6 +118,9 @@ The page design release must include:
 - Do not include `MA-*`, `MQ-*`, assumptions, open questions, or pending confirmation sections.
 - Do not invent a new design system if a selected design system exists. Apply the selected one.
 - Do not use vague style descriptions alone; pair natural language with token references, exact values, layout dimensions, and structured tables.
+- Do not define ambiguous layouts. Every major frame and element must have a clear parent, layout mode, sizing constraint, spacing rule, alignment rule, and responsive behavior.
+- Do not rely on overlapping layers unless the page explicitly needs an overlay, modal, tooltip, badge, floating action button, or media treatment. Any intentional overlap must be named, justified, assigned a layer order, and given collision/viewport rules.
+- Do not allow generated design descriptions that would cause visible elements to stack on top of each other, squeeze unreadably, clip text/media, hide controls, or break hierarchy on mobile/tablet/desktop/wide layouts.
 - Do not create Figma nodes directly. This skill only writes the design release MD that later Figma Remote MCP steps can consume.
 
 ## Resources

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Pages Design2Figma"
+  short_description: "Create one page in Figma"
+  default_prompt: "Use $product-pages-design2figma to read exactly one product/release/design/*.md page, parse my Figma link and target Figma page, then create that page design in the correct Figma page via Figma Remote MCP."

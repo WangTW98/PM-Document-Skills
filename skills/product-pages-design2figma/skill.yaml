@@ -1,0 +1,56 @@
+name: "product-pages-design2figma"
+version: "0.1.0"
+description: "Create exactly one Figma design from one product/release/design page Markdown file by parsing a user-provided Figma link, resolving the target Figma page, and writing via Figma Remote MCP."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/design/<page>.md"
+  - "Figma design URL"
+  - "target Figma page name or target node"
+outputs:
+  - "Figma page/frame created in the user-provided Figma file"
+resources:
+  references:
+    - "references/figma-target-resolution-checklist.md"
+    - "references/design2figma-quality-checklist.md"
+compatibility:
+  runner_neutral: false
+  requires_figma_remote_mcp: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_directory: "product/release/design"
+  one_page_per_invocation: true
+  strict_single_page_execution: true
+  requires_figma_link: true
+  requires_target_figma_page: true
+  target_resolution_required_before_write: true
+  downstream_tool: "Figma Remote MCP"
+  must_include:
+    - "Figma URL parsing"
+    - "fileKey extraction"
+    - "node-id extraction when present"
+    - "target Figma page inspection"
+    - "target page disambiguation before writing"
+    - "single page MD parsing"
+    - "top-level Figma layer naming as <md-file-name> / <page-name-from-md>"
+    - "layout integrity audit parsing and enforcement"
+    - "Figma node creation from AI-readable style structure"
+    - "Auto Layout, sizing, overflow, wrapping, truncation, and layer-order application"
+    - "post-write verification"
+    - "post-write layout integrity verification"
+  must_avoid:
+    - "processing more than one page MD per invocation"
+    - "directory-level processing"
+    - "writing to Figma before target page verification"
+    - "using a default Figma page when target is ambiguous"
+    - "overwriting existing Figma content without explicit user request"
+    - "creating interaction prototypes"
+    - "creating analytics or tracking layers"
+    - "creating API/backend/business workflow artifacts"
+    - "using a top-level Figma layer name that does not match <md-file-name> / <page-name-from-md>"
+    - "creating from a design MD without a completed layout integrity audit"
+    - "leaving unintended overlap, stacking, clipping, squeezed text, hidden controls, ambiguous hierarchy, or incorrect layer order in Figma output"
+    - "using absolute positioning for normal layout when Auto Layout and constraints should be used"
