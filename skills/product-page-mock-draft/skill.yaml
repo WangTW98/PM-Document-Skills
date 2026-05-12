@@ -6,6 +6,7 @@ entrypoint: "SKILL.md"
 type: "project-skill"
 inputs:
   - "product/release/pages/<page>.md"
+  - "product/release/layout/product-layout-release.md"
 outputs:
   - "product/development/mock/<page>.md"
 resources:
@@ -19,6 +20,7 @@ compatibility:
     gemini: "adapters/gemini/GEMINI.md"
 contract:
   source_directory: "product/release/pages"
+  layout_dependency_file: "product/release/layout/product-layout-release.md"
   output_directory: "product/development/mock"
   one_page_per_invocation: true
   filename_rule: "preserve the source release page filename relative to product/release/pages"

@@ -5,15 +5,17 @@ Use this checklist before writing the final response.
 ## Required Checks
 
 - Exactly one `product/release/mock/...` page was used as the content source.
+- `product/release/layout/product-layout-release.md` was read and used as the primary project-level layout dependency.
 - Exactly one `design/<design-system>/` directory was used as the design constraint source.
 - `DESIGN.md` from the selected design system was read.
 - `tokens.json`, `visual-spec.md`, and `handoff/figma-remote-mcp-guide.md` were used when present and relevant.
-- `product/release/product-overview-release.md` was read when present to derive the product-level App Shell and navigation contract.
+- `product/release/product-overview-release.md` was read when present to reconcile sitemap/product context with the layout draft.
 - Exactly one output file was created or updated under `product/release/design`.
 - The output filename preserves the input mock filename relative to `product/release/mock`.
 - The output document version is `Release`.
 - The output contains both human-readable natural language style description and AI-readable structured style description.
-- The output contains an App Shell / Navigation Contract section derived from product-level Layout, Surface, sitemap `Layout 区域`, and page level.
+- The output contains an App Shell / Navigation Contract section derived from `product-layout-release` Surface, Shell, page template, navigation position, global regions, and responsive rules.
+- The design release does not depend on unresolved layout assumptions or any `LA-*` / `LQ-*` ID.
 - The App Shell / Navigation Contract explicitly states Top Navigation Bar, Main Scroll Container, Bottom Tab Bar, Fixed Footer / Bottom Action, Safe Area, and any exception reasons.
 - Tab-root mobile App pages include the product-level Bottom Tab Bar with consistent item labels, dimensions, selected state, and layer naming.
 - Pushed L2/L3 mobile App pages include a consistent Top Navigation Bar with title and back affordance unless an explicit product-level exception exists.

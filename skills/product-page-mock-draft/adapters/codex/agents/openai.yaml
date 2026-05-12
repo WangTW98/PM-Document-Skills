@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Page Mock Draft"
   short_description: "Create content-only mock page specs"
-  default_prompt: "Use $product-page-mock-draft to read one product/release/pages/*.md page spec and create a content-only mock draft under product/development/mock with static/dynamic source labels."
+  default_prompt: "Use $product-page-mock-draft to read one product/release/pages/*.md page spec plus product/release/layout/product-layout-release.md, then create a content-only mock draft under product/development/mock with static/dynamic source labels."

@@ -1,0 +1,49 @@
+name: "product-layout-release"
+version: "0.1.0"
+description: "Generate product/release/layout/product-layout-release.md from product/development/layout/product-layout-draft.md by applying LA-/LQ- release handling and removing all layout assumptions/open questions."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/layout/product-layout-draft.md"
+outputs:
+  - "product/release/layout/product-layout-release.md"
+  - "product/release/layout/product-layout-release-blockers.md"
+resources:
+  references:
+    - "references/product-layout-release-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/development/layout/product-layout-draft.md"
+  output_file: "product/release/layout/product-layout-release.md"
+  blocker_file: "product/release/layout/product-layout-release-blockers.md"
+  assumption_prefix: "LA"
+  confirmation_prefix: "LQ"
+  must_apply:
+    - "布局假设与待确认统一清单"
+    - "用户确认状态"
+    - "用户确认结果"
+    - "Release 处理方式"
+  must_preserve_when_confirmed:
+    - "product layout summary"
+    - "surface and shell definitions"
+    - "global shell region contract"
+    - "page template library"
+    - "sitemap-to-layout mapping table"
+    - "navigation and route rules"
+    - "global state and boundary layout"
+    - "role and permission layout effects"
+    - "downstream skill usage rules"
+  must_remove:
+    - "LA-/LQ- references"
+    - "layout assumptions and open questions"
+    - "draft-only confirmation workflow sections"
+    - "uncertain language"
+  downstream_dependency_for:
+    - "product-page-draft"
+    - "product-page-mock-draft"
+    - "product-page-design-release"

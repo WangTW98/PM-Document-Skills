@@ -6,6 +6,7 @@ entrypoint: "SKILL.md"
 type: "project-skill"
 inputs:
   - "product/release/mock/<page>.md"
+  - "product/release/layout/product-layout-release.md"
   - "design/<design-system>/DESIGN.md"
   - "design/<design-system>/tokens.json"
   - "design/<design-system>/visual-spec.md"
@@ -23,6 +24,7 @@ compatibility:
     gemini: "adapters/gemini/GEMINI.md"
 contract:
   mock_source_directory: "product/release/mock"
+  layout_dependency_file: "product/release/layout/product-layout-release.md"
   design_constraint_root: "design"
   output_directory: "product/release/design"
   one_page_per_invocation: true

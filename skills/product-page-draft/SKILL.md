@@ -7,14 +7,17 @@ description: Generate one page-level draft Markdown document at a time from prod
 
 ## Overview
 
-Create a detailed draft MD for exactly one page listed in `product/release/product-overview-release.md` -> `Sitemap 页面生成总表`. This skill is deliberately single-page-per-run to reduce context drift and keep page requirements accurate.
+Create a detailed draft MD for exactly one page listed in `product/release/product-overview-release.md` -> `Sitemap 页面生成总表`. This skill must also use `product/release/layout/product-layout-release.md` as the shared layout dependency, so page requirements inherit the confirmed product-level shell, navigation, page container, responsive, and global state rules. This skill is deliberately single-page-per-run to reduce context drift and keep page requirements accurate.
 
 This skill is runner-neutral. Any AI system can use it by reading this file and the references under `references/`; platform-specific metadata belongs under `adapters/`.
 
 ## Required Input
 
 - `product/release/product-overview-release.md`
+- `product/release/layout/product-layout-release.md`
 - A target page specified by the user as `页面ID`, `页面名称`, or table row.
+
+If `product/release/layout/product-layout-release.md` is missing, block generation and ask the user to run `product-layout-release` first. Do not fall back to the draft layout for normal generation, because page drafts must be based on confirmed layout rules.
 
 If the user does not specify a target page:
 
@@ -41,12 +44,16 @@ Rules:
 
 1. Load source context.
    - Read `product/release/product-overview-release.md`.
+   - Read `product/release/layout/product-layout-release.md`.
    - Locate `Sitemap 页面生成总表`.
    - Parse the target row and nearby hierarchy context: parent page, child pages, dependencies, role, function, key operations, key data/content, states, rules, and upstream/downstream pages.
+   - Parse the target page's layout mapping from `product-layout-release`: Surface ID, Shell type, page template, navigation position, child presentation, global region inheritance, responsive rules, global state containers, route behavior, and role/permission layout effects.
    - Read only the source context needed for the selected page. Do not expand into unrelated pages.
 
 2. Build the page model.
    - Identify page purpose, user goal, entry points, exit points, role/permission requirements, global page attributes, and data dependencies.
+   - Apply the inherited layout contract before defining elements: app/web shell, top nav, side nav, bottom tabs, breadcrumb, main scroll region, fixed action area, modal/drawer layer, safe-area behavior, and responsive container rules.
+   - If the release layout lacks a material page-level detail, infer the detail only when practical and mark it with a page-level `PA-*` or `PQ-*` ID. Do not introduce or reuse layout-level `LA-*` / `LQ-*` IDs in page drafts.
    - Enumerate all visible and functional elements: buttons, links, icons, tabs, segmented controls, dropdowns, selects, search boxes, filters, forms, inputs, textareas, radio groups, checkboxes, toggles, sliders, steppers, uploaders, date/time pickers, tables, lists, cards, banners, alerts, modals, drawers, toasts, tooltips, charts, images, audio/video, file previews, loading indicators, empty states, navigation bars, tab bars, and any product-specific widgets.
    - Include inferred elements when the release overview is incomplete, but mark them with page-level assumption or confirmation IDs.
 
@@ -96,6 +103,8 @@ Use page-scoped IDs so the page draft can later be converted into a release page
 - Do not produce only prose. The output must contain Mermaid plus detailed tables.
 - Do not generate UI implementation code.
 - Do not alter `product/release/product-overview-release.md`.
+- Do not alter `product/release/layout/product-layout-release.md`.
+- Do not ignore `product-layout-release`; page shell and layout inheritance must come from it.
 - Do not create release-level page MD files; this skill only creates draft page MD files.
 - Do not use vague element names such as `按钮1` or `表单项`. Name elements by purpose, for example `发送验证码按钮`, `岗位方向下拉选择器`, `PDF 导出主按钮`.
 

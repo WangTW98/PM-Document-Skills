@@ -1,0 +1,47 @@
+name: "product-layout-draft"
+version: "0.1.0"
+description: "Create product/development/layout/product-layout-draft.md from product/release/product-overview-release.md and its Sitemap 页面生成总表, defining project-level app/web layout assumptions and confirmation items that product-layout-release converts into the formal downstream layout dependency."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-overview-release.md"
+outputs:
+  - "product/development/layout/product-layout-draft.md"
+resources:
+  references:
+    - "references/product-layout-draft-template.md"
+    - "references/product-layout-draft-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-overview-release.md"
+  source_section: "Sitemap 页面生成总表"
+  output_file: "product/development/layout/product-layout-draft.md"
+  release_output_file: "product/release/layout/product-layout-release.md"
+  assumption_prefix: "LA"
+  confirmation_prefix: "LQ"
+  downstream_dependency_for:
+    - "product-page-draft"
+    - "product-page-mock-draft"
+    - "product-page-design-release"
+  must_include:
+    - "product layout summary"
+    - "surface and shell definitions"
+    - "global shell region contract"
+    - "page template library"
+    - "sitemap-to-layout mapping table"
+    - "navigation and route rules"
+    - "global state and boundary layout"
+    - "role and permission layout effects"
+    - "downstream skill usage rules"
+    - "layout assumptions and confirmation list with LA-/LQ- IDs"
+  must_avoid:
+    - "page-level detailed requirements"
+    - "API contracts"
+    - "analytics event definitions"
+    - "final visual design tokens"
+    - "release layout output"

@@ -4,6 +4,9 @@ Use this checklist before finishing each page draft.
 
 - Exactly one page MD file was created or updated.
 - The target page came from one row in `Sitemap 页面生成总表`.
+- `product/release/layout/product-layout-release.md` was read.
+- The page draft applies the target page's Surface, Shell, page template, navigation position, global region inheritance, and responsive rules from `product-layout-release`.
+- The page draft does not depend on unresolved layout assumptions or any `LA-*` / `LQ-*` ID.
 - The output path exactly matches the target row's `页面级MD文件`.
 - The H1 exactly matches the `页面名称` from the sitemap row.
 - The document includes Mermaid mind map or flowchart.

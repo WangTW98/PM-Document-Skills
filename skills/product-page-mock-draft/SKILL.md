@@ -7,7 +7,7 @@ description: Create one content-only page mock draft Markdown document from a re
 
 ## Overview
 
-Create content-display mock data for exactly one release page. The output describes what the user sees on the page: copy, labels, options, placeholder text, media content, state-specific content, list/card/table sample records, and static/dynamic source labels.
+Create content-display mock data for exactly one release page. The output describes what the user sees on the page: copy, labels, options, placeholder text, media content, state-specific content, list/card/table sample records, and static/dynamic source labels. This skill must also use `product/release/layout/product-layout-release.md`, so visible shell/navigation content and layout-dependent content placeholders stay consistent with the confirmed project-level layout contract.
 
 This skill is content-only. It must not define interaction execution, analytics events, API behavior, business rules, or implementation logic beyond identifying whether displayed content is static or dynamically sourced.
 
@@ -18,6 +18,7 @@ This skill is runner-neutral. Any AI system can use it by reading this file and 
 Required input:
 
 - A single release page file under `product/release/pages/*.md`.
+- Shared layout dependency: `product/release/layout/product-layout-release.md`.
 
 Default output:
 
@@ -39,13 +40,16 @@ If the user does not specify a page, list available files under `product/release
 
 2. Read page content requirements.
    - Load the selected release page MD.
+   - Load `product/release/layout/product-layout-release.md`. If missing, ask the user to run `product-layout-release` first. Do not fall back to the draft layout for normal generation.
    - Extract page name, page purpose, role, and the following source tables exactly when present: `页面布局与内容区块`, `页面元素清单`, `元素状态矩阵`, and `交互 Action 与执行效果`.
+   - Extract the selected page's Surface, Shell, page template, global regions, navigation labels, title/breadcrumb/tab behavior, responsive layout, route behavior, and role/permission layout effects from the release layout.
    - Build the mock by mapping each source row from those four tables into display-content rows. Do not skip source rows just because they lack explicit copy; infer display content and mark it with `MA-*` or `MQ-*`.
    - For `交互 Action 与执行效果`, extract only user-visible content implications such as button labels, confirmation copy, success/failure copy, disabled copy, toast/modal copy, navigation labels, and state-specific messages. Do not reproduce execution steps, API calls, analytics, or business processing logic.
    - Also use data model, media/resource table, and relevant boundary/error states only to enrich visible mock content.
 
 3. Create display content.
    - For every visible element, define display text, placeholder, helper text, option labels, empty/error/loading/success copy, media description, banner content, sample list/table/card data, and accessibility text when relevant.
+   - Include visible shell and layout-dependent content from the layout draft when relevant: navigation title, tab label, breadcrumb label, fixed footer/action text, global empty/loading/error shell copy, permission/quota/payment shell placeholders, and responsive-content fallback labels.
    - Mark every content item as `静态` or `动态`.
    - For dynamic content, state the source category only, such as `接口返回`, `用户资料`, `本地缓存`, `系统状态`, `权限状态`, `会员状态`, `上传文件`, or `生成结果`. Do not define API contracts or execution behavior.
    - Provide realistic mock values that match the product domain and page role.
@@ -94,6 +98,7 @@ Exclude:
 - Every content row must include `内容来源类型` with value `静态` or `动态`.
 - Dynamic content must include `动态来源说明`.
 - Do not copy release page interaction, analytics, or API sections into the mock output.
+- Do not ignore `product-layout-release`; visible shell/navigation/mock content must align with the confirmed project-level layout contract.
 - If content is inferred, mark it with `MA-*` or `MQ-*`.
 
 ## Resources

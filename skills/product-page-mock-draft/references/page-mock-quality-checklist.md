@@ -3,11 +3,14 @@
 Use this checklist before finishing each mock draft.
 
 - Exactly one release page was read.
+- `product/release/layout/product-layout-release.md` was read.
 - Exactly one mock draft file was written under `product/development/mock`.
 - The mock filename preserves the release page filename relative to `product/release/pages`.
 - The mock document focuses only on display content and mock data.
 - The mock document does not include action execution logic, analytics/tracking logic, API definitions, request/response structures, retries, or backend behavior.
 - The mock document includes a `来源对照矩阵`.
+- Layout-dependent visible content from `product-layout-release` is represented when relevant: shell/navigation labels, page title, breadcrumb/tab labels, fixed footer/action text, and global state container copy.
+- The mock draft does not depend on unresolved layout assumptions or any `LA-*` / `LQ-*` ID.
 - Every release page row from `页面布局与内容区块` is mapped or has an explicit unmapped reason.
 - Every release page row from `页面元素清单` is mapped or has an explicit unmapped reason.
 - Every release page row from `元素状态矩阵` is mapped or has an explicit unmapped reason.
