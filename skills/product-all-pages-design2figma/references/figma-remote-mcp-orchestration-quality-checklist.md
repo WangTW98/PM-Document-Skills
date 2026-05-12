@@ -17,6 +17,10 @@ Use this checklist before finishing an orchestration run.
 - Blocked rows include concrete, actionable reasons.
 - Each completed row records target Figma page, top-level frame name, and created node ID when available.
 - Each Figma creation followed `product-pages-design2figma` single-page rules.
+- No row was marked `已完成` unless the source design MD contained an App Shell / Navigation Contract or equivalent structured `app_shell` data.
+- No row was marked `已完成` unless post-write verification checked required shell regions: root device frame, safe-area frame, top navigation, main scroll, bottom tab or fixed footer when applicable.
+- No row was marked `已完成` if metadata showed abnormal wrapper dimensions, missing navigation, child nodes wider/taller than non-overlay parents, hidden key controls, or normal content implemented as loose absolute-positioned nodes.
+- Tab-root pages share consistent Bottom Tab labels, dimensions, selected states, and naming when generated in the same run.
 - No interaction prototypes, analytics layers, API annotations, backend diagrams, business workflow nodes, or implementation-code artifacts were created.
 - If the run stopped before all pages were complete, `_figma-remote-mcp-status.md` clearly shows the next `待生成` page.
 - If all pages are complete, `_figma-remote-mcp-status.md` status counts match the queue.

@@ -92,6 +92,26 @@ Run this gate after reading the page MD and design system, but before Figma writ
    - Do not silently adapt a PC-only design system into an APP design, or an APP-only design system into a PC/admin/web design.
    - Do not create a Figma page using a generic frame size when form compatibility is unresolved.
 
+## App Shell And Navigation Gate
+
+Before any Figma write operation, derive and validate the page's required shell regions. This gate is mandatory because navigation and shell omissions create incomplete or inconsistent Figma outputs.
+
+1. Derive the product-level shell.
+   - Read `product/release/product-overview-release.md` when it exists.
+   - Extract `产品类型`, Surface, `Layout 类型`, `全局导航`, `全局操作区`, sitemap row `Layout 区域`, page level, parent page, and sibling tab-root pages.
+   - For mobile App products that use `底部 Tab 导航 + 层级推入页面`, classify the selected page as login/independent, tab-root, or pushed child page.
+
+2. Validate the selected page MD.
+   - The page MD must contain an App Shell / Navigation Contract section or equivalent structured `app_shell` data in `AI 可读样式结构`.
+   - The contract must explicitly state Top Navigation Bar, Main Scroll Container, Bottom Tab Bar, Fixed Footer / Bottom Action, Safe Area, and any exception reasons.
+   - Tab-root pages must include a consistent Bottom Tab Bar. Pushed child pages must include a consistent Top Navigation Bar with back affordance. Login/onboarding pages may omit shell navigation only with an explicit exception reason.
+   - If the MD lacks these requirements, stop before writing and require regenerating/fixing the design release MD. Do not infer or patch missing navigation during Figma creation.
+
+3. Convert the contract into a build plan.
+   - The default mobile App frame hierarchy must be `page-root` -> `safe-area-frame` -> `top-nav` when required, `main-scroll`, `bottom-tab` or `fixed-footer` when required, then named overlays.
+   - Top Nav, Main Scroll, Bottom Tab, Fixed Footer, lists, forms, cards, and sections must be Auto Layout frames with explicit direction, padding, gap, alignment, resizing, and overflow.
+   - Absolute positioning is allowed only for named decorative background effects and intentional overlays documented by the MD, such as FABs, badges, modals, or tooltips.
+
 ## Codex Figma MCP Notes
 
 When using Codex with the Figma MCP tools:
@@ -111,9 +131,11 @@ When using Codex with the Figma MCP tools:
      - `AI 可读样式结构`.
      - `Figma Remote MCP 生成提示`.
      - `布局完整性审核`.
+     - `App Shell / 导航合同` or equivalent structured `app_shell`.
    - If the MD contains unresolved `MA-*`, `MQ-*`, `假设`, or `待确认`, stop and require a fixed release design MD.
    - If the MD lacks layout integrity audit, or any audit item is not `通过` / `已解决`, stop and require the page design release to be regenerated or fixed before Figma creation.
    - If the MD lacks `Figma Remote MCP 生成提示`, stop and require a fixed release design MD. Do not infer Figma construction guidance from prose alone.
+   - If the MD lacks an App Shell / Navigation Contract or has required shell regions missing without explicit exception reasons, stop and require a fixed release design MD.
 
 2. Extract creation plan from the MD.
    - Parse page name, output source metadata, design system path, frame hierarchy, component list, token references, content-to-style bindings, responsive rules, state display styles, and `Figma Remote MCP 生成提示`.
@@ -126,6 +148,7 @@ When using Codex with the Figma MCP tools:
    - Reconcile `Figma Remote MCP 生成提示` with the `AI 可读样式结构`; when they conflict, prefer the more specific instruction and stop for clarification if the conflict affects hierarchy, sizing, layer order, responsive behavior, or visible content.
    - Treat the `布局完整性审核` and Figma Remote MCP layout notes as mandatory constraints, not advisory notes.
    - Extract parent-child hierarchy, layout mode, sizing constraints, min/max dimensions, padding, gap, alignment, wrapping/truncation, overflow policy, clip-content behavior, scroll containers, layer order, and intentional overlay rules.
+   - Extract app shell regions, safe-area behavior, top navigation, bottom tab navigation, fixed footer/bottom action, main scroll bottom inset, and cross-page navigation consistency rules.
    - Use natural language style sections to resolve visual nuance and hierarchy.
    - Exclude interaction execution, analytics, API contracts, backend behavior, business process logic, and implementation code.
 
@@ -134,16 +157,22 @@ When using Codex with the Figma MCP tools:
    - Record the target form, inference source, selected design system path, supported forms, and compatibility result.
    - Stop before Figma destination resolution if the selected design system does not support the target form.
 
-4. Resolve Figma destination.
+4. Verify App Shell and navigation.
+   - Run the App Shell And Navigation Gate.
+   - Record the selected page classification, required shell regions, explicit exceptions, and shell build plan.
+   - Stop before Figma destination resolution if the selected page MD is missing required shell/navigation data.
+
+5. Resolve Figma destination.
    - Parse the provided Figma URL.
    - Inspect the Figma file, actual pages, and target node when available.
    - Decide the exact target page and insertion node.
    - If there is any doubt about the target page, stop before writing.
 
-5. Create Figma structure.
+6. Create Figma structure.
    - Create a top-level frame named exactly `<md-file-name> / <page-name-from-md>`, such as `010-login.md / 登录页`.
    - Use the same naming rule for a target insertion frame when the user asks to create inside a section or append near a target node.
    - Use the frame size, surface pattern, navigation pattern, and responsive variant that match the verified target application form.
+   - Create the App Shell first: root device frame, safe-area frame, required top navigation, main scroll container, required bottom tab or fixed footer, then content sections and named overlays.
    - Follow the `Figma Remote MCP 生成提示` while creating nodes. Use its frame creation order, Auto Layout settings, token application method, component grouping, text naming, media placeholders, responsive variants, and prohibited actions as the operational checklist for the Figma write.
    - Apply frame size and responsive variants from the MD.
    - Build the hierarchy from top to bottom: page frame, layout regions, sections, groups, cards, text, media placeholders, form controls, tables/lists, and state variants when relevant.
@@ -153,17 +182,22 @@ When using Codex with the Figma MCP tools:
    - Use token values from the MD/design system for fill, text, stroke, radius, elevation, typography, and spacing.
    - Preserve text content exactly from the release design MD unless Figma line wrapping requires visual layout adjustment.
    - When text or content would visibly collide or overflow at the target frame size, adjust the Figma layout according to the MD's responsive/overflow rules rather than shrinking text arbitrarily or allowing overlap.
+   - Do not create small fixed wrapper frames around wider children. If a wrapper contains a button, card, input, or list wider than itself, resize the wrapper or make it Auto Layout hug/fill according to the MD before continuing.
 
-6. Verify created design.
+7. Verify created design.
    - Re-inspect or screenshot the created target node when tooling allows.
    - Confirm the design was created in the intended file and page.
    - Confirm the created Figma frame matches the verified application form and was not generated with an unsupported design-system variant.
    - Confirm the top-level Figma layer/frame name exactly equals `<md-file-name> / <page-name-from-md>`.
+   - Confirm required App Shell regions exist with expected names and roles: root device frame, safe-area frame, top navigation when required, main scroll container, bottom tab or fixed footer when required.
+   - Confirm tab-root pages include the consistent Bottom Tab Bar and selected tab. Confirm pushed child pages include a consistent Top Navigation Bar with back affordance.
    - Confirm every actionable item in `Figma Remote MCP 生成提示` was followed or explicitly marked not applicable with a reason.
    - Confirm the Figma node names follow the MD hierarchy.
    - Confirm visible content, layout hierarchy, token usage, and responsive variants match the MD.
    - Confirm layout integrity in the created Figma nodes: no unintended overlap, clipped text/media, compressed unreadable controls, hidden key elements, ambiguous parent-child hierarchy, incorrect layer order, or responsive variant collisions.
    - Check that Auto Layout, constraints, resizing behavior, overflow/clip settings, and wrapping/truncation match the MD.
+   - Check metadata for abnormal wrappers: no parent frame may be smaller than a non-overlay child in a way that clips or visually detaches the child; button/input/card wrappers must not have placeholder sizes such as `100x100` unless the child fits.
+   - Check that normal layout regions are not implemented as absolute-positioned loose nodes. Only documented background effects and intentional overlays may be absolute-positioned.
    - If screenshots or metadata reveal layout problems, fix the Figma nodes before finalizing. Do not report success with unresolved visual layout issues.
    - Confirm no interaction execution, analytics, API, backend, or business logic nodes were created.
 
@@ -174,6 +208,7 @@ The Figma output should contain:
 - One named top-level page frame or target insertion frame.
 - The top-level Figma layer/frame must be named exactly `<md-file-name> / <page-name-from-md>`, for example `010-login.md / 登录页`.
 - Frame size, navigation pattern, and responsive variant must match the verified application form: mobile app, PC web, responsive web, admin console, mini-program, tablet app, or other supported form.
+- App Shell regions matching the page MD: root device frame, safe-area frame, top navigation, main scroll, bottom tab or fixed footer as applicable.
 - Frame creation order, Auto Layout, token application, grouping, text naming, media placeholders, responsive variants, and prohibited actions must follow the MD's `Figma Remote MCP 生成提示`.
 - Section frames matching the page MD structure.
 - Element nodes matching the page MD content and style definitions.
@@ -183,6 +218,7 @@ The Figma output should contain:
 - Responsive variants when requested or specified in the MD.
 - Clear layer names based on page, section, and element IDs.
 - Layout-safe frame structure with clear parent-child hierarchy, Auto Layout, constraints, overflow handling, wrapping/truncation, and layer order matching the MD.
+- Metadata-safe frame structure with no abnormal wrapper dimensions, missing navigation, hidden key controls, or loose absolute-positioned normal content.
 
 ## Hard Rules
 
@@ -192,7 +228,9 @@ The Figma output should contain:
 - Do not write to Figma before parsing and verifying the Figma URL.
 - Do not write to Figma before identifying the correct target page.
 - Do not write to Figma before verifying application form compatibility between the user's request / inferred page surface and the selected design system.
+- Do not write to Figma before verifying App Shell and navigation requirements from the product overview and selected page MD.
 - Do not write to Figma from a page design MD that lacks `Figma Remote MCP 生成提示`.
+- Do not write to Figma from a page design MD that lacks an App Shell / Navigation Contract or equivalent structured `app_shell` data.
 - Do not ignore, skip, or loosely paraphrase actionable `Figma Remote MCP 生成提示`; apply them or stop when they conflict with other required constraints.
 - Do not use a default page when the destination is ambiguous.
 - Do not use a PC-only design system to create mobile APP designs, or an APP-only design system to create PC/web/admin designs.
@@ -204,7 +242,9 @@ The Figma output should contain:
 - Do not overwrite existing Figma content unless the user explicitly requested replacement.
 - Do not use an alternative top-level layer name such as only the page name, only the file name, or `<Page Name> - Design Release`. The required name is `<md-file-name> / <page-name-from-md>`.
 - Do not create from a page design MD that lacks layout integrity audit or has unresolved audit items.
+- Do not create from a page design MD that omits required top navigation, bottom tab navigation, fixed footer, safe-area, main scroll, or explicit exception reasons.
 - Do not leave Figma output with unintended overlap, stacking, clipping, squeezed unreadable text, hidden controls, ambiguous hierarchy, or incorrect layer order.
+- Do not mark a Figma output complete if metadata or screenshots reveal missing navigation, abnormal wrapper sizes, child nodes wider/taller than non-overlay parents, or normal content implemented as loose absolute-positioned nodes.
 - Do not use absolute positioning as a shortcut for normal layout. Use Auto Layout and constraints for normal structure; reserve absolute positioning for documented overlays only.
 
 ## Resources

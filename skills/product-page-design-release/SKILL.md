@@ -57,34 +57,50 @@ If the user provides multiple mock pages, a directory of mock pages, or multiple
    - Use only user-visible display implications from action-visible-content sections, such as toast copy or modal copy. Do not describe execution actions.
    - Do not import assumptions, open questions, or draft-only confirmation content. If the release mock page still contains `MA-*`, `MQ-*`, `假设`, or `待确认`, block output and require the mock release source to be fixed first.
 
-3. Read the selected design constraints.
+3. Read the product-level shell and navigation contract.
+   - Read `product/release/product-overview-release.md` when it exists.
+   - Extract product type, Surface, `Layout 类型`, `全局导航`, `全局操作区`, sitemap row metadata, `Layout 区域`, page level, parent page, and sibling top-level pages.
+   - Derive a page-specific App Shell contract before designing page content. For mobile App pages, this contract must explicitly decide:
+     - Root device frame and safe-area behavior.
+     - Top Navigation Bar presence, title, back affordance, and whether it is hidden only for explicitly independent pages such as login/onboarding.
+     - Main content scroll container and bottom inset reserved for fixed actions or tab bars.
+     - Bottom Tab Bar presence for tab-root pages, selected item, tab labels, and disabled/hidden behavior for pushed L2/L3 pages.
+     - Fixed Footer / bottom action area presence, height, safe-area padding, and collision rule with Bottom Tab Bar.
+   - If the product overview says `底部 Tab 导航 + 层级推入页面`, then tab-root pages must include a consistent Bottom Tab Bar, and pushed L2/L3 pages must include a consistent Top Navigation Bar with a back affordance unless the page source explicitly says otherwise.
+   - If product-level navigation and page-level mock content conflict, resolve the shell contract in favor of the product overview and record the choice as a `设计决策`; do not silently omit navigation.
+
+4. Read the selected design constraints.
    - Read `design/<design-system>/DESIGN.md` first.
    - Read `tokens.json` when present for exact machine-readable values.
    - Read `visual-spec.md` and `handoff/figma-remote-mcp-guide.md` when they clarify component styling or Figma handoff.
-   - Extract concrete constraints: color tokens, type scale, font family, spacing, radii, borders, elevation/shadow, layout grid, responsive breakpoints, component defaults, icon/media treatment, and accessibility rules.
+   - Extract concrete constraints: color tokens, type scale, font family, spacing, radii, borders, elevation/shadow, layout grid, responsive breakpoints, component defaults, icon/media treatment, navigation patterns, App Shell conventions, and accessibility rules.
    - Do not merge multiple design systems unless the user explicitly selects a hybrid approach.
 
-4. Create the page design release.
+5. Create the page design release.
    - Use `references/page-design-release-template.md` as the required structure.
    - Include a human-readable design narrative explaining the page atmosphere, layout hierarchy, visual emphasis, section-by-section styling, and responsive behavior.
    - Include an AI-readable style structure with stable IDs, component hierarchy, token references, layout properties, responsive variants, and Figma-oriented construction notes.
+   - Include a dedicated App Shell / Navigation Contract section that states the exact shell regions to create and the reason each region is present or absent.
    - Bind every major content section and visible element from the release mock page to a design treatment.
    - Use design token names and exact values from the selected design system where available.
    - When a visual decision is necessary but not explicitly covered by the design system, choose a reasonable design decision consistent with the selected system and mark it as a `设计决策` inside the release file, not as a pending assumption.
    - Define layout safety rules for every frame and major element: parent-child hierarchy, layout direction, sizing mode, min/max dimensions, padding, gap, alignment, wrapping, overflow policy, z-index/layer order, and responsive collapse behavior.
+   - Define a Figma-executable root structure. For mobile App pages, the default structure is `page-root` -> `safe-area-frame` -> `top-nav` (when required), `main-scroll`, `bottom-tab` or `fixed-footer` (when required). Do not describe page content as loose absolute-positioned layers.
+   - Treat normal page sections, cards, forms, lists, navigation bars, and footers as Auto Layout frames. Absolute positioning is allowed only for named decorative background effects and intentional overlays such as FABs, modals, badges, or tooltips.
    - Add a layout integrity audit section that checks the proposed design for overlapping content, ambiguous hierarchy, compressed text, clipped media, hidden controls, uncontrolled absolute positioning, and conflicting responsive rules.
    - If a layout risk exists, resolve it in the design release before saving. Do not leave unresolved risks as notes for the downstream Figma agent.
 
-5. Remove business-layer content.
+6. Remove business-layer content.
    - Exclude API endpoints, request/response fields, database/data-processing logic, analytics event IDs, tracking details, permissions workflow, payment workflow, review workflow, and backend execution rules.
    - Exclude instructions such as "click triggers", "submit calls", "埋点", "接口", or "执行动作" unless they appear only as visible text labels in the UI.
    - Keep state display styles, but describe them as visual presentation only: loading appearance, empty-state illustration, error color usage, disabled visual style, success copy style.
 
-6. Save and verify.
+7. Save and verify.
    - Ensure `product/release/design` exists.
    - Write exactly one same-name page design MD under `product/release/design`.
    - Run `references/page-design-release-quality-checklist.md` manually before finishing.
-   - Do not finish if the output lacks a layout integrity audit or contains unresolved overlap, clipping, stacking, compression, or layer-order risks.
+   - Do not finish if the output lacks an App Shell / Navigation Contract.
+   - Do not finish if the output lacks a layout integrity audit or contains unresolved overlap, clipping, stacking, compression, hidden navigation, uncontrolled absolute positioning, or layer-order risks.
 
 ## Single-Page Rule
 
@@ -103,11 +119,13 @@ The page design release must include:
 - Section-by-section layout and style table.
 - Element-level visual treatment table.
 - Layout integrity audit table covering hierarchy, spacing, sizing, overflow, responsive behavior, and layer order.
+- App Shell / Navigation Contract covering top navigation, bottom tab navigation, fixed footers, main scroll region, safe-area behavior, and page-level exceptions.
 - Typography/color/spacing/elevation/token binding table.
 - Responsive layout table for mobile, tablet, desktop, and wide desktop when applicable.
 - State display style table for loading, empty, error, disabled, success, permission/limited-content, and media failure states when relevant.
 - AI-readable style structure suitable for Figma Remote MCP generation.
 - Figma handoff notes that describe frame hierarchy, auto-layout direction, constraints, token usage, and component grouping.
+- Figma handoff notes that define root frame hierarchy, safe-area regions, navigation bars, bottom tabs/footers, scroll containers, and post-generation metadata checks.
 
 ## Hard Rules
 
@@ -119,6 +137,8 @@ The page design release must include:
 - Do not invent a new design system if a selected design system exists. Apply the selected one.
 - Do not use vague style descriptions alone; pair natural language with token references, exact values, layout dimensions, and structured tables.
 - Do not define ambiguous layouts. Every major frame and element must have a clear parent, layout mode, sizing constraint, spacing rule, alignment rule, and responsive behavior.
+- Do not omit product-level navigation or shell regions. If the product overview defines a global shell, every page design must include the relevant shell regions or explicitly justify the exception in the App Shell / Navigation Contract.
+- Do not leave navigation inconsistent across sibling pages. Tab-root pages must share the same tab labels, bar dimensions, padding, selected-state logic, and layer naming unless the product overview says otherwise.
 - Do not rely on overlapping layers unless the page explicitly needs an overlay, modal, tooltip, badge, floating action button, or media treatment. Any intentional overlap must be named, justified, assigned a layer order, and given collision/viewport rules.
 - Do not allow generated design descriptions that would cause visible elements to stack on top of each other, squeeze unreadably, clip text/media, hide controls, or break hierarchy on mobile/tablet/desktop/wide layouts.
 - Do not create Figma nodes directly. This skill only writes the design release MD that later Figma Remote MCP steps can consume.

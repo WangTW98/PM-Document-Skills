@@ -22,9 +22,9 @@
 
 ## 1. Figma 生成队列
 
-| 生成顺序 | 页面ID | 父页面ID | 层级 | 页面名称 | Design Release 页面文件 | Figma 目标 Page | Figma 目标 Node | 顶层 Frame 名称 | Created Node ID | 状态 | 最近处理时间 | 阻塞原因 / 备注 |
-|---:|---|---|---|---|---|---|---|---|---|---|---|---|
-| 10 |  |  |  |  | product/release/design/example.md |  |  | example.md / 页面名称 |  | 待生成 |  |  |
+| 生成顺序 | 页面ID | 父页面ID | 层级 | 页面名称 | Design Release 页面文件 | Figma 目标 Page | Figma 目标 Node | 顶层 Frame 名称 | Created Node ID | Shell / 导航 QA | Metadata QA | 状态 | 最近处理时间 | 阻塞原因 / 备注 |
+|---:|---|---|---|---|---|---|---|---|---|---|---|---|---|---|
+| 10 |  |  |  |  | product/release/design/example.md |  |  | example.md / 页面名称 |  | 未检查 | 未检查 | 待生成 |  |  |
 
 ## 2. 当前处理页
 
@@ -37,21 +37,23 @@
 | Figma 目标 Node |  |
 | 顶层 Frame 名称 |  |
 | Created Node ID |  |
+| Shell / 导航 QA | 未检查 / 通过 / 未通过 |
+| Metadata QA | 未检查 / 通过 / 未通过 |
 | 状态 |  |
 | 开始时间 |  |
 | 处理说明 |  |
 
 ## 3. 完成记录
 
-| 完成顺序 | 页面ID | 页面名称 | Design Release 页面文件 | Figma 目标 Page | 顶层 Frame 名称 | Created Node ID | 完成时间 | 校验结果 | 备注 |
-|---:|---|---|---|---|---|---|---|---|---|
-| 1 |  |  |  |  |  |  |  | 通过 / 未通过 |  |
+| 完成顺序 | 页面ID | 页面名称 | Design Release 页面文件 | Figma 目标 Page | 顶层 Frame 名称 | Created Node ID | 完成时间 | 目标校验 | Shell / 导航 QA | Metadata QA | 备注 |
+|---:|---|---|---|---|---|---|---|---|---|---|---|
+| 1 |  |  |  |  |  |  |  | 通过 / 未通过 | 通过 / 未通过 | 通过 / 未通过 |  |
 
 ## 4. 阻塞记录
 
-| 页面ID | 页面名称 | Design Release 页面文件 | Figma 目标 Page | 阻塞原因 | 需要用户处理 |
-|---|---|---|---|---|---|
-|  |  |  |  |  |  |
+| 页面ID | 页面名称 | Design Release 页面文件 | Figma 目标 Page | 阻塞原因 | Shell / 导航问题 | Metadata QA 问题 | 需要用户处理 |
+|---|---|---|---|---|---|---|---|
+|  |  |  |  |  |  |  |  |
 
 ## 5. 运行摘要
 

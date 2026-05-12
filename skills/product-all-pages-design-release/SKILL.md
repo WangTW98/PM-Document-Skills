@@ -61,8 +61,8 @@ Generated design outputs:
 
 4. Select one unfinished page.
    - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
-   - If its design output file already exists and passes the current `product-page-design-release` checklist for the selected design system, including layout integrity audit requirements, mark it `已完成` instead of regenerating.
-   - If its design output file already exists but lacks a layout integrity audit, or contains unresolved overlap, clipping, compression, hidden-control, ambiguous hierarchy, or layer-order risks, mark it `需重新生成` or regenerate only with explicit user permission.
+   - If its design output file already exists and passes the current `product-page-design-release` checklist for the selected design system, including App Shell / Navigation Contract and layout integrity audit requirements, mark it `已完成` instead of regenerating.
+   - If its design output file already exists but lacks an App Shell / Navigation Contract, lacks a layout integrity audit, omits required product-level navigation, overuses absolute positioning for normal content, or contains unresolved overlap, clipping, compression, hidden-control, ambiguous hierarchy, or layer-order risks, mark it `需重新生成` or regenerate only with explicit user permission.
    - If the `product/release/mock/...` source file does not exist, mark it `已阻塞` and record that the required release mock source is missing.
    - If the `product/release/mock/...` source file contains `MA-*`, `MQ-*`, `假设`, or `待确认`, mark it `已阻塞` and record that the release mock source must be fixed first.
    - If required sitemap fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
@@ -108,6 +108,7 @@ For each selected page, obey these `product-page-design-release` rules:
 - Output path preserves the release mock filename relative to `product/release/mock`, under `product/release/design`.
 - Generate a complete page content + style design release MD containing both natural language style description and AI-readable style structure.
 - Include Figma Remote MCP handoff notes for frame hierarchy, auto-layout, token usage, component grouping, and responsive variants.
+- Include an App Shell / Navigation Contract derived from `product/release/product-overview-release.md`, including top navigation, bottom tab navigation, fixed footer/bottom actions, main scroll region, safe-area behavior, and explicit exceptions.
 - Include and pass layout integrity audit for clear hierarchy, parent-child structure, Auto Layout suitability, sizing constraints, padding/gap, alignment, overflow, wrapping/truncation, responsive behavior, and layer order.
 - Resolve any predictable stacking, squeezing, clipping, hidden-control, unintended overlap, or layer-order issue inside the page design release before marking the row complete.
 - Keep the design release display-only: no interaction execution, analytics/tracking, API definitions, request/response structures, backend behavior, business process logic, or implementation code.
@@ -124,6 +125,7 @@ For each selected page, obey these `product-page-design-release` rules:
 - Do not alter source files under `product/release/mock` or `design/<design-system>` while generating design releases.
 - Do not mark a page complete unless the design release file exists at the expected `product/release/design` path.
 - Do not mark a page complete if the design release page lacks AI-readable style structure or Figma Remote MCP handoff notes.
+- Do not mark a page complete if the design release page lacks App Shell / Navigation Contract or omits required global navigation from the product overview.
 - Do not mark a page complete if the design release page lacks a layout integrity audit or contains unresolved layout risks.
 - Do not mark a page complete if the page design would predictably cause elements to stack, squeeze, clip, overlap unintentionally, hide controls, or render with incorrect layer order across mobile/tablet/desktop/wide layouts.
 - Do not mark a page complete if the design release page contains interaction execution, analytics, API contracts, backend behavior, business process logic, implementation code, `MA-*`, `MQ-*`, `假设`, or `待确认`.

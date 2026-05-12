@@ -27,6 +27,7 @@
 | 信息层级 |  |
 | 主要视觉焦点 |  |
 | 设计系统应用摘要 |  |
+| 产品级 App Shell 摘要 | 例如：移动端 App / 底部 Tab / 层级推入 / 顶部 Navigation Bar |
 | 布局完整性目标 | 页面区块、元素、层级、间距和响应式规则清晰，不出现堆叠、挤压、遮挡、裁切或层级错误 |
 
 ## 2. 设计约束提取
@@ -78,19 +79,36 @@ mindmap
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | S-001 |  | Page / Header / Main / Section / Group | vertical / horizontal / grid / overlay |  |  |  |  |  |  |  |  |  |
 
-## 6. 元素级视觉定义
+## 6. App Shell / 导航合同
+
+> 必须从 `product/release/product-overview-release.md` 的产品类型、Surface、Layout 类型、全局导航、全局操作区、Sitemap 行的 `Layout 区域` 与页面层级推导。不得因为页面 mock 没写导航就省略产品级导航。
+
+| 项目 | 规则 |
+|---|---|
+| Surface / 应用形态 |  |
+| 页面层级 / Layout 区域 |  |
+| Root Frame | 设备尺寸、背景、是否 clip content、是否使用 Auto Layout |
+| Safe Area | 顶部 / 底部安全区、内容可用高度、底部 inset |
+| Top Navigation Bar | 显示 / 隐藏；标题；返回按钮；右侧操作；高度；Auto Layout；隐藏原因 |
+| Main Scroll Container | 父级、方向、padding、gap、scroll axis、底部预留高度 |
+| Bottom Tab Bar | 显示 / 隐藏；Tab 项；选中项；高度；safe-area padding；隐藏原因 |
+| Fixed Footer / Bottom Action | 显示 / 隐藏；按钮组；高度；与 Bottom Tab 的互斥或共存规则 |
+| Floating / Overlay 元素 | 名称、用途、layer order、碰撞规则、不能遮挡的控件 |
+| 跨页面一致性要求 | 与哪些兄弟页面共享导航结构、尺寸、命名和选中态 |
+
+## 7. 元素级视觉定义
 
 | 元素ID | 来源 Mock 元素 | 元素类型 | 展示内容 | 视觉角色 | 字体 / 字号 / 字重 | 颜色 Token | 背景 / 边框 | 尺寸 / 最小尺寸 | 父级容器 | 对齐 / 换行 / 截断 | 状态样式摘要 | Figma 节点建议 |
 |---|---|---|---|---|---|---|---|---|---|---|---|---|
 | E-001 |  | button / input / image / text / card / table / list / chart / nav / modal / toast / media / other |  | primary / secondary / content / support / warning |  |  |  |  |  |  |  |  |
 
-## 7. 内容与样式绑定表
+## 8. 内容与样式绑定表
 
 | 内容对象ID | 来源 Mock 内容 | 展示文案 / 媒体描述 | 内容来源类型 | 样式 Token 绑定 | 布局位置 | 备注 |
 |---|---|---|---|---|---|---|
 | C-001 |  |  | 静态 / 动态 | color / typography / space / radius / elevation |  |  |
 
-## 8. 布局完整性审核
+## 9. 布局完整性审核
 
 > 必须在保存前完成。若发现风险，先修正第 5、6、9、10、11 节中的布局规则，再在本表记录为“已解决”。不得把未解决的遮挡、挤压、堆叠、裁切或层级问题留给 Figma 生成阶段。
 
@@ -103,8 +121,10 @@ mindmap
 | LQA-005 | 间距与对齐稳定 | 所有区块和组件 |  | Padding、Gap、Align、Grid columns 必须使用 token 或明确数值 | 通过 / 已解决 |
 | LQA-006 | 响应式无冲突 | mobile / tablet / desktop / wide |  | 每个断点说明导航、网格、表格、按钮组、媒体和长文本如何变化 | 通过 / 已解决 |
 | LQA-007 | Figma 生成可执行 | AI 可读样式结构 / Figma handoff |  | Auto Layout、constraints、resize、clip content、layer order 均可直接映射 | 通过 / 已解决 |
+| LQA-008 | App Shell / 导航完整 | Top Nav / Bottom Tab / Fixed Footer / Safe Area |  | 根据产品级 Layout 区域生成导航；缺失必须有明确例外理由 | 通过 / 已解决 |
+| LQA-009 | 不滥用绝对定位 | 正常内容区 / 表单 / 列表 / 卡片 / 页脚 |  | 正常结构必须使用 Auto Layout；仅背景装饰与命名 Overlay 可绝对定位 | 通过 / 已解决 |
 
-## 9. 状态展示样式
+## 10. 状态展示样式
 
 > 仅描述状态下用户看到的内容与样式，不描述触发条件、执行动作、接口或埋点。
 
@@ -112,7 +132,7 @@ mindmap
 |---|---|---|---|---|---|---|---|
 | STATE-001 |  | loading / empty / error / disabled / success / warning / limited / media-failed |  |  |  |  |  |
 
-## 10. 响应式布局规则
+## 11. 响应式布局规则
 
 | 断点 | 页面宽度范围 | Frame 布局 | 导航 / Header | 主内容布局 | 列表 / 表格 / 卡片变化 | 按钮组 / 表单变化 | 字体 / 间距调整 | 溢出 / 长内容处理 | 优先隐藏或折叠内容 |
 |---|---|---|---|---|---|---|---|---|---|
@@ -121,7 +141,7 @@ mindmap
 | desktop |  |  |  |  |  |  |  |  |  |
 | wide |  |  |  |  |  |  |  |  |  |
 
-## 11. AI 可读样式结构
+## 12. AI 可读样式结构
 
 ```yaml
 page:
@@ -135,6 +155,35 @@ page:
     max_width: ""
     responsive_breakpoints: []
     overflow_policy: ""
+  app_shell:
+    surface: ""
+    layout_area: ""
+    device_frame: ""
+    safe_area:
+      top: ""
+      bottom: ""
+    top_nav:
+      required: true
+      height: ""
+      title: ""
+      back_affordance: ""
+      exception_reason: ""
+    main_scroll:
+      required: true
+      padding: ""
+      gap: ""
+      scroll_axis: "vertical"
+      bottom_inset: ""
+    bottom_tab:
+      required: false
+      selected_item: ""
+      items: []
+      height: ""
+      exception_reason: ""
+    fixed_footer:
+      required: false
+      height: ""
+      collision_rule: ""
   frames:
     - id: "frame-root"
       name: "Page"
@@ -189,15 +238,17 @@ page:
     overlap_policy: "no unintended overlap"
     compression_policy: ""
     clipping_policy: ""
+    absolute_positioning_policy: "only named background effects and intentional overlays"
+    navigation_policy: ""
     responsive_collision_rules: []
 ```
 
-## 12. Figma Remote MCP 生成提示
+## 13. Figma Remote MCP 生成提示
 
 | 项目 | 指令 |
 |---|---|
-| Frame 创建顺序 |  |
-| Auto Layout 设置 |  |
+| Frame 创建顺序 | Root Device Frame -> Safe Area Frame -> Top Nav（如需要）-> Main Scroll Container -> Content Sections -> Bottom Tab 或 Fixed Footer（如需要）-> Named Overlays |
+| Auto Layout 设置 | Root / Safe Area / Top Nav / Main Scroll / Footer / Bottom Tab / Content Sections 均需明确方向、padding、gap、alignment、resize |
 | 尺寸约束 |  |
 | 溢出 / 裁切设置 |  |
 | 层级顺序 |  |
@@ -206,10 +257,11 @@ page:
 | 文本节点命名 |  |
 | 媒体占位 |  |
 | 响应式变体 |  |
-| 布局审核要求 | 生成后检查无堆叠、挤压、遮挡、裁切、层级错误；如有问题必须调整 Frame / Auto Layout / Constraints 后再交付 |
+| 布局审核要求 | 生成后检查无堆叠、挤压、遮挡、裁切、层级错误、导航缺失、错误绝对定位；如有问题必须调整 Frame / Auto Layout / Constraints 后再交付 |
+| Metadata QA 要求 | 检查顶层页面、Top Nav、Main Scroll、Bottom Tab / Footer、主要内容区均存在且尺寸不超父容器；禁止出现 100x100 外壳包裹 350px 按钮等异常容器 |
 | 生成时禁止事项 | 不生成交互原型、不生成埋点、不生成接口逻辑、不生成业务流程 |
 
-## 13. 设计决策记录
+## 14. 设计决策记录
 
 | 决策ID | 决策内容 | 依据 | 影响范围 |
 |---|---|---|---|

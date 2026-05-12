@@ -18,10 +18,13 @@ Use this checklist before finishing an orchestration run.
 - Design release pages contain natural language style description.
 - Design release pages contain AI-readable style structure.
 - Design release pages contain Figma Remote MCP handoff notes.
+- Design release pages contain App Shell / Navigation Contract sections derived from product-level Layout, global navigation, sitemap `Layout 区域`, and page level.
 - Design release pages contain layout integrity audit sections.
+- No page was marked `已完成` unless required top navigation, bottom tab navigation, fixed footer/bottom action, safe-area, and main scroll requirements were present or explicitly excepted.
 - No page was marked `已完成` unless its layout integrity audit is present and every item is `通过` or `已解决`.
 - No page was marked `已完成` if it contains unresolved stacking, compression, clipping, unintended overlap, hidden-control, ambiguous hierarchy, or layer-order risks.
-- Existing design release files were not reused as complete unless they satisfy the current product-page-design-release layout integrity requirements.
+- No page was marked `已完成` if normal page content relies on uncontrolled absolute positioning instead of Auto Layout.
+- Existing design release files were not reused as complete unless they satisfy the current product-page-design-release App Shell, navigation, and layout integrity requirements.
 - Design release pages contain no `MA-*`, `MQ-*`, `假设`, or `待确认`.
 - Design release pages remain display-only and contain no interaction execution, analytics, API contracts, backend behavior, business process logic, or implementation code.
 - If the run stopped before all pages were complete, `_generation-status.md` clearly shows the next `待生成` page.

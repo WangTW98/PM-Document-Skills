@@ -62,7 +62,8 @@ External output:
    - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
    - If the row is `需重新生成`, process it only when the user explicitly requested regeneration.
    - If the `product/release/design/...` source file does not exist, mark it `已阻塞` and record that the design release source is missing.
-   - If the source file lacks `AI 可读样式结构`, `Figma Remote MCP 生成提示`, or required layout integrity checks, mark it `已阻塞`.
+   - If the source file lacks `AI 可读样式结构`, `Figma Remote MCP 生成提示`, App Shell / Navigation Contract, or required layout integrity checks, mark it `已阻塞`.
+   - If the source file omits required product-level navigation, lacks safe-area/main-scroll/bottom-inset rules, or leaves normal content to uncontrolled absolute positioning, mark it `已阻塞`.
    - If the source file contains `MA-*`, `MQ-*`, `假设`, or `待确认`, mark it `已阻塞`.
    - If required sitemap fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
 
@@ -107,6 +108,7 @@ For each selected page, obey these `product-pages-design2figma` rules:
 - Create exactly one top-level page frame or target insertion frame.
 - Use the required top-level Figma layer/frame naming from the single-page skill.
 - Verify the created Figma node after writing when tooling allows.
+- Do not mark a row complete unless post-write verification confirms required App Shell regions, navigation consistency, Auto Layout structure, and metadata-safe wrapper dimensions.
 - Do not create interaction prototypes, analytics layers, API annotations, backend diagrams, business workflow nodes, or implementation-code artifacts.
 
 ## Hard Rules
@@ -121,6 +123,7 @@ For each selected page, obey these `product-pages-design2figma` rules:
 - Do not alter source files under `product/release/design` while creating Figma pages.
 - Do not mark a row complete unless the Figma output was created in the intended Figma file and target page.
 - Do not mark a row complete if post-write verification finds wrong target page, missing content, unresolved overlap/clipping, incorrect layer order, unsupported application form, or prohibited business/analytics/API artifacts.
+- Do not mark a row complete if post-write verification finds missing Top Nav / Bottom Tab / Fixed Footer required by the product shell, abnormal wrapper dimensions, child nodes wider/taller than non-overlay parents, or normal content implemented as loose absolute-positioned nodes.
 
 ## Resources
 
