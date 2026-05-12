@@ -6,6 +6,7 @@ Use this checklist before writing anything to Figma.
 
 - Exactly one `product/release/design/...` page MD was selected.
 - The selected page MD contains a completed layout integrity audit and is eligible for Figma creation.
+- The selected page MD contains `Figma Remote MCP 生成提示` and can provide concrete Figma creation guidance.
 - The target application form was determined from the user's instruction, or inferred from `product/release/product-overview-release.md` plus the selected page MD.
 - If the product overview includes multiple forms, the selected page's specific form was identified rather than applying a global product-level form.
 - The selected design system's supported application forms were read from `DESIGN.md`, `tokens.json`, `visual-spec.md`, `usage.md`, or `handoff/figma-remote-mcp-guide.md` when present.

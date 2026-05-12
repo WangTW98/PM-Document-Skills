@@ -7,6 +7,11 @@ Use this checklist after creating the Figma design and before finalizing.
 - Only one page design MD was processed.
 - Only one Figma page design was created.
 - The page design MD contains `布局完整性审核`, and every audit item is `通过` or `已解决`.
+- The page design MD contains `Figma Remote MCP 生成提示`.
+- Every actionable item in `Figma Remote MCP 生成提示` was parsed and applied, or marked not applicable with a concrete reason.
+- Frame creation order follows `Figma Remote MCP 生成提示`.
+- Auto Layout, size constraints, overflow/clipping, layer order, token application, component grouping, text node naming, media placeholders, responsive variants, layout QA, and prohibited actions follow `Figma Remote MCP 生成提示`.
+- Any conflict between `Figma Remote MCP 生成提示` and `AI 可读样式结构` was resolved by the more specific instruction, or stopped before writing if it affected hierarchy, sizing, layer order, responsive behavior, or visible content.
 - Target application form was determined before writing: mobile app, PC web, responsive web, admin console, mini-program, tablet app, or another explicit form.
 - The selected design system supports the target application form.
 - If the user did not specify a form, `product/release/product-overview-release.md` and the selected page MD were used to infer the selected page's form.

@@ -109,18 +109,22 @@ When using Codex with the Figma MCP tools:
      - `文档版本 | Release`
      - Natural language style description.
      - `AI 可读样式结构`.
-     - Figma Remote MCP handoff notes.
+     - `Figma Remote MCP 生成提示`.
      - `布局完整性审核`.
    - If the MD contains unresolved `MA-*`, `MQ-*`, `假设`, or `待确认`, stop and require a fixed release design MD.
    - If the MD lacks layout integrity audit, or any audit item is not `通过` / `已解决`, stop and require the page design release to be regenerated or fixed before Figma creation.
+   - If the MD lacks `Figma Remote MCP 生成提示`, stop and require a fixed release design MD. Do not infer Figma construction guidance from prose alone.
 
 2. Extract creation plan from the MD.
-   - Parse page name, output source metadata, design system path, frame hierarchy, component list, token references, content-to-style bindings, responsive rules, state display styles, and Figma handoff notes.
+   - Parse page name, output source metadata, design system path, frame hierarchy, component list, token references, content-to-style bindings, responsive rules, state display styles, and `Figma Remote MCP 生成提示`.
    - Derive the required top-level Figma layer/frame name as `<md-file-name> / <page-name-from-md>`.
    - `md-file-name` is the selected page MD basename including `.md`, for example `010-login.md`.
    - `page-name-from-md` is the page name declared inside the MD, preferring the `页面名称` metadata field, then the top-level Design Release heading if metadata is unavailable.
    - Treat the `AI 可读样式结构` as the primary machine-readable build plan.
-   - Treat the `布局完整性审核` and Figma handoff layout notes as mandatory constraints, not advisory notes.
+   - Treat the `Figma Remote MCP 生成提示` as mandatory creation guidance, not advisory prose.
+   - Extract every actionable instruction from `Figma Remote MCP 生成提示`, especially Frame creation order, Auto Layout settings, size constraints, overflow/clipping settings, layer order, token application, component grouping, text node naming, media placeholders, responsive variants, layout QA requirements, and prohibited generation actions.
+   - Reconcile `Figma Remote MCP 生成提示` with the `AI 可读样式结构`; when they conflict, prefer the more specific instruction and stop for clarification if the conflict affects hierarchy, sizing, layer order, responsive behavior, or visible content.
+   - Treat the `布局完整性审核` and Figma Remote MCP layout notes as mandatory constraints, not advisory notes.
    - Extract parent-child hierarchy, layout mode, sizing constraints, min/max dimensions, padding, gap, alignment, wrapping/truncation, overflow policy, clip-content behavior, scroll containers, layer order, and intentional overlay rules.
    - Use natural language style sections to resolve visual nuance and hierarchy.
    - Exclude interaction execution, analytics, API contracts, backend behavior, business process logic, and implementation code.
@@ -140,6 +144,7 @@ When using Codex with the Figma MCP tools:
    - Create a top-level frame named exactly `<md-file-name> / <page-name-from-md>`, such as `010-login.md / 登录页`.
    - Use the same naming rule for a target insertion frame when the user asks to create inside a section or append near a target node.
    - Use the frame size, surface pattern, navigation pattern, and responsive variant that match the verified target application form.
+   - Follow the `Figma Remote MCP 生成提示` while creating nodes. Use its frame creation order, Auto Layout settings, token application method, component grouping, text naming, media placeholders, responsive variants, and prohibited actions as the operational checklist for the Figma write.
    - Apply frame size and responsive variants from the MD.
    - Build the hierarchy from top to bottom: page frame, layout regions, sections, groups, cards, text, media placeholders, form controls, tables/lists, and state variants when relevant.
    - Use auto layout directions, padding, gaps, alignment, constraints, and resizing rules from the MD.
@@ -154,6 +159,7 @@ When using Codex with the Figma MCP tools:
    - Confirm the design was created in the intended file and page.
    - Confirm the created Figma frame matches the verified application form and was not generated with an unsupported design-system variant.
    - Confirm the top-level Figma layer/frame name exactly equals `<md-file-name> / <page-name-from-md>`.
+   - Confirm every actionable item in `Figma Remote MCP 生成提示` was followed or explicitly marked not applicable with a reason.
    - Confirm the Figma node names follow the MD hierarchy.
    - Confirm visible content, layout hierarchy, token usage, and responsive variants match the MD.
    - Confirm layout integrity in the created Figma nodes: no unintended overlap, clipped text/media, compressed unreadable controls, hidden key elements, ambiguous parent-child hierarchy, incorrect layer order, or responsive variant collisions.
@@ -168,6 +174,7 @@ The Figma output should contain:
 - One named top-level page frame or target insertion frame.
 - The top-level Figma layer/frame must be named exactly `<md-file-name> / <page-name-from-md>`, for example `010-login.md / 登录页`.
 - Frame size, navigation pattern, and responsive variant must match the verified application form: mobile app, PC web, responsive web, admin console, mini-program, tablet app, or other supported form.
+- Frame creation order, Auto Layout, token application, grouping, text naming, media placeholders, responsive variants, and prohibited actions must follow the MD's `Figma Remote MCP 生成提示`.
 - Section frames matching the page MD structure.
 - Element nodes matching the page MD content and style definitions.
 - Text nodes using confirmed display copy.
@@ -185,6 +192,8 @@ The Figma output should contain:
 - Do not write to Figma before parsing and verifying the Figma URL.
 - Do not write to Figma before identifying the correct target page.
 - Do not write to Figma before verifying application form compatibility between the user's request / inferred page surface and the selected design system.
+- Do not write to Figma from a page design MD that lacks `Figma Remote MCP 生成提示`.
+- Do not ignore, skip, or loosely paraphrase actionable `Figma Remote MCP 生成提示`; apply them or stop when they conflict with other required constraints.
 - Do not use a default page when the destination is ambiguous.
 - Do not use a PC-only design system to create mobile APP designs, or an APP-only design system to create PC/web/admin designs.
 - Do not treat responsive web support as APP support unless the design system explicitly supports APP/mobile-native patterns.

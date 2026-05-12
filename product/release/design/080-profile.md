@@ -21,26 +21,25 @@
 
 | 项目 | 内容 |
 |---|---|
-| 页面定位 | 展示用户信息及应用级功能入口。 |
+| 页面定位 | 用户的个人信息聚合页，包含会员状态管理、设置入口及简历资产汇总。 |
 | 目标阅读对象 | 设计师 / 产品 / Figma Remote MCP agent |
-| 视觉目标 | 延续 Liquid Glass 的轻盈感，通过精致的会员卡片和整洁的列表布局提供尊贵的管理体验。 |
-| 信息层级 | 1. 个人信息（身份识别）；2. 会员权益（核心转化）；3. 功能菜单（日常操作）；4. 账号管理（设置/退出）。 |
-| 主要视觉焦点 | 黑金质感的会员权益卡片（VIP Card）。 |
-| 设计系统应用摘要 | iOS26 Liquid Glass：底层黑背景 + 动态 Aurora (Purple) + 玻璃菜单列表 + 黑金会员卡片效果。 |
+| 视觉目标 | 营造一种“尊享感”与“归属感”。通过精致的会员卡片设计与通透的菜单列表，体现产品的服务品质。 |
+| 信息层级 | 1. 用户基本信息（头像/昵称）；2. 会员卡片（核心转化/状态）；3. 功能菜单列表；4. 退出登录入口。 |
+| 主要视觉焦点 | 带有黑金磨砂质感的 VIP 会员卡片。 |
+| 设计系统应用摘要 | iOS26 Liquid Glass：背景 #000000 + 顶部环境光晕 + 黑金玻璃材质 + 列表项玻璃材质。 |
 
 ## 2. 设计约束提取
 
 | 类型 | Token / 规则 | 取值 | 使用方式 | 来源文件 |
 |---|---|---|---|---|
 | color | background.canvas | #000000 | 页面底层背景 | DESIGN.md |
-| color | accent.purple | #BF5AF2 | 装饰性背景光斑 | DESIGN.md |
-| color | status.error | #FF453A | 退出登录文字颜色 | DESIGN.md |
-| color | background.surface | rgba(255, 255, 255, 0.05) | 菜单项背景 | DESIGN.md |
+| color | accent.purple | #BF5AF2 | 顶部环境光晕 | DESIGN.md |
+| color | background.surface | rgba(255, 255, 255, 0.05) | 菜单卡片背景 | DESIGN.md |
 | typography | size.lg | 20px | 用户昵称字号 | DESIGN.md |
 | typography | size.base | 16px | 菜单文字字号 | DESIGN.md |
-| radius | radius.full | 999px | 用户头像圆角 | DESIGN.md |
-| radius | radius.md | 14px | 菜单列表圆角 | DESIGN.md |
-| shadow | glowAccent | 0 8px 32px rgba(191, 90, 242, 0.2) | 页面整体氛围光 | DESIGN.md |
+| space | space.6 | 32px | 会员卡片下方间距 | DESIGN.md |
+| radius | radius.lg | 24px | 会员卡片圆角 | DESIGN.md |
+| shadow | glowAccent | 0 8px 32px rgba(191, 90, 242, 0.2) | 会员卡片外发光 | DESIGN.md |
 
 ## 3. 页面结构图
 
@@ -49,20 +48,19 @@ mindmap
   root((个人中心 Design))
     Frame: Page
       Background: Aurora Layers
-        Blob: Purple Glow (Top Left)
-      Frame: Scroll Container
+        Blob: Purple Glow (Top Center)
+      Frame: Content Layer
         Frame: Profile Header (S-001)
-          Element: Avatar (E-001)
-          Element: Nickname (E-002)
+          Element: Avatar with Glow
+          Element: User Name (E-001)
+          Element: UID/Info
         Frame: VIP Section (S-002)
-          Element: Membership Card (E-003)
-          Element: Upgrade Badge
+          Element: Black-Gold Glass Card (E-002)
+          Element: Membership Status
         Frame: Menu List (S-003)
-          Element: Menu Item: History (E-004)
-          Element: Menu Item: Orders
-          Element: Menu Item: Support
-          Element: Menu Item: About
-        Frame: Logout Area (S-004)
+          Element: Glass Menu Items (E-003)
+          Element: Arrow Indicators
+        Frame: Logout Section
           Element: Logout Button (E-005)
 ```
 
@@ -70,72 +68,69 @@ mindmap
 
 ### 4.1 整体画面
 
-- **页面整体氛围**：通透且具有品质感，利用深色背景与金色/紫色元素的点缀营造高端应用的观感。
-- **背景与层级**：底层为纯黑 Canvas。左上方带有一处微弱的紫色 Aurora 微光，为头像区域提供环境光影。
-- **视觉重心**：页面上方的会员卡片。卡片采用特殊的玻璃折射效果，如果是 VIP 状态，则呈现出流动的金色丝绸纹理。
-- **阅读节奏**：查看个人头像昵称 -> 确认会员有效期/升级入口 -> 快速点击功能菜单 -> 底部系统设置。
+- **页面整体氛围**：优雅、沉静、带有些许奢华感。背景顶部有一处向下扩散的紫色 Aurora，为头像区提供环境底色。
+- **背景与层级**：底层为纯黑 Canvas。核心内容分层：顶部是浮现的用户信息；中间是具有“实重感”的黑金玻璃 VIP 卡片；下方是轻盈的透明菜单列表。
+- **视觉重心**：黑金 VIP 会员卡片。它不同于普通的玻璃卡片，它采用了更深的填充色和金色的描边，并带有微弱的流光动画。
+- **阅读节奏**：确认登录身份 -> 查看会员到期时间/权益 -> 访问具体功能菜单 -> (可选) 退出登录。
 
 ### 4.2 关键区块叙述
 
 | 区块ID | 区块名称 | 展示内容摘要 | 样式叙述 | 视觉优先级 | 设计决策 |
 |---|---|---|---|---|---|
-| S-001 | 个人信息头 | 头像 + 昵称 | 垂直布局。头像为 80x80 圆形，外围带 2px 浅紫色发光环。昵称使用 lg 字号，Bold 字重，居中排列。 | 高 | 突出用户身份，建立亲和力。 |
-| S-002 | 会员权益区 | VIP 状态卡片 | 宽屏横置。卡片背景使用 `blur(24px)`，VIP 状态下背景为渐变黑金，普通态为深灰玻璃感。内部文字对齐方式为居左。 | 极高 | 会员卡片作为核心转化点，需在通透中体现“厚度”和“稀缺感”。 |
-| S-003 | 功能列表区 | 菜单项集合 | 每一项为一个 radius.md 的玻璃矩形（或合并为一个大玻璃容器中的分割项）。左侧带小图标，右侧带 text.muted 的箭头。 | 中 | 保持整洁有序，减少视觉噪音。 |
-| S-004 | 退出操作区 | 退出登录 | 独立于上方列表，置于底部。文字使用 status.error 红色，带 Regular 字重，居中展示。 | 低 | 降低退出操作的视觉权重。 |
+| S-001 | 用户信息区 | 头像 + 昵称 | 头像带有一圈 2px 的紫色呼吸灯效果。昵称使用 `size.lg` + `bold`。 | 高 | 建立身份归属感。 |
+| S-002 | 会员权益区 | VIP 卡片 | 核心组件。背景为 `rgba(20, 20, 20, 0.8)`，边框为渐变金色。卡片应用 `shadow.glowAccent`。 | 极高 | 刺激会员转化与续费。 |
+| S-003 | 功能菜单区 | 菜单列表项 | 纵向列表。每项高度 54px，背景为 `surface`，项与项之间使用 1px 的 `border.default` 分割（不撑满全宽）。 | 中 | 保持功能的清晰入口。 |
 
 ## 5. 布局与区块样式表
 
 | 区块ID | 来源 Mock 区块 / 元素 | Frame 层级 | 布局方式 | 尺寸 / 约束 | Padding | Gap | 背景 / 边框 / 阴影 | 圆角 | 对齐 | 响应式变化 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Page | - | Root | Vertical | Fill Window | 0 | 0 | background.canvas | 0 | Center | - |
-| S-001 | S-001 | Header | Vertical | Width: 100% | 40px 24px | 12px | Transparent | - | Center | - |
-| S-002 | S-002 | Section | Vertical | Width: 335px | 20px | - | surface (Themed) | radius.lg | Stretch | - |
-| S-003 | S-003 | List | Vertical | Width: 335px | 12px 16px | 2px | surfaceOverlay | radius.md | Stretch | - |
-| Item | E-004 | Row | Horizontal | H: 56px | 0 16px | 12px | Transparent | - | Center | - |
+| S-001 | S-001 | Section | Vertical | Width: 100% | 64px 20px 32px | 12px | Transparent | - | Center | - |
+| S-002 | S-002 | Card | Vertical | Width: 335px | 24px | 12px | Black-Gold Glass | radius.lg | Left | - |
+| S-003 | S-003 | List | Vertical | Width: 100% | 0 20px | 0 | Transparent | - | Top | - |
+| Logout | E-005 | Section | Vertical | Width: 100% | 48px 20px | - | Transparent | - | Center | - |
 
 ## 6. 元素级视觉定义
 
 | 元素ID | 来源 Mock 元素 | 元素类型 | 展示内容 | 视觉角色 | 字体 / 字号 / 字重 | 颜色 Token | 背景 / 边框 | 尺寸 / 最小尺寸 | 状态样式摘要 | Figma 节点建议 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| E-001 | E-001 | image | 用户头像 | primary | - | - | - | 80x80 | radius.full | Circle Frame |
-| E-002 | E-002 | text | 用户昵称 | content | lg / bold | text.default | - | - | - | Text |
-| E-003 | E-003 | card | 会员中心卡片 | primary | - | - | Custom (VIP/Normal) | H: 100px | shadow.glass | Glass Card Frame |
-| E-004 | E-004 | list_item | 功能菜单项 | content | base / regular | text.default | - | H: 56px | Hover: surfaceOverlay | Horizontal Auto Layout |
-| E-005 | E-005 | button | 退出登录 | warning | base / regular | status.error | Transparent | H: 56px | - | Ghost Button |
+| E-001 | E-001 | text | 昵称 [张三] | headline | lg / bold | text.default | - | - | - | User_Name |
+| E-002 | E-002 | card | 会员卡片 | premium | - | - | Custom Gold | H: 160px | shadow.glowAccent | VIP_Card_Comp |
+| E-003 | E-003 | item | 菜单项 | entry | base / regular | text.default | surface | H: 54px | Hover: surfaceOverlay | List_Item |
+| E-005 | E-005 | button | 退出登录 | support | base / regular | status.error | - | H: 50px | - | Text_Button |
 
 ## 7. 内容与样式绑定表
 
 | 内容对象ID | 来源 Mock 内容 | 展示文案 / 媒体描述 | 内容来源类型 | 样式 Token 绑定 | 布局位置 | 备注 |
 |---|---|---|---|---|---|---|
-| C-001 | E-002 | 求职者_1234 | 动态 | size.lg, bold | Below Avatar | |
-| C-002 | E-003-VIP | 黑金 VIP 正在生效 | 动态 | size.base, #FFD700 | VIP Card Left | |
-| C-003 | E-004-1 | 历史简历 | 静态 | size.base, regular | List Item 1 | |
-| C-004 | E-005 | 退出登录 | 静态 | size.base, status.error | Bottom Center | |
-| C-005 | M-002 | 金色皇冠图标 | 静态 | - | VIP Card Icon | |
+| C-001 | E-001 | 简历达人-张三 | 动态 | lg, bold | S-001 | |
+| C-002 | E-002 | 您的会员将于 2026-12-31 到期 | 动态 | sm, regular | VIP Card Bottom | |
+| C-003 | DATA-001 | 历史简历、意见反馈... | 静态 | base, regular | S-003 Items | |
+| C-004 | E-005 | 退出当前账号 | 静态 | base, regular | S-004 | |
 
 ## 8. 状态展示样式
 
 | 状态ID | 来源 Mock 状态 | 状态类型 | 展示内容 | 视觉样式 | 色彩 / 图标 / 媒体处理 | 空间占位 | 可访问性说明 |
 |---|---|---|---|---|---|---|---|
-| STATE-001 | STATE-001 | normal | 非会员展示 | 灰色调玻璃感 | text.muted | 覆盖 E-003 背景 | 指引开通会员 |
-| STATE-002 | STATE-002 | vip | 会员展示 | 黑金质感 + 丝绸光效 | #FFD700 | 覆盖 E-003 背景 | 展示剩余天数 |
-| Menu_Hover| - | hover | 菜单反馈 | 背景变亮 | background.surfaceOverlay | 覆盖 E-004 | 提供操作反馈 |
+| STATE-001 | STATE-001 | non-vip | 未开通会员 | 灰色调卡片 + 引导语 | text.muted | 替换 S-002 | |
+| STATE-002 | - | vip_active | 已开通 | 金色流光动画 | accent.gold (Linear) | S-002 边框 | |
+| Menu_Press | - | active | 菜单按压 | 表面不透明度增加 | surfaceOverlay | - | |
 
 ## 9. 响应式布局规则
 
 | 断点 | 页面宽度范围 | Frame 布局 | 导航 / Header | 主内容布局 | 列表 / 表格 / 卡片变化 | 间距调整 | 优先隐藏或折叠内容 |
 |---|---|---|---|---|---|---|---|
-| mobile | < 768px | Vertical | 居中 | 居中卡片流 | 卡片宽度 335px | space.5 (24px) | - |
-| tablet | 768px - 1023px | Vertical | 居中 | 分组双列列表 | 卡片宽度 400px | space.7 (48px) | - |
-| desktop | 1024px+ | Horizontal | 居左 | 侧边栏模式 | 设置项变三栏 | space.8 (64px) | - |
+| mobile | < 768px | Vertical | 顶部 Tab 2 | 单栏垂直列表 | - | space.4 | - |
+| tablet | 768px - 1023px | Vertical | 顶部 Tab 2 | 网格菜单 (2列) | - | space.6 | - |
+| desktop | 1024px+ | Horizontal | 侧边栏 | 个人看板视图 | 菜单变为侧边导航 | space.8 | - |
 
 ## 10. AI 可读样式结构
 
 ```yaml
 page:
   id: "U-030"
-  name: "User Profile"
+  name: "Profile Page"
   source_mock: "product/release/mock/080-profile.md"
   design_system: "design/ios26-liquid-glass/"
   output: "product/release/design/080-profile.md"
@@ -144,62 +139,56 @@ page:
   background_effects:
     - type: "blur_blob"
       color: "accent.purple"
-      position: "top_left"
-      size: "400px"
-      blur: "120px"
+      position: "top_center"
+      size: "600px"
+      blur: "150px"
       opacity: 0.1
   frames:
     - id: "frame-root"
       type: "frame"
       layout: "vertical"
       children:
-        - id: "info-header"
+        - id: "profile-header"
           type: "frame"
           layout: "vertical"
           padding: 40
-          children: ["E-001", "E-002"]
-        - id: "vip-container"
+          children: ["avatar-glow", "E-001"]
+        - id: "vip-card-container"
           type: "frame"
-          margin_vertical: 20
-          children: ["E-003"]
-        - id: "menu-group"
+          padding: 20
+          children: ["E-002-vip-card"]
+        - id: "menu-list"
           type: "frame"
           layout: "vertical"
-          background: "background.surfaceOverlay"
-          radius: "radius.md"
-          children: ["E-004-items"]
-        - id: "system-group"
-          type: "frame"
-          margin_top: 40
-          children: ["E-005"]
+          padding: 20
+          children: ["E-003-items"]
   components:
     - id: "vip-card"
-      type: "card"
-      background_variant: "black_gold"
+      type: "frame"
+      background: "rgba(20, 20, 20, 0.9)"
+      backdrop_filter: "blur(32px)"
+      border: "2px solid linear-gradient(accent.gold, transparent)"
       radius: "radius.lg"
-      backdrop_filter: "blur(24px)"
-    - id: "menu-row"
-      type: "list_item"
-      height: 56
-      border_bottom: "1px solid border.default"
+      shadow: "shadow.glowAccent"
 ```
 
 ## 11. Figma Remote MCP 生成提示
 
 | 项目 | 指令 |
 |---|---|
-| Frame 创建顺序 | Canvas -> Background Blob -> Avatar Header -> VIP Card -> Menu List -> Logout Button |
-| Auto Layout 设置 | Menu List 使用 Vertical Auto Layout, 内部子项 Gap 0, 每个子项带 Border Bottom. |
-| Token 应用方式 | VIP 卡片使用特殊的 Gradient 填充。退出按钮文字使用 status.error. |
-| 组件分组 | 将菜单项定义为 Component "Menu_Row", 包含图标、文字、状态描述、Chevron. |
-| 文本节点命名 | 昵称为 "Username", 会员状态为 "VIP_Status", 菜单名为 "Menu_Label". |
-| 响应式变体 | Mobile 保持单列。Tablet 下可将功能菜单分两列展示（如常用功能 vs 设置）. |
-| 生成时禁止事项 | 不生成真实的支付跳转逻辑、不生成系统原生的退出登录确认弹窗。 |
+| Frame 创建顺序 | Canvas -> Background Blob -> Profile Header -> VIP Card -> Menu List -> Logout Button |
+| Auto Layout 设置 | Menu List 使用 Vertical Auto Layout, Gap 0. |
+| Token 应用方式 | VIP 卡片边框使用金色渐变, 并应用 shadow.glowAccent. |
+| 组件分组 | 将菜单图标、文字、箭头编组为 "Menu_Row". |
+| 文本节点命名 | 昵称命名为 "User_Nickname", 会员状态为 "VIP_Status". |
+| 响应式变体 | 在 Mobile 下确保 VIP 卡片宽度撑满(带两边距). |
+| 生成时禁止事项 | 不生成复杂的设置二级页面跳转。 |
 
 ## 12. 设计决策记录
 
 | 决策ID | 决策内容 | 依据 | 影响范围 |
 |---|---|---|---|
-| DD-001 | 用户头像增加紫色环境光。 | 呼应全局 Liquid Glass 风格，使头像区域更具灵动感。 | 头部视觉 |
-| DD-002 | VIP 卡片独立于菜单列表展示。 | 强调会员地位，增加视觉冲击力，促进续费/开通意向。 | 页面中段布局 |
-| DD-003 | 退出登录采用红色 Ghost Button。 | 作为低频且具有破坏性的操作，使用红色警示但保持样式克制。 | 底部操作区 |
+| DD-001 | VIP 会员卡片采用黑金磨砂玻璃。 | 区分普通业务卡片，建立显著的高级感与会员尊享标识。 | 核心组件 |
+| DD-002 | 顶部紫色 Aurora 环境光。 | 与 AI 分析报告的主色调呼应，维持全站视觉统一性。 | 页面基调 |
+| DD-003 | 退出登录按钮使用 status.error 色。 | 视觉上起到警示作用，防止误操作。 | 底部按钮 |
+ Riverside, CA

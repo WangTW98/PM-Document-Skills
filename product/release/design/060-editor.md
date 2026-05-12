@@ -21,26 +21,25 @@
 
 | 项目 | 内容 |
 |---|---|
-| 页面定位 | 核心简历编辑工具，集成 AI 建议对比与实时保存功能。 |
+| 页面定位 | 核心生产力工具，支持用户手动修改简历内容或一键采纳 AI 优化建议。 |
 | 目标阅读对象 | 设计师 / 产品 / Figma Remote MCP agent |
-| 视觉目标 | 打造一个高效且极具质感的数字化工作台，通过深邃的玻璃层级减少长时间编辑的视觉疲劳。 |
-| 信息层级 | 1. 模块切换（Tab）；2. 简历表单内容（Core）；3. AI 优化建议入口（AI Assistant）；4. 预览与导出动作。 |
-| 主要视觉焦点 | 浮动的 AI 优化建议悬浮球（AI Assistant Orb）。 |
-| 设计系统应用摘要 | iOS26 Liquid Glass：底层黑背景 + 动态 Aurora (Blue) + 玻璃面板堆叠 + 呼吸感微光效果。 |
+| 视觉目标 | 打造一个如 IDE (集成开发环境) 般专业且专注的编辑空间。通过深色模式下的微弱层级区分，减少长时间编辑的视觉疲劳。 |
+| 信息层级 | 1. 简历内容编辑区；2. AI 助手悬浮入口；3. 模块导航 Tab；4. 下一步导出入口。 |
+| 主要视觉焦点 | 带有呼吸动效的 AI 助手悬浮球及其展开的透明对话窗。 |
+| 设计系统应用摘要 | iOS26 Liquid Glass：背景 #000000 + 侧边栏玻璃遮罩 + 动态 Aurora (Blue) + 极简输入框样式。 |
 
 ## 2. 设计约束提取
 
 | 类型 | Token / 规则 | 取值 | 使用方式 | 来源文件 |
 |---|---|---|---|---|
 | color | background.canvas | #000000 | 页面底层背景 | DESIGN.md |
-| color | action.primary.glow | rgba(10, 132, 255, 0.4) | AI 悬浮球呼吸光效 | DESIGN.md |
-| color | accent.blue | #007AFF | 活跃 Tab 指示器颜色 | DESIGN.md |
-| typography | size.base | 16px | 表单输入内容 | DESIGN.md |
-| typography | size.sm | 14px | 辅助文案与 Tab 文字 | DESIGN.md |
-| space | space.3 | 12px | 表单项内部间距 | DESIGN.md |
-| space | space.6 | 32px | 模块间垂直留白 | DESIGN.md |
-| radius | radius.md | 14px | 输入框圆角 | DESIGN.md |
-| radius | radius.full | 999px | AI 悬浮球圆角 | DESIGN.md |
+| color | accent.blue | #0A84FF | AI 助手高亮 / 焦点边框 | DESIGN.md |
+| color | background.surface | rgba(255, 255, 255, 0.05) | 内容区块背景 | DESIGN.md |
+| typography | size.base | 16px | 简历正文字号 | DESIGN.md |
+| typography | size.sm | 14px | AI 建议文字字号 | DESIGN.md |
+| space | space.4 | 16px | 输入框内部间距 | DESIGN.md |
+| radius | radius.md | 14px | 内容卡片圆角 | DESIGN.md |
+| component | button.minHeight | 48px | 操作按钮高度 | DESIGN.md |
 
 ## 3. 页面结构图
 
@@ -51,87 +50,80 @@ mindmap
       Background: Aurora Layers
         Blob: Blue Glow (Top Left)
       Frame: Content Layer
-        Frame: Navigation (S-001)
-          Element: Back Icon
-          Element: Export Button (E-002)
-        Frame: Tab Bar (S-002)
-          Element: Tab Items (E-003)
-          Element: Active Indicator
-        Frame: Editor Panel (S-003)
-          Frame: Form Groups (E-004)
-        Frame: AI Assistant (S-004)
-          Element: Floating Orb (E-005)
-          Frame: Comparison Modal (E-006)
-        Frame: Status Bar (S-005)
-          Element: Sync Status (E-007)
+        Frame: Navigation Tab (S-001)
+          Element: Tab Item (E-001)
+        Frame: Editor Canvas (S-002)
+          Frame: Content Blocks
+            Element: Section Header
+            Element: Text Field (E-003)
+        Frame: AI Assistant (S-003)
+          Element: Floating Orb (E-004)
+          Element: Suggestion Overlay (E-005)
+        Frame: Toolbar
+          Element: Save Status (E-007)
+          Element: Next Step Button (E-002)
 ```
 
 ## 4. 自然语言样式描述
 
 ### 4.1 整体画面
 
-- **页面整体氛围**：专业、专注且充满智能感，模拟深色模式下的沉浸式 IDE 环境。
-- **背景与层级**：画布为纯黑。背景中带有一个极弱的蓝色 Aurora 流动微光。编辑器主体是一个占据屏幕 80% 的巨大玻璃容器，边缘带有细微的 0.5px 浅色描边。
-- **视觉重心**：正在编辑的表单区域，以及右下角带呼吸动画的 AI 悬浮球。
-- **阅读节奏**：切换上方 Tab -> 填写中部内容 -> 关注保存状态 -> 点击右下角 AI 建议。
+- **页面整体氛围**：沉浸、高效、智能感。背景左上方有一抹淡淡的 Blue Aurora，暗示着 AI 助手的能量源。
+- **背景与层级**：底层为纯黑 Canvas。编辑区域并非一张白纸，而是由多个深灰色的玻璃卡片（surfaceMuted）组合而成的结构化画布。
+- **视觉重心**：AI 助手悬浮球，它具有半透明的蓝色核心，并伴有规律的扩大/缩小发光效果。
+- **阅读节奏**：切换模块 Tab -> 在结构化表单中修改内容 -> 点击 AI 助手查看一键优化方案 -> 保存并前往导出。
 
 ### 4.2 关键区块叙述
 
 | 区块ID | 区块名称 | 展示内容摘要 | 样式叙述 | 视觉优先级 | 设计决策 |
 |---|---|---|---|---|---|
-| S-001 | 顶部操作区 | 返回 + 导出预览 | 背景全透明。导出预览按钮采用 Primary 样式，带圆角 radius.full。 | 中 | 保持顶部视线通透。 |
-| S-002 | 模块切换区 | 简历各版块 Tab | 横向排布。非活跃项使用 text.muted，活跃项使用 text.default 并在下方显示 4px 宽的 accent.blue 圆角线条。 | 高 | 建立清晰的导航层级。 |
-| S-003 | 动态表单区 | 编辑字段集合 | 表单项嵌套在 Editor Panel 内部。每个 Group 之间有 space.6 的垂直间距。输入框背景使用 surfaceMuted，半透明度 0.1。 | 极高 | 优化表单密度，确保长时间编辑不拥挤。 |
-| S-004 | AI 建议浮窗 | 悬浮球 + 对比弹窗 | 悬浮球位于右下角，使用 `background.surface` 加 `blur(24px)`。弹窗采用全屏覆盖模式，内容区域为左右分栏玻璃卡片。 | 极高 | 通过呼吸动画引导用户点击 AI 优化。 |
-| S-005 | 底部操作区 | 状态文字 | 极细文案，置于页面最底部，不遮挡内容。使用 xs 字号。 | 低 | 提供静默式的同步反馈。 |
+| S-001 | 模块切换区 | 基本信息/经历等 Tab | 位于顶部。采用横向滚动设计。选中项下方带有发光的 `accent.blue` 短横线。 | 中 | 快速跳转不同简历版块。 |
+| S-002 | 核心编辑区 | 简历各版块表单 | 位于中心。每个输入项是一个去边框的玻璃容器。文字采用 `text.default`。 | 极高 | 确保文字编辑的沉浸感。 |
+| S-003 | AI 助手区 | 悬浮球 + 建议浮窗 | 悬浮球位于右下角上方。点击后弹出的浮窗使用 `blur(48px)` 的极高模糊度。 | 极高 | 差异化功能点，需突出展示。 |
 
 ## 5. 布局与区块样式表
 
 | 区块ID | 来源 Mock 区块 / 元素 | Frame 层级 | 布局方式 | 尺寸 / 约束 | Padding | Gap | 背景 / 边框 / 阴影 | 圆角 | 对齐 | 响应式变化 |
 |---|---|---|---|---|---|---|---|---|---|---|
 | Page | - | Root | Vertical | Fill Window | 0 | 0 | background.canvas | 0 | Center | - |
-| S-001 | S-001 | Header | Horizontal | Width: 100% | 16px 20px | - | Transparent | - | Center | - |
-| S-002 | S-002 | Nav | Horizontal | Width: 100% | 12px 20px | 24px | surfaceOverlay | - | Center Left | Scrollable |
-| S-003 | S-003 | Panel | Vertical | Fill Container | 24px | 24px | Transparent | - | Top Stretch | - |
-| Orb | E-005 | Float | Horizontal | 60x60 | - | - | surface + glass | radius.full | Center | Right: 24, Bottom: 80 |
+| S-001 | S-001 | TabBar | Horizontal | Width: 100% | 12px 20px | 24px | surfaceOverlay | - | Left | Scrollable |
+| S-002 | S-002 | ScrollView | Vertical | Width: 100% | 20px | 24px | Transparent | - | Top | Scrollable |
+| Orb | E-004 | Floating | - | 56x56 | - | - | accent.blue + glow | radius.full | Bottom Right | Floating |
+| Footer | - | Toolbar | Horizontal | Width: 100% | 16px 20px | - | surfaceOverlay + blur | - | Center | Fixed Bottom |
 
 ## 6. 元素级视觉定义
 
 | 元素ID | 来源 Mock 元素 | 元素类型 | 展示内容 | 视觉角色 | 字体 / 字号 / 字重 | 颜色 Token | 背景 / 边框 | 尺寸 / 最小尺寸 | 状态样式摘要 | Figma 节点建议 |
 |---|---|---|---|---|---|---|---|---|---|---|
-| E-001 | E-001 | button | < 图标 | support | - | text.default | - | 44x44 | - | Circle Frame |
-| E-002 | E-002 | button | 预览并生成 PDF | primary | sm / bold | action.primary.text | action.primary.background | H: 36px | shadow.glowPrimary | Small Button |
-| E-003 | E-003 | nav_item | 基本信息 | nav | sm / regular | text.muted | - | - | Active: accent.blue | Text |
-| E-004 | E-004 | input | 简历字段输入 | content | base / regular | text.default | surfaceMuted | H: 54px | Focus: border.highlight | Input Frame |
-| E-005 | E-005 | float_btn | AI 助手 | action | - | - | surface | 60x60 | Pulse animation | Floating Circle |
-| E-006 | E-006 | modal | 对比弹窗 | overlay | - | - | blur(48px) | Full Screen | Side-by-side | Overlay Layer |
-| E-007 | E-007 | text | 已自动保存 | support | xs / regular | text.muted | - | - | - | Small Text |
+| E-001 | E-001 | tab | 模块标题 | support | base / medium | text.default | - | - | Active: accent.blue | Tab Item |
+| E-003 | E-003 | field | 内容编辑框 | entry | base / regular | text.default | surfaceMuted | min-H: 48px | Focus: border.highlight | Editor Field |
+| E-004 | E-004 | orb | AI 助手入口 | brand | - | - | accent.blue | 56x56 | Breathing Glow | Floating Orb |
+| E-005 | E-005 | window | AI 建议浮窗 | functional | sm / regular | text.default | glass_dark | Width: 280px | Backdrop blur: 48px | Floating Panel |
 
 ## 7. 内容与样式绑定表
 
 | 内容对象ID | 来源 Mock 内容 | 展示文案 / 媒体描述 | 内容来源类型 | 样式 Token 绑定 | 布局位置 | 备注 |
 |---|---|---|---|---|---|---|
-| C-001 | E-003 | 基本信息 | 静态 | size.sm, regular | Tab Item | |
-| C-002 | BASIC-001 | 姓名 | 静态 | size.base, medium | Input Label | |
-| C-003 | E-005 | 发现 3 处可优化项 | 动态 | size.xs, regular | Beside Orb | |
-| C-004 | E-007 | 正在保存... | 动态 | size.xs, regular | Bottom Right | |
-| C-005 | E-006-Title | AI 建议对比 | 静态 | size.lg, bold | Modal Header | |
+| C-001 | E-001 | 工作经历 | 静态 | base, medium | Tab Bar | |
+| C-002 | E-003 | 负责产品原型设计及... | 动态 | base, regular | Editor Field | |
+| C-003 | E-005 | 建议增加量化数据... | 动态 | sm, regular | AI Window | |
+| C-004 | E-007 | 已自动保存 | 动态 | xs, muted | Toolbar Left | |
 
 ## 8. 状态展示样式
 
 | 状态ID | 来源 Mock 状态 | 状态类型 | 展示内容 | 视觉样式 | 色彩 / 图标 / 媒体处理 | 空间占位 | 可访问性说明 |
 |---|---|---|---|---|---|---|---|
-| STATE-001 | STATE-001 | pulse | 悬浮球呼吸态 | 外围光圈扩散 | action.primary.glow | 覆盖 Orb 背景 | 触觉反馈 (如支持) |
-| STATE-002 | STATE-002 | syncing | 保存中文案 | 文字透明度变化 | text.muted | 保持 E-007 占位 | 读屏实时播报状态 |
-| STATE-003 | STATE-003 | error | 校验失败红框 | 字段边框变色 | status.error | 修改 Input 描边 | 颜色对比度符合规范 |
+| STATE-001 | STATE-001 | saving | 正在保存... | 灰色文字微光 | text.muted (Pulse) | E-007 位置 | |
+| STATE-002 | STATE-002 | typing | 输入中 | 蓝色光晕边框 | border.highlight | E-003 容器 | |
+| Orb_Active | - | active | 助手展开 | 悬浮球旋转 | Transform: Rotate(45deg) | - | |
 
 ## 9. 响应式布局规则
 
 | 断点 | 页面宽度范围 | Frame 布局 | 导航 / Header | 主内容布局 | 列表 / 表格 / 卡片变化 | 间距调整 | 优先隐藏或折叠内容 |
 |---|---|---|---|---|---|---|---|
-| mobile | < 768px | Vertical | 居左 | 单列平铺 | Tab 允许横移 | space.4 (16px) | - |
-| tablet | 768px - 1023px | Vertical | 居左 | 限制最大宽 (720px) | Tab 居中展示 | space.6 (32px) | - |
-| desktop | 1024px+ | Horizontal | 侧边 Tab | 左侧导航+右侧编辑 | 弹窗变浮动面板 | space.8 (64px) | - |
+| mobile | < 768px | Vertical | 顶部 Tab | 垂直表单 | - | space.4 | - |
+| tablet | 768px - 1023px | Horizontal | 侧边 Tab | 左右布局 | - | space.6 | - |
+| desktop | 1024px+ | Horizontal | 侧边 Tab | 预览+编辑分栏 | 建议浮窗固定在右侧 | space.8 | - |
 
 ## 10. AI 可读样式结构
 
@@ -148,57 +140,58 @@ page:
     - type: "blur_blob"
       color: "accent.blue"
       position: "top_left"
-      size: "500px"
-      blur: "120px"
+      size: "700px"
+      blur: "200px"
       opacity: 0.1
   frames:
     - id: "frame-root"
       type: "frame"
       layout: "vertical"
       children:
-        - id: "header-action"
-          type: "frame"
-          layout: "horizontal"
-          padding: 16
-          children: ["E-001", "E-002"]
-        - id: "tab-navigator"
+        - id: "tab-navigation"
           type: "frame"
           layout: "horizontal"
           background: "background.surfaceOverlay"
-          children: ["E-003-list"]
-        - id: "editor-canvas"
+          children: ["E-001-tabs"]
+        - id: "editor-scroll-view"
           type: "frame"
           layout: "vertical"
-          padding: 24
-          children: ["E-004-groups"]
-        - id: "assistant-layer"
+          padding: 20
+          children: ["E-003-fields"]
+        - id: "ai-assistant-overlay"
           type: "overlay"
-          children: ["E-005", "E-006"]
+          children: ["E-004-orb", "E-005-suggestion"]
+        - id: "bottom-toolbar"
+          type: "frame"
+          layout: "horizontal"
+          padding: 16
+          children: ["E-007", "E-002"]
   components:
     - id: "ai-orb"
-      type: "button"
-      background: "background.surface"
-      radius: "radius.full"
+      type: "ellipse"
+      size: 56
+      background: "accent.blue"
       shadow: "shadow.glowPrimary"
-      animation: "pulse"
+      animation: "breathing_glow"
 ```
 
 ## 11. Figma Remote MCP 生成提示
 
 | 项目 | 指令 |
 |---|---|
-| Frame 创建顺序 | Canvas -> Background Blob -> Header -> Tab Bar -> Editor Panel -> AI Orb (Overlay) |
-| Auto Layout 设置 | Editor Panel 使用 Vertical Auto Layout, Padding 24, Gap 24. Tab Bar 间距 24. |
-| Token 应用方式 | AI Orb 使用 shadow.glowPrimary. 活跃 Tab 使用 accent.blue 指示条. |
-| 组件分组 | 将每个表单项 Label + Input 编组为 "Editor_Field". |
-| 文本节点命名 | Tab 命名为 "Tab_Name", 输入框 Label 为 "Field_Label", 保存状态为 "Save_Status". |
-| 响应式变体 | Mobile 为顶部导航。Desktop 下可考虑将 Tab 移动到左侧。 |
-| 生成时禁止事项 | 不生成具体的表单实时保存逻辑、不生成 AI 解析具体的后端延迟效果。 |
+| Frame 创建顺序 | Canvas -> Background Blob -> Tab Bar -> Editor Area -> AI Orb (Overlay) -> Bottom Toolbar |
+| Auto Layout 设置 | Editor Area 使用 Vertical Auto Layout, Gap 24. |
+| Token 应用方式 | AI 悬浮球应用 shadow.glowPrimary. 保存状态文字应用 size.xs. |
+| 组件分组 | 将输入框与 Label 编组为 "Editor_Block". |
+| 文本节点命名 | 简历内容命名为 "Resume_Content", AI 建议为 "AI_Advice". |
+| 响应式变体 | 在 Desktop 下将 Tab Bar 移动到左侧作为 Sidebar. |
+| 生成时禁止事项 | 不生成真实的文本光标闪烁效果。 |
 
 ## 12. 设计决策记录
 
 | 决策ID | 决策内容 | 依据 | 影响范围 |
 |---|---|---|---|
-| DD-001 | 使用深色玻璃面板替代传统纸质模拟背景。 | 强化“数字化”属性，减少白底深色文字对眼睛的刺激。 | 页面视觉核心 |
-| DD-002 | AI 建议采用“右下角悬浮球”而非侧边栏。 | 确保移动端最大化编辑空间，仅在需要时通过悬浮球唤起 AI 建议。 | AI 辅助交互 |
-| DD-003 | 模块切换 Tab 固定在顶部。 | 方便用户在多个简历版块间快速跳转，无需返回上一页。 | 导航操作效率 |
+| DD-001 | 使用 IDE 风格的布局逻辑。 | 编辑简历是一项高专注度任务，IDE 风格能提供最直观的模块化管理体验。 | 页面结构 |
+| DD-002 | AI 助手设计为呼吸感悬浮球。 | 建立“智能体就在身边”的心理暗示，不占用常驻空间。 | 交互组件 |
+| DD-003 | 采用无边框的玻璃输入框设计。 | 减少线条对视觉的干扰，使内容本身成为主角。 | 表单设计 |
+ Riverside, CA
