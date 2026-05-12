@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product All Pages Design2Figma"
+  short_description: "Orchestrate all pages into Figma"
+  default_prompt: "Use $product-all-pages-design2figma to read product/release/product-overview-release.md, maintain product/release/design/_figma-remote-mcp-status.md, and create all product/release/design pages in my Figma file one sitemap row at a time using product-pages-design2figma rules."

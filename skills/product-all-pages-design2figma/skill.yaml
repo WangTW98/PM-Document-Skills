@@ -1,0 +1,60 @@
+name: "product-all-pages-design2figma"
+version: "0.1.0"
+description: "Orchestrate page-by-page creation of all release design pages into Figma via Figma Remote MCP, using the product overview sitemap and product-pages-design2figma single-page rules."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-overview-release.md"
+  - "product/release/design/<page>.md"
+  - "Figma design URL"
+  - "target Figma page name or target node"
+outputs:
+  - "product/release/design/_figma-remote-mcp-status.md"
+  - "Figma page/frame created in the user-provided Figma file for each completed row"
+resources:
+  references:
+    - "references/figma-remote-mcp-status-template.md"
+    - "references/figma-remote-mcp-orchestration-quality-checklist.md"
+compatibility:
+  runner_neutral: false
+  requires_figma_remote_mcp: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-overview-release.md"
+  source_section: "Sitemap 页面生成总表"
+  design_release_directory: "product/release/design"
+  status_file: "product/release/design/_figma-remote-mcp-status.md"
+  page_design2figma_skill: "product-pages-design2figma"
+  sitemap_page_path_source: "页面级MD文件"
+  design_release_path_rule: "use product/release/design/<same-relative-page-filename>.md as the only valid single-page source"
+  processing_order: "ascending 生成顺序"
+  one_page_per_generation_step: true
+  strict_single_page_execution: true
+  requires_figma_link: true
+  requires_target_figma_page: true
+  target_resolution_required_before_write: true
+  resume_safe: true
+  downstream_tool: "Figma Remote MCP"
+  must_include:
+    - "status queue for every sitemap row"
+    - "Figma destination tracking"
+    - "current page tracking"
+    - "completion records with target page and created node ID"
+    - "blocked records with actionable reasons"
+    - "page-by-page Figma creation following product-pages-design2figma"
+    - "post-write verification status"
+  must_avoid:
+    - "processing more than one page MD per Figma creation step"
+    - "directory-level Figma creation"
+    - "marking pages complete without verified Figma output"
+    - "writing to Figma before target page verification"
+    - "using a default Figma page when target is ambiguous"
+    - "overwriting completed Figma content without explicit user request"
+    - "editing product/release/product-overview-release.md"
+    - "editing source files under product/release/design"
+    - "creating interaction prototypes"
+    - "creating analytics or tracking layers"
+    - "creating API/backend/business workflow artifacts"
