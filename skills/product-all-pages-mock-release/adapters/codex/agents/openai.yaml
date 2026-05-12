@@ -1,4 +1,0 @@
-interface:
-  display_name: "Product All Pages Mock Release"
-  short_description: "Orchestrate all mock release specs"
-  default_prompt: "Use $product-all-pages-mock-release to read product/release/product-overview-release.md, maintain product/release/mock/_generation-status.md, and generate all confirmed content-only mock release specs one sitemap row at a time using product-page-mock-release rules, including 用户补充描述 application."
