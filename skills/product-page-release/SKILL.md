@@ -1,6 +1,6 @@
 ---
 name: product-page-release
-description: Generate exactly one confirmed release page bundle per invocation from a draft page bundle under product/development/pages, while re-resolving the correct release layout file for final validation. Use when an AI agent needs to read a single page draft bundle, apply the user's Release handling decisions from the 页面假设与待确认统一清单, apply the draft's 用户补充描述 edits, remove all PA-/PQ- references and uncertain language, and write the confirmed page bundle under product/release/pages.
+description: Generate exactly one confirmed release page bundle per invocation from the latest draft page bundle under product/development/pages, while re-resolving the correct release layout file for final validation. Use when an AI agent needs to read the newest available draft files for a single page bundle, apply the user's Release handling decisions from the 页面假设与待确认统一清单, apply the draft's 用户补充描述 edits, remove all PA-/PQ- references and uncertain language, and write the confirmed page bundle under product/release/pages using the same directory structure as draft.
 ---
 
 # Product Page Release
@@ -15,6 +15,15 @@ One selected sitemap row still means one page bundle:
 
 - release main page: `product/release/pages/<page-key>/index.md`
 - optional release overlay docs in the same directory
+
+The release storage structure must mirror the draft storage structure:
+
+- draft: `product/development/pages/<page-key>/index.md`
+- release: `product/release/pages/<page-key>/index.md`
+- draft overlay: `product/development/pages/<page-key>/弹窗（确认）-删除草稿-v3.md` or `.../弹窗（确认）-删除草稿.md`
+- release overlay: `product/release/pages/<page-key>/弹窗（确认）-删除草稿.md`
+
+Release files do not carry `-vN` suffixes, but their directory and logical file layout must match the effective draft bundle structure.
 
 This skill only creates final release output. For iterative page draft updates, use `product-page-draft-update`.
 
@@ -41,6 +50,7 @@ Examples:
 - Draft bundle root: `product/development/pages/110-order-detail/`
 - Release bundle root: `product/release/pages/110-order-detail/`
 - Release main file: `product/release/pages/110-order-detail/index.md`
+- Release overlay file example: `product/release/pages/110-order-detail/弹窗（确认）-删除草稿.md`
 
 Optional blocker output when release cannot be produced:
 
@@ -50,22 +60,29 @@ Optional blocker output when release cannot be produced:
 
 1. Select one source page bundle.
    - Use the bundle explicitly named by the user.
-   - If the user names the canonical bundle root or `index.md` and versioned main files exist, use the highest versioned main file unless the user explicitly says to use the named file exactly.
+   - If the user names the canonical bundle root or `index.md` and versioned main files exist, always use the highest versioned main draft unless the user explicitly says to use the named file exactly.
    - If the user specifies multiple bundles, do not process any file; ask the user to choose exactly one.
    - If the user asks for all pages or a directory-level release, do not iterate; explain that this skill processes one page bundle per execution and ask for the first target.
    - If the user does not specify a bundle, list candidate bundles under `product/development/pages` excluding status files and ask the user to choose one.
    - Process exactly one page bundle per invocation.
 
 2. Read and parse the draft bundle.
-   - Load the selected main draft file and all existing auxiliary overlay docs in the same bundle directory.
+   - Determine the effective source main draft file first: prefer the highest `index-vN.md`; if no versioned main file exists, use `index.md`.
+   - Load that effective source main draft file.
+   - Determine the effective source overlay set from the same draft directory:
+     - If the effective source main draft is `index-vN.md`, first prefer overlay files with the same `-vN` suffix.
+     - If a same-version overlay file does not exist, fall back to the highest available version of that overlay in the same directory.
+     - If no versioned overlay exists for that overlay name, fall back to the canonical non-versioned overlay file.
+   - Never mix in overlay files from another page directory.
+   - Record the exact draft source file used for the main file and every overlay file.
    - Read `product/release/product-sitemap-release.md` and resolve the page's sitemap row by page ID, page name, or canonical `页面级MD文件` path.
    - Resolve the correct release layout file using the same matching rules as `product-page-draft`: only consider `product-layout-release*.md`, exclude `*.blockers.md`, require Release metadata, and block on ambiguity.
-   - Verify the selected main draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
+   - Verify the effective source main draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
    - If the draft lacks analytics content, do not create a release bundle. Write a blocker file saying the page draft must be regenerated with `product-page-draft`.
    - Locate the final `页面假设与待确认统一清单` section.
    - Parse every page assumption row (`PA-001`, `PA-002`, ...) and page confirmation row (`PQ-001`, `PQ-002`, ...).
-   - Scan the entire draft bundle for inline `PA-*` and `PQ-*` references; every reference must be represented in the final list.
-   - Locate `## 12. 用户补充描述` when present in the selected main draft.
+   - Scan the entire effective draft bundle for inline `PA-*` and `PQ-*` references; every reference must be represented in the final list.
+   - Locate `## 12. 用户补充描述` when present in the effective source main draft.
    - Extract the user-written natural-language supplement. Treat empty content, `无`, `none`, or placeholder-only text as no supplement.
 
 3. Validate release readiness.
@@ -98,11 +115,15 @@ Optional blocker output when release cannot be produced:
    - Reconcile tables after removals or replacements: element IDs, action IDs, API IDs, data references, state references, Mermaid nodes, and overlay doc names must still match.
    - Validate that the final shell, navigation position, responsive rules, and overlay model remain consistent with the matched release layout file.
    - Generate release overlay docs when the confirmed page bundle still requires them.
+   - For every overlay included in the release bundle, output the release file in the same page directory structure as draft, but remove any `-vN` suffix from the filename.
    - Do not create a duplicate overlay doc in the release bundle if the same flow is already covered by a separate sitemap row.
 
 7. Save and verify.
    - Ensure the release bundle root exists.
    - Write the release bundle under `product/release/pages/<page-key>/`.
+   - The release directory layout must mirror the effective draft bundle layout under `product/development/pages/<page-key>/`.
+   - The release main file is always `index.md`, even if the source draft was `index-vN.md`.
+   - The release overlay filenames use the canonical overlay name without `-vN`, even if the source overlay draft was versioned.
    - Write either one release bundle or one blocker file for the selected page.
    - Run `references/page-release-quality-checklist.md` manually before finishing.
 
@@ -120,6 +141,9 @@ Optional blocker output when release cannot be produced:
 - Do not ignore non-empty `用户补充描述`; it is part of the user's release input.
 - Do not create a release page from a stale draft that lacks analytics event statistics; block and require page draft regeneration.
 - Do not release a page against the wrong layout family. If the layout match is ambiguous, block and ask the user to fix the layout file metadata or naming.
+- Do not use an older draft main file when a newer `index-vN.md` exists, unless the user explicitly requests that older file.
+- Do not produce a release directory structure that differs from the draft page directory structure.
+- Do not carry `-vN` suffixes into release filenames.
 
 ## Output Quality Bar
 
@@ -130,6 +154,7 @@ Optional blocker output when release cannot be produced:
 - Element IDs, Action IDs, API IDs, overlay references, and referenced data objects must remain internally consistent.
 - API request/response contracts must not contain unresolved alternative fields or vague placeholders.
 - Any non-empty user supplement from the draft must be reflected in the relevant release sections, with all affected tables and overlay docs reconciled.
+- The release bundle must be traceable to the exact effective draft source files chosen from the latest available draft version set.
 
 ## Resources
 

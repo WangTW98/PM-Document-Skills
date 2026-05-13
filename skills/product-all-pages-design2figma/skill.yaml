@@ -1,17 +1,20 @@
 name: "product-all-pages-design2figma"
-version: "0.1.0"
-description: "Orchestrate page-by-page creation of all release design pages into Figma via Figma Remote MCP, using the product overview sitemap and product-pages-design2figma single-page rules."
+version: "0.2.0"
+description: "Create all release layout components and all release pages in Figma by using an explicit visual-design-spec output, inferring application forms from the release sitemap when needed, and building pages from product/release/pages only after all release layout components are created or reused."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
 inputs:
+  - "explicit design specification created by visual-design-spec: design/<slug>/DESIGN.md or design/<slug>/"
   - "product/release/product-sitemap-release.md"
-  - "product/release/design/<page>.md"
+  - "product/release/layout/product-layout-release*.md"
+  - "all release pages under product/release/pages"
   - "Figma design URL"
-  - "target Figma page name or target node"
+  - "optional explicit application form"
 outputs:
-  - "product/release/design/_figma-remote-mcp-status.md"
-  - "Figma page/frame created in the user-provided Figma file for each completed row"
+  - "product/release/pages/_design2figma-status.md"
+  - "layout components created or reused in the target Figma file"
+  - "all eligible release page frames created in the target Figma file"
 resources:
   references:
     - "references/figma-remote-mcp-status-template.md"
@@ -23,38 +26,35 @@ compatibility:
     codex: "adapters/codex/agents/openai.yaml"
     gemini: "adapters/gemini/GEMINI.md"
 contract:
-  source_file: "product/release/product-sitemap-release.md"
-  source_section: "Sitemap 页面生成总表"
-  design_release_directory: "product/release/design"
-  status_file: "product/release/design/_figma-remote-mcp-status.md"
-  page_design2figma_skill: "product-pages-design2figma"
-  sitemap_page_path_source: "页面级MD文件"
-  design_release_path_rule: "use product/release/design/<same-relative-page-filename>.md as the only valid single-page source"
-  processing_order: "ascending 生成顺序"
-  one_page_per_generation_step: true
-  strict_single_page_execution: true
+  requires_explicit_visual_design_spec: true
+  visual_design_spec_skill: "visual-design-spec"
+  canonical_design_file: "design/<slug>/DESIGN.md"
+  release_sitemap_file: "product/release/product-sitemap-release.md"
+  release_layout_directory: "product/release/layout"
+  release_pages_directory: "product/release/pages"
+  status_file: "product/release/pages/_design2figma-status.md"
   requires_figma_link: true
-  requires_target_figma_page: true
-  target_resolution_required_before_write: true
-  resume_safe: true
-  downstream_tool: "Figma Remote MCP"
+  creates_layout_components_before_pages: true
+  reuses_existing_layout_components_when_compatible: true
+  unique_layout_family_resolution_required_per_page: true
+  processing_order: "ascending 生成顺序"
+  page_name_rule: "<sitemap 页面级MD文件 basename>-<页面ID>-<页面标题>"
   must_include:
-    - "status queue for every sitemap row"
-    - "Figma destination tracking"
-    - "current page tracking"
-    - "completion records with target page and created node ID"
-    - "blocked records with actionable reasons"
-    - "page-by-page Figma creation following product-pages-design2figma"
-    - "post-write verification status"
+    - "stop immediately if design specification is not explicitly provided"
+    - "stop immediately if figma link is not provided"
+    - "application form inference from product-sitemap-release when user does not specify it"
+    - "status tracking per sitemap row"
+    - "layout component creation or reuse from all release layout files before page creation"
+    - "unique layout family resolution for each page by using product-sitemap-release and all release layout md files"
+    - "release page creation from product/release/pages"
+    - "explicit parent-child hierarchy"
+    - "overflow-safe width/height handling"
+    - "layer-order verification"
   must_avoid:
-    - "processing more than one page MD per Figma creation step"
-    - "directory-level Figma creation"
-    - "marking pages complete without verified Figma output"
-    - "writing to Figma before target page verification"
-    - "using a default Figma page when target is ambiguous"
-    - "overwriting completed Figma content without explicit user request"
-    - "editing product/release/product-sitemap-release.md"
-    - "editing source files under product/release/design"
-    - "creating interaction prototypes"
-    - "creating analytics or tracking layers"
-    - "creating API/backend/business workflow artifacts"
+    - "guessing the design specification"
+    - "guessing the destination figma file"
+    - "creating pages before layout components"
+    - "mixing multiple release layout families in one page"
+    - "using index.md as the unique page frame prefix"
+    - "creating flat loose layers without explicit container nesting"
+    - "allowing overlap, clipping, hidden controls, or broken z-order"

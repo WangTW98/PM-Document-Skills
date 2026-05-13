@@ -1,131 +1,314 @@
 ---
 name: product-all-pages-design2figma
-description: "Orchestrate creation of all page designs into Figma by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/design/_figma-remote-mcp-status.md, selecting exactly one unfinished page at a time, following the product-pages-design2figma single-page Figma Remote MCP rules, writing completion status, and continuing page-by-page until all sitemap rows are complete."
+description: Create all release layout components and all release pages in a user-specified Figma file by using one explicit visual design specification created by visual-design-spec, inferring application forms from product/release/product-sitemap-release.md when the user does not specify them, reusing existing layout components when present, and then creating all release pages with strict hierarchy, nesting, sizing, and layer-order rules. Use when an AI agent needs to create the full release sitemap in Figma.
 ---
 
 # Product All Pages Design2Figma
 
 ## Overview
 
-Create all page designs in Figma, one page at a time, from release design MD files under `product/release/design`.
+Create the complete release Figma structure from:
 
-This is a runner-neutral orchestration skill for Figma Remote MCP execution. It does not replace the single-page Figma creation skill; it uses `product-pages-design2figma` as the single-page contract for each selected sitemap row.
+- one explicit visual design specification created by `visual-design-spec`
+- all release layout files under `product/release/layout`
+- all release page bundles under `product/release/pages`
+- one user-provided Figma link
 
-This skill must maintain a resumable status file:
+This skill always creates layout components first, then pages.
 
-- `product/release/design/_figma-remote-mcp-status.md`
-
-The orchestration reads the product sitemap, finds the next unfinished page, calls/follows the single-page Design2Figma rule for that page, records the created Figma destination or blocker, then moves to the next unfinished page.
-
-## Inputs And Outputs
-
-Required inputs:
+For every sitemap row, the skill must determine one unique release layout family from:
 
 - `product/release/product-sitemap-release.md`
-- Release design page files under `product/release/design`
-- One Figma link provided by the user.
-- One target Figma page, provided as a page name, page node, selected node, or explicit target node in the Figma link.
+- all release layout files under `product/release/layout`
 
-Required status output:
+and must use only that matched layout family for that row. Mixing multiple layout families in one page is forbidden.
 
-- `product/release/design/_figma-remote-mcp-status.md`
+If the user does not specify which design specification to use, stop immediately and ask for it.
+If the user does not provide a Figma link, stop immediately and ask for it.
 
-External output:
+## Required Inputs
 
-- One created Figma page/frame per completed sitemap row, inside the user-provided Figma file and target Figma page.
+- One explicit design specification created by `visual-design-spec`
+- One Figma link provided by the user
+- `product/release/product-sitemap-release.md`
+- all release page bundles under `product/release/pages`
+- all release layout files under `product/release/layout`
+
+Accepted design specification forms:
+
+- `design/<design-system-slug>/DESIGN.md`
+- `design/<design-system-slug>/`
+
+The design specification is valid only when at least these files exist:
+
+- `DESIGN.md`
+- `visual-spec.md`
+- `tokens.json`
+- `handoff/figma-remote-mcp-guide.md`
+
+## Immediate Stop Conditions
+
+Stop immediately and ask the user when any of these is true:
+
+- no design specification was explicitly provided
+- no Figma link was provided
+- the design specification path is missing or incomplete
+- release layouts do not exist
+- release pages do not exist
+- sitemap inference cannot determine a valid application form for some rows
+
+## Application Form Resolution
+
+The user may explicitly specify one or more application forms.
+
+If the user does not specify them:
+
+1. Read `product/release/product-sitemap-release.md`.
+2. Infer the form per release layout family and per sitemap row from:
+   - `产品类型`
+   - `Surface 划分`
+   - row `Surface`
+   - release layout file metadata such as `Layout Key`, `适用 Surface`, `适用端形态`
+3. If the product contains multiple forms, keep them grouped per page row; do not force a fake single global form.
+4. If any row remains ambiguous after reading sitemap and layout files, stop and ask the user.
+
+## Release Source Contract
+
+This skill creates Figma from release artifacts only.
+
+Required sources:
+
+- `product/release/product-sitemap-release.md`
+- all valid `product/release/layout/product-layout-release*.md`
+- all release page bundles under `product/release/pages`
+
+Block the run if:
+
+- release page bundles are missing for some sitemap rows
+- release layout files are missing
+- a release page still contains `PA-*`, `PQ-*`, `假设`, or `待确认`
+
+## Layout Family Resolution Gate
+
+Before any page creation, resolve a unique release layout family for every sitemap row.
+
+Required inputs for matching:
+
+- each page row in `Sitemap 页面生成总表`
+- all valid release layout files under `product/release/layout`
+- each layout file's metadata and `Sitemap 到 Layout 映射总表`
+
+Resolution order for each row:
+
+1. Match by exact row in a layout file's `Sitemap 到 Layout 映射总表`.
+2. Validate that the matched row also agrees with:
+   - `Layout Key`
+   - `适用 Surface`
+   - `适用端形态`
+   - `页面ID`
+   - canonical `页面级MD文件`
+3. If more than one layout file matches the same row, mark that row blocked.
+4. If no layout file matches the row, mark that row blocked.
+
+Once matched:
+
+- record the unique matched layout file path
+- record the matched `Layout Key`
+- record the matched template / shell / navigation contract
+
+Hard constraint:
+
+- a row may reuse only layout components that belong to its uniquely matched layout family
+- do not borrow shell regions, navigation, templates, or status containers from another layout family
+
+## Figma Destination Resolution
+
+The user must provide a Figma link.
+
+Supported behavior:
+
+1. If the link points to a specific page/section/frame:
+   - use that file as destination
+   - use the linked page as default destination page
+   - create or reuse standardized sections/pages inside it as needed
+2. If the link points only to a file:
+   - create or reuse:
+     - `00 Layout Components`
+     - `10 Release Pages`
+
+Within the destination file:
+
+- all layout components live under `00 Layout Components`
+- all release pages live under `10 Release Pages`, unless the user explicitly requests another destination page/section
+
+If destination parsing is ambiguous, stop before writing.
+
+## Layout Component Creation Rule
+
+Before any page creation, process all release layout files under `product/release/layout`.
+
+For every valid release layout file:
+
+1. Parse:
+   - file basename
+   - `Layout Key`
+   - `适用 Surface`
+   - `适用端形态`
+   - shell regions
+   - template library
+   - sitemap-to-layout mapping
+2. Create or reuse a layout component group in Figma.
+3. Build reusable layout components before building any page frames.
+
+Recommended Figma grouping:
+
+- page: `00 Layout Components`
+- section: `<layout-file-name> | <Layout Key>`
+- component sets:
+  - `Shell Regions`
+  - `Page Templates`
+  - `Navigation Patterns`
+  - `Global Status Containers`
+
+Reuse rule:
+
+- if an exact stable-name compatible component group already exists, inspect and reuse it
+- do not duplicate compatible existing layout component sets
+
+## Page Naming Rule
+
+Each created page frame must be named:
+
+- `<logical-pages-md-filename>-<页面ID>-<页面标题>`
+
+Important clarification:
+
+- release page bundles use `index.md`, which is not unique
+- therefore the required `logical-pages-md-filename` must be derived from the sitemap row's canonical `页面级MD文件` basename
+- example:
+  - sitemap `页面级MD文件`: `product/development/pages/330-order-admin-list.md`
+  - final Figma frame name: `330-order-admin-list.md-M-510-订单列表`
+
+## Status Output
+
+Maintain a resumable status file:
+
+- `product/release/pages/_design2figma-status.md`
+
+The status file must record:
+
+- `生成顺序`
+- `页面ID`
+- `页面名称`
+- inferred or explicit application form
+- source release page path
+- source release layout key
+- Figma file URL / file key
+- created or reused layout component group names
+- created page frame name
+- created node ID when available
+- status and blocker reason
 
 ## Workflow
 
-1. Load orchestration context.
+1. Validate required inputs.
+   - Confirm explicit design specification.
+   - Confirm Figma link.
+   - Confirm release layouts and release pages exist.
+
+2. Read design specification.
+   - Load `DESIGN.md`, `visual-spec.md`, `tokens.json`, and `handoff/figma-remote-mcp-guide.md`.
+   - Extract token mappings, typography, spacing, radius, shadows, responsive rules, platform constraints, and Figma construction guidance.
+
+3. Read release product sources.
    - Read `product/release/product-sitemap-release.md`.
-   - Locate and parse `Sitemap 页面生成总表`.
-   - Extract each row's `生成顺序`, `页面ID`, `父页面ID`, `层级`, `页面名称`, and `页面级MD文件`.
-   - Use `页面级MD文件` only as a page filename / relative filename key from the sitemap.
-   - The single-page design MD source must be `product/release/design/<same-relative-page-filename>.md`.
-   - Sort rows by numeric `生成顺序`.
+   - Parse all rows from `Sitemap 页面生成总表`.
+   - Read all release layout files.
+   - Read all release page bundles referenced by the sitemap.
 
-2. Resolve shared Figma destination context.
-   - Require one Figma link from the user.
-   - Require one target Figma page or target node from the user.
-   - Parse and record the Figma URL, `fileKey`, `node-id` when present, target page name, insert mode, and replacement/append policy.
-   - If the Figma destination is ambiguous, stop before processing pages.
-   - Do not write to a default Figma page.
+4. Infer or validate application forms.
+   - Use user-specified form when present.
+   - Otherwise infer per row / per layout family.
+   - Stop if any row cannot be resolved.
 
-3. Initialize or update status.
-   - Ensure `product/release/design` exists.
-   - Create `product/release/design/_figma-remote-mcp-status.md` if missing, using `references/figma-remote-mcp-status-template.md`.
-   - If status exists, preserve completed, blocked, skipped, source-removed, and needs-regeneration rows.
-   - Reconcile status with the current sitemap table: add new rows, mark missing sitemap rows as `源表已移除`, and keep existing completion records.
-   - If the Figma link or target page changes from the status file's recorded destination, do not silently overwrite or duplicate existing completed Figma frames. Mark completed rows as `需重新生成` or ask for explicit confirmation.
+5. Resolve Figma destination.
+   - Parse the Figma URL.
+   - Inspect the file.
+   - Create or reuse standardized Figma pages/sections for layouts and pages.
 
-4. Select one unfinished page.
-   - Choose the first row by `生成顺序` whose status is not `已完成`, `已跳过`, or `已阻塞`.
-   - If the row is `需重新生成`, process it only when the user explicitly requested regeneration.
-   - If the `product/release/design/...` source file does not exist, mark it `已阻塞` and record that the design release source is missing.
-   - If the source file lacks `AI 可读样式结构`, `Figma Remote MCP 生成提示`, App Shell / Navigation Contract, or required layout integrity checks, mark it `已阻塞`.
-   - If the source file omits required product-level navigation, lacks safe-area/main-scroll/bottom-inset rules, or leaves normal content to uncontrolled absolute positioning, mark it `已阻塞`.
-   - If the source file contains `MA-*`, `MQ-*`, `假设`, or `待确认`, mark it `已阻塞`.
-   - If required sitemap fields are missing, especially `页面ID`, `页面名称`, or `页面级MD文件`, mark it `已阻塞`.
+6. Initialize or update status.
+   - Create or refresh `product/release/pages/_design2figma-status.md`.
+   - Preserve completed, blocked, skipped, and source-removed rows when safe.
+   - If the Figma link changed from a previous run, do not silently mark old rows reusable; record that regeneration may be required.
 
-5. Create exactly one page in Figma.
-   - For the selected row, follow `skills/product-pages-design2figma/SKILL.md`.
-   - Use only the selected `product/release/design/...` file as the single page MD source.
-   - Use the resolved Figma link and target Figma page from this orchestration.
-   - Create exactly one Figma page/frame for the selected row.
-   - Do not create any other page in the same sub-step.
+7. Create or reuse all layout components.
+   - Process every release layout file first.
+   - Build or reuse component groups in Figma.
+   - Record reuse/build results in status context.
 
-6. Write completion status.
-   - Update `_figma-remote-mcp-status.md` immediately after the Figma creation attempt.
-   - Record status, page source path, Figma file URL, fileKey, target page, target node, created top-level frame name, created node ID when available, generation timestamp, and any blockers.
-   - If creation failed, target resolution failed, source validation failed, or post-write verification failed, record `已阻塞` with the concrete reason and do not mark it complete.
+8. Create release pages one row at a time.
+   - Sort by `生成顺序`.
+   - For each unfinished row:
+     - resolve the unique matching release layout family from sitemap + all release layout files
+     - resolve the release page bundle
+     - create one page frame named `<logical-pages-md-filename>-<页面ID>-<页面标题>`
+     - use the design specification plus only the matched release layout family plus release page content
+     - record completion or blocker immediately
 
-7. Continue until done.
-   - After each status update, select the next unfinished row and repeat steps 4-6.
-   - Continue only while context remains reliable. If the session is becoming long, stop after the current page and leave `_figma-remote-mcp-status.md` accurate so the next invocation can resume safely.
-   - When all rows are complete, write a final summary in `_figma-remote-mcp-status.md`.
+9. Verify before completion.
+   - Confirm all layout component groups exist or were reused.
+   - Confirm every completed row was created in the intended Figma file.
+   - Confirm every page follows the required naming rule.
+   - Confirm no critical layout integrity issue remains.
 
-## Status Values
+## Structure And Integrity Rules
 
-Use only these statuses:
+These rules are mandatory for both layout components and pages:
 
-- `待生成`: row exists in sitemap and has not been created in Figma.
-- `生成中`: currently selected row.
-- `已完成`: Figma page/frame was created in the intended Figma file and target page and passed verification.
-- `已阻塞`: cannot create because source MD is missing/invalid, Figma destination is ambiguous, Figma write failed, or verification failed.
-- `已跳过`: user explicitly skipped the page.
-- `源表已移除`: page existed in status but no longer exists in current sitemap.
-- `需重新生成`: destination or source changed after completion; regenerate only with explicit user permission.
-
-## Single-Page Design2Figma Contract
-
-For each selected page, obey these `product-pages-design2figma` rules:
-
-- Process exactly one `product/release/design/...` page MD per selected sitemap row.
-- Input source is always `product/release/design/<same-relative-page-filename>.md`.
-- The sitemap's `页面级MD文件` is only a filename key used to locate the same page under `product/release/design`.
-- Parse the Figma link and inspect the target Figma file/page before any write operation.
-- Do not write to Figma if the target page is ambiguous.
-- Create exactly one top-level page frame or target insertion frame.
-- Use the required top-level Figma layer/frame naming from the single-page skill.
-- Verify the created Figma node after writing when tooling allows.
-- Do not mark a row complete unless post-write verification confirms required App Shell regions, navigation consistency, Auto Layout structure, and metadata-safe wrapper dimensions.
-- Do not create interaction prototypes, analytics layers, API annotations, backend diagrams, business workflow nodes, or implementation-code artifacts.
+- Create parents before children.
+- Keep explicit parent-child nesting.
+- Use Auto Layout for normal structure.
+- Use absolute positioning only for intentional overlays or decorative layers explicitly required by release layout or release page content.
+- Keep decorative layers below content; keep overlays/fixed bars above content.
+- Do not allow child content to overflow non-overlay parents unless the spec explicitly requires it.
+- Do not leave placeholder wrapper sizes that clip children.
+- Separate scroll containers, fixed regions, and overlays structurally.
+- Keep text, tables, forms, action bars, and state containers readable and not compressed.
+- Make width, height, fill, hug, and fixed sizing explicit.
+- Do not leave hidden controls, broken z-order, clipped content, or missing safe-area padding unresolved.
 
 ## Hard Rules
 
-- Do not batch multiple page MD files into one Figma frame.
-- Do not skip status updates.
-- Do not write to Figma before resolving the shared Figma link and target page.
-- Do not invent missing `product/release/design/...` source paths. Block the row instead.
-- Do not auto-select a target Figma page when the destination is ambiguous.
-- Do not overwrite existing Figma content unless the user explicitly requested replacement.
-- Do not alter `product/release/product-sitemap-release.md`.
-- Do not alter source files under `product/release/design` while creating Figma pages.
-- Do not mark a row complete unless the Figma output was created in the intended Figma file and target page.
-- Do not mark a row complete if post-write verification finds wrong target page, missing content, unresolved overlap/clipping, incorrect layer order, unsupported application form, or prohibited business/analytics/API artifacts.
-- Do not mark a row complete if post-write verification finds missing Top Nav / Bottom Tab / Fixed Footer required by the product shell, abnormal wrapper dimensions, child nodes wider/taller than non-overlay parents, or normal content implemented as loose absolute-positioned nodes.
+- Do not proceed without an explicit design specification created by `visual-design-spec`.
+- Do not proceed without a user-provided Figma link.
+- Do not create any page before all release layout files have been processed into reusable components or confirmed reusable.
+- Do not create any page before its unique release layout family has been resolved from sitemap + all release layout files.
+- Do not use `product/release/design/*.md` as the primary source.
+- Do not create from draft pages.
+- Do not infer a unique page name from `index.md`; use the sitemap canonical `页面级MD文件` basename.
+- Do not duplicate an existing compatible layout component set in Figma.
+- Do not mix multiple release layout families in one page.
+- Do not reuse shell, template, navigation, or status components from a non-matching layout family.
+- Do not silently choose a destination file or page when the Figma link is ambiguous.
+- Do not silently choose an application form for a row when sitemap + layout inference is still ambiguous.
+- Do not create loose, flat layers when nested containers are required.
+- Do not leave width, height, or overflow behavior implicit when it affects visibility or structure.
+- Do not allow stacking mistakes that cause content to hide behind backgrounds, masks, fixed bars, or overlays.
+- Do not overwrite unrelated Figma content.
+- Do not mark a row complete until that row's page frame passes hierarchy and layout integrity verification.
+
+## Suggested Destination Convention
+
+Unless the user explicitly requests another convention, use:
+
+- Figma page: `00 Layout Components`
+- Figma page: `10 Release Pages`
+- layout section: `<layout-file-name> | <Layout Key>`
+- page section: `<应用形态>` or `<Surface>`
+- page frame: `<logical-pages-md-filename>-<页面ID>-<页面标题>`
 
 ## Resources
 
-- `references/figma-remote-mcp-status-template.md`: status file structure.
-- `references/figma-remote-mcp-orchestration-quality-checklist.md`: final orchestration checks.
+- `skills/visual-design-spec/SKILL.md`: upstream design specification contract
+- `references/figma-remote-mcp-status-template.md`: optional status structure reference
+- `references/figma-remote-mcp-orchestration-quality-checklist.md`: optional orchestration verification reference

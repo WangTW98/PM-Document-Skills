@@ -1,4 +1,0 @@
-interface:
-  display_name: "Product Page Design Release"
-  short_description: "Create one page design spec"
-  default_prompt: "Use $product-page-design-release to read exactly one product/release/mock/*.md page, product/release/layout/product-layout-release.md, and one selected design/<design-system>/ constraint set, then create a same-name content-and-style design release under product/release/design for Figma Remote MCP handoff."

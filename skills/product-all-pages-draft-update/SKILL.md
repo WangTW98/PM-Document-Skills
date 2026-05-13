@@ -1,6 +1,6 @@
 ---
 name: product-all-pages-draft-update
-description: Orchestrate versioned updates for all page draft bundles by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, resolving the correct release layout file for each row, maintaining product/development/pages/_revision-status.md, selecting one unfinished page bundle at a time, following product-page-draft-update single-page-bundle rules, and saving updated bundle drafts with user confirmations and 用户补充描述 merged into each page body.
+description: Orchestrate versioned updates for all page draft bundles by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, resolving the correct release layout file for each row, maintaining product/development/pages/_revision-status.md, selecting one unfinished page bundle at a time, following product-page-draft-update single-page-bundle rules, and saving new versioned draft files in each page's existing directory with user confirmations and 用户补充描述 merged into each page body.
 ---
 
 # Product All Pages Draft Update
@@ -25,7 +25,8 @@ Required status output:
 Generated outputs:
 
 - versioned main draft files inside each page bundle, for example `product/development/pages/110-order-detail/index-v2.md`
-- updated auxiliary overlay docs in the same page bundle when affected
+- versioned overlay draft files in the same page bundle when affected, for example `product/development/pages/110-order-detail/弹窗（确认）-删除草稿-v2.md`
+- no version subdirectories; all new files stay beside the source files they supersede
 
 ## Workflow
 
@@ -56,12 +57,14 @@ Generated outputs:
    - Resolve the row's matching release layout file before update. If no unique match exists, mark the row `已阻塞`.
    - Use the row's canonical page bundle root and latest versioned main file as the selected single source bundle.
    - Write the next versioned main draft inside the same page bundle.
-   - Update affected auxiliary overlay docs in place inside the same page bundle.
+   - Write new versioned overlay draft files for every affected auxiliary overlay doc inside the same page bundle.
+   - Do not modify the source draft files in place.
+   - Do not create a new version directory for that page bundle.
    - Do not process any other page row in the same sub-step.
 
 5. Write completion status.
    - Update `_revision-status.md` immediately after the page bundle update attempt.
-   - Record status, canonical bundle root, actual source main path, generated versioned main path, updated overlay doc list, generation timestamp, source page ID, page name, and any blockers.
+   - Record status, canonical bundle root, actual source main path, generated versioned main path, generated versioned overlay doc list, generation timestamp, source page ID, page name, and any blockers.
    - Do not mark a row complete if the generated draft only changes the version, timestamp, or filename without applying the user's confirmations or `用户补充描述` into the bundle body.
    - Unresolved `PA-*` / `PQ-*` decisions are expected and should not by themselves block the row if they are preserved in the revised draft.
 
@@ -91,6 +94,7 @@ For each selected row, obey these `product-page-draft-update` rules:
 - Source bundle must also be traceable to exactly one matched release layout file.
 - Merge every filled `PA-*` / `PQ-*` user decision and every non-empty `用户补充描述` instruction into the bundle body.
 - Output must be a substantively regenerated page draft bundle. Version-only copies are invalid.
+- Output must be a fully new set of versioned files for every updated document. In-place edits are invalid.
 - Output main file must follow `skills/product-page-draft/references/page-draft-template.md` exactly in required chapter structure and must not omit sections.
 - Output must keep remaining/new `PA-*` / `PQ-*` workflow rows, mandatory analytics, and an empty final `用户补充描述`.
 - Write exactly one updated bundle or record one blocked row.
@@ -102,8 +106,11 @@ For each selected row, obey these `product-page-draft-update` rules:
 - Do not batch multiple page rows into one bundle.
 - Do not skip status updates.
 - Do not overwrite completed versioned drafts unless the user explicitly asks to regenerate.
+- Do not overwrite the source draft files of the bundle being updated.
+- Do not create any per-page version directory or snapshot subdirectory for storing `vN` outputs.
 - Do not invent missing draft bundle roots. Block the row instead.
 - Do not alter `product/release/product-sitemap-release.md`.
 - Do not mark a row complete unless the versioned main draft exists.
+- Do not mark a row complete if any affected overlay doc was updated in place instead of being emitted as a new versioned file.
 - Do not complete a versioned draft whose only material difference is document version, timestamp, or filename.
 - Do not mark a row complete if its layout-file match is missing or ambiguous.

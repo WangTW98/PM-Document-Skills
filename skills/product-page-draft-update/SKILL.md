@@ -1,6 +1,6 @@
 ---
 name: product-page-draft-update
-description: Update exactly one page draft bundle by merging all user-confirmed PA-/PQ- decisions and 用户补充描述 edits into the page body, while re-resolving the correct release layout file for the target sitemap row, then generating the next versioned main draft under the canonical page directory and keeping any auxiliary overlay docs aligned. Use when an AI agent needs to revise one page draft bundle without producing release pages.
+description: Update exactly one page draft bundle by merging all user-confirmed PA-/PQ- decisions and 用户补充描述 edits into the page body, while re-resolving the correct release layout file for the target sitemap row, then generating new versioned draft files in the canonical page directory. Use when an AI agent needs to revise one page draft bundle without producing release pages.
 ---
 
 # Product Page Draft Update
@@ -14,9 +14,10 @@ One selected sitemap row still means one page bundle:
 - main page draft: `.../<page-key>/index.md` or latest `index-vN.md`
 - optional auxiliary overlay docs in the same directory
 
-This skill never writes `product/release/pages`; it creates the next reviewable main draft version and keeps the same page bundle aligned.
+This skill never writes `product/release/pages`; it creates the next reviewable draft version set in the existing page directory.
 
 The output must be a substantively regenerated bundle. It is invalid to copy the previous draft and only change the version number, timestamp, or filename.
+It is also invalid to modify the existing draft files in place. Every updated draft document must be emitted as a new versioned file.
 
 ## Inputs And Outputs
 
@@ -36,12 +37,17 @@ Batch input is not allowed. If multiple page bundles are provided, stop and ask 
 Default output:
 
 - next versioned main draft inside the same page directory, for example `index-v2.md`, `index-v3.md`
-- updated auxiliary overlay docs in the same directory when those docs are affected by the merged changes
+- next versioned overlay draft files in the same page directory when those docs are affected by the merged changes, for example `弹窗（确认）-删除草稿-v2.md`
 
 Versioning rule:
 
-- versioning applies to the main bundle file
-- auxiliary overlay docs keep stable canonical names unless the user explicitly asks to preserve historical copies
+- versioning applies to every updated draft document in the bundle, not only the main file
+- the new version number must be consistent across all files generated in the same update run
+- all new `vN` files must be written into the same page directory as the source files
+- do not create a version subdirectory such as `v2/`, `draft-v2/`, `snapshot-v3/`, or any similar folder
+- do not overwrite `index.md`, `index-vN.md`, or any existing overlay draft file
+- if an overlay draft is affected by the update, write a new versioned overlay file and keep the older file unchanged
+- if an overlay draft is not affected by the update, keep the old file unchanged and make the new main draft explicitly reference the actual file version that remains effective
 
 ## Workflow
 
@@ -52,6 +58,7 @@ Versioning rule:
    - If the user does not specify a bundle, list candidate bundle roots under `product/development/pages` excluding status files and ask the user to choose one.
    - Read `skills/product-page-draft/references/page-draft-template.md` and use it as the required main-file output structure.
    - Load the selected bundle main file and all existing auxiliary overlay docs in the same directory.
+   - Determine the next bundle version number from the selected main draft: `index.md -> v2`, `index-v2.md -> v3`, and so on.
    - Read `product/release/product-sitemap-release.md` and resolve the selected bundle's sitemap row by page ID, page name, or canonical `页面级MD文件`.
    - Resolve the correct release layout file using the same rules as `product-page-draft`: only consider `product-layout-release*.md`, exclude `*.blockers.md`, require Release metadata, prefer exact match on `Surface`, `页面ID`, and canonical `页面级MD文件`, and block on ambiguity.
    - Verify the selected main draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID. If not, block and ask for regeneration with `product-page-draft`.
@@ -66,7 +73,7 @@ Versioning rule:
    - Keep layout-related sections aligned with the matched release layout file. User page edits may refine page-level behavior, but must not silently drift away from the matched shell/navigation contract.
    - If a decision or supplement is ambiguous but the page can still be updated, preserve the uncertainty as a new `PQ-*` row.
    - If a supplement introduces a new overlay-like sub-page, apply the overlay splitting rules from `product-page-draft`.
-   - If a supplement removes the need for a previously generated overlay sub-page, remove its references from the main file and either delete the obsolete overlay doc or clearly mark it obsolete in the bundle, depending on the user's instruction.
+   - If a supplement removes the need for a previously generated overlay sub-page, remove its references from the new main file. Do not delete or overwrite the old overlay draft file in place.
 
 3. Regenerate the page bundle.
    - Rebuild the main output according to `page-draft-template.md`; preserve the page H1, every required top-level section, subsection, table, Mermaid block, JSON example block, and final fenced `用户补充描述` block.
@@ -78,6 +85,8 @@ Versioning rule:
    - Keep unresolved material assumptions/questions and add new ones caused by the merged changes.
    - Use stable unresolved IDs when their meaning is unchanged; add new IDs after the highest existing number. Do not reuse IDs for different meanings.
    - Rewrite affected auxiliary overlay docs so they remain consistent with the new main file.
+   - Every affected auxiliary overlay doc must be saved as a new versioned file that uses the same version number as the new main draft.
+   - Every newly generated file in this run must stay in the same page directory as its source counterpart.
    - Before saving, verify each actionable user decision or supplement instruction is reflected in the revised bundle. If no actionable user change exists, do not create a version-only draft; explain what user input is missing.
 
 4. Preserve the review loop.
@@ -90,8 +99,13 @@ Versioning rule:
 5. Save and verify.
    - Save the next versioned main draft inside the same page directory.
    - If the source main file is `index.md`, write `index-v2.md`; if the source is `index-v2.md`, write `index-v3.md`.
+   - If an overlay file such as `弹窗（确认）-删除草稿.md` is affected in the same update run and the new main draft is `index-v2.md`, write `弹窗（确认）-删除草稿-v2.md`.
+   - If the affected source overlay is already versioned, for example `弹窗（确认）-删除草稿-v2.md`, and the new main draft is `index-v3.md`, write `弹窗（确认）-删除草稿-v3.md`.
+   - Do not place `index-v2.md` or any overlay `-vN.md` into a separate version folder.
    - Do not write anything under `product/release/pages`.
    - Verify the revised bundle still follows `page-draft-template.md`, has all required sections, has an updated page assumption/question list, mandatory analytics, and an empty final `用户补充描述` section.
+   - Verify that no existing draft file in the source bundle was directly modified or overwritten.
+   - Verify that the new main draft references the correct effective overlay files: new `-vN` files for changed overlays, existing files for unchanged overlays.
 
 ## Hard Rules
 
@@ -102,8 +116,11 @@ Versioning rule:
 - Do not remove the confirmation workflow sections.
 - Do not carry raw `用户补充描述` notes forward; merge them into the bundle and reset the section.
 - Do not create a new draft whose only material difference is document version, timestamp, or filename.
+- Do not modify the selected source draft files in place.
+- Do not overwrite any existing draft file in the bundle, including overlay docs.
+- Do not create any per-page version directory, snapshot directory, or subfolder only for storing `vN` outputs.
 - Do not invent user confirmation. Unclear material changes become new `PQ-*` rows.
 - Analytics content and `EVT-*` IDs must remain present.
 - Do not let the updated page draft drift away from the matched release layout file on shell, navigation position, or responsive contract without recording a page-level assumption/question.
-- Do not treat the page bundle as a single-file document; update auxiliary overlay docs when required by the main draft changes.
+- Do not treat the page bundle as a single-file document; create new versioned auxiliary overlay docs when required by the main draft changes, and keep them in the same directory as the source overlay docs.
 - Do not duplicate an auxiliary overlay doc for a flow that already has its own sitemap row.

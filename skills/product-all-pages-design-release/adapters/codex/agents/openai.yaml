@@ -1,4 +1,0 @@
-interface:
-  display_name: "Product All Pages Design Release"
-  short_description: "Orchestrate all page design specs"
-  default_prompt: "Use $product-all-pages-design-release to read product/release/product-sitemap-release.md, maintain product/release/design/_generation-status.md, and generate all page-level design release specs one sitemap row at a time using product-page-design-release rules and one selected design/<design-system>/."
