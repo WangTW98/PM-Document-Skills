@@ -1,6 +1,6 @@
 ---
 name: product-all-pages-release
-description: Orchestrate generation of all release page Markdown documents from draft pages by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-release single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
+description: Orchestrate generation of all release page Markdown documents from draft pages by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, resolving the correct layout-family file for each row, maintaining product/release/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-release single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
 ---
 
 # Product All Pages Release
@@ -54,6 +54,7 @@ Generated release page outputs:
 
 4. Release exactly one page.
    - For the selected row, follow `skills/product-page-release/SKILL.md`.
+   - Resolve the row's matching `product-layout-release*.md` file before release. If no unique match exists, mark the row `已阻塞`.
    - Use the row's canonical `页面级MD文件` and latest versioned sibling as the selected single draft source page.
    - Write the release page to the derived `product/release/pages` path.
    - Do not release any other page in the same sub-step.
@@ -86,6 +87,7 @@ For each selected page, obey these `product-page-release` rules:
 - Process exactly one draft page per selected sitemap row.
 - Canonical input source is the row's `页面级MD文件`; actual processing source is the latest versioned sibling when one exists.
 - Source draft page must already contain the mandatory analytics section and `EVT-*` event IDs from `product-page-draft`.
+- The row must be traceable to exactly one matched `product-layout-release*.md` file before release.
 - Source draft page must include `用户补充描述`; `product-page-release` must analyze and apply non-empty supplement instructions before marking the page complete.
 - Output path is derived from the canonical `页面级MD文件` under `product/release/pages`; draft revision suffixes such as `-v2` or `-v3` are not carried into release filenames.
 - Apply every `PA-*` / `PQ-*` Release handling decision from the draft page's final `页面假设与待确认统一清单`.
@@ -104,6 +106,7 @@ For each selected page, obey these `product-page-release` rules:
 - Do not mark a page complete if the release page still contains `PA-*`, `PQ-*`, `假设`, or `待确认`.
 - Do not mark a page complete if the release page lacks `埋点事件ID` or any `EVT-*` event ID.
 - Do not attempt release from a stale draft page that lacks analytics event statistics; block it and request draft regeneration.
+- Do not mark a page complete if its layout-family match is missing or ambiguous.
 
 ## Resources
 

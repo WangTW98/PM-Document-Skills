@@ -1,6 +1,6 @@
 ---
 name: product-page-release
-description: Generate exactly one confirmed release page Markdown document per invocation from a draft page file under product/development/pages. Use when an AI agent needs to read a single page draft created by product-page-draft/product-page-draft-update, apply the user's Release handling decisions from the 页面假设与待确认统一清单, analyze and apply the draft's final 用户补充描述 natural-language page edits, remove all PA-/PQ- references, assumptions, open questions, draft-only notes, supplement sections, and uncertain language, then write the confirmed page document under product/release/pages. Never process multiple page files in one execution.
+description: Generate exactly one confirmed release page Markdown document per invocation from a draft page file under product/development/pages, while re-resolving the correct release layout-family file for final validation. Use when an AI agent needs to read a single page draft created by product-page-draft/product-page-draft-update, apply the user's Release handling decisions from the 页面假设与待确认统一清单, apply the draft's 用户补充描述 edits, remove all PA-/PQ- references and uncertain language, and write the confirmed page document under product/release/pages.
 ---
 
 # Product Page Release
@@ -50,6 +50,8 @@ Optional blocker output when release cannot be produced:
 
 2. Read and parse the draft.
    - Load the selected page MD.
+   - Read `product/release/product-sitemap-release.md` and resolve the page's sitemap row by page ID, page name, or canonical `页面级MD文件` path.
+   - Resolve the correct `product/release/layout/product-layout-release*.md` file using the same matching rules as `product-page-draft`.
    - Verify the draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
    - If the draft lacks analytics content, do not create a release page. Write a blocker file saying the page draft must be regenerated with `product-page-draft` version `0.5.0` or later.
    - Locate the final `页面假设与待确认统一清单` section.
@@ -87,6 +89,7 @@ Optional blocker output when release cannot be produced:
    - Remove the draft-only `页面级假设 / 待确认编号规则`, `页面假设与待确认统一清单`, `用户补充描述`, and release-check wording.
    - Remove every `PA-001`, `PQ-001`, `页面假设`, `页面待确认`, `假设`, `待确认`, `待用户确认`, `置信度`, and uncertainty marker from the release page.
    - Reconcile tables after removals or replacements: element IDs, action IDs, API IDs, data references, state references, and Mermaid nodes must still match.
+   - Validate that the final page-level shell, navigation position, and responsive rules remain consistent with the matched `product-layout-release*.md` file.
 
 7. Save and verify.
    - Ensure `product/release/pages` exists.
@@ -107,6 +110,7 @@ Optional blocker output when release cannot be produced:
 - Do not invent user confirmation. If the draft does not contain a concrete release decision for a material item, block release.
 - Do not ignore non-empty `用户补充描述`; it is part of the user's release input.
 - Do not create a release page from a stale draft that lacks analytics event statistics; block and require page draft regeneration.
+- Do not release a page against the wrong layout family. If the layout match is ambiguous, block and ask the user to fix the layout file metadata or naming.
 
 ## Output Quality Bar
 

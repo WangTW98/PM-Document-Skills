@@ -1,6 +1,6 @@
 ---
 name: product-all-pages-draft-update
-description: Orchestrate versioned updates for all page-level draft Markdown documents by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, maintaining product/development/pages/_revision-status.md, selecting one unfinished page at a time, following product-page-draft-update single-page rules, and saving updated page-vN drafts with user confirmations and 用户补充描述 merged into each page body.
+description: Orchestrate versioned updates for all page-level draft Markdown documents by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, resolving the correct layout-family file for each row, maintaining product/development/pages/_revision-status.md, selecting one unfinished page at a time, following product-page-draft-update single-page rules, and saving updated page-vN drafts with user confirmations and 用户补充描述 merged into each page body.
 ---
 
 # Product All Pages Draft Update
@@ -51,6 +51,7 @@ Generated outputs:
 
 4. Update exactly one page draft.
    - For the selected row, follow `skills/product-page-draft-update/SKILL.md`.
+   - Resolve the row's matching `product-layout-release*.md` file before update. If no unique match exists, mark the row `已阻塞`.
    - Use the row's canonical `页面级MD文件` and latest versioned sibling as the selected single draft source page.
    - Write the next versioned draft beside the selected source draft.
    - Do not process any other page in the same sub-step.
@@ -84,6 +85,7 @@ For each selected page, obey these `product-page-draft-update` rules:
 - Process exactly one draft page per selected sitemap row.
 - Canonical input source is the row's `页面级MD文件`; actual processing source is the latest versioned sibling when one exists.
 - Source draft page must include mandatory analytics and `用户补充描述`.
+- Source draft page must also be traceable to exactly one matched layout-family file.
 - Merge every filled `PA-*` / `PQ-*` user decision and every non-empty `用户补充描述` instruction into the page body.
 - Output must be a substantively regenerated page draft. Version-only copies are invalid.
 - Output must follow `skills/product-page-draft/references/page-draft-template.md` exactly in required chapter structure and must not omit sections.
@@ -101,3 +103,4 @@ For each selected page, obey these `product-page-draft-update` rules:
 - Do not alter `product/release/product-sitemap-release.md`.
 - Do not mark a page complete unless the versioned draft file exists.
 - Do not complete a versioned draft whose only material difference is document version, timestamp, or filename.
+- Do not mark a page complete if its layout-family match is missing or ambiguous.

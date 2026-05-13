@@ -1,6 +1,9 @@
 # Product Layout Draft 模板
 
-> 输出路径：`product/development/layout/product-layout-draft.md`。本文档是项目级布局草案，用于用户确认布局假设与待确认项；确认后由 `product-layout-release` 生成 `product/release/layout/product-layout-release.md`，作为后续页面需求、Mock 内容、Design Release 和 Figma 生成前的正式结构约束。
+> 输出路径：
+> - 单 layout family：`product/development/layout/product-layout-draft.md`
+> - 多 layout family：`product/development/layout/product-layout-draft-<layout-key>.md`
+> 本文档是单个 layout family 的项目级布局草案，用于用户确认布局假设与待确认项；确认后由 `product-layout-release` 生成匹配的 `product/release/layout/product-layout-release*.md`，作为后续页面需求、Mock 内容、Design Release 和 Figma 生成前的正式结构约束。
 
 # Product Layout Draft
 
@@ -12,8 +15,12 @@
 | 生成日期 |  |
 | 来源文件 | `product/release/product-sitemap-release.md` |
 | 来源章节 | `Sitemap 页面生成总表` |
-| 当前输出文件 | `product/development/layout/product-layout-draft.md` |
-| 适用范围 | APP / Web / SaaS / 小程序 / 后台系统 / 内容平台 / AI 工具等应用布局 |
+| 当前输出文件 | `product/development/layout/product-layout-draft.md` 或 `product/development/layout/product-layout-draft-<layout-key>.md` |
+| Layout Key | 例如 `mobile-app` / `user-web` / `admin-web` |
+| 适用 Surface | 例如 `用户端` / `管理后台` / `商家端` / `创作者端` |
+| 适用端形态 | 例如 `mobile-app` / `mobile-web` / `desktop-web` / `mini-program` / `backend-console` |
+| 覆盖页面ID / 页面级MD文件范围 | 列出本 layout family 覆盖的页面ID范围或文件样例 |
+| 适用范围 | APP / Web / SaaS / 小程序 / 后台系统 / 内容平台 / AI 工具等应用布局；一个文件只描述一个 layout family |
 | Layout 假设 / 待确认编号规则 | `LA-001` 起为布局假设；`LQ-001` 起为布局待确认 |
 
 ## 1. 产品布局总览
@@ -89,9 +96,9 @@ flowchart TD
 
 | 下游 Skill | 必须读取 | 使用方式 | 必须引用的 Layout 信息 |
 |---|---|---|---|
-| product-page-draft | product-layout-release + product-overview-release | 先确定页面 shell/template，再生成元素/状态/action/API | Surface ID / Shell / 模板ID / 导航位置 / 响应式规则 |
-| product-page-mock-draft | product-layout-release + release page | 生成可见文案与 mock 内容时补齐 shell/nav/状态容器文案 | 全局区域 / 导航标签 / 页面标题 / 状态容器 |
-| product-page-design-release | product-layout-release + release mock + design system | 生成 App Shell、Frame 层级、响应式与布局完整性审核 | Shell 区域 / 页面模板 / 父子层级 / 安全区 / scroll/fixed 关系 |
+| product-page-draft | 匹配的 product-layout-release*.md + product-overview-release | 先按目标页面的 Surface / 端形态匹配 layout 文件，再确定页面 shell/template，并生成元素/状态/action/API | Layout Key / Surface ID / Shell / 模板ID / 导航位置 / 响应式规则 |
+| product-page-mock-draft | 匹配的 product-layout-release*.md + release page | 先按目标页面的 Surface / 端形态匹配 layout 文件，再补齐 shell/nav/状态容器文案 | Layout Key / 全局区域 / 导航标签 / 页面标题 / 状态容器 |
+| product-page-design-release | 匹配的 product-layout-release*.md + release mock + design system | 先按目标页面的 Surface / 端形态匹配 layout 文件，再生成 App Shell、Frame 层级、响应式与布局完整性审核 | Layout Key / Shell 区域 / 页面模板 / 父子层级 / 安全区 / scroll/fixed 关系 |
 
 ## 11. 布局假设与待确认统一清单
 

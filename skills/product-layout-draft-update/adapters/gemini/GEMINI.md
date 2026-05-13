@@ -7,7 +7,7 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 1. Read `skill.yaml` for metadata and output contract.
 2. Read `SKILL.md` for the draft update workflow.
 3. Load `skills/product-layout-draft/references/product-layout-draft-template.md`.
-4. Load the explicitly named draft, or the latest `product/development/layout/product-layout-draft-v<N>.md` when present; otherwise load `product/development/layout/product-layout-draft.md`.
+4. Read `product/release/product-sitemap-release.md`, then load the explicitly named layout draft files or the latest draft for each active layout family under `product/development/layout`.
 5. Merge user-confirmed LA-/LQ- decisions and non-placeholder `用户补充描述` into the layout body.
 6. Reconcile Surface/Shell definitions, sitemap-to-layout mapping, responsive rules, downstream usage rules, and Mermaid layout map.
 7. Preserve every required template chapter/table in order; restore missing sections from the template.

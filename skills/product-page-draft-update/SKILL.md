@@ -1,6 +1,6 @@
 ---
 name: product-page-draft-update
-description: Update exactly one page-level draft Markdown document by merging all user-confirmed PA-/PQ- decisions and 用户补充描述 edits into the page body, then generating the next versioned draft under product/development/pages while preserving page assumptions, confirmation questions, analytics, and the final empty user supplement section. Use when an AI agent needs to revise a page draft without producing a product/release/pages file.
+description: Update exactly one page-level draft Markdown document by merging all user-confirmed PA-/PQ- decisions and 用户补充描述 edits into the page body, while re-resolving the correct release layout-family file for the target page, then generating the next versioned draft under product/development/pages. Use when an AI agent needs to revise a page draft without producing a product/release/pages file.
 ---
 
 # Product Page Draft Update
@@ -32,6 +32,8 @@ Default output:
    - If the user does not specify a file, list candidate files under `product/development/pages` excluding status files and ask the user to choose one.
    - Read `skills/product-page-draft/references/page-draft-template.md` and use it as the required output structure.
    - Load the selected page MD.
+   - Read `product/release/product-sitemap-release.md` and resolve the selected page's sitemap row by page ID, page name, or the page file path recorded in the row's `页面级MD文件`.
+   - Resolve the correct `product/release/layout/product-layout-release*.md` file using the same matching rules as `product-page-draft`: prefer exact metadata match on `Layout Key`, `适用 Surface`, `适用端形态`, and `覆盖页面ID / 页面级MD文件范围`; if only `product-layout-release.md` exists, use it; if multiple candidates remain ambiguous, block instead of guessing.
    - Verify the draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID. If not, block and ask for regeneration with `product-page-draft`.
    - Locate the final `页面假设与待确认统一清单`.
    - Parse every page assumption row (`PA-001`, `PA-002`, ...) and page confirmation row (`PQ-001`, `PQ-002`, ...).
@@ -41,6 +43,7 @@ Default output:
    - Treat filled `用户确认状态`, `用户确认结果`, and `Release 处理方式` cells as user decisions that must be merged into the page body.
    - Treat non-empty `用户补充描述` as page modification instructions, not as notes to copy forward.
    - Group changes by affected area: page objective/context, layout sections, element inventory, state matrix, action matrix, analytics events, data model, API contract, edge/error handling, and media/resources.
+   - Keep layout-related sections aligned with the matched layout release file. User page edits may refine page-level behavior, but must not silently drift away from the matched family shell/navigation contract.
    - If a decision or supplement is ambiguous but the page can still be updated, preserve the uncertainty as a new `PQ-*` row.
 
 3. Regenerate the page draft body.
@@ -78,3 +81,4 @@ Default output:
 - Do not create a new draft whose only material difference is document version, timestamp, or filename.
 - Do not invent user confirmation. Unclear material changes become new `PQ-*` rows.
 - Analytics content and `EVT-*` IDs must remain present.
+- Do not let the updated page draft drift away from the matched `product-layout-release*.md` file on shell, navigation position, or responsive contract without recording a page-level assumption/question.

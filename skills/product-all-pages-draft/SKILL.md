@@ -1,6 +1,6 @@
 ---
 name: product-all-pages-draft
-description: Orchestrate generation of all page-level draft Markdown documents from product/release/product-sitemap-release.md by parsing the Sitemap 页面生成总表, maintaining product/development/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-draft single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
+description: Orchestrate generation of all page-level draft Markdown documents from product/release/product-sitemap-release.md by parsing the Sitemap 页面生成总表, resolving the correct layout-family file for each row, maintaining product/development/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-draft single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
 ---
 
 # Product All Pages Draft
@@ -47,6 +47,7 @@ Generated page outputs:
 
 4. Generate exactly one page.
    - For the selected row, follow `skills/product-page-draft/SKILL.md`.
+   - Resolve the row's matching `product-layout-release*.md` file before generation. If no unique match exists, mark the row `已阻塞`.
    - Use the selected row as the target page.
    - Write the page MD to the exact `页面级MD文件` path from the row.
    - Do not generate any other page in the same sub-step.
@@ -81,6 +82,7 @@ For each selected page, obey these `product-page-draft` rules:
 - Include Mermaid plus detailed tables.
 - Include page elements, states, triggers, style definitions, interactions, actions, edge cases, APIs, request/response data structures, media/resources, and page-level `PA-*` / `PQ-*` assumptions when needed.
 - Include the mandatory analytics event contract from `product-page-draft`: Action table columns `埋点事件ID`, `埋点事件名称`, `不埋点原因`, plus `## 7. 埋点事件统计设计` with at least one `EVT-*` page exposure event.
+- Resolve the correct layout-family file for the selected page; do not reuse a sibling page's layout file blindly.
 - End every generated page draft with `## 12. 用户补充描述` according to `product-page-draft`.
 - Keep all page-level uncertainty inside that page file's final `页面假设与待确认统一清单`.
 
@@ -93,6 +95,7 @@ For each selected page, obey these `product-page-draft` rules:
 - Do not alter `product/release/product-sitemap-release.md`.
 - Do not mark a page complete unless the page file exists at the exact sitemap path.
 - Do not mark a page complete if it lacks the mandatory analytics section, `EVT-*` event IDs, or `用户补充描述`.
+- Do not mark a page complete if its layout-family match is missing or ambiguous.
 
 ## Resources
 

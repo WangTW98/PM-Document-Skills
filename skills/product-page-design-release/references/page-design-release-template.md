@@ -11,7 +11,7 @@
 | 文档版本 | Release |
 | 生成日期 |  |
 | 来源 Mock 文件 | `product/release/mock/<page>.md` |
-| 来源 Layout 文件 | `product/release/layout/product-layout-release.md` |
+| 来源 Layout 文件 | 匹配的 `product/release/layout/product-layout-release*.md` |
 | 设计约束目录 | `design/<design-system>/` |
 | 当前输出文件 | `product/release/design/<page>.md` |
 | 页面名称 |  |
@@ -28,7 +28,7 @@
 | 信息层级 |  |
 | 主要视觉焦点 |  |
 | 设计系统应用摘要 |  |
-| 产品级 App Shell 摘要 | 来自 `product-layout-release`，例如：移动端 App / 底部 Tab / 层级推入 / 顶部 Navigation Bar |
+| 产品级 App Shell 摘要 | 来自匹配的 `product-layout-release*.md`，例如：移动端 App / 底部 Tab / 层级推入 / 顶部 Navigation Bar |
 | 布局完整性目标 | 页面区块、元素、层级、间距和响应式规则清晰，不出现堆叠、挤压、遮挡、裁切或层级错误 |
 
 ## 2. 设计约束提取
@@ -82,7 +82,7 @@ mindmap
 
 ## 6. App Shell / 导航合同
 
-> 必须优先从 `product/release/layout/product-layout-release.md` 的 Surface、Shell、页面模板、导航位置、全局区域继承、响应式规则、全局状态与角色/权限布局规则推导，并结合 `product/release/product-sitemap-release.md` 校验 sitemap 与产品上下文。不得因为页面 mock 没写导航就省略产品级导航。
+> 必须优先从匹配的 `product/release/layout/product-layout-release*.md` 的 Surface、Shell、页面模板、导航位置、全局区域继承、响应式规则、全局状态与角色/权限布局规则推导，并结合 `product/release/product-sitemap-release.md` 校验 sitemap 与产品上下文。不得因为页面 mock 没写导航就省略产品级导航。
 
 | 项目 | 规则 |
 |---|---|

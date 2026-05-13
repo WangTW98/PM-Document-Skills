@@ -1,23 +1,23 @@
 ---
 name: product-page-draft
-description: Generate one page-level draft Markdown document at a time from product/release/product-sitemap-release.md, using exactly one row from the Sitemap 页面生成总表. Use when an AI agent needs to create detailed page requirements under product/development/pages for a selected page, including page elements, controls, media, banners, states, triggers, style definitions, interactions, actions, edge cases, error handling, data structures, API contracts, Mermaid mind map, tables, page-level assumptions/open questions, and a final user supplement section for natural-language page edits. Each invocation must generate only one page draft.
+description: Generate one page-level draft Markdown document at a time from product/release/product-sitemap-release.md, using exactly one row from the Sitemap 页面生成总表 and matching that row to the correct release layout-family file under product/release/layout. Use when an AI agent needs to create detailed page requirements under product/development/pages for a selected page while inheriting the right shell/navigation/responsive contract for that page's Surface and terminal shape.
 ---
 
 # Product Page Draft
 
 ## Overview
 
-Create a detailed draft MD for exactly one page listed in `product/release/product-sitemap-release.md` -> `Sitemap 页面生成总表`. This skill must also use `product/release/layout/product-layout-release.md` as the shared layout dependency, so page requirements inherit the confirmed product-level shell, navigation, page container, responsive, and global state rules. This skill is deliberately single-page-per-run to reduce context drift and keep page requirements accurate.
+Create a detailed draft MD for exactly one page listed in `product/release/product-sitemap-release.md` -> `Sitemap 页面生成总表`. This skill must also resolve and use the correct layout-family dependency under `product/release/layout/`, so page requirements inherit the confirmed product-level shell, navigation, page container, responsive, and global state rules for the target page's actual Surface and terminal shape. This skill is deliberately single-page-per-run to reduce context drift and keep page requirements accurate.
 
 This skill is runner-neutral. Any AI system can use it by reading this file and the references under `references/`; platform-specific metadata belongs under `adapters/`.
 
 ## Required Input
 
 - `product/release/product-sitemap-release.md`
-- `product/release/layout/product-layout-release.md`
+- The matching layout release file under `product/release/layout`, such as `product-layout-release.md`, `product-layout-release-user-web.md`, or `product-layout-release-admin-web.md`
 - A target page specified by the user as `页面ID`, `页面名称`, or table row.
 
-If `product/release/layout/product-layout-release.md` is missing, block generation and ask the user to run `product-layout-release` first. Do not fall back to the draft layout for normal generation, because page drafts must be based on confirmed layout rules.
+If no matching `product-layout-release*.md` file exists, block generation and ask the user to run `product-layout-release` first. Do not fall back to draft layout files for normal generation, because page drafts must be based on confirmed layout rules.
 
 If the user does not specify a target page:
 
@@ -44,10 +44,17 @@ Rules:
 
 1. Load source context.
    - Read `product/release/product-sitemap-release.md`.
-   - Read `product/release/layout/product-layout-release.md`.
    - Locate `Sitemap 页面生成总表`.
    - Parse the target row and nearby hierarchy context: parent page, child pages, dependencies, role, function, key operations, key data/content, states, rules, and upstream/downstream pages.
-   - Parse the target page's layout mapping from `product-layout-release`: Surface ID, Shell type, page template, navigation position, child presentation, global region inheritance, responsive rules, global state containers, route behavior, and role/permission layout effects.
+   - Resolve the correct layout release file before reading layout rules:
+     - Read all candidate files matching `product/release/layout/product-layout-release*.md`.
+     - Prefer the file whose section `0. 文档状态` metadata exactly matches the target row's `Surface` and terminal shape via `Layout Key`, `适用 Surface`, `适用端形态`, and `覆盖页面ID / 页面级MD文件范围`.
+     - Use `Surface 划分`, `分 Surface 层级清单`, `Surface` 列、产品形态描述、以及页面级MD文件路径样例来判断 terminal shape.
+     - If exactly one file matches, use it.
+     - If only `product-layout-release.md` exists, use it as the single-family layout contract.
+     - If multiple candidate files exist but none or more than one match, block generation and report the ambiguous files rather than guessing.
+   - Read the matched layout file.
+   - Parse the target page's layout mapping from the matched `product-layout-release*.md`: Surface ID, Shell type, page template, navigation position, child presentation, global region inheritance, responsive rules, global state containers, route behavior, and role/permission layout effects.
    - Read only the source context needed for the selected page. Do not expand into unrelated pages.
 
 2. Build the page model.
@@ -107,8 +114,8 @@ Use page-scoped IDs so the page draft can later be converted into a release page
 - Do not produce only prose. The output must contain Mermaid plus detailed tables.
 - Do not generate UI implementation code.
 - Do not alter `product/release/product-sitemap-release.md`.
-- Do not alter `product/release/layout/product-layout-release.md`.
-- Do not ignore `product-layout-release`; page shell and layout inheritance must come from it.
+- Do not alter any `product/release/layout/product-layout-release*.md` file.
+- Do not ignore layout-family matching; page shell and layout inheritance must come from the matched release layout file, not from an arbitrary sibling layout file.
 - Do not create release-level page MD files; this skill only creates draft page MD files.
 - Do not use vague element names such as `按钮1` or `表单项`. Name elements by purpose, for example `发送验证码按钮`, `岗位方向下拉选择器`, `PDF 导出主按钮`.
 

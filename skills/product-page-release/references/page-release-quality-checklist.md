@@ -8,6 +8,7 @@ Use this checklist before writing the final response.
 - No more than one draft page file was read for release processing.
 - The selected draft page contains `## 7. 埋点事件统计设计`.
 - The selected draft page contains `埋点事件ID` and at least one `EVT-*` event ID.
+- The correct `product-layout-release*.md` file was resolved for the selected page.
 - `## 12. 用户补充描述` was located when present, and its content was classified as empty/placeholder or non-empty user modification instructions.
 - Every non-empty user supplement instruction was analyzed and applied to all affected release sections, or release was blocked with a clear conflict/ambiguity reason.
 - Exactly one release page file was created or updated under `product/release/pages`.
@@ -19,6 +20,7 @@ Use this checklist before writing the final response.
 - The final release page does not include the draft's `页面假设与待确认统一清单`.
 - All formerly uncertain content has been applied, replaced, or removed according to the draft page's release handling.
 - User supplement changes are reflected consistently in Mermaid diagram, layout sections, element inventory, state matrix, action matrix, analytics events, data model, API contracts, edge cases, and media/resources when those areas are affected.
+- Final page-level shell, navigation position, and responsive rules remain consistent with the matched layout release file.
 - Mermaid diagram, layout section table, element inventory, state matrix, action matrix, data model, API contracts, edge cases, and media/resources remain internally consistent.
 - Analytics event statistics remain in the release page.
 - The release page contains `埋点事件ID` and at least one `EVT-*` event ID.

@@ -10,7 +10,7 @@ description: "Generate exactly one page-level release design Markdown document b
 Create a complete page-level design release MD for exactly one page. The output combines:
 
 - Confirmed page content from one `product/release/mock/...` file.
-- Project-level layout dependency from `product/release/layout/product-layout-release.md`.
+- Project-level layout dependency from the matched `product/release/layout/product-layout-release*.md` file.
 - User-selected design constraints from one top-level `design/<design-system>/` directory.
 
 The generated file under `product/release/design` must be readable by humans and structured enough for AI agents to create a Figma design through Figma Remote MCP. It describes what appears on the page and how it should look: layout, hierarchy, typography, color roles, spacing, component styling, media treatment, responsive adaptation, and accessibility notes. It must also prove that the page has a clear layout structure with no predictable stacking, compression, clipping, layer-order, or overlap problems.
@@ -24,7 +24,7 @@ This skill is runner-neutral. Any AI system can use it by reading this file and 
 Required inputs:
 
 - Exactly one release mock page under `product/release/mock/*.md`.
-- `product/release/layout/product-layout-release.md`.
+- The matched `product/release/layout/product-layout-release*.md` file.
 - Exactly one selected design constraint directory under `design/<design-system>/`.
 
 Recommended design constraint files to read from the selected directory:
@@ -61,9 +61,9 @@ If the user provides multiple mock pages, a directory of mock pages, or multiple
 
 3. Read the product-level shell and navigation contract.
    - Read `product/release/product-sitemap-release.md` when it exists.
-   - Read `product/release/layout/product-layout-release.md` and treat it as the primary project-level layout contract.
+   - Resolve and read the matched `product/release/layout/product-layout-release*.md` file by the target page's `Surface`, terminal shape, and the layout file metadata `Layout Key`, `适用 Surface`, `适用端形态`, and `覆盖页面ID / 页面级MD文件范围`.
    - Extract product type, Surface, `Layout 类型`, `全局导航`, `全局操作区`, sitemap row metadata, `Layout 区域`, page level, parent page, and sibling top-level pages.
-   - Extract from `product-layout-release`: Surface ID, Shell type, global shell regions, page template, navigation position, parent-child presentation, safe-area rules, scroll/fixed relationships, responsive rules, global states, layout exceptions, and role/permission layout effects.
+   - Extract from the matched layout release file: Surface ID, Shell type, global shell regions, page template, navigation position, parent-child presentation, safe-area rules, scroll/fixed relationships, responsive rules, global states, layout exceptions, and role/permission layout effects.
    - Derive a page-specific App Shell contract before designing page content. For mobile App pages, this contract must explicitly decide:
      - Root device frame and safe-area behavior.
      - Top Navigation Bar presence, title, back affordance, and whether it is hidden only for explicitly independent pages such as login/onboarding.
@@ -134,7 +134,7 @@ The page design release must include:
 ## Hard Rules
 
 - Use `product/release/mock/...` as the only page content source.
-- Use `product/release/layout/product-layout-release.md` as the project-level layout dependency when generating shell, navigation, responsive behavior, frame hierarchy, and layout integrity audit.
+- Use the matched `product/release/layout/product-layout-release*.md` file as the project-level layout dependency when generating shell, navigation, responsive behavior, frame hierarchy, and layout integrity audit.
 - Use exactly one selected `design/<design-system>/` as the only design constraint source.
 - Output filename must match the release mock page filename relative to `product/release/mock`.
 - Do not include interaction execution, analytics, tracking, API contracts, backend behavior, implementation code, or business process logic.
@@ -143,7 +143,7 @@ The page design release must include:
 - Do not use vague style descriptions alone; pair natural language with token references, exact values, layout dimensions, and structured tables.
 - Do not define ambiguous layouts. Every major frame and element must have a clear parent, layout mode, sizing constraint, spacing rule, alignment rule, and responsive behavior.
 - Do not omit product-level navigation or shell regions. If the product overview defines a global shell, every page design must include the relevant shell regions or explicitly justify the exception in the App Shell / Navigation Contract.
-- Do not ignore `product-layout-release`. If it conflicts with the release mock or design system, record a `设计决策` and prefer the most specific confirmed source.
+- Do not ignore layout-family matching. If the matched layout release file conflicts with the release mock or design system, record a `设计决策` and prefer the most specific confirmed source.
 - Do not leave navigation inconsistent across sibling pages. Tab-root pages must share the same tab labels, bar dimensions, padding, selected-state logic, and layer naming unless the product overview says otherwise.
 - Do not rely on overlapping layers unless the page explicitly needs an overlay, modal, tooltip, badge, floating action button, or media treatment. Any intentional overlap must be named, justified, assigned a layer order, and given collision/viewport rules.
 - Do not allow generated design descriptions that would cause visible elements to stack on top of each other, squeeze unreadably, clip text/media, hide controls, or break hierarchy on mobile/tablet/desktop/wide layouts.
