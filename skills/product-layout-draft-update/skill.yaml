@@ -1,0 +1,35 @@
+name: "product-layout-draft-update"
+version: "0.1.0"
+description: "Merge user confirmations and 用户补充描述 into the latest product layout draft, regenerate the layout body, add new assumptions/questions from the merged result, and save the next product-layout-draft-v<N>.md without producing release output."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/layout/product-layout-draft.md"
+  - "product/development/layout/product-layout-draft-v<N>.md"
+outputs:
+  - "product/development/layout/product-layout-draft-v<N+1>.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_skill: "product-layout-draft"
+  release_skill: "product-layout-release"
+  input_selection_rule: "use explicit draft path when provided; otherwise use highest product-layout-draft-v<N>.md, falling back to product-layout-draft.md"
+  output_revision_pattern: "product/development/layout/product-layout-draft-v<N+1>.md"
+  must_regenerate:
+    - "rewrite affected layout sections from user confirmations and 用户补充描述"
+    - "reconcile Surface/Shell definitions, global shell regions, sitemap-to-layout mapping, responsive rules, downstream usage rules, and Mermaid layout map"
+    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
+    - "reject version-only copies"
+  must_preserve:
+    - "布局假设与待确认统一清单"
+    - "LA-* and LQ-* workflow for remaining or new uncertainty"
+    - "empty final 用户补充描述 section"
+    - "review columns for user confirmation and Release handling"
+  must_avoid:
+    - "writing product/release/layout output"
+    - "removing confirmation workflow sections"
+    - "carrying raw 用户补充描述 notes forward"

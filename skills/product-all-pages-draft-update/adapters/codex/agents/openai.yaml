@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product All Pages Draft Update"
+  short_description: "Revise all page drafts with edits"
+  default_prompt: "Use $product-all-pages-draft-update to read product/release/product-sitemap-release.md, maintain product/development/pages/_revision-status.md, and update all page drafts one sitemap row at a time using product-page-draft-update. Merge user confirmations and 用户补充描述 into each page body, keep remaining/new PA-/PQ- questions and empty 用户补充描述, and save versioned drafts. Do not create release output."

@@ -1,0 +1,35 @@
+name: "product-sitemap-draft-update"
+version: "0.1.0"
+description: "Merge user confirmations and 用户补充描述 into the latest product sitemap draft, regenerate the draft body, add new assumptions/questions from the merged result, and save the next product-sitemap-draft-v<N>.md without producing release output."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/product-sitemap-draft.md"
+  - "product/development/product-sitemap-draft-v<N>.md"
+outputs:
+  - "product/development/product-sitemap-draft-v<N+1>.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_skill: "product-sitemap-draft"
+  release_skill: "product-sitemap-release"
+  input_selection_rule: "use explicit draft path when provided; otherwise use highest product-sitemap-draft-v<N>.md, falling back to product-sitemap-draft.md"
+  output_revision_pattern: "product/development/product-sitemap-draft-v<N+1>.md"
+  must_regenerate:
+    - "rewrite affected product overview sections from user confirmations and 用户补充描述"
+    - "reconcile sitemap table, Mermaid hierarchy, page generation queue, dependencies, and source notes"
+    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
+    - "reject version-only copies"
+  must_preserve:
+    - "假设与待确认统一清单"
+    - "A-* and Q-* workflow for remaining or new uncertainty"
+    - "empty final 用户补充描述 section"
+    - "review columns for user confirmation and Release handling"
+  must_avoid:
+    - "writing product/release/product-sitemap-release.md"
+    - "removing confirmation workflow sections"
+    - "carrying raw 用户补充描述 notes forward"

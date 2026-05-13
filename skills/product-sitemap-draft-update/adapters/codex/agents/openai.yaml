@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product Sitemap Draft Update"
+  short_description: "Revise sitemap draft with user edits"
+  default_prompt: "Use $product-sitemap-draft-update to read the latest product/development/product-sitemap-draft*.md, merge all user-confirmed A-/Q- decisions and 用户补充描述 into the product overview and sitemap body, add new assumptions/questions from the updated result, reset 用户补充描述 to an empty placeholder, and save the next product-sitemap-draft-v<N>.md. Do not create release output."

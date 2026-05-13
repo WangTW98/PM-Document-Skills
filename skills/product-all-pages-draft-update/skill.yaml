@@ -1,0 +1,43 @@
+name: "product-all-pages-draft-update"
+version: "0.1.0"
+description: "Orchestrate page-by-page draft updates for all sitemap rows by running product-page-draft-update, maintaining product/development/pages/_revision-status.md, and creating substantively regenerated versioned page drafts."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/release/product-sitemap-release.md"
+  - "product/development/pages/<page>.md"
+  - "product/development/pages/<page>-v<N>.md"
+outputs:
+  - "product/development/pages/_revision-status.md"
+  - "product/development/pages/<page>-v<N+1>.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_file: "product/release/product-sitemap-release.md"
+  source_section: "Sitemap 页面生成总表"
+  page_draft_update_skill: "product-page-draft-update"
+  draft_pages_directory: "product/development/pages"
+  actual_source_rule: "for each canonical 页面级MD文件, process the highest available versioned sibling when one exists"
+  revision_status_file: "product/development/pages/_revision-status.md"
+  revision_output_rule: "write next versioned draft beside the source page draft"
+  processing_order: "ascending 生成顺序"
+  one_page_per_update_step: true
+  resume_safe: true
+  must_include:
+    - "status queue for every sitemap row"
+    - "page-by-page draft revision following product-page-draft-update"
+    - "versioned draft output path for each processed page"
+    - "remaining/new PA-/PQ- workflow and empty final 用户补充描述 in revised drafts"
+    - "substantively regenerated draft body with user confirmations and 用户补充描述 applied"
+    - "no version-only completed outputs"
+  must_avoid:
+    - "writing product/release/pages output"
+    - "generating a combined multi-page draft document"
+    - "marking pages complete without files"
+    - "overwriting completed versioned drafts without explicit user request"
+    - "inventing missing draft source paths"
+    - "editing product/release/product-sitemap-release.md"

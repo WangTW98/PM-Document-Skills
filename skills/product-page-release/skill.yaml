@@ -1,6 +1,6 @@
 name: "product-page-release"
-version: "0.6.0"
-description: "Process exactly one page draft in two modes: by default apply completed PA-/PQ- decisions and 用户补充描述 into a versioned draft that preserves the review loop; only on explicit final/release request generate the confirmed release page and remove uncertainty."
+version: "0.7.0"
+description: "Generate exactly one confirmed release page Markdown file per invocation from one draft page by applying PA-/PQ- release handling decisions, analyzing 用户补充描述, applying those user modifications, and removing uncertainty."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -8,7 +8,6 @@ inputs:
   - "product/development/pages/<page>.md"
   - "product/development/pages/<page>-v<N>.md"
 outputs:
-  - "product/development/pages/<page>-v<N>.md"
   - "product/release/pages/<page>.md"
   - "product/release/pages/<page>.release-blockers.md"
 resources:
@@ -21,11 +20,9 @@ compatibility:
     gemini: "adapters/gemini/GEMINI.md"
 contract:
   source_skill: "product-page-draft"
-  default_mode: "draft_revision"
-  final_release_requires_explicit_user_intent: true
+  draft_update_skill: "product-page-draft-update"
   input_directory: "product/development/pages"
   input_selection_rule: "use explicit draft path when provided; if a canonical page draft is named and versioned siblings exist, use the highest version unless the user says to use the exact file"
-  output_revision_pattern: "product/development/pages/<source-stem>-v<N>.md"
   output_directory: "product/release/pages"
   one_page_per_invocation: true
   batch_processing_allowed: false
@@ -36,24 +33,13 @@ contract:
     - "all Release 处理方式 values from the final 页面假设与待确认统一清单"
     - "all user confirmation results that replace, remove, or confirm draft page content"
     - "all non-empty 用户补充描述 natural-language modifications"
-  final_release_must_remove:
+  must_remove:
     - "PA-* and PQ-* references"
     - "page assumptions"
     - "page open questions"
     - "draft-only confirmation lists"
     - "raw 用户补充描述 section and notes"
     - "uncertainty markers"
-  draft_revision_must_preserve:
-    - "页面假设与待确认统一清单"
-    - "PA-* and PQ-* workflow for remaining or new uncertainty"
-    - "empty final 用户补充描述 section"
-    - "mandatory analytics section and EVT-* event IDs"
-    - "review columns for user confirmation and Release handling"
-  draft_revision_must_regenerate:
-    - "rewrite affected page sections from user confirmations and 用户补充描述"
-    - "reconcile element inventory, state matrix, action matrix, analytics events, data/API sections, edge cases, media/resources, and Mermaid diagram"
-    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
-    - "reject version-only copies"
   must_avoid:
     - "processing multiple page draft files in one invocation"
     - "directory-wide release generation"

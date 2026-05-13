@@ -1,0 +1,38 @@
+name: "product-page-draft-update"
+version: "0.1.0"
+description: "Merge user confirmations and 用户补充描述 into exactly one latest page draft, regenerate the page body, add new assumptions/questions from the merged result, and save the next page-v<N>.md without producing release output."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/development/pages/<page>.md"
+  - "product/development/pages/<page>-v<N>.md"
+outputs:
+  - "product/development/pages/<page>-v<N+1>.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_skill: "product-page-draft"
+  release_skill: "product-page-release"
+  input_selection_rule: "use explicit draft path when provided; if a canonical page draft is named and versioned siblings exist, use the highest version unless the user says to use the exact file"
+  output_revision_pattern: "product/development/pages/<source-stem>-v<N+1>.md"
+  one_page_per_invocation: true
+  batch_processing_allowed: false
+  must_regenerate:
+    - "rewrite affected page sections from user confirmations and 用户补充描述"
+    - "reconcile element inventory, state matrix, action matrix, analytics events, data/API sections, edge cases, media/resources, and Mermaid diagram"
+    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
+    - "reject version-only copies"
+  must_preserve:
+    - "页面假设与待确认统一清单"
+    - "PA-* and PQ-* workflow for remaining or new uncertainty"
+    - "empty final 用户补充描述 section"
+    - "mandatory analytics section and EVT-* event IDs"
+    - "review columns for user confirmation and Release handling"
+  must_avoid:
+    - "writing product/release/pages output"
+    - "processing multiple page draft files in one invocation"
+    - "carrying raw 用户补充描述 notes forward"

@@ -1,6 +1,6 @@
 name: "product-sitemap-release"
-version: "0.3.0"
-description: "Process a product sitemap draft in two modes: by default apply completed A-/Q- decisions and 用户补充描述 into a versioned draft that preserves the review loop; only on explicit final/release request generate the confirmed release overview and remove uncertainty."
+version: "0.4.0"
+description: "Generate a confirmed release product overview from the latest sitemap draft by applying A-/Q- release handling decisions, analyzing 用户补充描述, applying those user modifications, and removing uncertainty."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -8,7 +8,6 @@ inputs:
   - "product/development/product-sitemap-draft.md"
   - "product/development/product-sitemap-draft-v<N>.md"
 outputs:
-  - "product/development/product-sitemap-draft-v<N>.md"
   - "product/release/product-sitemap-release.md"
   - "product/release/product-sitemap-release-blockers.md"
 resources:
@@ -21,28 +20,15 @@ compatibility:
     gemini: "adapters/gemini/GEMINI.md"
 contract:
   source_skill: "product-sitemap-draft"
-  input_draft: "product/development/product-sitemap-draft.md"
+  draft_update_skill: "product-sitemap-draft-update"
   input_selection_rule: "use explicit draft path when provided; otherwise use highest product-sitemap-draft-v<N>.md, falling back to product-sitemap-draft.md"
-  default_mode: "draft_revision"
-  final_release_requires_explicit_user_intent: true
-  output_revision_pattern: "product/development/product-sitemap-draft-v<N>.md"
   output_release: "product/release/product-sitemap-release.md"
   output_blockers: "product/release/product-sitemap-release-blockers.md"
-  draft_revision_must_preserve:
-    - "假设与待确认统一清单"
-    - "A-* and Q-* workflow for remaining or new uncertainty"
-    - "empty final 用户补充描述 section"
-    - "review columns for user confirmation and Release handling"
-  draft_revision_must_regenerate:
-    - "rewrite affected product overview sections from user confirmations and 用户补充描述"
-    - "reconcile sitemap table, Mermaid hierarchy, page generation queue, dependencies, and source notes"
-    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
-    - "reject version-only copies"
   must_apply:
     - "all Release 处理方式 values from the final assumption and confirmation list"
     - "all user confirmation results that replace, remove, or confirm draft content"
     - "all non-empty 用户补充描述 natural-language modifications"
-  final_release_must_remove:
+  must_remove:
     - "A-* and Q-* references"
     - "assumptions"
     - "open questions"

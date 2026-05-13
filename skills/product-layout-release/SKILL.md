@@ -1,26 +1,19 @@
 ---
 name: product-layout-release
-description: "Process product/development/layout/product-layout-draft.md. By default, when the user has not explicitly asked for a final/release/正式版 layout contract, apply completed LA-/LQ- decisions and 用户补充描述 edits into a new versioned draft while preserving the layout assumption, confirmation, and empty supplement workflow for another review loop. Only when the user explicitly asks for final/release output, generate product/release/layout/product-layout-release.md by removing assumptions, open questions, draft-only notes, supplement sections, and uncertain language."
+description: "Generate product/release/layout/product-layout-release.md from product/development/layout/product-layout-draft.md or the latest product-layout-draft-vN.md after the user has resolved layout assumptions and confirmation questions. Use when an AI agent needs to apply LA-/LQ- Release handling decisions from the draft's 布局假设与待确认统一清单, analyze and apply the draft's final 用户补充描述 natural-language layout edits, remove all assumptions, open questions, draft-only notes, supplement sections, and uncertain language, then write a confirmed project-level layout contract for downstream page, mock, and design skills."
 ---
 
 # Product Layout Release
 
 ## Overview
 
-Process the project-level layout draft from `product/development/layout/product-layout-draft.md`.
+Create the release version of the project-level layout contract from the latest layout draft.
 
-This skill has two modes:
-
-- Draft revision mode, which is the default unless the user explicitly asks for a final/release/正式版 layout contract.
-- Final release mode, which keeps the existing release behavior and writes the confirmed layout dependency under `product/release/layout`.
-
-Default draft revision output is a versioned draft beside the source draft, for example:
-
-- `product/development/layout/product-layout-draft-v2.md`
-
-Final release output only when explicitly requested:
+The output is:
 
 - `product/release/layout/product-layout-release.md`
+
+This skill only creates final release output. For iterative layout draft updates, use `product-layout-draft-update`.
 
 The release layout is the confirmed layout dependency for downstream explanatory Markdown generation, including `product-page-draft`, `product-page-mock-draft`, `product-page-design-release`, and similar page-level skills. It must not contain unresolved assumptions, open questions, `LA-*` / `LQ-*` IDs, the draft `用户补充描述` section, or wording that asks the user to confirm layout details.
 
@@ -32,11 +25,7 @@ Required input:
 
 - `product/development/layout/product-layout-draft.md` or the latest versioned sibling such as `product/development/layout/product-layout-draft-v2.md`.
 
-Default output when the user has not explicitly asked for final release:
-
-- A versioned draft beside the source draft, using the next available suffix, for example `product/development/layout/product-layout-draft-v2.md`, `product/development/layout/product-layout-draft-v3.md`.
-
-Final release output only when explicitly requested:
+Default output:
 
 - `product/release/layout/product-layout-release.md`
 
@@ -46,15 +35,9 @@ Optional blocker output when release cannot be produced:
 
 ## Workflow
 
-0. Determine mode before writing any file.
-   - Use final release mode only when the user explicitly asks to generate the final/release/正式版 layout contract, publish the confirmed release, write under `product/release/layout`, or remove all draft confirmation structures.
-   - Use draft revision mode for requests such as "处理修改", "根据我填写的确认项更新", "继续完善", "修改 draft", or any request that does not clearly ask for final/release output.
-   - If the request is ambiguous, choose draft revision mode. Do not create or overwrite `product/release/layout/product-layout-release.md` without explicit final-release intent.
-
 1. Read the layout draft.
    - If the user names a layout draft file, load that file.
    - If the user does not name a draft file, load the highest available versioned draft matching `product/development/layout/product-layout-draft-vN.md`; if none exists, load `product/development/layout/product-layout-draft.md`.
-   - Treat the loaded file as the source draft for both draft revision and final release mode.
    - Locate the final `布局假设与待确认统一清单`.
    - Parse every layout assumption row (`LA-001`, `LA-002`, ...).
    - Parse every layout confirmation row (`LQ-001`, `LQ-002`, ...).
@@ -62,11 +45,7 @@ Optional blocker output when release cannot be produced:
    - Locate `## 12. 用户补充描述` when present.
    - Extract the user-written natural-language supplement. Treat empty content, `无`, `none`, or placeholder-only text as no supplement.
 
-2. Validate according to the selected mode.
-   - In draft revision mode, unresolved `LA-*` / `LQ-*` items are allowed and should remain in the revised draft if still material.
-   - In draft revision mode, completed decisions and concrete supplement edits must be applied; unresolved or newly exposed uncertainty must be represented as layout assumptions/questions in the revised draft, not as blockers unless the layout cannot be updated coherently.
-   - In draft revision mode, ambiguous or contradictory supplement items should become new `LQ-*` confirmation rows when a reasonable draft can still be produced.
-   - In final release mode, use the stricter readiness rules below.
+2. Validate release readiness.
    - Every `LA-*` item must have a usable `用户确认状态` and `Release 处理方式`.
    - Every `LQ-*` item must have a usable `用户确认结果` and `Release 处理方式`.
    - Treat values like `待用户确认`, blank cells, `待确认`, `保留为风险`, or vague text without a concrete decision as unresolved.
@@ -74,12 +53,11 @@ Optional blocker output when release cannot be produced:
    - If `用户补充描述` contains ambiguous or contradictory instructions that materially affect Surface, Shell, navigation, route hierarchy, page template, safe area, responsive behavior, global states, role/permission layout, sitemap-to-layout mapping, or downstream skill usage, block release and write the blocker file with the conflicting supplement items.
 
 3. Analyze and apply user supplement.
-   - Treat non-empty `用户补充描述` content as user-confirmed modification instructions for the layout contract.
+   - Treat non-empty `用户补充描述` content as user-confirmed release modification instructions for the layout contract.
    - Convert the supplement into concrete changes grouped by affected area: Surface/Shell definitions, global shell regions, page template library, sitemap-to-layout mapping, navigation/route rules, global state layout, role/permission layout effects, responsive behavior, downstream usage rules, and Mermaid layout map.
    - Apply supplement changes to all dependent sections, not just one row. For example, changing a root navigation model must update Surface/Shell definitions, navigation rules, sitemap-to-layout mapping, responsive behavior, and Mermaid hierarchy.
    - If a supplement instruction conflicts with an `LA-*` / `LQ-*` release handling row, prefer the more specific user supplement only when it is concrete and clearly refers to the same layout item. If the conflict changes shell, navigation, page-template, or responsive behavior and cannot be resolved confidently, block release.
-   - In draft revision mode, do not carry raw supplement notes forward. Apply them into the draft content, then reset `用户补充描述` to an empty editable placeholder.
-   - In final release mode, do not carry the `用户补充描述` section or raw notes into the release file.
+   - Do not carry the `用户补充描述` section or raw notes into the release file.
 
 4. Apply release handling decisions.
    - `确认为正式内容` / `写入正式内容`: rewrite the related layout content as confirmed layout contract and remove the ID marker.
@@ -88,7 +66,7 @@ Optional blocker output when release cannot be produced:
    - `已否定`: remove or replace every affected mention; do not keep it as a note.
    - If multiple decisions conflict, prefer the more specific item and block release if the conflict changes navigation, shell, page-template, or responsive behavior.
 
-5. Rewrite as release layout contract when in final release mode.
+5. Rewrite as release layout contract.
    - Set document version to `Release`.
    - Preserve confirmed layout summary, Surface/Shell definitions, global shell regions, page template library, sitemap-to-layout mapping, navigation/route rules, global state layout, role/permission layout effects, downstream skill usage rules, and Mermaid layout map.
    - Remove the draft-only `Layout 假设 / 待确认编号规则`, `布局假设与待确认统一清单`, `用户补充描述`, and release-check wording.
@@ -96,35 +74,10 @@ Optional blocker output when release cannot be produced:
    - Reconcile tables after removals or replacements: Surface IDs, Shell IDs, template IDs, page IDs, parent IDs, navigation positions, and Mermaid hierarchy must remain consistent.
    - Ensure downstream rules explicitly instruct page-level skills to use `product/release/layout/product-layout-release.md`.
 
-6. Rewrite as a new review draft when in draft revision mode.
-   - Preserve the layout draft structure, including `Layout 假设 / 待确认编号规则` when present, `布局假设与待确认统一清单`, `用户补充描述`, and release-check guidance.
-   - Regenerate the new layout draft content from the loaded draft plus the user's completed confirmation rows and `用户补充描述`; do not copy the old draft and only change the version number.
-   - Apply all completed user decisions and supplement edits into the relevant Surface/Shell definitions, global shell regions, page template library, sitemap-to-layout mapping, navigation/route rules, global state layout, role/permission layout effects, responsive behavior, downstream usage rules, and Mermaid layout map.
-   - Reconcile every dependent section affected by a user change. For example, changing a Shell or navigation rule must update Surface/Shell definitions, global shell regions, sitemap-to-layout mapping, responsive behavior, downstream usage rules, and Mermaid layout map.
-   - Before saving, verify that each concrete user confirmation or supplement instruction is reflected in the revised layout body. If no actionable user change exists, do not create a version-only draft; explain what user input is missing or convert ambiguity into new `LQ-*` rows.
-   - Remove or mark as resolved the old rows that have been fully applied. Keep unresolved material rows and add new assumptions/questions caused by the latest edits.
-   - Keep the `布局假设与待确认统一清单` processing columns so the user can continue confirming: layout assumption/question ID, item, affected section, impact, user confirmation/result, and Release handling fields.
-   - Use stable unresolved IDs when their meaning is unchanged; add new IDs after the highest existing number. Do not reuse IDs for different meanings.
-   - Keep `## 12. 用户补充描述` as the final section, but reset it to an empty placeholder for the next user edit cycle.
-   - Set document version to `Draft vN` and record the source draft path.
-   - Save beside the source draft using the next available version suffix. If the source is `product-layout-draft.md`, write `product-layout-draft-v2.md`; if the source is already `product-layout-draft-v2.md`, write `product-layout-draft-v3.md`.
-   - Do not write `product/release/layout/product-layout-release.md` in draft revision mode.
-
-7. Save and verify.
-   - In final release mode, ensure `product/release/layout` exists.
-   - In final release mode, write `product/release/layout/product-layout-release.md`.
-   - In final release mode, run `references/product-layout-release-quality-checklist.md` manually before finishing.
-   - In draft revision mode, verify the revised draft still has the unified layout assumption/question list and an empty final `用户补充描述` section.
-
-## Mode Rules
-
-- Default to draft revision mode unless final-release intent is explicit.
-- Draft revision mode is a loop: apply the user's completed decisions and supplement, then produce the next reviewable draft with remaining/new layout assumptions and questions.
-- Final release mode is terminal: all material layout assumptions/questions must be resolved before writing `product/release/layout/product-layout-release.md`.
-- Draft revision output must be a substantively regenerated Markdown document. A version-only copy is invalid.
-- When final release intent is absent, the new draft must include an updated `布局假设与待确认统一清单` and a final empty `用户补充描述` section, even if all previous rows were resolved; add new confirmation rows for any newly exposed uncertainty.
-- A request to "处理已修改内容", "继续修改", "生成新版 draft", or "根据补充描述更新" is not final-release intent.
-- Phrases such as "生成最终版", "生成正式版", "生成 release", "输出到 product/release/layout", or "去掉所有待确认" are final-release intent.
+6. Save and verify.
+   - Ensure `product/release/layout` exists.
+   - Write `product/release/layout/product-layout-release.md`.
+   - Run `references/product-layout-release-quality-checklist.md` manually before finishing.
 
 ## Release Rules
 
@@ -137,8 +90,6 @@ Optional blocker output when release cannot be produced:
 - Do not ignore non-empty `用户补充描述`; it is part of the user's release input.
 - Do not silently keep a layout rule whose release handling says to delete it.
 - Do not leave sitemap rows unmapped after deleting or replacing a Surface, Shell, or page template.
-- Do not use final release behavior for ordinary draft update requests.
-- Do not create a new draft whose only material difference is document version, timestamp, or filename.
 
 ## Output Quality Bar
 

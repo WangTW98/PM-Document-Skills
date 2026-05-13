@@ -1,6 +1,6 @@
 name: "product-layout-release"
-version: "0.3.0"
-description: "Process the product layout draft in two modes: by default apply completed LA-/LQ- decisions and 用户补充描述 into a versioned draft that preserves the review loop; only on explicit final/release request generate the confirmed release layout and remove uncertainty."
+version: "0.4.0"
+description: "Generate product/release/layout/product-layout-release.md from the latest layout draft by applying LA-/LQ- release handling, analyzing 用户补充描述, applying those user modifications, and removing all layout assumptions/open questions."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -8,7 +8,6 @@ inputs:
   - "product/development/layout/product-layout-draft.md"
   - "product/development/layout/product-layout-draft-v<N>.md"
 outputs:
-  - "product/development/layout/product-layout-draft-v<N>.md"
   - "product/release/layout/product-layout-release.md"
   - "product/release/layout/product-layout-release-blockers.md"
 resources:
@@ -21,10 +20,8 @@ compatibility:
     gemini: "adapters/gemini/GEMINI.md"
 contract:
   source_file: "product/development/layout/product-layout-draft.md"
+  draft_update_skill: "product-layout-draft-update"
   input_selection_rule: "use explicit draft path when provided; otherwise use highest product-layout-draft-v<N>.md, falling back to product-layout-draft.md"
-  default_mode: "draft_revision"
-  final_release_requires_explicit_user_intent: true
-  output_revision_pattern: "product/development/layout/product-layout-draft-v<N>.md"
   output_file: "product/release/layout/product-layout-release.md"
   blocker_file: "product/release/layout/product-layout-release-blockers.md"
   assumption_prefix: "LA"
@@ -45,22 +42,12 @@ contract:
     - "global state and boundary layout"
     - "role and permission layout effects"
     - "downstream skill usage rules"
-  final_release_must_remove:
+  must_remove:
     - "LA-/LQ- references"
     - "layout assumptions and open questions"
     - "draft-only confirmation workflow sections"
     - "raw 用户补充描述 section and notes"
     - "uncertain language"
-  draft_revision_must_preserve:
-    - "布局假设与待确认统一清单"
-    - "LA-* and LQ-* workflow for remaining or new uncertainty"
-    - "empty final 用户补充描述 section"
-    - "review columns for user confirmation and Release handling"
-  draft_revision_must_regenerate:
-    - "rewrite affected layout sections from user confirmations and 用户补充描述"
-    - "reconcile Surface/Shell definitions, global shell regions, sitemap-to-layout mapping, responsive rules, downstream usage rules, and Mermaid layout map"
-    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
-    - "reject version-only copies"
   downstream_dependency_for:
     - "product-page-draft"
     - "product-page-mock-draft"

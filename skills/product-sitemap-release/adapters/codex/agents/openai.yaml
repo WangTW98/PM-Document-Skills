@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Sitemap Release"
-  short_description: "Revise or finalize sitemap drafts"
-  default_prompt: "Use $product-sitemap-release to read the latest product/development/product-sitemap-draft*.md draft. Unless I explicitly ask for the final/release/正式版 output, substantively regenerate the next versioned draft by applying completed A-/Q- decisions plus any 用户补充描述 modifications into the document body, and keep an empty 用户补充描述 plus remaining/new confirmation list. Do not create a version-only copy. Only on explicit final release, write product/release/product-sitemap-release.md with no assumptions, open questions, or raw supplement notes."
+  short_description: "Turn sitemap drafts into release docs"
+  default_prompt: "Use $product-sitemap-release to read the latest product/development/product-sitemap-draft*.md, apply final A-/Q- release handling decisions plus any 用户补充描述 modifications, and write product/release/product-sitemap-release.md with no assumptions, open questions, confirmation workflow sections, or raw supplement notes. For iterative draft updates, use $product-sitemap-draft-update instead."
