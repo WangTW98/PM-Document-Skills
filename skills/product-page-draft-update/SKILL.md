@@ -30,6 +30,7 @@ Default output:
    - If the user names a canonical page draft and versioned siblings exist, use the highest versioned sibling unless the user explicitly says to use the named file exactly.
    - If the user specifies multiple page files, do not process any file; ask the user to choose exactly one.
    - If the user does not specify a file, list candidate files under `product/development/pages` excluding status files and ask the user to choose one.
+   - Read `skills/product-page-draft/references/page-draft-template.md` and use it as the required output structure.
    - Load the selected page MD.
    - Verify the draft contains `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID. If not, block and ask for regeneration with `product-page-draft`.
    - Locate the final `页面假设与待确认统一清单`.
@@ -43,6 +44,9 @@ Default output:
    - If a decision or supplement is ambiguous but the page can still be updated, preserve the uncertainty as a new `PQ-*` row.
 
 3. Regenerate the page draft body.
+   - Rebuild the output according to `page-draft-template.md`; preserve the page H1, every required top-level section, subsection, table, Mermaid block, JSON example block, and final fenced `用户补充描述` block.
+   - Keep the canonical section order: `0. 页面文档状态`, `1. 页面目标与上下文`, `2. 页面结构思维导图`, `3. 页面布局与内容区块`, `4. 页面元素清单`, `5. 元素状态矩阵`, `6. 交互 Action 与执行效果`, `7. 埋点事件统计设计`, `8. 数据结构与接口定义`, `9. 边界状态与错误处理`, `10. 多媒体与资源`, `11. 页面假设与待确认统一清单`, `12. 用户补充描述`.
+   - If the source draft is missing a required template section or table, restore that section from the template and fill it from the merged content where possible.
    - Rewrite affected page sections from the source draft plus user decisions and supplement.
    - Reconcile every dependent section. For example, adding a button must update the element inventory, state matrix, action matrix, analytics events, data/API sections when applicable, edge cases, and Mermaid diagram.
    - Remove or mark as resolved old rows that have been fully applied.
@@ -61,12 +65,14 @@ Default output:
    - Save beside the source page draft using the next available version suffix.
    - If the source is `010-login.md`, write `010-login-v2.md`; if the source is `010-login-v2.md`, write `010-login-v3.md`.
    - Do not write anything under `product/release/pages`.
-   - Verify the revised draft still has an updated page assumption/question list, mandatory analytics, and an empty final `用户补充描述` section.
+   - Verify the revised draft still follows `page-draft-template.md`, has all required sections, has an updated page assumption/question list, mandatory analytics, and an empty final `用户补充描述` section.
 
 ## Hard Rules
 
 - Process exactly one source page.
 - Do not create a release page.
+- Do not change the page draft template structure, heading order, required tables, Mermaid block, or JSON example sections.
+- Do not omit template chapters even if the corresponding content is unchanged or currently empty.
 - Do not remove the confirmation workflow sections.
 - Do not carry raw `用户补充描述` notes forward; merge them into the page body and reset the section.
 - Do not create a new draft whose only material difference is document version, timestamp, or filename.

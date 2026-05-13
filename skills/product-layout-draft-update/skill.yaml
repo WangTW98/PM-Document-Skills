@@ -9,6 +9,9 @@ inputs:
   - "product/development/layout/product-layout-draft-v<N>.md"
 outputs:
   - "product/development/layout/product-layout-draft-v<N+1>.md"
+resources:
+  references:
+    - "../product-layout-draft/references/product-layout-draft-template.md"
 compatibility:
   runner_neutral: true
   adapters:
@@ -20,16 +23,19 @@ contract:
   input_selection_rule: "use explicit draft path when provided; otherwise use highest product-layout-draft-v<N>.md, falling back to product-layout-draft.md"
   output_revision_pattern: "product/development/layout/product-layout-draft-v<N+1>.md"
   must_regenerate:
+    - "follow product-layout-draft-template.md exactly for required sections, section order, tables, Mermaid, and final 用户补充描述 block"
     - "rewrite affected layout sections from user confirmations and 用户补充描述"
     - "reconcile Surface/Shell definitions, global shell regions, sitemap-to-layout mapping, responsive rules, downstream usage rules, and Mermaid layout map"
     - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
     - "reject version-only copies"
   must_preserve:
+    - "all template sections: H1 plus 0 文档状态 through 12 用户补充描述"
     - "布局假设与待确认统一清单"
     - "LA-* and LQ-* workflow for remaining or new uncertainty"
     - "empty final 用户补充描述 section"
     - "review columns for user confirmation and Release handling"
   must_avoid:
+    - "omitting template chapters or required tables"
     - "writing product/release/layout output"
     - "removing confirmation workflow sections"
     - "carrying raw 用户补充描述 notes forward"

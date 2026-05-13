@@ -9,6 +9,9 @@ inputs:
   - "product/development/pages/<page>-v<N>.md"
 outputs:
   - "product/development/pages/<page>-v<N+1>.md"
+resources:
+  references:
+    - "../product-page-draft/references/page-draft-template.md"
 compatibility:
   runner_neutral: true
   adapters:
@@ -22,17 +25,20 @@ contract:
   one_page_per_invocation: true
   batch_processing_allowed: false
   must_regenerate:
+    - "follow page-draft-template.md exactly for required sections, section order, tables, Mermaid, JSON examples, and final 用户补充描述 block"
     - "rewrite affected page sections from user confirmations and 用户补充描述"
     - "reconcile element inventory, state matrix, action matrix, analytics events, data/API sections, edge cases, media/resources, and Mermaid diagram"
     - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
     - "reject version-only copies"
   must_preserve:
+    - "all template sections: H1 plus 0 页面文档状态 through 12 用户补充描述"
     - "页面假设与待确认统一清单"
     - "PA-* and PQ-* workflow for remaining or new uncertainty"
     - "empty final 用户补充描述 section"
     - "mandatory analytics section and EVT-* event IDs"
     - "review columns for user confirmation and Release handling"
   must_avoid:
+    - "omitting template chapters or required tables"
     - "writing product/release/pages output"
     - "processing multiple page draft files in one invocation"
     - "carrying raw 用户补充描述 notes forward"

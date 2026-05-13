@@ -26,6 +26,7 @@ Default output:
 1. Select and read the source draft.
    - If the user names a layout draft file, load that file.
    - If the user does not name a draft file, load the highest available versioned draft matching `product/development/layout/product-layout-draft-vN.md`; if none exists, load `product/development/layout/product-layout-draft.md`.
+   - Read `skills/product-layout-draft/references/product-layout-draft-template.md` and use it as the required output structure.
    - Locate the final `布局假设与待确认统一清单`.
    - Parse every layout assumption row (`LA-001`, `LA-002`, ...) and layout confirmation row (`LQ-001`, `LQ-002`, ...).
    - Locate `## 12. 用户补充描述` and extract non-placeholder user-written content.
@@ -37,6 +38,9 @@ Default output:
    - If a decision or supplement is ambiguous but the draft can still be updated, preserve the uncertainty as a new `LQ-*` row.
 
 3. Regenerate the layout draft body.
+   - Rebuild the output according to `product-layout-draft-template.md`; preserve the document H1, every required top-level section, subsection, table, Mermaid block, and final fenced `用户补充描述` block.
+   - Keep the canonical section order: `0. 文档状态`, `1. 产品布局总览`, `2. Layout 架构图`, `3. Surface 与 Shell 定义`, `4. 全局 Shell 区域规范`, `5. 页面模板库`, `6. Sitemap 到 Layout 映射总表`, `7. 导航与路由规则`, `8. 全局状态与边界 Layout`, `9. 角色与权限对 Layout 的影响`, `10. 下游 Skill 使用规则`, `11. 布局假设与待确认统一清单`, `12. 用户补充描述`.
+   - If the source draft is missing a required template section or table, restore that section from the template and fill it from the merged content where possible.
    - Rewrite affected layout sections from the source draft plus user decisions and supplement.
    - Reconcile every dependent section. For example, changing a Shell or navigation rule must update Surface/Shell definitions, global shell regions, sitemap-to-layout mapping, responsive behavior, downstream usage rules, and Mermaid layout map.
    - Remove or mark as resolved old rows that have been fully applied.
@@ -54,11 +58,13 @@ Default output:
    - Save beside the source draft using the next available version suffix.
    - If the source is `product-layout-draft.md`, write `product-layout-draft-v2.md`; if the source is `product-layout-draft-v2.md`, write `product-layout-draft-v3.md`.
    - Do not write anything under `product/release/layout`.
-   - Verify the revised draft still has an updated layout assumption/question list and an empty final `用户补充描述` section.
+   - Verify the revised draft still follows `product-layout-draft-template.md`, has all required sections, has an updated layout assumption/question list, and has an empty final `用户补充描述` section.
 
 ## Hard Rules
 
 - Do not create a release layout file.
+- Do not change the layout draft template structure, heading order, required tables, or Mermaid block.
+- Do not omit template chapters even if the corresponding content is unchanged or currently empty.
 - Do not remove the confirmation workflow sections.
 - Do not carry raw `用户补充描述` notes forward; merge them into the layout body and reset the section.
 - Do not create a new draft whose only material difference is document version, timestamp, or filename.

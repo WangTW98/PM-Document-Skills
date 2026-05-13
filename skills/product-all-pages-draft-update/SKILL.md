@@ -86,12 +86,14 @@ For each selected page, obey these `product-page-draft-update` rules:
 - Source draft page must include mandatory analytics and `用户补充描述`.
 - Merge every filled `PA-*` / `PQ-*` user decision and every non-empty `用户补充描述` instruction into the page body.
 - Output must be a substantively regenerated page draft. Version-only copies are invalid.
+- Output must follow `skills/product-page-draft/references/page-draft-template.md` exactly in required chapter structure and must not omit sections.
 - Output must keep remaining/new `PA-*` / `PQ-*` workflow rows, mandatory analytics, and an empty final `用户补充描述`.
 - Write exactly one versioned draft or record one blocked row.
 
 ## Hard Rules
 
 - Do not create release page files.
+- Do not mark a page complete if the revised draft no longer follows the page draft template or is missing required sections.
 - Do not batch multiple pages into one draft file.
 - Do not skip status updates.
 - Do not overwrite completed versioned drafts unless the user explicitly asks to regenerate.

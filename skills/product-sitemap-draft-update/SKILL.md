@@ -26,6 +26,7 @@ Default output:
 1. Select and read the source draft.
    - If the user names a draft file, load that file.
    - If the user does not name a draft file, load the highest available versioned draft matching `product/development/product-sitemap-draft-vN.md`; if none exists, load `product/development/product-sitemap-draft.md`.
+   - Read `skills/product-sitemap-draft/references/product-overview-template.md` and use it as the required output structure.
    - Locate the final `假设与待确认统一清单`.
    - Parse every assumption row (`A-001`, `A-002`, ...) and confirmation row (`Q-001`, `Q-002`, ...).
    - Locate `## 6. 用户补充描述` and extract non-placeholder user-written content.
@@ -37,6 +38,9 @@ Default output:
    - If a decision or supplement is ambiguous but the draft can still be updated, preserve the uncertainty as a new `Q-*` row.
 
 3. Regenerate the draft body.
+   - Rebuild the output according to `product-overview-template.md`; preserve every required top-level section, subsection, table, and final fenced `用户补充描述` block.
+   - Keep the canonical section order: `0. 文档状态`, `1. 产品综合介绍`, `2. Sitemap / 信息架构`, `3. 输入来源摘录`, `4. 后续生成建议`, `5. 假设与待确认统一清单`, `6. 用户补充描述`.
+   - If the source draft is missing a required template section or table, restore that section from the template and fill it from the merged content where possible.
    - Rewrite affected product overview sections from the source draft plus user decisions and supplement.
    - Reconcile every dependent section. For example, adding/removing/renaming a page must update the overview scope, sitemap table, Mermaid hierarchy, page generation queue, dependencies, page-level Markdown paths, and role/permission references.
    - Remove or mark as resolved old rows that have been fully applied.
@@ -54,11 +58,13 @@ Default output:
    - Save beside the source draft using the next available version suffix.
    - If the source is `product-sitemap-draft.md`, write `product-sitemap-draft-v2.md`; if the source is `product-sitemap-draft-v2.md`, write `product-sitemap-draft-v3.md`.
    - Do not write anything under `product/release`.
-   - Verify the revised draft still has an updated unified assumption/question list and an empty final `用户补充描述` section.
+   - Verify the revised draft still follows `product-overview-template.md`, has all required sections, has an updated unified assumption/question list, and has an empty final `用户补充描述` section.
 
 ## Hard Rules
 
 - Do not create a release document.
+- Do not change the product overview draft template structure, heading order, or required tables.
+- Do not omit template chapters even if the corresponding content is unchanged or currently empty.
 - Do not remove the confirmation workflow sections.
 - Do not carry raw `用户补充描述` notes forward; merge them into the draft body and reset the section.
 - Do not create a new draft whose only material difference is document version, timestamp, or filename.

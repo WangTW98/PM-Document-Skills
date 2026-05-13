@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Page Draft Update"
   short_description: "Revise one page draft with edits"
-  default_prompt: "Use $product-page-draft-update to read exactly one latest product/development/pages/*.md page draft, merge all user-confirmed PA-/PQ- decisions and 用户补充描述 into the page body, add new page assumptions/questions from the updated result, keep analytics, reset 用户补充描述 to an empty placeholder, and save the next versioned page draft. Do not create release output."
+  default_prompt: "Use $product-page-draft-update to read exactly one latest product/development/pages/*.md page draft and the page draft template, merge all user-confirmed PA-/PQ- decisions and 用户补充描述 into the page body, preserve every required template chapter/table in order, add new page assumptions/questions from the updated result, keep analytics, reset 用户补充描述 to an empty placeholder, and save the next versioned page draft. Do not create release output."
