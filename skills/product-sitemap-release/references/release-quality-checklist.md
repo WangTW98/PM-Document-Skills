@@ -4,7 +4,7 @@ Use this checklist before writing the final response.
 
 ## Required Checks
 
-- `product/release/product-overview-release.md` exists.
+- `product/release/product-sitemap-release.md` exists.
 - `## 6. 用户补充描述` was located when present, and its content was classified as empty/placeholder or non-empty user modification instructions.
 - Every non-empty user supplement instruction was analyzed and applied to all affected release sections, or release was blocked with a clear conflict/ambiguity reason.
 - The document version is `Release`.
@@ -18,4 +18,4 @@ Use this checklist before writing the final response.
 - Every sitemap row has a valid page ID, parent page ID, level, generation order, page name, function description, and page-level Markdown path.
 - No sitemap row references a deleted parent page.
 - Page-level Markdown paths are unique.
-- If release is blocked, `product/release/product-overview-release-blockers.md` lists only unresolved blocking items and no release file is written.
+- If release is blocked, `product/release/product-sitemap-release-blockers.md` lists only unresolved blocking items and no release file is written.

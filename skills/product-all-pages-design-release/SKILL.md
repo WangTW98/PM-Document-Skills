@@ -1,13 +1,13 @@
 ---
 name: product-all-pages-design-release
-description: "Orchestrate generation of all page-level release design Markdown documents by reading product/release/product-overview-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/design/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-design-release single-page rules with one selected design/<design-system>/ constraint set, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete."
+description: "Orchestrate generation of all page-level release design Markdown documents by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/design/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-design-release single-page rules with one selected design/<design-system>/ constraint set, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete."
 ---
 
 # Product All Pages Design Release
 
 ## Overview
 
-Generate page-level design release documents for every page listed in `product/release/product-overview-release.md` -> `Sitemap 页面生成总表`, while preserving the accuracy benefits of `product-page-design-release`: only one page design document is generated at a time, then status is written before moving to the next row.
+Generate page-level design release documents for every page listed in `product/release/product-sitemap-release.md` -> `Sitemap 页面生成总表`, while preserving the accuracy benefits of `product-page-design-release`: only one page design document is generated at a time, then status is written before moving to the next row.
 
 This is a runner-neutral orchestration skill. It does not replace `product-page-design-release`; it uses that skill's rules as the page-design contract for each row.
 
@@ -22,7 +22,7 @@ The generated files under `product/release/design` are display-only design hando
 
 Required inputs:
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 - Release mock page files under `product/release/mock`
 - Exactly one selected design constraint directory under `design/<design-system>/`
 
@@ -37,7 +37,7 @@ Generated design outputs:
 ## Workflow
 
 1. Load orchestration context.
-   - Read `product/release/product-overview-release.md`.
+   - Read `product/release/product-sitemap-release.md`.
    - Locate and parse `Sitemap 页面生成总表`.
    - Extract each row's `生成顺序`, `页面ID`, `父页面ID`, `层级`, `页面名称`, and `页面级MD文件`.
    - Use `页面级MD文件` only as a page filename / relative filename key from the sitemap.
@@ -108,7 +108,7 @@ For each selected page, obey these `product-page-design-release` rules:
 - Output path preserves the release mock filename relative to `product/release/mock`, under `product/release/design`.
 - Generate a complete page content + style design release MD containing both natural language style description and AI-readable style structure.
 - Include Figma Remote MCP handoff notes for frame hierarchy, auto-layout, token usage, component grouping, and responsive variants.
-- Include an App Shell / Navigation Contract derived from `product/release/product-overview-release.md`, including top navigation, bottom tab navigation, fixed footer/bottom actions, main scroll region, safe-area behavior, and explicit exceptions.
+- Include an App Shell / Navigation Contract derived from `product/release/product-sitemap-release.md`, including top navigation, bottom tab navigation, fixed footer/bottom actions, main scroll region, safe-area behavior, and explicit exceptions.
 - Include and pass layout integrity audit for clear hierarchy, parent-child structure, Auto Layout suitability, sizing constraints, padding/gap, alignment, overflow, wrapping/truncation, responsive behavior, and layer order.
 - Resolve any predictable stacking, squeezing, clipping, hidden-control, unintended overlap, or layer-order issue inside the page design release before marking the row complete.
 - Keep the design release display-only: no interaction execution, analytics/tracking, API definitions, request/response structures, backend behavior, business process logic, or implementation code.
@@ -121,7 +121,7 @@ For each selected page, obey these `product-page-design-release` rules:
 - Do not overwrite completed design release files unless the user explicitly asks to regenerate.
 - Do not invent missing `product/release/mock/...` source paths. Block the row instead.
 - Do not invent or auto-select a design system when multiple `design/` directories exist. Ask the user to choose exactly one.
-- Do not alter `product/release/product-overview-release.md`.
+- Do not alter `product/release/product-sitemap-release.md`.
 - Do not alter source files under `product/release/mock` or `design/<design-system>` while generating design releases.
 - Do not mark a page complete unless the design release file exists at the expected `product/release/design` path.
 - Do not mark a page complete if the design release page lacks AI-readable style structure or Figma Remote MCP handoff notes.

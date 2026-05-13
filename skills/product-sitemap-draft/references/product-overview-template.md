@@ -1,6 +1,6 @@
 # 产品综述文档模板
 
-> 使用方式：复制本结构生成 `product/development/product-overview-draft.md`。不确定内容必须标记为带 ID 的 `假设 A-xxx` 或 `待确认 Q-xxx`，并在统一清单中汇总。文档末尾必须保留 `用户补充描述`，供用户填写自然语言修改。
+> 使用方式：复制本结构生成 `product/development/product-sitemap-draft.md`。不确定内容必须标记为带 ID 的 `假设 A-xxx` 或 `待确认 Q-xxx`，并在统一清单中汇总。文档末尾必须保留 `用户补充描述`，供用户填写自然语言修改。
 
 ## 0. 文档状态
 
@@ -214,7 +214,7 @@ flowchart TD
 
 ## 6. 用户补充描述
 
-> 本章节必须保留在产品综述 Draft 文档末尾，供用户用自然语言补充或修改产品范围、Sitemap、角色权限、商业化、支付、通知、审核、后台管理、页面层级或页面生成路径。`product-sitemap-overview` 生成 release 版本时必须读取、分析并应用这里的内容。
+> 本章节必须保留在产品综述 Draft 文档末尾，供用户用自然语言补充或修改产品范围、Sitemap、角色权限、商业化、支付、通知、审核、后台管理、页面层级或页面生成路径。`product-sitemap-release` 生成 release 版本时必须读取、分析并应用这里的内容。
 > 如果没有补充，请保留“无”。
 
 ```text

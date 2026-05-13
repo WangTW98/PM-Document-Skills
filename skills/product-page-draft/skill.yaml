@@ -1,11 +1,11 @@
 name: "product-page-draft"
 version: "0.5.0"
-description: "Generate one detailed page-level draft Markdown file from one Sitemap 页面生成总表 row in product/release/product-overview-release.md, ending with a user supplement section for natural-language page edits."
+description: "Generate one detailed page-level draft Markdown file from one Sitemap 页面生成总表 row in product/release/product-sitemap-release.md, ending with a user supplement section for natural-language page edits."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
 inputs:
-  - "product/release/product-overview-release.md"
+  - "product/release/product-sitemap-release.md"
   - "product/release/layout/product-layout-release.md"
   - "target page ID, page name, or one sitemap row"
 outputs:
@@ -20,7 +20,7 @@ compatibility:
     codex: "adapters/codex/agents/openai.yaml"
     gemini: "adapters/gemini/GEMINI.md"
 contract:
-  source_file: "product/release/product-overview-release.md"
+  source_file: "product/release/product-sitemap-release.md"
   layout_dependency_file: "product/release/layout/product-layout-release.md"
   source_section: "Sitemap 页面生成总表"
   output_path_source: "页面级MD文件"
@@ -48,5 +48,5 @@ contract:
     - "missing analytics event section"
     - "primary actions without EVT-* tracking event IDs"
     - "interfaces without request and response structures"
-    - "editing product/release/product-overview-release.md"
+    - "editing product/release/product-sitemap-release.md"
     - "omitting the final user supplement section"

@@ -82,7 +82,7 @@ mindmap
 
 ## 6. App Shell / 导航合同
 
-> 必须优先从 `product/release/layout/product-layout-release.md` 的 Surface、Shell、页面模板、导航位置、全局区域继承、响应式规则、全局状态与角色/权限布局规则推导，并结合 `product/release/product-overview-release.md` 校验 sitemap 与产品上下文。不得因为页面 mock 没写导航就省略产品级导航。
+> 必须优先从 `product/release/layout/product-layout-release.md` 的 Surface、Shell、页面模板、导航位置、全局区域继承、响应式规则、全局状态与角色/权限布局规则推导，并结合 `product/release/product-sitemap-release.md` 校验 sitemap 与产品上下文。不得因为页面 mock 没写导航就省略产品级导航。
 
 | 项目 | 规则 |
 |---|---|

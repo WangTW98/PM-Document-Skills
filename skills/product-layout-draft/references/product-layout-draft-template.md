@@ -10,7 +10,7 @@
 |---|---|
 | 文档版本 | Draft |
 | 生成日期 |  |
-| 来源文件 | `product/release/product-overview-release.md` |
+| 来源文件 | `product/release/product-sitemap-release.md` |
 | 来源章节 | `Sitemap 页面生成总表` |
 | 当前输出文件 | `product/development/layout/product-layout-draft.md` |
 | 适用范围 | APP / Web / SaaS / 小程序 / 后台系统 / 内容平台 / AI 工具等应用布局 |

@@ -1,9 +1,9 @@
 ---
-name: product-sitemap-brief
-description: Analyze natural-language product ideas and uploaded source materials such as Word documents, PDFs, screenshots, images, mind maps, notes, PRDs, research files, or business briefs to produce a project-level Markdown product overview and detailed sitemap. Use when an AI agent needs to clarify product design requirements, infer missing scope with marked assumptions, define product type, target users, business goals, user paths, feature scope, roles and permissions, key operations, monetization/payment/notification/review/admin needs, and especially a layout-aware sitemap for later page-level skill generation. Draft outputs must end with 用户补充描述 for natural-language product/sitemap edits. Outputs draft or release Markdown files under product/development.
+name: product-sitemap-draft
+description: Analyze natural-language product ideas and uploaded source materials such as Word documents, PDFs, screenshots, images, mind maps, notes, PRDs, research files, or business briefs to produce a project-level Markdown product overview and detailed sitemap. Use when an AI agent needs to clarify product design requirements, infer missing scope with marked assumptions, define product type, target users, business goals, user paths, feature scope, roles and permissions, key operations, monetization/payment/notification/review/admin needs, and especially a layout-aware sitemap for later page-level skill generation. Draft outputs must end with 用户补充描述 for natural-language product/sitemap edits and be saved as product/development/product-sitemap-draft.md.
 ---
 
-# Product Sitemap Brief
+# Product Sitemap Draft
 
 ## Overview
 
@@ -39,8 +39,8 @@ This skill is runner-neutral. Any AI system can use it by reading this file and 
 
 4. Save the result.
    - Ensure `product/development` exists in the current project.
-   - For first-pass or incomplete inputs, write `product/development/product-overview-draft.md` unless the user gives a more specific product name or path.
-   - If the user provides a confirmed draft and asks for a release version, write `product/development/product-overview-release.md`.
+   - For first-pass or incomplete inputs, write `product/development/product-sitemap-draft.md` unless the user gives a more specific product name or path.
+   - If the user asks for a release version, use `product-sitemap-release` to convert the draft into `product/release/product-sitemap-release.md`.
    - Never overwrite a user-edited file without first reading it and preserving confirmed content.
 
 ## Required Content

@@ -1,6 +1,6 @@
 ---
 name: product-layout-draft
-description: "Create product/development/layout/product-layout-draft.md from product/release/product-overview-release.md. Use when an AI agent needs a project-level application layout draft based on the release overview and Sitemap 页面生成总表, covering APP/web/admin/mini-program surfaces, global shell, navigation, page containers, shared regions, responsive behavior, layout inheritance, layout assumptions/open questions, and a final 用户补充描述 section that product-layout-release will convert into the formal downstream layout contract."
+description: "Create product/development/layout/product-layout-draft.md from product/release/product-sitemap-release.md. Use when an AI agent needs a project-level application layout draft based on the release overview and Sitemap 页面生成总表, covering APP/web/admin/mini-program surfaces, global shell, navigation, page containers, shared regions, responsive behavior, layout inheritance, layout assumptions/open questions, and a final 用户补充描述 section that product-layout-release will convert into the formal downstream layout contract."
 ---
 
 # Product Layout Draft
@@ -15,21 +15,21 @@ The output is:
 
 This layout draft is built from:
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 - The `Sitemap 页面生成总表`
 
 If the release overview is incomplete, infer practical product layout conventions and mark them clearly as assumptions or confirmation items. The user will later edit/confirm this draft before `product-layout-release` generates the release layout document.
 
 ## Required Input
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 
 If the file is missing, stop and ask the user to generate the release overview first.
 
 ## Workflow
 
 1. Read the product overview.
-   - Load `product/release/product-overview-release.md`.
+   - Load `product/release/product-sitemap-release.md`.
    - Extract product type, target users, roles, surfaces, page scope, function scope, core user paths, permissions, and global business constraints that affect layout.
    - Locate and parse `Sitemap 页面生成总表`.
    - For every sitemap row, extract `生成顺序`, `页面ID`, `父页面ID`, `层级`, `页面名称`, `页面类型`, `页面级MD文件`, `对应功能`, `关键操作`, `关键数据/内容`, `状态与边界`, `权限/规则`, and dependencies when present.
@@ -76,7 +76,7 @@ The layout draft must include:
 
 ## Downstream Dependency Contract
 
-This draft defines the structure that will be confirmed into `product/release/layout/product-layout-release.md`. Downstream explanatory Markdown skills must use the release layout file together with `product/release/product-overview-release.md`; they should not use this draft as the formal layout dependency after release layout generation.
+This draft defines the structure that will be confirmed into `product/release/layout/product-layout-release.md`. Downstream explanatory Markdown skills must use the release layout file together with `product/release/product-sitemap-release.md`; they should not use this draft as the formal layout dependency after release layout generation.
 
 Rules for downstream skills:
 

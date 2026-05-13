@@ -455,7 +455,7 @@ flowchart TD
 ## 3. 输入来源摘录
 
 - 用户自然语言描述：
-  - “分析docs目录下的md产品需求文件，使用product-sitemap-brief skill创建产品概述”
+  - “分析docs目录下的md产品需求文件，使用product-sitemap-draft skill创建产品概述”
 - 上传 / 引用文档：
   - `docs/⭐️商务文档.md`
   - `docs/启动-产品需求初次沟通.md`
@@ -524,7 +524,7 @@ flowchart TD
 
 ## 6. 用户补充描述
 
-> 本章节必须保留在产品综述 Draft 文档末尾，供用户用自然语言补充或修改产品范围、Sitemap、角色权限、商业化、支付、通知、审核、后台管理、页面层级或页面生成路径。`product-sitemap-overview` 生成 release 版本时必须读取、分析并应用这里的内容。
+> 本章节必须保留在产品综述 Draft 文档末尾，供用户用自然语言补充或修改产品范围、Sitemap、角色权限、商业化、支付、通知、审核、后台管理、页面层级或页面生成路径。`product-sitemap-release` 生成 release 版本时必须读取、分析并应用这里的内容。
 > 如果没有补充，请保留“无”。
 
 ```text

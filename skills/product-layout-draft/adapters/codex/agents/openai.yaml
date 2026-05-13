@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Layout Draft"
   short_description: "Draft app/web layout dependencies"
-  default_prompt: "Use $product-layout-draft to read product/release/product-overview-release.md and create product/development/layout/product-layout-draft.md with project-level app/web layout, shell, navigation, responsive, sitemap-to-layout rules, and final 用户补充描述 for later product-layout-release confirmation."
+  default_prompt: "Use $product-layout-draft to read product/release/product-sitemap-release.md and create product/development/layout/product-layout-draft.md with project-level app/web layout, shell, navigation, responsive, sitemap-to-layout rules, and final 用户补充描述 for later product-layout-release confirmation."

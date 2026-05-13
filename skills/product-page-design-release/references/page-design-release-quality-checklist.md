@@ -9,7 +9,7 @@ Use this checklist before writing the final response.
 - Exactly one `design/<design-system>/` directory was used as the design constraint source.
 - `DESIGN.md` from the selected design system was read.
 - `tokens.json`, `visual-spec.md`, and `handoff/figma-remote-mcp-guide.md` were used when present and relevant.
-- `product/release/product-overview-release.md` was read when present to reconcile sitemap/product context with the layout draft.
+- `product/release/product-sitemap-release.md` was read when present to reconcile sitemap/product context with the layout draft.
 - Exactly one output file was created or updated under `product/release/design`.
 - The output filename preserves the input mock filename relative to `product/release/mock`.
 - The output document version is `Release`.

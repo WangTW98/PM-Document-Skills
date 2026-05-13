@@ -1,6 +1,6 @@
 ---
 name: product-all-pages-design2figma
-description: "Orchestrate creation of all page designs into Figma by reading product/release/product-overview-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/design/_figma-remote-mcp-status.md, selecting exactly one unfinished page at a time, following the product-pages-design2figma single-page Figma Remote MCP rules, writing completion status, and continuing page-by-page until all sitemap rows are complete."
+description: "Orchestrate creation of all page designs into Figma by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/design/_figma-remote-mcp-status.md, selecting exactly one unfinished page at a time, following the product-pages-design2figma single-page Figma Remote MCP rules, writing completion status, and continuing page-by-page until all sitemap rows are complete."
 ---
 
 # Product All Pages Design2Figma
@@ -21,7 +21,7 @@ The orchestration reads the product sitemap, finds the next unfinished page, cal
 
 Required inputs:
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 - Release design page files under `product/release/design`
 - One Figma link provided by the user.
 - One target Figma page, provided as a page name, page node, selected node, or explicit target node in the Figma link.
@@ -37,7 +37,7 @@ External output:
 ## Workflow
 
 1. Load orchestration context.
-   - Read `product/release/product-overview-release.md`.
+   - Read `product/release/product-sitemap-release.md`.
    - Locate and parse `Sitemap 页面生成总表`.
    - Extract each row's `生成顺序`, `页面ID`, `父页面ID`, `层级`, `页面名称`, and `页面级MD文件`.
    - Use `页面级MD文件` only as a page filename / relative filename key from the sitemap.
@@ -119,7 +119,7 @@ For each selected page, obey these `product-pages-design2figma` rules:
 - Do not invent missing `product/release/design/...` source paths. Block the row instead.
 - Do not auto-select a target Figma page when the destination is ambiguous.
 - Do not overwrite existing Figma content unless the user explicitly requested replacement.
-- Do not alter `product/release/product-overview-release.md`.
+- Do not alter `product/release/product-sitemap-release.md`.
 - Do not alter source files under `product/release/design` while creating Figma pages.
 - Do not mark a row complete unless the Figma output was created in the intended Figma file and target page.
 - Do not mark a row complete if post-write verification finds wrong target page, missing content, unresolved overlap/clipping, incorrect layer order, unsupported application form, or prohibited business/analytics/API artifacts.

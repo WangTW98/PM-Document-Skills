@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Page Draft"
   short_description: "Generate one detailed page draft from sitemap"
-  default_prompt: "Use $product-page-draft to read product/release/product-overview-release.md and product/release/layout/product-layout-release.md, then generate exactly one page draft from one Sitemap 页面生成总表 row, saving it to the row's 页面级MD文件 path and ending with 用户补充描述."
+  default_prompt: "Use $product-page-draft to read product/release/product-sitemap-release.md and product/release/layout/product-layout-release.md, then generate exactly one page draft from one Sitemap 页面生成总表 row, saving it to the row's 页面级MD文件 path and ending with 用户补充描述."

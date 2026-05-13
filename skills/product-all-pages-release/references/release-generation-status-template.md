@@ -2,7 +2,7 @@
 
 ## 0. 状态概览
 
-- 来源文件：`product/release/product-overview-release.md`
+- 来源文件：`product/release/product-sitemap-release.md`
 - 来源章节：`Sitemap 页面生成总表`
 - Draft 页面目录：`product/development/pages`
 - Release 页面目录：`product/release/pages`

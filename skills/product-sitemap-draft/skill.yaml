@@ -1,4 +1,4 @@
-name: "product-sitemap-brief"
+name: "product-sitemap-draft"
 version: "0.4.0"
 description: "Analyze product ideas and source documents, then generate a product overview and complete page-generation sitemap Markdown draft with a final user supplement section."
 language: "zh-CN"
@@ -10,8 +10,7 @@ inputs:
   - "uploaded or referenced PDFs"
   - "uploaded or referenced images, screenshots, mind maps, whiteboard exports, notes, PRDs, or business briefs"
 outputs:
-  - "product/development/product-overview-draft.md"
-  - "product/development/product-overview-release.md"
+  - "product/development/product-sitemap-draft.md"
 resources:
   references:
     - "references/product-overview-template.md"

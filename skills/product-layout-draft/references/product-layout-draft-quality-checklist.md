@@ -4,7 +4,7 @@ Use this checklist before writing the final response.
 
 ## Required Checks
 
-- `product/release/product-overview-release.md` was read.
+- `product/release/product-sitemap-release.md` was read.
 - `Sitemap 页面生成总表` was parsed.
 - `product/development/layout/product-layout-draft.md` was created or updated.
 - Every sitemap row appears in the sitemap-to-layout mapping table.

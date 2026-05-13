@@ -6,7 +6,7 @@ entrypoint: "SKILL.md"
 type: "project-skill"
 inputs:
   - "product/release/design/<page>.md"
-  - "product/release/product-overview-release.md"
+  - "product/release/product-sitemap-release.md"
   - "Figma design URL"
   - "target Figma page name or target node"
   - "optional user-requested application form such as APP, PC web, responsive web, admin console, mini-program, tablet app, or other"

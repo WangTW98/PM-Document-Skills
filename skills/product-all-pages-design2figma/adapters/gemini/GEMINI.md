@@ -8,7 +8,7 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 2. Read `SKILL.md` for orchestration workflow.
 3. Read `references/figma-remote-mcp-status-template.md` before creating `_figma-remote-mcp-status.md`.
 4. Read `references/figma-remote-mcp-orchestration-quality-checklist.md` before ending a run.
-5. Load `product/release/product-overview-release.md` and parse `Sitemap 页面生成总表`.
+5. Load `product/release/product-sitemap-release.md` and parse `Sitemap 页面生成总表`.
 6. Confirm one Figma link and one target Figma page or target node.
 7. Process pages by ascending `生成顺序`.
 8. For each selected page, use only `product/release/design/<same-relative-page-filename>.md` as the single-page source; the row's `页面级MD文件` is only a filename key.

@@ -60,7 +60,7 @@ If the user provides multiple mock pages, a directory of mock pages, or multiple
    - Do not import assumptions, open questions, or draft-only confirmation content. If the release mock page still contains `MA-*`, `MQ-*`, `假设`, or `待确认`, block output and require the mock release source to be fixed first.
 
 3. Read the product-level shell and navigation contract.
-   - Read `product/release/product-overview-release.md` when it exists.
+   - Read `product/release/product-sitemap-release.md` when it exists.
    - Read `product/release/layout/product-layout-release.md` and treat it as the primary project-level layout contract.
    - Extract product type, Surface, `Layout 类型`, `全局导航`, `全局操作区`, sitemap row metadata, `Layout 区域`, page level, parent page, and sibling top-level pages.
    - Extract from `product-layout-release`: Surface ID, Shell type, global shell regions, page template, navigation position, parent-child presentation, safe-area rules, scroll/fixed relationships, responsive rules, global states, layout exceptions, and role/permission layout effects.

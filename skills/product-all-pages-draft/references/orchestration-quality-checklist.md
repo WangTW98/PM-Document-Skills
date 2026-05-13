@@ -2,7 +2,7 @@
 
 Use this checklist before finishing an orchestration run.
 
-- `product/release/product-overview-release.md` was read.
+- `product/release/product-sitemap-release.md` was read.
 - `Sitemap 页面生成总表` was parsed.
 - `product/development/pages/_generation-status.md` exists.
 - Every sitemap row appears in the status queue unless the row is malformed and recorded as blocked.

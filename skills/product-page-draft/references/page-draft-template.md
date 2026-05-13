@@ -8,7 +8,7 @@
 
 - 文档版本：Draft
 - 生成日期：
-- 来源文件：`product/release/product-overview-release.md`
+- 来源文件：`product/release/product-sitemap-release.md`
 - 来源 Sitemap 行：
   - 生成顺序：
   - 页面ID：

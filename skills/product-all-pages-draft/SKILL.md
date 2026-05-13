@@ -1,13 +1,13 @@
 ---
 name: product-all-pages-draft
-description: Orchestrate generation of all page-level draft Markdown documents from product/release/product-overview-release.md by parsing the Sitemap 页面生成总表, maintaining product/development/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-draft single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
+description: Orchestrate generation of all page-level draft Markdown documents from product/release/product-sitemap-release.md by parsing the Sitemap 页面生成总表, maintaining product/development/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-draft single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
 ---
 
 # Product All Pages Draft
 
 ## Overview
 
-Generate every page draft listed in `product/release/product-overview-release.md` -> `Sitemap 页面生成总表`, while preserving the accuracy benefits of `product-page-draft`: only one sitemap row is processed at a time, then status is written before moving to the next row.
+Generate every page draft listed in `product/release/product-sitemap-release.md` -> `Sitemap 页面生成总表`, while preserving the accuracy benefits of `product-page-draft`: only one sitemap row is processed at a time, then status is written before moving to the next row.
 
 This is a runner-neutral orchestration skill. It does not replace `product-page-draft`; it uses that skill's rules as the page-generation contract for each row.
 
@@ -15,7 +15,7 @@ This is a runner-neutral orchestration skill. It does not replace `product-page-
 
 Required input:
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 
 Required status output:
 
@@ -28,7 +28,7 @@ Generated page outputs:
 ## Workflow
 
 1. Load orchestration context.
-   - Read `product/release/product-overview-release.md`.
+   - Read `product/release/product-sitemap-release.md`.
    - Locate and parse `Sitemap 页面生成总表`.
    - Extract each row's `生成顺序`, `页面ID`, `父页面ID`, `层级`, `页面名称`, and `页面级MD文件`.
    - Sort rows by numeric `生成顺序`.
@@ -90,7 +90,7 @@ For each selected page, obey these `product-page-draft` rules:
 - Do not skip status updates.
 - Do not overwrite completed page MD files unless the user explicitly asks to regenerate.
 - Do not invent missing `页面级MD文件` paths. Block the row instead.
-- Do not alter `product/release/product-overview-release.md`.
+- Do not alter `product/release/product-sitemap-release.md`.
 - Do not mark a page complete unless the page file exists at the exact sitemap path.
 - Do not mark a page complete if it lacks the mandatory analytics section, `EVT-*` event IDs, or `用户补充描述`.
 

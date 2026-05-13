@@ -1,19 +1,19 @@
 ---
 name: product-page-draft
-description: Generate one page-level draft Markdown document at a time from product/release/product-overview-release.md, using exactly one row from the Sitemap 页面生成总表. Use when an AI agent needs to create detailed page requirements under product/development/pages for a selected page, including page elements, controls, media, banners, states, triggers, style definitions, interactions, actions, edge cases, error handling, data structures, API contracts, Mermaid mind map, tables, page-level assumptions/open questions, and a final user supplement section for natural-language page edits. Each invocation must generate only one page draft.
+description: Generate one page-level draft Markdown document at a time from product/release/product-sitemap-release.md, using exactly one row from the Sitemap 页面生成总表. Use when an AI agent needs to create detailed page requirements under product/development/pages for a selected page, including page elements, controls, media, banners, states, triggers, style definitions, interactions, actions, edge cases, error handling, data structures, API contracts, Mermaid mind map, tables, page-level assumptions/open questions, and a final user supplement section for natural-language page edits. Each invocation must generate only one page draft.
 ---
 
 # Product Page Draft
 
 ## Overview
 
-Create a detailed draft MD for exactly one page listed in `product/release/product-overview-release.md` -> `Sitemap 页面生成总表`. This skill must also use `product/release/layout/product-layout-release.md` as the shared layout dependency, so page requirements inherit the confirmed product-level shell, navigation, page container, responsive, and global state rules. This skill is deliberately single-page-per-run to reduce context drift and keep page requirements accurate.
+Create a detailed draft MD for exactly one page listed in `product/release/product-sitemap-release.md` -> `Sitemap 页面生成总表`. This skill must also use `product/release/layout/product-layout-release.md` as the shared layout dependency, so page requirements inherit the confirmed product-level shell, navigation, page container, responsive, and global state rules. This skill is deliberately single-page-per-run to reduce context drift and keep page requirements accurate.
 
 This skill is runner-neutral. Any AI system can use it by reading this file and the references under `references/`; platform-specific metadata belongs under `adapters/`.
 
 ## Required Input
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 - `product/release/layout/product-layout-release.md`
 - A target page specified by the user as `页面ID`, `页面名称`, or table row.
 
@@ -43,7 +43,7 @@ Rules:
 ## Workflow
 
 1. Load source context.
-   - Read `product/release/product-overview-release.md`.
+   - Read `product/release/product-sitemap-release.md`.
    - Read `product/release/layout/product-layout-release.md`.
    - Locate `Sitemap 页面生成总表`.
    - Parse the target row and nearby hierarchy context: parent page, child pages, dependencies, role, function, key operations, key data/content, states, rules, and upstream/downstream pages.
@@ -106,7 +106,7 @@ Use page-scoped IDs so the page draft can later be converted into a release page
 - Do not skip element details because the overview is high level; infer practical details and mark uncertainty.
 - Do not produce only prose. The output must contain Mermaid plus detailed tables.
 - Do not generate UI implementation code.
-- Do not alter `product/release/product-overview-release.md`.
+- Do not alter `product/release/product-sitemap-release.md`.
 - Do not alter `product/release/layout/product-layout-release.md`.
 - Do not ignore `product-layout-release`; page shell and layout inheritance must come from it.
 - Do not create release-level page MD files; this skill only creates draft page MD files.

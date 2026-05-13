@@ -1,13 +1,13 @@
 ---
-name: product-sitemap-overview
-description: Generate a release-ready product overview Markdown document from product/development/product-overview-draft.md created by product-sitemap-brief. Use when an AI agent needs to apply the user's Release handling decisions from the draft's assumption and confirmation list, analyze and apply the draft's final 用户补充描述 natural-language product/sitemap edits, remove all assumptions, open questions, A-/Q- references, draft-only notes, supplement sections, and uncertain language, then write a confirmed release document under product/release.
+name: product-sitemap-release
+description: Generate a release-ready product overview Markdown document from product/development/product-sitemap-draft.md created by product-sitemap-draft. Use when an AI agent needs to apply the user's Release handling decisions from the draft's assumption and confirmation list, analyze and apply the draft's final 用户补充描述 natural-language product/sitemap edits, remove all assumptions, open questions, A-/Q- references, draft-only notes, supplement sections, and uncertain language, then write a confirmed release document under product/release.
 ---
 
-# Product Sitemap Overview Release
+# Product Sitemap Release
 
 ## Overview
 
-Create the release version of a product overview document from `product/development/product-overview-draft.md`. The release document is treated as confirmed product source material for downstream skills, so it must not contain unresolved assumptions, open questions, `A-*` / `Q-*` IDs, the draft `用户补充描述` section, or wording that asks the user to confirm scope.
+Create the release version of a product overview document from `product/development/product-sitemap-draft.md`. The release document is treated as confirmed product source material for downstream skills, so it must not contain unresolved assumptions, open questions, `A-*` / `Q-*` IDs, the draft `用户补充描述` section, or wording that asks the user to confirm scope.
 
 This skill is runner-neutral. Any AI system can use it by reading this file and the references under `references/`; platform-specific metadata belongs under `adapters/`.
 
@@ -15,20 +15,20 @@ This skill is runner-neutral. Any AI system can use it by reading this file and 
 
 Required input:
 
-- `product/development/product-overview-draft.md`
+- `product/development/product-sitemap-draft.md`
 
 Default output:
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 
 Optional blocker output when release cannot be produced:
 
-- `product/release/product-overview-release-blockers.md`
+- `product/release/product-sitemap-release-blockers.md`
 
 ## Workflow
 
 1. Read the draft.
-   - Load `product/development/product-overview-draft.md`.
+   - Load `product/development/product-sitemap-draft.md`.
    - Locate the final `假设与待确认统一清单` section.
    - Parse every assumption row (`A-001`, `A-002`, ...) and confirmation row (`Q-001`, `Q-002`, ...).
    - Also scan the whole draft for inline `A-*` and `Q-*` references; every reference must be represented in the final list.
@@ -39,7 +39,7 @@ Optional blocker output when release cannot be produced:
    - Every `A-*` item must have a usable `用户确认状态` and `Release 处理方式`.
    - Every `Q-*` item must have a usable `用户确认结果` and `Release 处理方式`.
    - Treat values like `待用户确认`, blank cells, `待确认`, `保留为风险`, or vague text without a concrete decision as unresolved.
-   - If any unresolved item affects product scope, sitemap, permissions, payment, notification, review, admin, or page generation, do not create the release document. Write `product/release/product-overview-release-blockers.md` with the blocking rows and the exact fields that need user input.
+   - If any unresolved item affects product scope, sitemap, permissions, payment, notification, review, admin, or page generation, do not create the release document. Write `product/release/product-sitemap-release-blockers.md` with the blocking rows and the exact fields that need user input.
    - If `用户补充描述` contains ambiguous or contradictory instructions that materially affect product scope, sitemap hierarchy, page generation paths, roles, permissions, payment, notification, review, admin, or downstream page generation, block release and write the blocker file with the conflicting supplement items.
 
 3. Analyze and apply user supplement.
@@ -65,7 +65,7 @@ Optional blocker output when release cannot be produced:
 
 6. Save and verify.
    - Ensure `product/release` exists.
-   - Write `product/release/product-overview-release.md`.
+   - Write `product/release/product-sitemap-release.md`.
    - Run the release quality checklist in `references/release-quality-checklist.md` manually before finishing.
 
 ## Release Rules

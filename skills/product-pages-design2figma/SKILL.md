@@ -76,7 +76,7 @@ Run this gate after reading the page MD and design system, but before Figma writ
 1. Determine the requested application form.
    - First, parse the user's current instruction for explicit words such as `APP`, `移动端`, `手机端`, `iOS`, `Android`, `小程序`, `PC`, `网页`, `Web`, `响应式`, `管理后台`, `运营后台`, `控制台`, `桌面端`, `平板`, or `大屏`.
    - If the user explicitly requests a form, treat that as the target form for this invocation.
-   - If the user does not explicitly specify a form, read `product/release/product-overview-release.md` when it exists and infer the relevant form from the product introduction, surface descriptions, sitemap rows, page ID, page name, parent page, and source mock/design MD metadata.
+   - If the user does not explicitly specify a form, read `product/release/product-sitemap-release.md` when it exists and infer the relevant form from the product introduction, surface descriptions, sitemap rows, page ID, page name, parent page, and source mock/design MD metadata.
    - Product overview may include multiple forms, such as APP + PC admin, APP + responsive web, or mini-program + operations console. In that case, infer the form for the selected page, not for the whole product globally.
    - If multiple forms remain plausible for the selected page after reading the page MD and product overview, stop and ask the user to choose one before Figma creation.
 
@@ -97,7 +97,7 @@ Run this gate after reading the page MD and design system, but before Figma writ
 Before any Figma write operation, derive and validate the page's required shell regions. This gate is mandatory because navigation and shell omissions create incomplete or inconsistent Figma outputs.
 
 1. Derive the product-level shell.
-   - Read `product/release/product-overview-release.md` when it exists.
+   - Read `product/release/product-sitemap-release.md` when it exists.
    - Extract `产品类型`, Surface, `Layout 类型`, `全局导航`, `全局操作区`, sitemap row `Layout 区域`, page level, parent page, and sibling tab-root pages.
    - For mobile App products that use `底部 Tab 导航 + 层级推入页面`, classify the selected page as login/independent, tab-root, or pushed child page.
 

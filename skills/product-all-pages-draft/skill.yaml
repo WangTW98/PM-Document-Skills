@@ -5,7 +5,7 @@ language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
 inputs:
-  - "product/release/product-overview-release.md"
+  - "product/release/product-sitemap-release.md"
 outputs:
   - "product/development/pages/_generation-status.md"
   - "<页面级MD文件 from each Sitemap 页面生成总表 row>"
@@ -19,7 +19,7 @@ compatibility:
     codex: "adapters/codex/agents/openai.yaml"
     gemini: "adapters/gemini/GEMINI.md"
 contract:
-  source_file: "product/release/product-overview-release.md"
+  source_file: "product/release/product-sitemap-release.md"
   source_section: "Sitemap 页面生成总表"
   status_file: "product/development/pages/_generation-status.md"
   page_generation_skill: "product-page-draft"
@@ -40,4 +40,4 @@ contract:
     - "marking pages complete without analytics event section and EVT-* IDs"
     - "overwriting completed pages without explicit user request"
     - "inventing missing 页面级MD文件 paths"
-    - "editing product/release/product-overview-release.md"
+    - "editing product/release/product-sitemap-release.md"

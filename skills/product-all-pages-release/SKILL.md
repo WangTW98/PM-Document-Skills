@@ -1,13 +1,13 @@
 ---
 name: product-all-pages-release
-description: Orchestrate generation of all release page Markdown documents from draft pages by reading product/release/product-overview-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-release single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
+description: Orchestrate generation of all release page Markdown documents from draft pages by reading product/release/product-sitemap-release.md, parsing the Sitemap 页面生成总表, maintaining product/release/pages/_generation-status.md, selecting exactly one unfinished page at a time, following product-page-release single-page rules for that page, marking completion or blockage, and continuing page-by-page until all sitemap rows are complete.
 ---
 
 # Product All Pages Release
 
 ## Overview
 
-Generate release versions for every page listed in `product/release/product-overview-release.md` -> `Sitemap 页面生成总表`, while preserving the accuracy benefits of `product-page-release`: only one page is released at a time, then status is written before moving to the next row.
+Generate release versions for every page listed in `product/release/product-sitemap-release.md` -> `Sitemap 页面生成总表`, while preserving the accuracy benefits of `product-page-release`: only one page is released at a time, then status is written before moving to the next row.
 
 This is a runner-neutral orchestration skill. It does not replace `product-page-release`; it uses that skill's rules as the page-release contract for each row.
 
@@ -15,7 +15,7 @@ This is a runner-neutral orchestration skill. It does not replace `product-page-
 
 Required inputs:
 
-- `product/release/product-overview-release.md`
+- `product/release/product-sitemap-release.md`
 - Draft page files under `product/development/pages`
 
 Required status output:
@@ -29,7 +29,7 @@ Generated release page outputs:
 ## Workflow
 
 1. Load orchestration context.
-   - Read `product/release/product-overview-release.md`.
+   - Read `product/release/product-sitemap-release.md`.
    - Locate and parse `Sitemap 页面生成总表`.
    - Extract each row's `生成顺序`, `页面ID`, `父页面ID`, `层级`, `页面名称`, and `页面级MD文件`.
    - Treat `页面级MD文件` as the draft source path. Derive the release output path by replacing the leading `product/development/pages` with `product/release/pages`.
@@ -95,7 +95,7 @@ For each selected page, obey these `product-page-release` rules:
 - Do not skip status updates.
 - Do not overwrite completed release page files unless the user explicitly asks to regenerate.
 - Do not invent missing draft source page paths. Block the row instead.
-- Do not alter `product/release/product-overview-release.md`.
+- Do not alter `product/release/product-sitemap-release.md`.
 - Do not mark a page complete unless the release file exists at the expected `product/release/pages` path.
 - Do not mark a page complete if the release page still contains `PA-*`, `PQ-*`, `假设`, or `待确认`.
 - Do not mark a page complete if the release page lacks `埋点事件ID` or any `EVT-*` event ID.
