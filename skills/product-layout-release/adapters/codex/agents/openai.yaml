@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Layout Release"
-  short_description: "Confirm project layout contract"
-  default_prompt: "Use $product-layout-release to read product/development/layout/product-layout-draft.md, apply LA-/LQ- Release handling decisions plus any 用户补充描述 modifications, and create product/release/layout/product-layout-release.md as the confirmed layout dependency with no raw supplement notes."
+  short_description: "Revise or finalize layout drafts"
+  default_prompt: "Use $product-layout-release to read the latest product/development/layout/product-layout-draft*.md draft. Unless I explicitly ask for the final/release/正式版 output, apply completed LA-/LQ- decisions plus any 用户补充描述 modifications into the next versioned draft and keep an empty 用户补充描述 plus remaining/new confirmation list. Only on explicit final release, create product/release/layout/product-layout-release.md as the confirmed layout dependency with no raw supplement notes."
