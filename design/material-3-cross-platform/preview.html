@@ -1,0 +1,392 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Material Design 3 Cross-Platform Preview</title>
+  <style>
+    :root {
+      --primary: #6750a4;
+      --on-primary: #ffffff;
+      --primary-container: #eaddff;
+      --on-primary-container: #21005d;
+      --secondary: #625b71;
+      --secondary-container: #e8def8;
+      --tertiary: #7d5260;
+      --error: #b3261e;
+      --surface: #fffbfe;
+      --surface-container-low: #f7f2fa;
+      --surface-container: #f3edf7;
+      --surface-container-high: #ece6f0;
+      --surface-container-highest: #e6e0e9;
+      --text-primary: #1c1b1f;
+      --text-secondary: #49454f;
+      --text-tertiary: #79747e;
+      --outline: #79747e;
+      --outline-variant: #cac4d0;
+      --success: #146c2e;
+      --warning: #8a4f00;
+      --info: #0057d8;
+      --shadow-1: 0 1px 2px rgba(0,0,0,0.12), 0 1px 3px rgba(0,0,0,0.08);
+      --shadow-2: 0 2px 6px rgba(0,0,0,0.14), 0 1px 2px rgba(0,0,0,0.08);
+      --shadow-3: 0 4px 12px rgba(0,0,0,0.16), 0 2px 4px rgba(0,0,0,0.10);
+      --radius-sm: 8px;
+      --radius-md: 12px;
+      --radius-lg: 16px;
+      --radius-xl: 20px;
+      --radius-full: 999px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --font-brand: "Roboto Flex", "Roboto", "Noto Sans SC", "PingFang SC", system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --primary: #d0bcff;
+        --on-primary: #381e72;
+        --primary-container: #4f378b;
+        --on-primary-container: #eaddff;
+        --secondary: #ccc2dc;
+        --secondary-container: #4a4458;
+        --tertiary: #efb8c8;
+        --error: #f2b8b5;
+        --surface: #141218;
+        --surface-container-low: #1d1b20;
+        --surface-container: #211f26;
+        --surface-container-high: #2b2930;
+        --surface-container-highest: #36343b;
+        --text-primary: #e6e1e5;
+        --text-secondary: #cac4d0;
+        --text-tertiary: #938f99;
+        --outline: #938f99;
+        --outline-variant: #49454f;
+        --success: #8cd9a2;
+        --warning: #ffb95c;
+        --info: #adc6ff;
+        --shadow-1: 0 1px 2px rgba(0,0,0,0.28), 0 1px 3px rgba(0,0,0,0.18);
+        --shadow-2: 0 2px 6px rgba(0,0,0,0.34), 0 1px 2px rgba(0,0,0,0.20);
+        --shadow-3: 0 4px 12px rgba(0,0,0,0.40), 0 2px 4px rgba(0,0,0,0.24);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-brand);
+      background: var(--surface);
+      color: var(--text-primary);
+    }
+    .shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    .topbar {
+      min-height: 72px;
+      background: var(--surface-container);
+      border-radius: var(--radius-xl);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 20px;
+      box-shadow: var(--shadow-1);
+      margin-bottom: 24px;
+    }
+    .brand { font-size: 22px; line-height: 28px; font-weight: 500; }
+    .chip-row, .button-row, .state-row, .responsive-row { display: flex; gap: 12px; flex-wrap: wrap; }
+    .chip {
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: var(--radius-full);
+      display: inline-flex;
+      align-items: center;
+      background: var(--secondary-container);
+      color: var(--text-primary);
+    }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 20px; }
+    .section { grid-column: span 12; }
+    .hero, .card, .surface-card, .panel {
+      border-radius: var(--radius-xl);
+      background: var(--surface-container);
+      box-shadow: var(--shadow-1);
+      border: 1px solid var(--outline-variant);
+    }
+    .hero { padding: 32px; }
+    h1 { margin: 0 0 12px; font-size: 45px; line-height: 52px; font-weight: 400; }
+    h2 { margin: 0 0 16px; font-size: 32px; line-height: 40px; font-weight: 400; }
+    h3 { margin: 0 0 12px; font-size: 22px; line-height: 28px; font-weight: 500; }
+    p, li { color: var(--text-secondary); line-height: 1.6; }
+    small { color: var(--text-tertiary); }
+    .meta {
+      display: inline-block;
+      padding: 8px 12px;
+      border-radius: var(--radius-full);
+      background: var(--primary-container);
+      color: var(--on-primary-container);
+      margin-bottom: 16px;
+      font-size: 12px;
+      line-height: 16px;
+      font-weight: 500;
+    }
+    .button {
+      min-height: 40px;
+      padding: 0 24px;
+      border-radius: var(--radius-full);
+      border: 1px solid transparent;
+      font: inherit;
+      font-size: 14px;
+      line-height: 20px;
+      font-weight: 500;
+    }
+    .button.primary { background: var(--primary); color: var(--on-primary); }
+    .button.tonal { background: var(--primary-container); color: var(--on-primary-container); }
+    .button.outlined { background: transparent; color: var(--primary); border-color: var(--outline); }
+    .button.text { background: transparent; color: var(--primary); }
+    .swatches, .type-grid, .utility-grid, .component-grid, .data-grid, .handoff-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .tile, .card, .surface-card, .responsive-card {
+      padding: 16px;
+      border-radius: var(--radius-lg);
+      background: var(--surface-container);
+      box-shadow: var(--shadow-1);
+      border: 1px solid var(--outline-variant);
+    }
+    .swatch-color { height: 72px; border-radius: var(--radius-md); margin-bottom: 12px; }
+    .surface-1 { background: var(--surface-container-low); }
+    .surface-2 { background: var(--surface-container); }
+    .surface-3 { background: var(--surface-container-high); }
+    .surface-4 { background: var(--surface-container-highest); box-shadow: var(--shadow-2); }
+    .form-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+    label { display: flex; flex-direction: column; gap: 8px; }
+    input {
+      min-height: 56px;
+      padding: 0 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--outline);
+      background: transparent;
+      color: var(--text-primary);
+      font: inherit;
+    }
+    .layout {
+      display: grid;
+      grid-template-columns: 80px 280px 1fr;
+      gap: 16px;
+    }
+    .rail, .sidebar, .content {
+      border-radius: var(--radius-lg);
+      padding: 16px;
+    }
+    .rail { background: var(--surface-container-low); }
+    .sidebar { background: var(--surface-container); }
+    .content { background: var(--surface-container-high); min-height: 220px; }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--surface-container);
+      border-radius: var(--radius-md);
+      overflow: hidden;
+      box-shadow: var(--shadow-1);
+    }
+    .table th, .table td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--outline-variant);
+      font-size: 14px;
+      line-height: 20px;
+    }
+    .table th { background: var(--surface-container-high); color: var(--text-secondary); }
+    .state-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      min-height: 32px;
+      padding: 0 12px;
+      border-radius: var(--radius-full);
+    }
+    .success { background: color-mix(in srgb, var(--success) 16%, var(--surface-container)); color: var(--success); }
+    .warning { background: color-mix(in srgb, var(--warning) 16%, var(--surface-container)); color: var(--warning); }
+    .info { background: color-mix(in srgb, var(--info) 16%, var(--surface-container)); color: var(--info); }
+    @media (max-width: 1199px) {
+      .swatches, .type-grid, .utility-grid, .component-grid, .data-grid, .handoff-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .layout { grid-template-columns: 80px 1fr; }
+      .sidebar { grid-column: span 2; }
+    }
+    @media (max-width: 767px) {
+      .shell { padding: 16px; }
+      h1 { font-size: 32px; line-height: 40px; }
+      h2 { font-size: 28px; line-height: 36px; }
+      .swatches, .type-grid, .utility-grid, .component-grid, .data-grid, .handoff-grid, .form-grid { grid-template-columns: 1fr; }
+      .layout { grid-template-columns: 1fr; }
+      .rail, .sidebar { display: none; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 80ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar">
+      <div class="brand">Material Design 3</div>
+      <div class="chip-row">
+        <div class="chip">Dynamic Color</div>
+        <div class="chip">Surface System</div>
+        <div class="chip">Accessibility</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="section hero">
+        <div class="meta">Material You · Color Roles · Clear Hierarchy</div>
+        <h1>用语义色彩和 surface 层级建立现代、友好、可复用的跨端界面。</h1>
+        <p>这套规范适用于移动端、Tablet、PC Web、H5 Web，强调 Material Design 3 的 color roles、tonal palette、component states 和 responsive layout。</p>
+        <div class="button-row">
+          <button class="button primary">Filled Button</button>
+          <button class="button tonal">Tonal Button</button>
+          <button class="button outlined">Outlined</button>
+          <button class="button text">Text Button</button>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Color Roles</h2>
+        <div class="swatches">
+          <div class="tile"><div class="swatch-color" style="background:var(--primary)"></div><strong>Primary</strong><p>关键 CTA、激活态、品牌强调。</p></div>
+          <div class="tile"><div class="swatch-color" style="background:var(--primary-container)"></div><strong>Primary Container</strong><p>选中容器、强调模块底色。</p></div>
+          <div class="tile"><div class="swatch-color" style="background:var(--secondary-container)"></div><strong>Secondary Container</strong><p>补充动作和辅助强调。</p></div>
+          <div class="tile"><div class="swatch-color" style="background:var(--surface-container-high)"></div><strong>Surface Container</strong><p>用于卡片、面板和布局分层。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Typography</h2>
+        <div class="type-grid">
+          <div class="tile"><div style="font-size:57px;line-height:64px">Display</div><small>57 / 64</small></div>
+          <div class="tile"><div style="font-size:32px;line-height:40px">Headline</div><small>32 / 40</small></div>
+          <div class="tile"><div style="font-size:22px;line-height:28px;font-weight:500">Title</div><small>22 / 28</small></div>
+          <div class="tile"><div style="font-size:16px;line-height:24px">Body Large</div><small>16 / 24</small></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Surface and Elevation</h2>
+        <div class="utility-grid">
+          <div class="tile surface-1"><h3>Surface Low</h3><p>轻层级分组</p></div>
+          <div class="tile surface-2"><h3>Surface</h3><p>默认内容容器</p></div>
+          <div class="tile surface-3"><h3>Surface High</h3><p>上层卡片与过滤器</p></div>
+          <div class="tile surface-4"><h3>Surface Highest</h3><p>Dialog / Modal</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Components</h2>
+        <div class="component-grid">
+          <div class="card">
+            <h3>Buttons</h3>
+            <div class="button-row">
+              <button class="button primary">Primary</button>
+              <button class="button tonal">Tonal</button>
+            </div>
+          </div>
+          <div class="card">
+            <h3>States</h3>
+            <div class="chip-row">
+              <div class="chip">Default</div>
+              <div class="chip">Hover</div>
+              <div class="chip">Pressed</div>
+              <div class="chip">Disabled</div>
+            </div>
+          </div>
+          <div class="card" style="grid-column: span 2;">
+            <h3>Text Fields</h3>
+            <div class="form-grid">
+              <label><span>Outlined Field</span><input value="Material 3 input"></label>
+              <label><span>Error Field</span><input value="Invalid value" style="border-color:var(--error)"></label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Navigation Layout</h2>
+        <div class="layout">
+          <div class="rail">
+            <h3>Rail</h3>
+            <p>Tablet</p>
+          </div>
+          <div class="sidebar">
+            <h3>Sidebar</h3>
+            <p>Desktop 使用 Drawer / Sidebar 组织信息架构。</p>
+          </div>
+          <div class="content">
+            <h3>Content</h3>
+            <p>主内容区使用 surface 系统建立清晰层级，而不是厚重边框和强阴影。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Data and Status</h2>
+        <div class="data-grid">
+          <div class="tile"><strong>12</strong><p>Open tasks</p></div>
+          <div class="tile"><strong>87%</strong><p>Completion rate</p></div>
+          <div class="tile"><strong>34 ms</strong><p>Response time</p></div>
+          <div class="tile"><strong>4</strong><p>Pending approvals</p></div>
+        </div>
+        <div style="margin-top:16px">
+          <table class="table">
+            <thead>
+              <tr><th>Item</th><th>Status</th><th>Owner</th><th>Updated</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>Case #1024</td><td>Open</td><td>Alex</td><td>2m ago</td></tr>
+              <tr><td>Case #1021</td><td>Review</td><td>Mia</td><td>14m ago</td></tr>
+              <tr><td>Case #1014</td><td>Closed</td><td>Yun</td><td>1h ago</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="state-row" style="margin-top:16px">
+          <div class="state-pill success">Success</div>
+          <div class="state-pill warning">Warning</div>
+          <div class="state-pill info">Info</div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Responsive Behavior</h2>
+        <div class="responsive-row">
+          <div class="responsive-card"><strong>Phone 0-767</strong><p>单列、Bottom Nav、列表优先。</p></div>
+          <div class="responsive-card"><strong>Tablet 768-1199</strong><p>Rail、双栏、Split View。</p></div>
+          <div class="responsive-card"><strong>Desktop 1200-1439</strong><p>Sidebar、Table、Detail Pane。</p></div>
+          <div class="responsive-card"><strong>Wide 1440+</strong><p>多列模块，但控制阅读宽度。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Agent Handoff Summary</h2>
+        <div class="handoff-grid">
+          <div class="tile">
+            <h3>Key Tokens</h3>
+            <ul>
+              <li>`primary.base`</li>
+              <li>`surface.container`</li>
+              <li>`headline.large`</li>
+              <li>`radius.lg`</li>
+            </ul>
+          </div>
+          <div class="tile">
+            <h3>Anti-Drift Rules</h3>
+            <ul>
+              <li>不要引入未定义玻璃效果</li>
+              <li>不要用重阴影代替 surface 层级</li>
+              <li>不要忽略深色模式和状态体系</li>
+              <li>不要把桌面端做成手机放大版</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>

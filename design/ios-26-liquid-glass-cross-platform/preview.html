@@ -1,0 +1,444 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>iOS 26 Liquid Glass Cross-Platform Preview</title>
+  <style>
+    :root {
+      --bg-canvas: #f4f5f7;
+      --bg-elevated: #ffffff;
+      --bg-sunken: #eceef2;
+      --text-primary: #111318;
+      --text-secondary: #4d5562;
+      --text-tertiary: #7e8794;
+      --text-inverse: #f8fafc;
+      --action-primary: #0a84ff;
+      --action-primary-hover: #0077ed;
+      --action-secondary: #e7f1ff;
+      --state-success: #30d158;
+      --state-warning: #ff9f0a;
+      --state-error: #ff453a;
+      --glass-fill: rgba(255, 255, 255, 0.56);
+      --glass-fill-strong: rgba(255, 255, 255, 0.72);
+      --glass-stroke: rgba(255, 255, 255, 0.44);
+      --glass-highlight: rgba(255, 255, 255, 0.82);
+      --border-subtle: rgba(17, 19, 24, 0.08);
+      --border-strong: rgba(17, 19, 24, 0.14);
+      --focus: rgba(10, 132, 255, 0.42);
+      --shadow-soft: 0 6px 20px rgba(15, 23, 42, 0.08);
+      --shadow-glass: 0 8px 24px rgba(15, 23, 42, 0.12), inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      --shadow-modal: 0 24px 60px rgba(15, 23, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.28);
+      --radius-md: 16px;
+      --radius-lg: 20px;
+      --radius-xl: 24px;
+      --radius-pill: 999px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --space-10: 40px;
+      --blur-nav: 20px;
+      --blur-card: 24px;
+      --blur-modal: 30px;
+      --font-sans: "SF Pro Display", "SF Pro Text", "PingFang SC", "Inter", "Helvetica Neue", system-ui, sans-serif;
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg-canvas: #0d1117;
+        --bg-elevated: #151b24;
+        --bg-sunken: #0a0e14;
+        --text-primary: #f5f7fa;
+        --text-secondary: #c4cbd6;
+        --text-tertiary: #8892a0;
+        --text-inverse: #101318;
+        --action-primary: #4da3ff;
+        --action-primary-hover: #6bb2ff;
+        --action-secondary: rgba(77, 163, 255, 0.18);
+        --state-success: #32d74b;
+        --state-warning: #ffd60a;
+        --state-error: #ff6961;
+        --glass-fill: rgba(18, 24, 33, 0.58);
+        --glass-fill-strong: rgba(18, 24, 33, 0.74);
+        --glass-stroke: rgba(255, 255, 255, 0.14);
+        --glass-highlight: rgba(255, 255, 255, 0.2);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --border-strong: rgba(255, 255, 255, 0.18);
+        --focus: rgba(77, 163, 255, 0.48);
+        --shadow-soft: 0 6px 20px rgba(0, 0, 0, 0.24);
+        --shadow-glass: 0 8px 24px rgba(0, 0, 0, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+        --shadow-modal: 0 24px 60px rgba(0, 0, 0, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+      }
+    }
+
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      color: var(--text-primary);
+      background:
+        radial-gradient(circle at top left, rgba(10, 132, 255, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(100, 210, 255, 0.12), transparent 24%),
+        linear-gradient(180deg, var(--bg-canvas), var(--bg-sunken));
+      min-height: 100vh;
+    }
+    .shell { max-width: 1440px; margin: 0 auto; padding: 24px; }
+    .glass {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-stroke);
+      box-shadow: var(--shadow-glass);
+      backdrop-filter: blur(var(--blur-card)) saturate(1.2);
+      -webkit-backdrop-filter: blur(var(--blur-card)) saturate(1.2);
+    }
+    .panel {
+      border-radius: var(--radius-xl);
+      padding: var(--space-6);
+    }
+    .topbar {
+      position: sticky;
+      top: 16px;
+      z-index: 10;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 12px 16px;
+      border-radius: var(--radius-pill);
+      margin-bottom: 24px;
+    }
+    .brand { font-weight: 700; letter-spacing: -0.02em; }
+    .nav-group, .button-row, .chip-row, .state-row, .responsive-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chip, .ghost-btn, .secondary-btn, .primary-btn {
+      min-height: 44px;
+      padding: 0 18px;
+      border-radius: var(--radius-pill);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid transparent;
+      font-weight: 600;
+    }
+    .primary-btn { background: var(--action-primary); color: var(--text-inverse); }
+    .secondary-btn { background: var(--action-secondary); color: var(--action-primary); border-color: var(--border-subtle); }
+    .ghost-btn, .chip { background: transparent; color: var(--text-primary); border-color: var(--border-subtle); }
+    .ghost-btn:focus-visible, .primary-btn:focus-visible, .secondary-btn:focus-visible, input:focus-visible {
+      outline: none;
+      box-shadow: 0 0 0 4px color-mix(in srgb, var(--action-primary) 18%, transparent);
+    }
+    h1 { font-size: 40px; line-height: 1.15; margin: 0 0 12px; letter-spacing: -0.04em; }
+    h2 { font-size: 24px; line-height: 1.25; margin: 0 0 16px; letter-spacing: -0.02em; }
+    h3 { font-size: 20px; line-height: 1.3; margin: 0 0 12px; }
+    p, li { color: var(--text-secondary); line-height: 1.6; }
+    small { color: var(--text-tertiary); }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(12, 1fr);
+      gap: 20px;
+    }
+    .hero { grid-column: span 12; padding: 40px; position: relative; overflow: hidden; }
+    .hero:before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, color-mix(in srgb, var(--action-primary) 12%, transparent), transparent 42%);
+      pointer-events: none;
+    }
+    .hero-copy { position: relative; max-width: 760px; }
+    .meta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 8px 12px;
+      border-radius: var(--radius-pill);
+      background: var(--glass-fill-strong);
+      border: 1px solid var(--glass-stroke);
+      color: var(--text-secondary);
+      margin-bottom: 16px;
+    }
+    .section { grid-column: span 12; }
+    .swatches, .type-scale, .utility-grid, .cards, .data-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .swatch, .card, .utility, .data-card {
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      box-shadow: var(--shadow-soft);
+    }
+    .swatch-color { height: 72px; border-radius: 14px; margin-bottom: 12px; border: 1px solid var(--border-subtle); }
+    .glass-card { background: var(--glass-fill); border: 1px solid var(--glass-stroke); box-shadow: var(--shadow-glass); backdrop-filter: blur(var(--blur-card)) saturate(1.2); -webkit-backdrop-filter: blur(var(--blur-card)) saturate(1.2); }
+    .form-demo {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+    input {
+      min-height: 48px;
+      padding: 0 16px;
+      border-radius: 16px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-elevated);
+      color: var(--text-primary);
+      font: inherit;
+    }
+    .nav-sample {
+      display: grid;
+      grid-template-columns: 280px 1fr;
+      gap: 16px;
+    }
+    .sidebar, .content-surface, .state-card {
+      border-radius: var(--radius-xl);
+      padding: 20px;
+    }
+    .sidebar {
+      background: var(--glass-fill);
+      border: 1px solid var(--glass-stroke);
+      box-shadow: var(--shadow-glass);
+      backdrop-filter: blur(var(--blur-nav)) saturate(1.2);
+      -webkit-backdrop-filter: blur(var(--blur-nav)) saturate(1.2);
+    }
+    .content-surface, .state-card { background: var(--bg-elevated); border: 1px solid var(--border-subtle); box-shadow: var(--shadow-soft); }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+    }
+    .table th, .table td {
+      text-align: left;
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+      font-size: 14px;
+    }
+    .table th { color: var(--text-secondary); background: color-mix(in srgb, var(--bg-sunken) 72%, transparent); }
+    .state-row > div { flex: 1 1 220px; }
+    .state-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 8px; }
+    .responsive-card {
+      flex: 1 1 280px;
+      border-radius: var(--radius-lg);
+      padding: 16px;
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+    }
+    .handoff {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 16px;
+    }
+    ul { margin: 0; padding-left: 20px; }
+    @media (max-width: 1199px) {
+      .swatches, .type-scale, .utility-grid, .cards, .data-grid, .handoff { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+      .nav-sample { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 767px) {
+      .shell { padding: 16px; }
+      h1 { font-size: 32px; }
+      .swatches, .type-scale, .utility-grid, .cards, .data-grid, .form-demo, .handoff { grid-template-columns: 1fr; }
+      .topbar { border-radius: 20px; }
+    }
+    @media (prefers-reduced-transparency: reduce) {
+      .glass, .glass-card, .sidebar, .meta, .topbar {
+        background: var(--bg-elevated);
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+      }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 80ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="topbar glass">
+      <div class="brand">iOS 26 Liquid Glass</div>
+      <div class="nav-group">
+        <div class="chip">iPhone</div>
+        <div class="chip">H5 Web</div>
+        <div class="chip">iPad</div>
+        <div class="chip">PC Web</div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <section class="hero glass panel">
+        <div class="hero-copy">
+          <div class="meta">高级 · 简洁 · 通透 · 内容优先 · 可降级</div>
+          <h1>Liquid Glass 不是大面积模糊，而是可读的悬浮层级。</h1>
+          <p>这套系统面向 iPhone App、H5 Mobile Web、iPad / Tablet、PC Web。它保留 Apple 风格的玻璃通透感，同时用精确的 token、断点、组件状态和降级策略确保可实现、可验收。</p>
+          <div class="button-row">
+            <button class="primary-btn">Primary Action</button>
+            <button class="secondary-btn">Secondary</button>
+            <button class="ghost-btn">Ghost</button>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Color Palette</h2>
+        <div class="swatches">
+          <div class="swatch"><div class="swatch-color" style="background:#F4F5F7"></div><strong>bg.canvas</strong><p>#F4F5F7 页面背景，避免纯白刺眼。</p></div>
+          <div class="swatch"><div class="swatch-color" style="background:#FFFFFF"></div><strong>bg.elevated</strong><p>#FFFFFF 内容区、降级后的实底卡。</p></div>
+          <div class="swatch"><div class="swatch-color" style="background:#0A84FF"></div><strong>action.primary</strong><p>#0A84FF 主 CTA 与激活态。</p></div>
+          <div class="swatch"><div class="swatch-color" style="background:rgba(255,255,255,0.56)"></div><strong>glass.fill</strong><p>rgba(255,255,255,0.56) 导航与浮层玻璃底。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Typography</h2>
+        <div class="type-scale">
+          <div class="card"><div style="font-size:40px;line-height:1.15;font-weight:700">Hero 40</div><small>Desktop 首屏标题</small></div>
+          <div class="card"><div style="font-size:24px;line-height:1.25;font-weight:600">Heading 24</div><small>区块标题</small></div>
+          <div class="card"><div style="font-size:16px;line-height:1.5">Body 16 适合移动端正文与表单。</div><small>默认正文</small></div>
+          <div class="card"><div style="font-size:12px;line-height:1.4;font-weight:500">Caption 12</div><small>标签、元信息、说明</small></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Space, Radius, Shadow</h2>
+        <div class="utility-grid">
+          <div class="utility"><h3>Spacing</h3><p>4 / 8 / 12 / 16 / 24 / 32 / 40 / 48</p></div>
+          <div class="utility"><h3>Radius</h3><p>16px 内容卡，20px 浮卡，999px 胶囊。</p></div>
+          <div class="utility"><h3>Blur</h3><p>20px Nav，24px Card，30px Modal。</p></div>
+          <div class="utility"><h3>Shadow</h3><p>柔阴影用于实底，玻璃阴影用于浮层，不替代结构边界。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Buttons and Forms</h2>
+        <div class="cards">
+          <div class="card">
+            <h3>Buttons</h3>
+            <div class="button-row">
+              <button class="primary-btn">Continue</button>
+              <button class="secondary-btn">Preview</button>
+              <button class="ghost-btn">Cancel</button>
+            </div>
+          </div>
+          <div class="glass-card card">
+            <h3>Glass Controls</h3>
+            <div class="chip-row">
+              <div class="chip">Default</div>
+              <div class="chip" style="background:var(--glass-fill-strong)">Selected</div>
+            </div>
+          </div>
+          <div class="card" style="grid-column: span 2;">
+            <h3>Form Controls</h3>
+            <div class="form-demo">
+              <label class="field">
+                <span>Search</span>
+                <input value="Order #A2026-0912">
+              </label>
+              <label class="field">
+                <span>Error Field</span>
+                <input value="Invalid email" style="border-color:var(--state-error); box-shadow:0 0 0 4px color-mix(in srgb, var(--state-error) 16%, transparent);">
+              </label>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Navigation Sample</h2>
+        <div class="nav-sample">
+          <aside class="sidebar">
+            <h3>Sidebar</h3>
+            <p>Tablet 与 Desktop 推荐使用 Sidebar / Split View / Popover 组合。</p>
+            <div class="chip-row">
+              <div class="chip" style="background:var(--glass-fill-strong)">Dashboard</div>
+              <div class="chip">Orders</div>
+              <div class="chip">Settings</div>
+            </div>
+          </aside>
+          <div class="content-surface">
+            <h3>Content Surface</h3>
+            <p>主体内容维持实底与弱阴影，避免在高密度数据区滥用玻璃层。</p>
+          </div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Data and Content Sample</h2>
+        <div class="data-grid">
+          <div class="data-card"><strong>42</strong><p>Open Tasks</p></div>
+          <div class="data-card"><strong>98.4%</strong><p>Completion Rate</p></div>
+          <div class="data-card"><strong>12m</strong><p>Avg. Response</p></div>
+          <div class="data-card glass-card"><strong>Sticky CTA</strong><p>用于 H5 与表单提交区。</p></div>
+        </div>
+        <div style="margin-top:16px">
+          <table class="table">
+            <thead>
+              <tr><th>Order</th><th>Status</th><th>Owner</th><th>Updated</th></tr>
+            </thead>
+            <tbody>
+              <tr><td>#A2026-0912</td><td>Processing</td><td>Rachel</td><td>2 min ago</td></tr>
+              <tr><td>#A2026-0908</td><td>Waiting</td><td>Alex</td><td>18 min ago</td></tr>
+              <tr><td>#A2026-0902</td><td>Resolved</td><td>Chen</td><td>1 h ago</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>States</h2>
+        <div class="state-row">
+          <div class="state-card"><h3><span class="state-dot" style="background:var(--state-success)"></span>Success</h3><p>配合图标、标题和下一步动作。</p></div>
+          <div class="state-card"><h3><span class="state-dot" style="background:var(--state-warning)"></span>Warning</h3><p>提醒风险，不用纯色大底惊扰阅读。</p></div>
+          <div class="state-card"><h3><span class="state-dot" style="background:var(--state-error)"></span>Error</h3><p>错误态必须同时有文案与结构反馈。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Responsive Behavior</h2>
+        <div class="responsive-row">
+          <div class="responsive-card"><strong>Phone 0-767</strong><p>单列、底部 CTA、表格转卡片。</p></div>
+          <div class="responsive-card"><strong>Tablet 768-1199</strong><p>Sidebar、Split View、Popover。</p></div>
+          <div class="responsive-card"><strong>Desktop 1200-1439</strong><p>Header + Sidebar + Breadcrumb + Table。</p></div>
+          <div class="responsive-card"><strong>Wide 1440+</strong><p>增加留白与多列，不拉宽阅读列。</p></div>
+        </div>
+      </section>
+
+      <section class="section">
+        <h2>Agent Handoff Summary</h2>
+        <div class="handoff">
+          <div class="card">
+            <h3>Most Important Tokens</h3>
+            <ul>
+              <li>`glass.fill` / `glass.fillStrong`</li>
+              <li>`action.primary`</li>
+              <li>`radius.pill`</li>
+              <li>`shadow.glassFloat`</li>
+              <li>`blur.card = 24px`</li>
+            </ul>
+          </div>
+          <div class="card">
+            <h3>Anti-Drift Rules</h3>
+            <ul>
+              <li>不要把 PC Web 做成放大版手机</li>
+              <li>不要让玻璃覆盖正文主阅读区</li>
+              <li>不要忽略 Reduce Transparency / Motion</li>
+              <li>不要新造未定义 token</li>
+            </ul>
+          </div>
+        </div>
+      </section>
+    </div>
+  </div>
+</body>
+</html>
