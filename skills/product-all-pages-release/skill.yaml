@@ -51,6 +51,8 @@ contract:
     - "page-by-page draft revision following product-page-release draft revision mode"
     - "versioned draft output path for each processed page"
     - "remaining/new PA-/PQ- workflow and empty final 用户补充描述 in revised drafts"
+    - "substantively regenerated draft body with user confirmations and 用户补充描述 applied"
+    - "no version-only completed outputs"
   must_avoid:
     - "generating a combined multi-page release document"
     - "marking pages complete without files"

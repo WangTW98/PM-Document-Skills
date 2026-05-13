@@ -49,6 +49,11 @@ contract:
     - "empty final 用户补充描述 section"
     - "mandatory analytics section and EVT-* event IDs"
     - "review columns for user confirmation and Release handling"
+  draft_revision_must_regenerate:
+    - "rewrite affected page sections from user confirmations and 用户补充描述"
+    - "reconcile element inventory, state matrix, action matrix, analytics events, data/API sections, edge cases, media/resources, and Mermaid diagram"
+    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
+    - "reject version-only copies"
   must_avoid:
     - "processing multiple page draft files in one invocation"
     - "directory-wide release generation"

@@ -56,6 +56,11 @@ contract:
     - "LA-* and LQ-* workflow for remaining or new uncertainty"
     - "empty final 用户补充描述 section"
     - "review columns for user confirmation and Release handling"
+  draft_revision_must_regenerate:
+    - "rewrite affected layout sections from user confirmations and 用户补充描述"
+    - "reconcile Surface/Shell definitions, global shell regions, sitemap-to-layout mapping, responsive rules, downstream usage rules, and Mermaid layout map"
+    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
+    - "reject version-only copies"
   downstream_dependency_for:
     - "product-page-draft"
     - "product-page-mock-draft"

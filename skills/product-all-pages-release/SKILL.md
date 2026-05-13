@@ -75,6 +75,7 @@ Generated outputs:
    - Update the selected mode's status file immediately after the page processing attempt.
    - Record status, draft source path, generated draft/release output path, generation timestamp, source page ID, page name, mode, and any blockers.
    - In draft revision mode, unresolved `PA-*` / `PQ-*` decisions are expected and should not by themselves block the row if they are preserved in the revised draft.
+   - In draft revision mode, do not mark a row complete if the generated draft only changes the version, timestamp, or filename without applying the user's confirmations or `用户补充描述` into the page body.
    - In final release mode, if release failed or has unresolved `PA-*` / `PQ-*` decisions, record `已阻塞` with the concrete reason and do not mark it complete.
 
 6. Continue until done.
@@ -102,6 +103,7 @@ For each selected page, obey these `product-page-release` rules:
 - Source draft page must already contain the mandatory analytics section and `EVT-*` event IDs from `product-page-draft`.
 - Source draft page must include `用户补充描述`; `product-page-release` must analyze and apply non-empty supplement instructions before marking the page complete.
 - In draft revision mode, output is the next versioned draft beside the source draft and must keep the page assumption/question list plus an empty final `用户补充描述`.
+- In draft revision mode, output must be a substantively regenerated page draft. Version-only copies are invalid.
 - In final release mode, output path is derived from the canonical `页面级MD文件` under `product/release/pages`; draft revision suffixes such as `-v2` or `-v3` are not carried into release filenames.
 - Apply every `PA-*` / `PQ-*` Release handling decision from the draft page's final `页面假设与待确认统一清单`.
 - Apply every non-empty `用户补充描述` instruction from the draft page.
@@ -129,6 +131,7 @@ For each selected page, obey these `product-page-release` rules:
 - In final release mode, do not mark a page complete if the release page lacks `埋点事件ID` or any `EVT-*` event ID.
 - Do not attempt release from a stale draft page that lacks analytics event statistics; block it and request draft regeneration.
 - Do not use final release behavior for ordinary draft update requests.
+- Do not create or complete a versioned draft whose only material difference is document version, timestamp, or filename.
 
 ## Resources
 

@@ -12,6 +12,7 @@ Use this checklist before finishing an orchestration run.
 - Each selected page used the row's `页面级MD文件` as the canonical draft source file and the latest versioned sibling as the actual processing source when one exists.
 - Draft source pages contain `## 7. 埋点事件统计设计`, `埋点事件ID`, and at least one `EVT-*` event ID.
 - In draft revision mode, each output is the next versioned draft beside the source draft.
+- In draft revision mode, each output is substantively regenerated from user confirmations and `用户补充描述`; version-only copies are not marked complete.
 - In final release mode, each release page path was derived from the canonical `页面级MD文件` by replacing `product/development/pages` with `product/release/pages`; version suffixes were not carried into release filenames.
 - No page was marked `已完成` unless the selected mode's expected output file exists.
 - No completed release page or versioned draft was overwritten unless the user explicitly requested regeneration.

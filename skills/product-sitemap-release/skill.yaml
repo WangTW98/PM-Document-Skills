@@ -33,6 +33,11 @@ contract:
     - "A-* and Q-* workflow for remaining or new uncertainty"
     - "empty final 用户补充描述 section"
     - "review columns for user confirmation and Release handling"
+  draft_revision_must_regenerate:
+    - "rewrite affected product overview sections from user confirmations and 用户补充描述"
+    - "reconcile sitemap table, Mermaid hierarchy, page generation queue, dependencies, and source notes"
+    - "verify each actionable user confirmation or supplement instruction is reflected in the new draft body"
+    - "reject version-only copies"
   must_apply:
     - "all Release 处理方式 values from the final assumption and confirmation list"
     - "all user confirmation results that replace, remove, or confirm draft content"

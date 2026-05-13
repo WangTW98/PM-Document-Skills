@@ -88,7 +88,10 @@ Optional blocker output when release cannot be produced:
 
 6. Rewrite as a new review draft when in draft revision mode.
    - Preserve the draft structure, including `假设 / 待确认编号规则` when present, `假设与待确认统一清单`, `用户补充描述`, and release-check guidance.
+   - Regenerate the new draft content from the loaded draft plus the user's completed confirmation rows and `用户补充描述`; do not copy the old draft and only change the version number.
    - Apply all completed user decisions and supplement edits into the relevant product overview, sitemap table, Mermaid hierarchy, page generation queue, dependencies, and source notes.
+   - Reconcile every dependent section affected by a user change. For example, a sitemap page addition/removal/rename must update the overview scope, sitemap table, Mermaid hierarchy, page generation queue, dependencies, and any source notes or role/permission references.
+   - Before saving, verify that each concrete user confirmation or supplement instruction is reflected in the revised draft body. If no actionable user change exists, do not create a version-only draft; explain what user input is missing or convert ambiguity into new `Q-*` rows.
    - Remove or mark as resolved the old rows that have been fully applied. Keep unresolved material rows and add new assumptions/questions caused by the latest edits.
    - Keep the `假设与待确认统一清单` processing columns so the user can continue confirming: assumption/question ID, item, affected section, impact, user confirmation/result, and Release handling fields.
    - Use stable unresolved IDs when their meaning is unchanged; add new IDs after the highest existing number. Do not reuse IDs for different meanings.
@@ -108,6 +111,8 @@ Optional blocker output when release cannot be produced:
 - Default to draft revision mode unless final-release intent is explicit.
 - Draft revision mode is a loop: apply the user's completed decisions and supplement, then produce the next reviewable draft with remaining/new assumptions and questions.
 - Final release mode is terminal: all material assumptions/questions must be resolved before writing `product/release/product-sitemap-release.md`.
+- Draft revision output must be a substantively regenerated Markdown document. A version-only copy is invalid.
+- When final release intent is absent, the new draft must include an updated `假设与待确认统一清单` and a final empty `用户补充描述` section, even if all previous rows were resolved; add new confirmation rows for any newly exposed uncertainty.
 - A request to "处理已修改内容", "继续修改", "生成新版 draft", or "根据补充描述更新" is not final-release intent.
 - Phrases such as "生成最终版", "生成正式版", "生成 release", "输出到 product/release", or "去掉所有待确认" are final-release intent.
 
@@ -123,6 +128,7 @@ Optional blocker output when release cannot be produced:
 - Do not invent user confirmation. If the draft does not contain a concrete release decision for a material item, block release.
 - Do not ignore non-empty `用户补充描述`; it is part of the user's release input.
 - Do not use final release behavior for ordinary draft update requests.
+- Do not create a new draft whose only material difference is document version, timestamp, or filename.
 
 ## Output Quality Bar
 
