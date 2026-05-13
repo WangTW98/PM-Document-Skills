@@ -1,4 +1,4 @@
 interface:
   display_name: "Product Sitemap Draft"
-  short_description: "Draft product sitemap docs with complete page plans"
-  default_prompt: "Use $product-sitemap-draft to analyze my product idea and attached documents, then create product/development/product-sitemap-draft.md with a complete page-generation sitemap table, Mermaid hierarchy, A-/Q- numbered assumptions list, and final 用户补充描述 section."
+  short_description: "Draft template-locked product sitemap docs with page plans"
+  default_prompt: "Use $product-sitemap-draft to analyze my product idea and attached documents, then create product/development/product-sitemap-draft.md by following references/product-overview-template.md exactly, including the canonical sitemap table, Mermaid hierarchy, A-/Q- numbered assumption lists, and final 用户补充描述 section."

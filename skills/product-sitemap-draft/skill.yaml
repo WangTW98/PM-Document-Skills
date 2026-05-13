@@ -1,6 +1,6 @@
 name: "product-sitemap-draft"
-version: "0.4.0"
-description: "Analyze product ideas and source documents, then generate a product overview and complete page-generation sitemap Markdown draft with a final user supplement section."
+version: "0.5.0"
+description: "Analyze product ideas and source documents, then generate a product overview and complete page-generation sitemap Markdown draft that strictly follows the bundled template and ends with a final user supplement section."
 language: "zh-CN"
 entrypoint: "SKILL.md"
 type: "project-skill"
@@ -21,6 +21,7 @@ compatibility:
     gemini: "adapters/gemini/GEMINI.md"
 contract:
   must_include:
+    - "exact top-level section structure matching references/product-overview-template.md"
     - "product overview"
     - "complete layout-aware sitemap table with page ID, parent page ID, hierarchy level, generation order, and page-level Markdown path"
     - "Mermaid sitemap visualization that mirrors the canonical sitemap table"
