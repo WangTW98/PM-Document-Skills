@@ -1,0 +1,388 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Enterprise Admin Minimal Ant Card Preview</title>
+  <style>
+    :root {
+      --brand-primary: #1677ff;
+      --brand-primary-hover: #4096ff;
+      --brand-primary-bg: #e6f4ff;
+      --bg-canvas: #f5f7fa;
+      --bg-layout: #f0f2f5;
+      --bg-container: #ffffff;
+      --bg-elevated: #ffffff;
+      --text-primary: #1f2329;
+      --text-secondary: #4e5969;
+      --text-tertiary: #86909c;
+      --border-subtle: #e5e6eb;
+      --border-default: #d9dde3;
+      --success: #00b42a;
+      --warning: #ff7d00;
+      --error: #f53f3f;
+      --shadow-card: 0 2px 8px rgba(31, 35, 41, 0.06);
+      --shadow-float: 0 6px 20px rgba(31, 35, 41, 0.10);
+      --shadow-drawer: 0 10px 30px rgba(31, 35, 41, 0.16);
+      --radius-sm: 6px;
+      --radius-md: 8px;
+      --radius-lg: 12px;
+      --radius-xl: 16px;
+      --space-2: 8px;
+      --space-3: 12px;
+      --space-4: 16px;
+      --space-5: 20px;
+      --space-6: 24px;
+      --space-8: 32px;
+      --font-sans: "Inter", "PingFang SC", "Helvetica Neue", Arial, system-ui, sans-serif;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --brand-primary: #3c89ff;
+        --brand-primary-hover: #69a7ff;
+        --brand-primary-bg: rgba(22, 119, 255, 0.20);
+        --bg-canvas: #0f1115;
+        --bg-layout: #14171a;
+        --bg-container: #1d2129;
+        --bg-elevated: #232830;
+        --text-primary: #f2f3f5;
+        --text-secondary: #c9cdd4;
+        --text-tertiary: #86909c;
+        --border-subtle: #2a2f38;
+        --border-default: #3a3f47;
+        --success: #23c343;
+        --warning: #ff9a2e;
+        --error: #ff6b6b;
+        --shadow-card: 0 2px 8px rgba(0, 0, 0, 0.24);
+        --shadow-float: 0 6px 20px rgba(0, 0, 0, 0.34);
+        --shadow-drawer: 0 10px 30px rgba(0, 0, 0, 0.44);
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: var(--font-sans);
+      background: var(--bg-canvas);
+      color: var(--text-primary);
+    }
+    .shell { max-width: 1600px; margin: 0 auto; padding: 24px; }
+    .layout {
+      display: grid;
+      grid-template-columns: 240px 1fr;
+      gap: 24px;
+      min-height: 100vh;
+    }
+    .sidebar {
+      background: var(--bg-layout);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .main { min-width: 0; }
+    .topbar {
+      min-height: 56px;
+      background: var(--bg-container);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      box-shadow: var(--shadow-card);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 16px;
+      margin-bottom: 16px;
+    }
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 16px; }
+    .section { grid-column: span 12; }
+    .card, .panel, .metric, .filter, .responsive-card {
+      background: var(--bg-container);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      box-shadow: var(--shadow-card);
+      padding: 16px;
+    }
+    .hero {
+      background: linear-gradient(180deg, var(--bg-container), var(--brand-primary-bg));
+    }
+    .metrics { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 16px; }
+    .chips, .button-row, .state-row, .nav-list, .responsive-row {
+      display: flex;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+    .chip {
+      min-height: 28px;
+      padding: 0 10px;
+      border-radius: 999px;
+      background: var(--brand-primary-bg);
+      color: var(--brand-primary);
+      display: inline-flex;
+      align-items: center;
+      font-size: 12px;
+    }
+    .button {
+      min-height: 36px;
+      padding: 0 14px;
+      border-radius: 8px;
+      border: 1px solid transparent;
+      font: inherit;
+      font-size: 14px;
+      font-weight: 500;
+      background: var(--bg-container);
+      color: var(--text-primary);
+    }
+    .button.primary { background: var(--brand-primary); color: #fff; }
+    .button.default { border-color: var(--border-default); }
+    .button.link { background: transparent; color: var(--brand-primary); }
+    h1 { margin: 0 0 12px; font-size: 28px; line-height: 1.3; }
+    h2 { margin: 0 0 16px; font-size: 24px; line-height: 1.34; }
+    h3 { margin: 0 0 12px; font-size: 16px; line-height: 1.5; }
+    p, li, td, th, input, select { font-size: 14px; line-height: 1.57; color: var(--text-secondary); }
+    small { color: var(--text-tertiary); }
+    .swatches, .utility-grid, .component-grid, .handoff-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 16px;
+    }
+    .tile {
+      background: var(--bg-container);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .swatch-color { height: 64px; border-radius: 8px; margin-bottom: 12px; border: 1px solid var(--border-subtle); }
+    .toolbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      margin-bottom: 12px;
+    }
+    .filters {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+    input, select {
+      min-height: 36px;
+      padding: 0 12px;
+      border-radius: 8px;
+      border: 1px solid var(--border-default);
+      background: var(--bg-container);
+      color: var(--text-primary);
+    }
+    .table {
+      width: 100%;
+      border-collapse: collapse;
+      overflow: hidden;
+      border-radius: 8px;
+      border: 1px solid var(--border-subtle);
+      background: var(--bg-container);
+    }
+    .table th, .table td {
+      text-align: left;
+      padding: 12px 16px;
+      border-bottom: 1px solid var(--border-subtle);
+    }
+    .table th { background: var(--bg-layout); }
+    .status {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      padding: 0 8px;
+      border-radius: 999px;
+      font-size: 12px;
+      font-weight: 500;
+    }
+    .status.success { background: color-mix(in srgb, var(--success) 16%, var(--bg-container)); color: var(--success); }
+    .status.warning { background: color-mix(in srgb, var(--warning) 16%, var(--bg-container)); color: var(--warning); }
+    .status.error { background: color-mix(in srgb, var(--error) 16%, var(--bg-container)); color: var(--error); }
+    .detail-layout {
+      display: grid;
+      grid-template-columns: 1.4fr 1fr;
+      gap: 16px;
+    }
+    .drawer-demo {
+      background: var(--bg-elevated);
+      border: 1px solid var(--border-subtle);
+      border-radius: 12px;
+      box-shadow: var(--shadow-drawer);
+      padding: 16px;
+    }
+    ul { margin: 0; padding-left: 18px; }
+    @media (max-width: 1199px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { display: none; }
+      .metrics, .swatches, .utility-grid, .component-grid, .handoff-grid, .filters, .detail-layout { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+    }
+    @media (max-width: 767px) {
+      .shell { padding: 16px; }
+      .metrics, .swatches, .utility-grid, .component-grid, .handoff-grid, .filters, .detail-layout { grid-template-columns: 1fr; }
+      .toolbar { flex-direction: column; align-items: stretch; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      * { transition-duration: 80ms !important; animation-duration: 0ms !important; scroll-behavior: auto !important; }
+    }
+  </style>
+</head>
+<body>
+  <div class="shell">
+    <div class="layout">
+      <aside class="sidebar">
+        <h3>Admin Navigation</h3>
+        <div class="nav-list">
+          <div class="chip">Dashboard</div>
+          <div class="chip">Orders</div>
+          <div class="chip">Approvals</div>
+          <div class="chip">Settings</div>
+        </div>
+      </aside>
+      <main class="main">
+        <div class="topbar">
+          <strong>Enterprise Admin Minimal Ant Card</strong>
+          <div class="chips">
+            <div class="chip">Enterprise Minimal</div>
+            <div class="chip">Ant-style Admin</div>
+            <div class="chip">Card Layout</div>
+          </div>
+        </div>
+
+        <div class="grid">
+          <section class="section card hero">
+            <h1>后台首先要高效，其次才是好看。</h1>
+            <p>这套设计系统强调清晰信息架构、卡片化模块、轻量阴影、成熟的数据组件和可扩展的企业管理交互，适用于 Dashboard、列表、详情、表单、审批和设置场景。</p>
+            <div class="button-row">
+              <button class="button primary">Primary Action</button>
+              <button class="button default">Default</button>
+              <button class="button link">Link Action</button>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Color Roles</h2>
+            <div class="swatches">
+              <div class="tile"><div class="swatch-color" style="background:#1677ff"></div><strong>Brand Primary</strong><p>关键操作、链接、激活态。</p></div>
+              <div class="tile"><div class="swatch-color" style="background:#ffffff"></div><strong>Container</strong><p>卡片、表格、抽屉主容器。</p></div>
+              <div class="tile"><div class="swatch-color" style="background:#f0f2f5"></div><strong>Layout</strong><p>页面骨架与布局底。</p></div>
+              <div class="tile"><div class="swatch-color" style="background:#e6f4ff"></div><strong>Primary BG</strong><p>浅强调背景、选中与标签。</p></div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Dashboard Cards</h2>
+            <div class="metrics">
+              <div class="metric"><h3>Pending Approvals</h3><strong>48</strong><p>需要处理的审批任务</p></div>
+              <div class="metric"><h3>Open Tickets</h3><strong>126</strong><p>当前工单总数</p></div>
+              <div class="metric"><h3>Today Revenue</h3><strong>$82.4k</strong><p>实时业务指标</p></div>
+              <div class="metric"><h3>System Alerts</h3><strong>7</strong><p>需要关注的告警</p></div>
+            </div>
+          </section>
+
+          <section class="section filter">
+            <h2>Filter Bar</h2>
+            <div class="filters">
+              <label class="field"><span>Keyword</span><input value="Order ID / Customer"></label>
+              <label class="field"><span>Status</span><select><option>All Status</option></select></label>
+              <label class="field"><span>Date Range</span><input value="2026-05-01 to 2026-05-13"></label>
+              <label class="field"><span>Owner</span><select><option>All Owners</option></select></label>
+            </div>
+          </section>
+
+          <section class="section panel">
+            <div class="toolbar">
+              <div>
+                <h2>Data Table</h2>
+                <small>支持筛选、批量操作、固定列、抽屉详情</small>
+              </div>
+              <div class="button-row">
+                <button class="button default">Export</button>
+                <button class="button default">Batch Action</button>
+                <button class="button primary">Create New</button>
+              </div>
+            </div>
+            <table class="table">
+              <thead>
+                <tr><th>Order ID</th><th>Customer</th><th>Status</th><th>Owner</th><th>Updated</th></tr>
+              </thead>
+              <tbody>
+                <tr><td>#A2026-1001</td><td>Northwind Ltd.</td><td><span class="status success">Approved</span></td><td>Amy</td><td>3 min ago</td></tr>
+                <tr><td>#A2026-0994</td><td>Beta Supply</td><td><span class="status warning">Pending</span></td><td>Leo</td><td>12 min ago</td></tr>
+                <tr><td>#A2026-0978</td><td>Gamma Retail</td><td><span class="status error">Rejected</span></td><td>Mia</td><td>46 min ago</td></tr>
+              </tbody>
+            </table>
+          </section>
+
+          <section class="section">
+            <h2>Detail + Drawer Pattern</h2>
+            <div class="detail-layout">
+              <div class="card">
+                <h3>Detail Card</h3>
+                <p>详情页按信息分组组织，使用卡片与段落结构承载字段，不把所有字段堆在一个长表单内。</p>
+                <ul>
+                  <li>基础信息</li>
+                  <li>状态轨迹</li>
+                  <li>关联对象</li>
+                  <li>操作记录</li>
+                </ul>
+              </div>
+              <div class="drawer-demo">
+                <h3>Drawer</h3>
+                <p>优先用于行内编辑、详情预览、审批处理和局部配置，减少全页跳转。</p>
+              </div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Utilities and States</h2>
+            <div class="utility-grid">
+              <div class="tile"><strong>Radius</strong><p>默认 `8px`，后台保持专业和节制。</p></div>
+              <div class="tile"><strong>Density</strong><p>默认正文 `14px`，表格和筛选保持高可读紧凑。</p></div>
+              <div class="tile"><strong>Shadow</strong><p>卡片弱阴影，浮层和抽屉才用更高层级阴影。</p></div>
+              <div class="tile"><strong>Focus</strong><p>所有输入和按钮都必须有清晰 focus ring。</p></div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Responsive Behavior</h2>
+            <div class="responsive-row">
+              <div class="responsive-card"><strong>Desktop</strong><p>完整后台架构，Sidebar + Header + Table + Drawer。</p></div>
+              <div class="responsive-card"><strong>Tablet</strong><p>折叠导航、保留核心表格和抽屉。</p></div>
+              <div class="responsive-card"><strong>H5</strong><p>列表转摘要卡片，保留审批与查询主任务。</p></div>
+              <div class="responsive-card"><strong>Mobile</strong><p>任务流与待办优先，弱化复杂数据视图。</p></div>
+            </div>
+          </section>
+
+          <section class="section">
+            <h2>Agent Handoff Summary</h2>
+            <div class="handoff-grid">
+              <div class="tile">
+                <h3>Key Tokens</h3>
+                <ul>
+                  <li>`brand.primary`</li>
+                  <li>`bg.container`</li>
+                  <li>`text.primary`</li>
+                  <li>`radius.md = 8px`</li>
+                  <li>`table.rowHeight.default = 48px`</li>
+                </ul>
+              </div>
+              <div class="tile">
+                <h3>Anti-Drift Rules</h3>
+                <ul>
+                  <li>不要引入玻璃、拟物、营销官网风</li>
+                  <li>不要把所有内容塞进单个大白板</li>
+                  <li>不要让表格和筛选失去效率</li>
+                  <li>不要把手机端做成缩小桌面端</li>
+                </ul>
+              </div>
+            </div>
+          </section>
+        </div>
+      </main>
+    </div>
+  </div>
+</body>
+</html>
