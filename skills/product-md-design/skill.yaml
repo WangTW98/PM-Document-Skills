@@ -1,0 +1,67 @@
+name: "product-md-design"
+version: "0.2.0"
+description: "Generate design-ready JSON for exactly one release page Markdown file per invocation by resolving the correct release layout, stripping non-visual logic, and keeping only layout, visible states, copy, style structure, and representative visual example data."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "one explicit Markdown file under product/release/pages"
+  - "product/release/product-sitemap-release.md"
+  - "product/release/layout/product-layout-release*.md"
+  - "optional explicit design spec under design/<slug>/ or design/<slug>/DESIGN.md"
+outputs:
+  - "product/design/<same-relative-path>/<same-basename>-figma.json when the user asks for figma output or does not specify an output target"
+  - "product/design/<same-relative-path>/<same-basename>-pencil.json when the user asks for pencil output or does not specify an output target"
+  - "optional product/design/<same-relative-path>/<same-basename>-design-blockers.md"
+resources:
+  references:
+    - "references/content-filter-rules.md"
+    - "references/figma-json-contract.md"
+    - "references/pencil-json-contract.md"
+    - "references/md-design-quality-checklist.md"
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  source_directory: "product/release/pages"
+  sitemap_file: "product/release/product-sitemap-release.md"
+  layout_directory: "product/release/layout"
+  output_directory: "product/design"
+  one_source_md_per_invocation: true
+  accepts_optional_design_spec: true
+  supports_output_target_selection: true
+  default_output_targets: ["figma", "pencil"]
+  preserve_relative_path_under_output_root: true
+  must_include:
+    - "exactly one resolved release layout family"
+    - "exactly one source page markdown per invocation"
+    - "visual-only page hierarchy"
+    - "visible states and variants"
+    - "drawable state examples for each documented visible state"
+    - "visible copy and placeholders"
+    - "style source metadata"
+    - "explicit spacing values or spacing-token references for visible groups and sections"
+    - "shared column definitions or equivalent alignment rules for list and table designs"
+    - "semantic icon metadata with source-family or vector-reconstruction hints for figma-targeted output"
+    - "figma-oriented JSON when requested or when no target is specified"
+    - "pencil-oriented JSON when requested or when no target is specified"
+  must_remove:
+    - "business goals and product positioning"
+    - "interaction execution logic that does not affect visible structure"
+    - "analytics events and event ids"
+    - "api contracts and data models"
+    - "backend workflows and integration details"
+    - "permission and role logic unless directly visible as a screen state"
+  must_avoid:
+    - "processing multiple files in one run"
+    - "batch-generating multiple pages because an orchestrator is expected to schedule one page per round"
+    - "guessing layout without sitemap and layout-file validation"
+    - "inventing unsupported visible content"
+    - "always forcing both output files when the user explicitly asked for only figma or only pencil"
+    - "leaving spacing to downstream guesswork when visible grouping depends on it"
+    - "header and body column width, gap, padding, or alignment drift in list and table designs"
+    - "degrading semantic control icons into generic circles, rectangles, or unrelated placeholder geometry"
+    - "listing visible states in metadata without enough example data to render them"
+    - "tool-specific output that only Codex or only Gemini can use"

@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product All MD Design"
+  short_description: "Orchestrate one-page-at-a-time sitemap design generation with status tracking"
+  default_prompt: "Use $product-all-md-design to read product/release/product-overview-release.md, or fall back to product/release/product-sitemap-release.md when the overview file is absent, parse the sitemap page generation table, create or update product/design/_md-design-status.md, select exactly one unfinished page, and apply product-md-design single-page rules to generate only that page's requested target JSON outputs. Then write completion status and stop so the next invocation can continue with the next page."

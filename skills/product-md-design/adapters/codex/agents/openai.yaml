@@ -1,0 +1,4 @@
+interface:
+  display_name: "Product MD Design"
+  short_description: "Convert one release page md into target-selected figma and/or pencil JSON"
+  default_prompt: "Use $product-md-design to read exactly one explicit product/release/pages Markdown file, resolve its unique release layout through product/release/product-sitemap-release.md plus product/release/layout, remove all non-visual product logic, and write only the requested design-ready JSON target set under product/design with the same relative path and basename. If I explicitly ask for figma, write only -figma.json. If I explicitly ask for pencil, write only -pencil.json. If I do not specify the target, write both. If I explicitly provide a design/<slug> spec, apply it; otherwise infer style from the layout and visible content only."

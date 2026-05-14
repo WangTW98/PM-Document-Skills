@@ -1,0 +1,46 @@
+name: "product-all-md-design"
+version: "0.1.0"
+description: "Orchestrate release-page design generation one page at a time by reading the release overview or sitemap source, tracking progress in product/design/_md-design-status.md, and delegating each round to product-md-design-compatible single-page rules until all pages are complete."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "preferred product/release/product-overview-release.md"
+  - "fallback product/release/product-sitemap-release.md when the overview file is absent"
+  - "product/release/layout/product-layout-release*.md when needed by the delegated single-page workflow"
+  - "optional explicit design spec under design/<slug>/ or design/<slug>/DESIGN.md"
+  - "optional explicit output target request: figma, pencil, or both"
+outputs:
+  - "product/design/_md-design-status.md"
+  - "exactly one page-level design JSON target set per invocation via product-md-design rules"
+resources:
+  related_skills:
+    - "../product-md-design/SKILL.md"
+  references: []
+compatibility:
+  runner_neutral: true
+  adapters:
+    codex: "adapters/codex/agents/openai.yaml"
+    gemini: "adapters/gemini/GEMINI.md"
+contract:
+  primary_overview_file: "product/release/product-overview-release.md"
+  fallback_overview_file: "product/release/product-sitemap-release.md"
+  status_file: "product/design/_md-design-status.md"
+  source_directory: "product/release/pages"
+  output_directory: "product/design"
+  delegated_single_page_skill: "product-md-design"
+  one_page_per_round: true
+  preserve_single_page_generation_rule: true
+  must_include:
+    - "status file initialization when missing"
+    - "machine-readable page queue derived from the sitemap generation table"
+    - "exactly one selected unfinished page per invocation"
+    - "delegation or equivalent compliance with product-md-design single-page rules"
+    - "completion status write-back after the selected page finishes"
+    - "runner-neutral instructions for Codex and Gemini-style agents"
+  must_avoid:
+    - "batch-generating multiple pages in one round"
+    - "skipping status persistence"
+    - "bypassing product-md-design filtering and layout-resolution rules"
+    - "rewriting already completed pages unless the user explicitly asks for regeneration"
+    - "creating a status format that only one agent runner can understand"
