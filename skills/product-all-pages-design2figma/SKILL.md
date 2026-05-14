@@ -23,6 +23,12 @@ For every sitemap row, the skill must determine one unique release layout family
 
 and must use only that matched layout family for that row. Mixing multiple layout families in one page is forbidden.
 
+This skill must also prevent three common failure classes during batch Figma generation:
+
+- content is not fully visible
+- frames from different pages end up stacked in the same physical area
+- icons are missing, empty, or silently skipped
+
 If the user does not specify which design specification to use, stop immediately and ask for it.
 If the user does not provide a Figma link, stop immediately and ask for it.
 
@@ -143,6 +149,61 @@ Within the destination file:
 
 If destination parsing is ambiguous, stop before writing.
 
+## Visibility Integrity Gate
+
+Before any page node creation, verify that every page can be built with a complete visible structure.
+
+Mandatory checks:
+
+- every section, card, list, table, form, tab group, action bar, drawer, and modal must have an explicit parent container
+- every non-leaf parent container must define:
+  - layout mode
+  - width behavior: fixed / fill / hug
+  - height behavior: fixed / fill / hug
+  - overflow or clip policy
+- every scroll container must define its scroll axis and visible viewport relationship
+- every fixed header, fixed footer, bottom tab, sticky filter bar, or floating action area must define the inset it consumes from scrollable content
+- every decorative background layer must be explicitly marked decorative and placed below interactive content
+
+Stop before writing any affected row if these requirements are unresolved.
+
+## Icon Resolution Gate
+
+Before any icon node is created, resolve its source.
+
+Allowed icon sources:
+
+- an icon component or icon set explicitly defined by the selected visual design specification
+- an icon component already present in the target Figma file and clearly compatible with the selected design specification
+- an explicit placeholder icon policy defined by this skill
+
+Rules:
+
+- do not silently skip icons
+- do not leave an empty frame in place of an icon without marking it
+- every icon node must have a semantic name and a resolved source
+- if a required icon cannot be resolved, create a placeholder node named `ICON-MISSING-<semantic-name>` and mark that row incomplete until repaired or explicitly accepted by the user
+
+## Batch Placement Strategy
+
+During batch generation, page frames must not stack on top of each other.
+
+Mandatory placement rules:
+
+- every page frame must be created in its own placement slot
+- placement slots must be deterministic and resumable
+- the skill must place new frames relative to already-created page frames or to a dedicated page section container, never at the same default origin
+- frames within the same Figma page/section must be arranged in a predictable sequence, such as a vertical column or horizontal canvas row with explicit spacing
+
+Recommended default:
+
+- use one section per application form or Surface
+- place page frames in ascending `生成顺序`
+- maintain at least 160px spacing between sibling page frames
+- if a row is regenerated, replace or relocate only that row's frame without shifting unrelated completed rows unpredictably
+
+Do not mark a row complete if it visually overlaps another page frame because of placement failure.
+
 ## Layout Component Creation Rule
 
 Before any page creation, process all release layout files under `product/release/layout`.
@@ -251,8 +312,11 @@ The status file must record:
    - For each unfinished row:
      - resolve the unique matching release layout family from sitemap + all release layout files
      - resolve the release page bundle
-     - create one page frame named `<logical-pages-md-filename>-<页面ID>-<页面标题>`
+      - create one page frame named `<logical-pages-md-filename>-<页面ID>-<页面标题>`
+     - place that frame into a unique non-overlapping batch placement slot
      - use the design specification plus only the matched release layout family plus release page content
+     - resolve every required icon through the Icon Resolution Gate
+     - run post-write verification and repair before marking the row complete
      - record completion or blocker immediately
 
 9. Verify before completion.
@@ -260,6 +324,30 @@ The status file must record:
    - Confirm every completed row was created in the intended Figma file.
    - Confirm every page follows the required naming rule.
    - Confirm no critical layout integrity issue remains.
+   - Confirm no page frame overlaps another completed page frame because of batch placement.
+   - Confirm no required icon is missing unless a visible `ICON-MISSING-*` placeholder was intentionally created and that row remains incomplete.
+
+## Post-Write Verification And Repair Loop
+
+After each page write, run a mandatory verification loop.
+
+Critical checks:
+
+- no normal content section overlaps another normal content section unintentionally
+- no child node extends beyond a non-overlay parent in a way that clips visible content
+- no text node is visibly truncated because of an accidental fixed height or fixed width
+- no fixed header, fixed footer, bottom tab, or floating action obscures main content without corresponding inset
+- no modal, drawer, tooltip, or floating layer is hidden behind a background or normal content layer
+- no key CTA, table header, form control, nav item, or state banner is clipped or obscured
+- no icon node is missing, empty, or unresolved without an explicit placeholder
+- no wrapper frame uses a placeholder size that causes clipping
+- no top-level page frame overlaps another completed page frame
+
+If any critical issue exists:
+
+- repair the structure first, not just the leaf node
+- prefer resizing or changing parent layout behavior over shrinking content arbitrarily
+- do not report success for that row until all critical issues are resolved
 
 ## Structure And Integrity Rules
 
@@ -276,6 +364,8 @@ These rules are mandatory for both layout components and pages:
 - Keep text, tables, forms, action bars, and state containers readable and not compressed.
 - Make width, height, fill, hug, and fixed sizing explicit.
 - Do not leave hidden controls, broken z-order, clipped content, or missing safe-area padding unresolved.
+- Do not leave required icons missing, invisible, or replaced by unlabeled empty frames.
+- Do not place different page frames at the same coordinates or in visually overlapping slots.
 
 ## Hard Rules
 
@@ -294,6 +384,8 @@ These rules are mandatory for both layout components and pages:
 - Do not create loose, flat layers when nested containers are required.
 - Do not leave width, height, or overflow behavior implicit when it affects visibility or structure.
 - Do not allow stacking mistakes that cause content to hide behind backgrounds, masks, fixed bars, or overlays.
+- Do not allow top-level page frames from different rows to stack or overlap in batch mode.
+- Do not silently drop icons or replace them with unlabeled empty frames.
 - Do not overwrite unrelated Figma content.
 - Do not mark a row complete until that row's page frame passes hierarchy and layout integrity verification.
 

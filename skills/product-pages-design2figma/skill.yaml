@@ -35,6 +35,10 @@ contract:
   creates_layout_components_before_pages: true
   reuses_existing_layout_components_when_compatible: true
   unique_layout_family_resolution_required_per_page: true
+  visibility_integrity_gate_required: true
+  icon_resolution_required: true
+  post_write_repair_loop_required: true
+  completion_requires_zero_critical_visibility_issues: true
   page_name_rule: "<sitemap 页面级MD文件 basename>-<页面ID>-<页面标题>"
   must_include:
     - "stop immediately if design specification is not explicitly provided"
@@ -43,6 +47,9 @@ contract:
     - "layout component creation or reuse from all release layout files before page creation"
     - "unique layout family resolution for each page by using product-sitemap-release and all release layout md files"
     - "release page creation from product/release/pages instead of product/release/design"
+    - "visibility integrity gate before page creation"
+    - "icon resolution gate before icon creation"
+    - "post-write verification and repair loop"
     - "explicit parent-child hierarchy"
     - "overflow-safe width/height handling"
     - "layer-order verification"
@@ -53,4 +60,6 @@ contract:
     - "mixing multiple release layout families in one page"
     - "using index.md as the unique page frame prefix"
     - "creating flat loose layers without explicit container nesting"
+    - "silently dropping icons"
+    - "leaving unresolved overlap, clipping, or truncation at completion time"
     - "allowing overlap, clipping, hidden controls, or broken z-order"

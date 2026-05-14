@@ -19,6 +19,7 @@ When invoking this skill from Gemini or another Markdown-oriented agent runner:
 13. Maintain `product/release/pages/_design2figma-status.md` as the orchestration status file.
 14. Process pages by ascending `生成顺序`.
 15. For each row, follow `skills/product-pages-design2figma/SKILL.md`, create exactly one release page frame using only its matched layout family, and update status immediately.
-16. Name every created page frame as `<sitemap 页面级MD文件 basename>-<页面ID>-<页面标题>`.
-17. Do not use `product/release/design/*.md` as the primary source.
-18. Continue until all rows are complete or until the run should pause to preserve accuracy; status must make resumption unambiguous.
+16. During batch generation, place each new page frame in a deterministic non-overlapping slot. Do not stack multiple page frames at the same coordinates.
+17. Name every created page frame as `<sitemap 页面级MD文件 basename>-<页面ID>-<页面标题>`.
+18. Do not use `product/release/design/*.md` as the primary source.
+19. Continue until all rows are complete or until the run should pause to preserve accuracy; status must make resumption unambiguous.
