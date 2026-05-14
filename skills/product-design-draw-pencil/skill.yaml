@@ -1,0 +1,38 @@
+name: "product-design-draw-pencil"
+version: "0.1.0"
+description: "Restore exactly one product/design Pencil JSON page into Pencil by validating the product-md-design pencil contract and recreating a single visible page tree without batching."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "one explicit product/design/**/-pencil.json file"
+  - "optional explicit target .pen file path"
+outputs:
+  - "one rendered Pencil page in the active or newly created document"
+  - "optional product/design/<same-relative-path>/<same-basename>-pencil-draw-blockers.md"
+resources:
+  related_skills:
+    - "../product-md-design/SKILL.md"
+  references:
+    - "../product-md-design/references/pencil-json-contract.md"
+compatibility:
+  runner_neutral: true
+contract:
+  source_directory: "product/design"
+  source_suffix: "-pencil.json"
+  single_page_only: true
+  target_surface: "Pencil document"
+  may_create_new_document: true
+  must_include:
+    - "exactly one explicit source JSON file per invocation"
+    - "validation against the product-md-design pencil JSON contract"
+    - "restoration of the document root as one visible page tree"
+    - "preservation of visible node order and layout semantics"
+    - "safe handling of unresolved ref nodes"
+    - "blocker output instead of guessing when required fields or nodes are invalid"
+  must_avoid:
+    - "processing multiple JSON files in one run"
+    - "regenerating or mutating the source design JSON"
+    - "re-reading release markdown as a second source of truth"
+    - "inventing extra visible states not already represented in the JSON"
+    - "degrading semantic icon rendering into plain text placeholders"

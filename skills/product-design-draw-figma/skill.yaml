@@ -1,0 +1,40 @@
+name: "product-design-draw-figma"
+version: "0.1.0"
+description: "Restore exactly one product/design Figma JSON page into Figma by validating the product-md-design figma contract and recreating a single visible page frame tree without batching."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "one explicit product/design/**/-figma.json file"
+  - "optional target Figma file URL or fileKey"
+  - "optional target page or node location in an existing Figma file"
+outputs:
+  - "one rendered Figma page frame tree"
+  - "optional product/design/<same-relative-path>/<same-basename>-figma-draw-blockers.md"
+resources:
+  related_skills:
+    - "../product-md-design/SKILL.md"
+  references:
+    - "../product-md-design/references/figma-json-contract.md"
+compatibility:
+  runner_neutral: true
+contract:
+  source_directory: "product/design"
+  source_suffix: "-figma.json"
+  single_page_only: true
+  target_surface: "Figma file"
+  may_create_new_file: true
+  requires_figma_use_skill: true
+  must_include:
+    - "exactly one explicit source JSON file per invocation"
+    - "validation against the product-md-design figma JSON contract"
+    - "root page frame restoration with explicit auto-layout semantics"
+    - "semantic icon restoration from icon metadata"
+    - "safe handling of unresolved instance nodes"
+    - "blocker output instead of guessing when required fields or nodes are invalid"
+  must_avoid:
+    - "processing multiple JSON files in one run"
+    - "regenerating or mutating the source design JSON"
+    - "re-reading release markdown as a second source of truth"
+    - "flattening explicit layout semantics into arbitrary absolute positioning"
+    - "degrading semantic icon rendering into text placeholders or unrelated primitives"

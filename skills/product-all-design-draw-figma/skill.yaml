@@ -1,0 +1,44 @@
+name: "product-all-design-draw-figma"
+version: "0.1.0"
+description: "Orchestrate Figma page restoration one page at a time from product/design by maintaining a compact status file, limiting retries, and delegating each round to product-design-draw-figma."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/design/"
+  - "optional explicit target Figma file URL or fileKey"
+  - "optional retry-blocked-pages instruction"
+  - "optional rebuild-status instruction"
+outputs:
+  - "product/design/_design-draw-figma-status.md"
+  - "exactly one rendered Figma page per invocation via product-design-draw-figma rules"
+resources:
+  related_skills:
+    - "../product-design-draw-figma/SKILL.md"
+  references:
+    - "../product-md-design/references/figma-json-contract.md"
+compatibility:
+  runner_neutral: true
+contract:
+  source_directory: "product/design"
+  source_suffix: "-figma.json"
+  status_file: "product/design/_design-draw-figma-status.md"
+  delegated_single_page_skill: "product-design-draw-figma"
+  one_page_per_round: true
+  default_retry_cap: 2
+  requires_figma_use_skill: true
+  must_include:
+    - "compact deterministic queue state"
+    - "exactly one selected unfinished page per invocation"
+    - "delegation or equivalent compliance with product-design-draw-figma"
+    - "retryable versus blocking failure classification"
+    - "short error digests instead of long logs"
+    - "token-minimizing queue-first workflow"
+    - "shared target file reuse when possible"
+  must_avoid:
+    - "batch rendering multiple pages in one round"
+    - "reading every JSON file into context on each invocation"
+    - "resetting done rows during normal refresh"
+    - "unbounded retry loops"
+    - "status files that grow into verbose execution logs"
+    - "bypassing figma-use before figma writes"

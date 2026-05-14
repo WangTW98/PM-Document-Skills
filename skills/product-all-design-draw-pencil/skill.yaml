@@ -1,0 +1,41 @@
+name: "product-all-design-draw-pencil"
+version: "0.1.0"
+description: "Orchestrate Pencil page restoration one page at a time from product/design by maintaining a compact status file, limiting retries, and delegating each round to product-design-draw-pencil."
+language: "zh-CN"
+entrypoint: "SKILL.md"
+type: "project-skill"
+inputs:
+  - "product/design/"
+  - "optional explicit target .pen document path"
+  - "optional retry-blocked-pages instruction"
+  - "optional rebuild-status instruction"
+outputs:
+  - "product/design/_design-draw-pencil-status.md"
+  - "exactly one rendered Pencil page per invocation via product-design-draw-pencil rules"
+resources:
+  related_skills:
+    - "../product-design-draw-pencil/SKILL.md"
+  references:
+    - "../product-md-design/references/pencil-json-contract.md"
+compatibility:
+  runner_neutral: true
+contract:
+  source_directory: "product/design"
+  source_suffix: "-pencil.json"
+  status_file: "product/design/_design-draw-pencil-status.md"
+  delegated_single_page_skill: "product-design-draw-pencil"
+  one_page_per_round: true
+  default_retry_cap: 2
+  must_include:
+    - "compact deterministic queue state"
+    - "exactly one selected unfinished page per invocation"
+    - "delegation or equivalent compliance with product-design-draw-pencil"
+    - "retryable versus blocking failure classification"
+    - "short error digests instead of long logs"
+    - "token-minimizing queue-first workflow"
+  must_avoid:
+    - "batch rendering multiple pages in one round"
+    - "reading every JSON file into context on each invocation"
+    - "resetting done rows during normal refresh"
+    - "unbounded retry loops"
+    - "status files that grow into verbose execution logs"
