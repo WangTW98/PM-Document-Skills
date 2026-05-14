@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/150-node-submit-view/index.md",
+    "output_file": "product/design/150-node-submit-view/index-figma.json",
+    "page_id": "U-521",
+    "page_name": "节点资料提交视图",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "minimal-nav",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "centered focus form for data submission"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "极简顶栏 + 全流程进度条 + 动态表单卡片 + 驳回说明(如有) + 底部吸底操作"
+  },
+  "page": {
+    "frame_name": "U-521 节点资料提交视图",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "rejected", "uploading", "loading"],
+    "copy_tone": "引导, 准确"
+  },
+  "state_examples": {
+    "default": "展示全流程进度、补件指南、动态表单字段及上传组件",
+    "rejected": "顶部显示红色驳回原因说明，表单填充旧值待修改",
+    "uploading": "上传组件显示进度条和百分比"
+  },
+  "nodes": [
+    {
+      "id": "MINIMAL-NAV",
+      "name": "极简顶栏",
+      "type": "frame",
+      "role": "header",
+      "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 48, 0, 48] },
+      "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+      "children": [
+        { "id": "BACK-BTN", "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center" }, "children": [{ "type": "icon", "icon": { "name": "arrow-left" } }, { "type": "text", "content": { "text": "返回案件详情" } }] },
+        { "id": "PAGE-TITLE", "type": "text", "content": { "text": "提交商标申请资料" }, "style": { "font_weight": "bold" } }
+      ]
+    },
+    {
+      "id": "MAIN-AREA",
+      "type": "frame",
+      "layout": { "mode": "vertical", "align": "center", "width": "fill", "height": "fill", "padding": [40, 0, 100, 0] },
+      "children": [
+        {
+          "id": "S-004",
+          "name": "全流程进度头",
+          "type": "frame",
+          "layout": { "mode": "horizontal", "width": 800, "justify": "center", "padding": [0, 0, 40, 0] },
+          "children": [
+            { "id": "E-007", "type": "frame", "layout": { "mode": "horizontal", "gap": 48 }, "children": [
+              { "type": "text", "content": { "text": "1. 订单完成" }, "style": { "fill": "local.color.status.success" } },
+              { "type": "text", "content": { "text": "2. 提交资料" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } },
+              { "type": "text", "content": { "text": "3. 官方受理" }, "style": { "fill": "local.color.text.tertiary" } }
+            ]}
+          ]
+        },
+        {
+          "id": "FORM-CARD",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": 800, "padding": 40, "gap": 32 },
+          "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+          "children": [
+            {
+              "id": "S-001",
+              "name": "任务引导",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 16 },
+              "children": [
+                { "id": "E-001", "type": "frame", "layout": { "padding": 16 }, "style": { "fill": "local.color.brand.light", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "请根据要求提交商标图样及宣誓书文件，所有文件需为 PDF 或 JPG 格式。" }, "style": { "fill": "local.color.brand.primary", "font_size": 14 } }] },
+                { "id": "E-008", "type": "text", "content": { "text": "📎 下载宣誓书模板.docx" }, "style": { "fill": "local.color.brand.primary", "font_size": 14, "text_decoration": "underline" } }
+              ]
+            },
+            {
+              "id": "S-002",
+              "name": "动态表单区",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 24 },
+              "children": [
+                { "id": "FIELD-1", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "商标名称 (必填)" } }, { "id": "E-002", "type": "frame", "layout": { "height": 40, "padding": [0, 12], "justify": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "请输入商标文字内容" }, "style": { "fill": "local.color.text.tertiary" } }] }] },
+                { "id": "FIELD-2", "type": "frame", "layout": { "mode": "vertical", "gap": 12 }, "children": [
+                  { "type": "text", "content": { "text": "商标图样附件 (必填)" } },
+                  { "id": "E-003", "type": "frame", "layout": { "mode": "vertical", "height": 120, "justify": "center", "align": "center", "gap": 8 }, "style": { "stroke": "local.color.border.default", "stroke_style": "dashed", "radius": 8 }, "children": [{ "type": "icon", "icon": { "name": "upload-cloud", "size": 32 } }, { "type": "text", "content": { "text": "点击或拖拽上传文件" }, "style": { "fill": "local.color.text.secondary" } }, { "type": "text", "content": { "text": "支持 JPG/PNG/PDF, 单文件不超过 10MB" }, "style": { "font_size": 12, "fill": "local.color.text.tertiary" } }] }
+                ]}
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S-003",
+      "name": "底部操作栏",
+      "type": "frame",
+      "role": "footer",
+      "layout": { "mode": "horizontal", "justify": "center", "align": "center", "height": 80, "width": "fill", "gap": 16, "position": "fixed", "bottom": 0 },
+      "style": { "fill": "local.color.surface.white", "shadow": "local.shadow.top" },
+      "children": [
+        { "id": "E-004", "type": "frame", "role": "button", "layout": { "padding": [10, 32] }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "暂存草稿" } }] },
+        { "id": "E-005", "type": "frame", "role": "button", "layout": { "padding": [10, 48] }, "style": { "fill": "local.color.brand.primary", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "确认提交" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,142 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/380-material-review-view/index.md",
+    "output_file": "product/design/380-material-review-view/index-figma.json",
+    "page_id": "M-621",
+    "page_name": "材料审核视图",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "admin specialized review interface for validating customer service materials with side-by-side preview"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 双栏预览(左文右图) + 列表式审核判定项 + 悬浮底部操作栏 + 驳回原因快捷标签"
+  },
+  "page": {
+    "frame_name": "M-621 材料分项审核",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "all_passed", "reject_mode", "loading"],
+    "copy_tone": "精确, 引导式"
+  },
+  "state_examples": {
+    "default": "展示客户提交的主体资料、附件预览以及待判定的分项审核开关",
+    "reject_mode": "当专家勾选'驳回'时，下方展开原因输入框，并展示常用的补件提示快捷标签",
+    "all_passed": "所有审核项均已判定为'通过'，底部提交按钮激活，显示品牌主色"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-CASE", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "check-square", "fill": "white" } }, { "type": "text", "content": { "text": "材料审核" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "案件管理 / 详情 / 材料审核" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 80, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "客户提交详情预览",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24 },
+                  "children": [
+                    {
+                      "id": "E-001",
+                      "type": "frame",
+                      "name": "文本信息",
+                      "layout": { "mode": "vertical", "width": "fill", "padding": 24, "gap": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [
+                        { "type": "text", "content": { "text": "主体名称：北京某某科技有限公司" }, "style": { "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "信用代码：9111010..." } },
+                        { "type": "text", "content": { "text": "注册类目：第 9 类" } }
+                      ]
+                    },
+                    {
+                      "id": "E-002",
+                      "type": "frame",
+                      "name": "附件预览",
+                      "layout": { "mode": "vertical", "width": 400, "padding": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [{ "type": "image", "size": { "width": "fill", "height": 300 }, "style": { "radius": 4 } }, { "type": "text", "content": { "text": "营业执照副本.jpg" }, "style": { "align": "center", "font_size": 12 } }]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "审核判定工具栏",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 24 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "分项审核清单" }, "style": { "font_weight": "bold" } },
+                    {
+                      "id": "AUDIT-ITEM-1",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 12, "padding_bottom": 12 },
+                      "style": { "border_bottom": "local.color.border.light" },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "1. 申报主体证件真实性" } }, { "id": "E-003", "type": "radio-group", "content": { "text": "[通过] [驳回]" } }] },
+                        { "id": "REJECT-AREA", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "id": "E-004", "type": "textarea", "content": { "text": "请输入驳回理由..." }, "style": { "height": 60 } }, { "id": "E-005", "type": "frame", "layout": { "mode": "horizontal", "gap": 8 }, "children": [{ "type": "tag", "content": { "text": "图片模糊" } }, { "type": "tag", "content": { "text": "证件过期" } }] }] }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "S-003",
+              "name": "审核结论操作",
+              "type": "frame",
+              "layout": { "mode": "horizontal", "justify": "center", "align": "center", "height": 72, "width": "fill", "position": "fixed-bottom" },
+              "style": { "fill": "local.color.surface.white", "shadow": "top-soft" },
+              "children": [
+                { "id": "E-006", "type": "button", "content": { "text": "确认并下发审核结论" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [12, 60] } }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

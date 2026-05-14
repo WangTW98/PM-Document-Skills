@@ -1,0 +1,98 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/220-admin-dashboard/index.md",
+    "output_file": "product/design/220-admin-dashboard/index-pencil.json",
+    "page_id": "M-200",
+    "page_name": "后台工作台与规则配置",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "risk_alert", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-005"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示指标看板、常用配置及操作日志",
+    "risk_alert": "风险预警红色高亮",
+    "loading": "加载中状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-200 后台工作台 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "工作台", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "后台首页 / 工作台", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 16,
+                "width": "fill_container",
+                "children": [
+                  { "type": "frame", "padding": 24, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "今日待处理订单" }, { "type": "text", "content": "24", "fontSize": 32, "fontWeight": "bold" }] },
+                  { "type": "frame", "padding": 24, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "风险预警案件" }, { "type": "text", "content": "108", "fontSize": 32, "fontWeight": "bold", "fill": "$local-color-status-error" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

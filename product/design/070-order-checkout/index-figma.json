@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/070-order-checkout/index.md",
+    "output_file": "product/design/070-order-checkout/index-figma.json",
+    "page_id": "U-320",
+    "page_name": "下单确认",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "minimal-nav",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "centered checkout flow"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "极简顶栏 + 居中确认卡片 + 价格大字显示 + 支付时效提醒"
+  },
+  "page": {
+    "frame_name": "U-320 下单确认",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "submitting", "error"],
+    "copy_tone": "简洁, 确认"
+  },
+  "state_examples": {
+    "default": "展示商品规格摘要、单价、数量、总计金额及提交按钮",
+    "submitting": "提交按钮进入 Loading 状态",
+    "error": "显示创建订单失败的全局提示"
+  },
+  "nodes": [
+    {
+      "id": "S-001-MINIMAL-NAV",
+      "name": "极简顶栏",
+      "type": "frame",
+      "role": "header",
+      "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 48, 0, 48] },
+      "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+      "children": [
+        { "id": "LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+        { "id": "STEPS-SUMMARY", "type": "text", "content": { "text": "1. 确认订单 -> 2. 支付 -> 3. 完成" }, "style": { "fill": "local.color.text.tertiary", "font_size": 14 } }
+      ]
+    },
+    {
+      "id": "MAIN-CONTAINER",
+      "name": "内容区",
+      "type": "frame",
+      "role": "main",
+      "layout": { "mode": "vertical", "justify": "center", "align": "center", "width": "fill", "height": "fill", "padding": [48, 0, 48, 0] },
+      "children": [
+        {
+          "id": "CHECKOUT-CARD",
+          "name": "下单确认卡片",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": 640, "padding": 40, "gap": 32 },
+          "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+          "children": [
+            { "id": "TITLE", "type": "text", "content": { "text": "确认订单信息" }, "style": { "font_size": 24, "font_weight": "bold" } },
+            {
+              "id": "E-001",
+              "name": "商品规格摘要",
+              "type": "frame",
+              "layout": { "mode": "horizontal", "gap": 16, "align": "center", "width": "fill", "padding": 16 },
+              "style": { "fill": "local.color.surface.bg-light", "radius": 4 },
+              "children": [
+                { "id": "PROD-IMG", "type": "image", "size": { "width": 80, "height": 60 }, "style": { "radius": 4 } },
+                {
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 4 },
+                  "children": [
+                    { "id": "PROD-NAME", "type": "text", "content": { "text": "美国商标注册" }, "style": { "font_weight": "bold" } },
+                    { "id": "SKU-NAME", "type": "text", "content": { "text": "规格：标准版 (律师初审)" }, "style": { "fill": "local.color.text.secondary", "font_size": 14 } }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "PRICE-DETAILS",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 16 },
+              "children": [
+                {
+                  "id": "ROW-PRICE",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between" },
+                  "children": [{ "type": "text", "content": { "text": "单价" } }, { "id": "E-003", "type": "text", "content": { "text": "¥ 2,800.00" } }]
+                },
+                {
+                  "id": "ROW-QTY",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between" },
+                  "children": [{ "type": "text", "content": { "text": "购买数量" } }, { "id": "E-002", "type": "text", "content": { "text": "x 1" } }]
+                }
+              ]
+            },
+            { "id": "DIVIDER", "type": "frame", "layout": { "height": 1, "width": "fill" }, "style": { "fill": "local.color.border.light" } },
+            {
+              "id": "S-002",
+              "name": "结算区",
+              "type": "frame",
+              "layout": { "mode": "vertical", "align": "flex-end", "gap": 16 },
+              "children": [
+                {
+                  "id": "E-004-WRAP",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 8, "align": "center" },
+                  "children": [
+                    { "type": "text", "content": { "text": "实付金额：" } },
+                    { "id": "E-004", "type": "text", "content": { "text": "¥ 2,800.00" }, "style": { "font_size": 28, "font_weight": "bold", "fill": "local.color.brand.primary" } }
+                  ]
+                },
+                { "id": "E-005", "type": "frame", "role": "button", "layout": { "width": 200, "height": 48, "justify": "center", "align": "center" }, "style": { "fill": "local.color.brand.primary", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "提交订单" }, "style": { "fill": "local.color.text.white", "font_weight": "bold" } }] },
+                { "id": "E-006", "type": "text", "content": { "text": "请在 20 分钟内完成支付" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/300-service-template-editor/index.md",
+    "output_file": "product/design/300-service-template-editor/index-figma.json",
+    "page_id": "M-420",
+    "page_name": "服务模板编辑器",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin management page with two-column split layout (template list + flow editor)"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 左侧模版卡片列表(300px) + 右侧线性流程编辑器(节点卡片) + 逻辑连线"
+  },
+  "page": {
+    "frame_name": "M-420 服务模板编辑器",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "editing_flow", "loading"],
+    "copy_tone": "逻辑化, 模块化"
+  },
+  "state_examples": {
+    "default": "展示左侧模版列表，右侧提示选择一个模版进行流程编辑",
+    "editing_flow": "展示选中的模版流程，包含多个按顺序排列的节点卡片，支持新增、删除、排序及属性编辑",
+    "loading": "列表及编辑器区域显示加载状态"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-TEMPLATE", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "file-text", "fill": "white" } }, { "type": "text", "content": { "text": "模版管理" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "服务与商品 / 模板编辑器" } }
+              ]
+            },
+            {
+              "id": "CONTENT-WRAP",
+              "type": "frame",
+              "layout": { "mode": "horizontal", "width": "fill", "height": "fill" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "模版管理面板",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": 300, "height": "fill", "padding": 20, "gap": 16 },
+                  "style": { "stroke_right": "local.color.border.light", "fill": "local.color.surface.white" },
+                  "children": [
+                    { "id": "E-002", "type": "button", "content": { "text": "+ 新建模版" }, "style": { "width": "fill", "stroke": "local.color.brand.primary", "radius": 4, "padding": 10 } },
+                    {
+                      "id": "E-001",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 12 },
+                      "children": [
+                        { "type": "frame", "role": "card", "layout": { "mode": "vertical", "padding": 16, "gap": 8 }, "style": { "fill": "local.color.brand.primary-light", "radius": 8, "stroke": "local.color.brand.primary" }, "children": [{ "type": "text", "content": { "text": "标准商标流程模版" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "节点数: 5 | 引用: 12" }, "style": { "font_size": 12, "fill": "local.color.text.secondary" } }] },
+                        { "type": "frame", "role": "card", "layout": { "mode": "vertical", "padding": 16, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.border.light" }, "children": [{ "type": "text", "content": { "text": "简单文档代办模版" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "节点数: 2 | 引用: 3" }, "style": { "font_size": 12, "fill": "local.color.text.secondary" } }] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "流程可视化编辑器",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": 40, "gap": 24, "overflow": "scroll-y" },
+                  "style": { "fill": "local.color.surface.bg-light" },
+                  "children": [
+                    {
+                      "id": "TPL-HEADER",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" },
+                      "children": [
+                        { "type": "text", "content": { "text": "正在编辑：标准商标流程模版" }, "style": { "font_size": 18, "font_weight": "bold" } },
+                        { "id": "E-006", "type": "button", "content": { "text": "发布模版" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [8, 24] } }
+                      ]
+                    },
+                    {
+                      "id": "E-003",
+                      "name": "节点流转编辑器",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "align": "center", "gap": 40 },
+                      "children": [
+                        { "id": "NODE-1", "type": "frame", "role": "card", "layout": { "mode": "vertical", "width": 400, "padding": 20, "gap": 16 }, "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.brand.primary", "shadow": "soft" }, "children": [{ "type": "text", "content": { "text": "节点 1：客户资料提交" }, "style": { "font_weight": "bold" } }, { "id": "E-004", "type": "select", "content": { "text": "节点类型：资料提交" } }, { "id": "E-005", "type": "select", "content": { "text": "关联表单：商标基础资料表单" } }] },
+                        { "type": "icon", "icon": { "name": "arrow-down", "fill": "local.color.text.tertiary" } },
+                        { "id": "NODE-2", "type": "frame", "role": "card", "layout": { "mode": "vertical", "width": 400, "padding": 20, "gap": 16 }, "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.border.default" }, "children": [{ "type": "text", "content": { "text": "节点 2：内部合规审核" }, "style": { "font_weight": "bold" } }, { "type": "select", "content": { "text": "节点类型：内部审核" } }] },
+                        { "type": "button", "content": { "text": "+ 添加后续节点" }, "style": { "stroke": "local.color.border.dashed", "radius": 4, "padding": [12, 100], "fill": "transparent" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

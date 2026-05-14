@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/180-message-center/index.md",
+    "output_file": "product/design/180-message-center/index-figma.json",
+    "page_id": "U-610",
+    "page_name": "消息中心",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "vertical message list with category tabs and bulk read action"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + 分类Tabs + 批量已读按钮 + 带红点的消息卡片列表"
+  },
+  "page": {
+    "frame_name": "U-610 消息中心",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "empty", "loading"],
+    "copy_tone": "及时, 清晰"
+  },
+  "state_examples": {
+    "default": "展示按分类排列的消息列表，未读消息带有红点，紧急消息带有[紧急]标签",
+    "empty": "显示'暂时没有新消息'的空状态插画",
+    "loading": "列表区骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-ME", "type": "text", "content": { "text": "个人中心" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 个人中心 / 消息中心" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 48, 24, 48], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "消息分类与操作",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "padding": [0, 0, 12, 0], "border_bottom": 1 },
+                  "style": { "stroke": "local.color.border.light" },
+                  "children": [
+                    {
+                      "id": "E-001",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 32 },
+                      "children": [
+                        { "type": "text", "content": { "text": "全部消息" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+                        { "type": "text", "content": { "text": "服务通知" }, "style": { "fill": "local.color.text.secondary" } },
+                        { "type": "text", "content": { "text": "订单提醒" }, "style": { "fill": "local.color.text.secondary" } }
+                      ]
+                    },
+                    { "id": "E-002", "type": "text", "content": { "text": "全部标记为已读" }, "style": { "fill": "local.color.text.tertiary", "font_size": 13 } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "消息列表主体",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 12, "width": "fill" },
+                  "children": [
+                    {
+                      "id": "E-003-1",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "mode": "horizontal", "padding": 20, "gap": 16, "align": "center" },
+                      "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+                      "children": [
+                        { "id": "E-004", "type": "ellipse", "size": 8, "style": { "fill": "local.color.status.error" } },
+                        { "type": "icon", "icon": { "name": "bell", "size": 24, "fill": "local.color.brand.primary" } },
+                        {
+                          "type": "frame",
+                          "layout": { "mode": "vertical", "gap": 4, "width": "fill" },
+                          "children": [
+                            { "type": "text", "content": { "text": "您的案件 [美国商标注册] 需要补充资料" }, "style": { "font_weight": "bold" } },
+                            { "type": "text", "content": { "text": "请在 24 小时内提交所需的宣誓书文件，以免影响进度。" }, "style": { "fill": "local.color.text.secondary", "font_size": 13 } }
+                          ]
+                        },
+                        { "type": "text", "content": { "text": "11:30" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } },
+                        { "id": "E-005", "type": "icon", "icon": { "name": "chevron-right" } }
+                      ]
+                    },
+                    {
+                      "id": "E-003-2",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "mode": "horizontal", "padding": 20, "gap": 16, "align": "center" },
+                      "style": { "fill": "local.color.surface.white", "radius": 8, "opacity": 0.8 },
+                      "children": [
+                        { "type": "ellipse", "size": 8, "style": { "fill": "transparent" } },
+                        { "type": "icon", "icon": { "name": "shopping-cart", "size": 24, "fill": "local.color.text.tertiary" } },
+                        {
+                          "type": "frame",
+                          "layout": { "mode": "vertical", "gap": 4, "width": "fill" },
+                          "children": [
+                            { "type": "text", "content": { "text": "订单支付成功提醒" }, "style": { "fill": "local.color.text.secondary" } },
+                            { "type": "text", "content": { "text": "您的订单 ORD202605140001 已支付成功，案件已启动。" }, "style": { "fill": "local.color.text.tertiary", "font_size": 13 } }
+                          ]
+                        },
+                        { "type": "text", "content": { "text": "昨天" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

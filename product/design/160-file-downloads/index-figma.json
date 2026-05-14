@@ -1,0 +1,138 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/160-file-downloads/index.md",
+    "output_file": "product/design/160-file-downloads/index-figma.json",
+    "page_id": "U-530",
+    "page_name": "官方文件下载记录",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "list page for official document downloads"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + 文件类型Tabs + 案号搜索框 + 文件下载列表(带图标)"
+  },
+  "page": {
+    "frame_name": "U-530 官方文件下载记录",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "empty", "loading"],
+    "copy_tone": "严谨, 交付"
+  },
+  "state_examples": {
+    "default": "展示官方证书、回执、通知书等文件列表，每项都有对应的下载按钮",
+    "empty": "显示'暂无官方文件'的空状态插画",
+    "loading": "表格区骨架屏展示"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-SERVICE", "type": "text", "content": { "text": "我的服务" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 我的服务 / 下载中心" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 48, 24, 48], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                { "id": "PAGE-TITLE", "type": "text", "content": { "text": "官方文件中心" }, "style": { "font_size": 24, "font_weight": "bold" } },
+                {
+                  "id": "S-001",
+                  "name": "过滤器工具栏",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between", "align": "flex-end", "padding": [0, 0, 8, 0] },
+                  "children": [
+                    {
+                      "id": "E-001",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 32 },
+                      "children": [
+                        { "type": "text", "content": { "text": "全部文件" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+                        { "type": "text", "content": { "text": "官方证书" }, "style": { "fill": "local.color.text.secondary" } },
+                        { "type": "text", "content": { "text": "受理回执" }, "style": { "fill": "local.color.text.secondary" } }
+                      ]
+                    },
+                    { "id": "E-002", "type": "frame", "role": "input", "layout": { "width": 240, "height": 32, "padding": [0, 12], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "搜索案号/案件名" }, "style": { "font_size": 13 } }] }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "文件数据表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8, "overflow": "hidden" },
+                  "children": [
+                    {
+                      "id": "TABLE-HEADER",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 24], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "文件名称" }, "style": { "width": "fill", "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "所属案号" }, "style": { "width": 180, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "发放日期" }, "style": { "width": 120, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "操作" }, "style": { "width": 60, "font_weight": "bold", "font_size": 13, "text_align": "center" } }
+                      ]
+                    },
+                    {
+                      "id": "TABLE-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 24], "width": "fill", "align": "center" },
+                      "style": { "stroke_bottom": "local.color.border.light" },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "gap": 12, "align": "center", "width": "fill" }, "children": [{ "type": "icon", "icon": { "name": "file-pdf", "fill": "red", "size": 24 } }, { "type": "text", "content": { "text": "美国商标注册受理回执.pdf" }, "style": { "font_weight": "bold" } }] },
+                        { "type": "text", "content": { "text": "CASE20260514001" }, "style": { "width": 180, "fill": "local.color.text.secondary" } },
+                        { "type": "text", "content": { "text": "2026-05-14" }, "style": { "width": 120, "fill": "local.color.text.secondary" } },
+                        { "id": "E-004", "type": "icon", "icon": { "name": "download", "size": 20, "fill": "local.color.brand.primary" }, "style": { "width": 60 } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,126 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/220-admin-dashboard/index.md",
+    "output_file": "product/design/220-admin-dashboard/index-figma.json",
+    "page_id": "M-200",
+    "page_name": "后台工作台与规则配置",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-005",
+    "responsive_rule_summary": "admin dashboard with metric cards and config matrix"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏(暗色/深蓝) + 顶栏 + 四列高对比数据卡片 + 3x3配置矩阵卡片 + 紧凑数据表格"
+  },
+  "page": {
+    "frame_name": "M-200 后台工作台",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "risk_alert", "loading"],
+    "copy_tone": "高效, 数字化"
+  },
+  "state_examples": {
+    "default": "展示核心运营指标、常用配置入口及最近 10 条操作日志",
+    "risk_alert": "风险预警卡片数值变为红色，背景微调以提示异常",
+    "loading": "各统计卡片和表格显示加载状态"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 }, "style": { "margin_left": 24, "margin_bottom": 32 } },
+            { "id": "NAV-DASHBOARD", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "grid", "fill": "white" } }, { "type": "text", "content": { "text": "工作台" }, "style": { "fill": "white", "font_weight": "bold" } }] },
+            { "id": "NAV-ORDER", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "children": [{ "type": "icon", "icon": { "name": "shopping-cart", "fill": "local.color.text.admin-nav" } }, { "type": "text", "content": { "text": "订单管理" }, "style": { "fill": "local.color.text.admin-nav" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "后台首页 / 工作台" }, "style": { "fill": "local.color.text.tertiary", "font_size": 13 } },
+                { "id": "ADMIN-USER", "type": "frame", "layout": { "mode": "horizontal", "gap": 12, "align": "center" }, "children": [{ "type": "text", "content": { "text": "Admin" } }, { "type": "ellipse", "size": 32, "style": { "fill": "local.color.surface.bg-light" } }] }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Dashboard Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "运营数据看板",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16, "width": "fill" },
+                  "children": [
+                    { "id": "METRIC-ORDER", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "今日待处理订单" }, "style": { "fill": "local.color.text.secondary", "font_size": 14 } }, { "type": "text", "content": { "text": "24" }, "style": { "font_size": 32, "font_weight": "bold" } }] },
+                    { "id": "METRIC-RISK", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "风险预警案件" }, "style": { "fill": "local.color.text.secondary", "font_size": 14 } }, { "type": "text", "content": { "text": "108" }, "style": { "font_size": 32, "font_weight": "bold", "fill": "local.color.status.error" } }] },
+                    { "id": "METRIC-ACTIVE", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "活跃案件总数" }, "style": { "fill": "local.color.text.secondary", "font_size": 14 } }, { "type": "text", "content": { "text": "1,240" }, "style": { "font_size": 32, "font_weight": "bold" } }] },
+                    { "id": "METRIC-REVENUE", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "今日营收 (CNY)" }, "style": { "fill": "local.color.text.secondary", "font_size": 14 } }, { "type": "text", "content": { "text": "¥ 45,200" }, "style": { "font_size": 32, "font_weight": "bold", "fill": "local.color.brand.primary" } }] }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "系统配置矩阵",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16 },
+                  "children": [
+                    { "type": "text", "content": { "text": "快捷配置中心" }, "style": { "font_weight": "bold", "font_size": 16 } },
+                    {
+                      "id": "CONFIG-GRID",
+                      "type": "frame",
+                      "layout": { "mode": "grid", "columns": 3, "gap": 16 },
+                      "children": [
+                        { "id": "E-002-1", "type": "frame", "role": "card", "layout": { "mode": "horizontal", "padding": 24, "gap": 16, "align": "center" }, "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.border.light" }, "children": [{ "type": "icon", "icon": { "name": "shield", "size": 32, "fill": "local.color.brand.primary" } }, { "type": "frame", "layout": { "mode": "vertical", "gap": 4 }, "children": [{ "type": "text", "content": { "text": "风险规则配置" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "配置自动化风险识别逻辑" }, "style": { "font_size": 12, "fill": "local.color.text.tertiary" } }] }] },
+                        { "id": "E-002-2", "type": "frame", "role": "card", "layout": { "mode": "horizontal", "padding": 24, "gap": 16, "align": "center" }, "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.border.light" }, "children": [{ "type": "icon", "icon": { "name": "list", "size": 32, "fill": "local.color.brand.primary" } }, { "type": "frame", "layout": { "mode": "vertical", "gap": 4 }, "children": [{ "type": "text", "content": { "text": "进度字段配置" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "定义各服务节点的填报字段" }, "style": { "font_size": 12, "fill": "local.color.text.tertiary" } }] }] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "操作动态流",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16 },
+                  "children": [
+                    { "type": "text", "content": { "text": "最近操作日志" }, "style": { "font_weight": "bold", "font_size": 16 } },
+                    { "id": "E-003", "type": "table", "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "操作时间 | 操作人 | 模块 | 动作 | 结果" }, "style": { "font_weight": "bold", "padding": 12 } }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

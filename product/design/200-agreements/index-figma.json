@@ -1,0 +1,81 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/200-agreements/index.md",
+    "output_file": "product/design/200-agreements/index-figma.json",
+    "page_id": "U-630",
+    "page_name": "协议查看页",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "minimal-nav",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "narrow-width focused reading page for legal agreements"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "极简顶栏 + 居中窄屏布局(800px) + 协议切换Tabs + 规范富文本排版"
+  },
+  "page": {
+    "frame_name": "U-630 协议查看页",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "loading"],
+    "copy_tone": "正式, 法律感"
+  },
+  "state_examples": {
+    "default": "展示选中的协议文本（如用户协议），包含标题、更新日期和层级清晰的条文内容",
+    "loading": "正文区显示骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "MINIMAL-NAV",
+      "name": "极简顶栏",
+      "type": "frame",
+      "role": "header",
+      "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 48, 0, 48] },
+      "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+      "children": [
+        { "id": "BACK-BTN", "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center" }, "children": [{ "type": "icon", "icon": { "name": "arrow-left" } }, { "type": "text", "content": { "text": "返回" } }] },
+        { "id": "PAGE-TITLE", "type": "text", "content": { "text": "合规与协议" }, "style": { "font_weight": "bold" } }
+      ]
+    },
+    {
+      "id": "MAIN-AREA",
+      "type": "frame",
+      "layout": { "mode": "vertical", "align": "center", "width": "fill", "height": "fill", "padding": [40, 0, 80, 0] },
+      "children": [
+        {
+          "id": "S-001",
+          "name": "协议切换导航",
+          "type": "frame",
+          "layout": { "mode": "horizontal", "gap": 32, "justify": "center", "width": 800, "padding": [0, 0, 32, 0], "border_bottom": 1 },
+          "style": { "stroke": "local.color.border.light" },
+          "children": [
+            { "type": "text", "content": { "text": "用户协议" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+            { "type": "text", "content": { "text": "隐私政策" }, "style": { "fill": "local.color.text.secondary" } },
+            { "type": "text", "content": { "text": "法律声明" }, "style": { "fill": "local.color.text.secondary" } }
+          ]
+        },
+        {
+          "id": "S-002",
+          "name": "条款正文区",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": 800, "padding": [40, 0, 40, 0], "gap": 24 },
+          "children": [
+            { "id": "E-002", "type": "text", "content": { "text": "用户服务协议" }, "style": { "font_size": 28, "font_weight": "bold", "text_align": "center" } },
+            { "id": "E-004", "type": "text", "content": { "text": "最后更新日期：2026-01-01" }, "style": { "fill": "local.color.text.tertiary", "font_size": 13, "text_align": "center" } },
+            {
+              "id": "E-003",
+              "type": "text",
+              "content": { "text": "1. 导言\n欢迎使用知识产权合规服务平台（以下简称“本平台”）。在您注册、登录或使用本平台服务前，请您务必仔细阅读并充分理解本协议各项条款...\n\n2. 服务内容\n本平台为您提供商标注册、VAT申报、专利申请等合规相关咨询与代办服务...\n\n3. 用户义务\n您承诺提供真实、准确、合法的资料，并对因资料虚假导致的所有损失承担责任..." },
+              "style": { "line_height": 1.8, "fill": "local.color.text.main", "font_size": 15 }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/410-message-template-config/index.md",
+    "output_file": "product/design/410-message-template-config/index-figma.json",
+    "page_id": "M-710",
+    "page_name": "消息模板与发送配置",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin configuration page for multi-channel message templates with drawer editor and variable injection"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 通道筛选器 + 数据表格 + 编辑抽屉(Drawer) + 富文本/纯文本切换 + 变量标签云"
+  },
+  "page": {
+    "frame_name": "M-710 消息模版配置",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "edit_drawer_open", "sms_overlimit", "loading"],
+    "copy_tone": "工具化, 严谨"
+  },
+  "state_examples": {
+    "default": "展示全量消息模版列表，包含搜索与通道过滤功能",
+    "edit_drawer_open": "右侧展开编辑抽屉，支持修改模版内容并从下方变量库点击插入占位符",
+    "sms_overlimit": "当编辑短信模版且字符数超过 70 时，编辑器背景显示橙色提示，并在右下角显示预警文案"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-MSG", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "mail", "fill": "white" } }, { "type": "text", "content": { "text": "消息模板" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "运营配置 / 消息模板管理" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "检索与操作",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" },
+                  "children": [
+                    { "id": "FILTERS", "type": "frame", "layout": { "mode": "horizontal", "gap": 12 }, "children": [{ "id": "E-001", "type": "select", "content": { "text": "全部通道 (SMS/Email/Push)" }, "style": { "width": 180, "height": 32 } }, { "type": "input", "content": { "text": "搜索模板名称" }, "style": { "width": 200, "height": 32 } }] },
+                    { "id": "E-002", "type": "button", "content": { "text": "+ 新增消息模板" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [6, 16] } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "模板列表表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 20] }, "style": { "fill": "local.color.surface.bg-light" }, "children": [{ "type": "text", "content": "模板 ID | 名称 | 通道 | 触发事件 | 状态 | 操作" }] },
+                    { "id": "E-003", "type": "frame", "layout": { "mode": "horizontal", "padding": [16, 20] }, "children": [{ "type": "text", "content": "T-001 | 支付成功通知 | SMS | ORDER_PAID | 已启用 | 编辑 | 测试" }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "overlay": [
+        {
+          "id": "S-003",
+          "name": "模版编辑抽屉",
+          "type": "frame",
+          "role": "drawer",
+          "layout": { "mode": "vertical", "width": 560, "height": "fill", "position": "right", "padding": 24, "gap": 20 },
+          "style": { "fill": "local.color.surface.white", "shadow": "left-deep" },
+          "children": [
+            { "type": "text", "content": { "text": "编辑消息模板" }, "style": { "font_size": 18, "font_weight": "bold" } },
+            { "id": "FORM", "type": "frame", "layout": { "mode": "vertical", "gap": 16 }, "children": [{ "type": "text", "content": "模板内容" }, { "id": "E-004", "type": "textarea", "content": { "text": "亲爱的 {user_name}，您的订单 {order_id} 已支付成功..." }, "style": { "height": 140 } }] },
+            { "id": "VARS", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": "变量库 (点击插入)" }, { "id": "E-005", "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "wrap": true }, "children": [{ "type": "tag", "content": { "text": "{user_name}" } }, { "type": "tag", "content": { "text": "{order_id}" } }] }] },
+            { "id": "ACTIONS", "type": "frame", "layout": { "mode": "horizontal", "justify": "flex-end", "gap": 12 }, "children": [{ "id": "E-006", "type": "button", "content": { "text": "发送测试消息" }, "style": { "variant": "link" } }, { "type": "button", "content": { "text": "保存并生效" }, "style": { "fill": "local.color.brand.primary", "padding": [8, 24] } }] }
+          ]
+        }
+      ]
+    }
+  ]
+}

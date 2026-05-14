@@ -1,0 +1,108 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/140-case-detail/index.md",
+    "output_file": "product/design/140-case-detail/index-pencil.json",
+    "page_id": "U-520",
+    "page_name": "案件详情",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "data_pending", "processing", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示详情、流程时间轴及官方文件",
+    "data_pending": "活跃节点卡片高亮显示为橙色",
+    "processing": "显示为'审核中'"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-520 案件详情 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "我的服务", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 我的服务 / 案件详情", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "horizontal",
+            "padding": 32,
+            "gap": 32,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "LEFT-COLUMN",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 24,
+                "width": "fill_container",
+                "children": [
+                  { "id": "E-001", "type": "text", "content": "美国商标注册 - 美国", "fontSize": 24, "fontWeight": "bold" },
+                  { "id": "E-004", "type": "frame", "padding": 24, "fill": "$local-color-status-warning-light", "stroke": "$local-color-status-warning", "cornerRadius": 8, "children": [{ "type": "text", "content": "待办：提交商标申请所需资料", "fill": "$local-color-status-warning", "fontWeight": "bold" }] }
+                ]
+              },
+              {
+                "id": "RIGHT-COLUMN",
+                "type": "frame",
+                "layout": "vertical",
+                "width": 320,
+                "gap": 24,
+                "children": [
+                  { "type": "frame", "padding": 24, "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "官方文件 (0)", "fontWeight": "bold" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

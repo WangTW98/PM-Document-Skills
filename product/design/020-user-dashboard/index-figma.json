@@ -1,0 +1,164 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/020-user-dashboard/index.md",
+    "output_file": "product/design/020-user-dashboard/index-figma.json",
+    "page_id": "U-200",
+    "page_name": "用户工作台",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-004",
+    "responsive_rule_summary": "desktop-first with sidebar"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "左侧导航 + 顶栏 + 摘要概览 + 卡片组"
+  },
+  "page": {
+    "frame_name": "U-200 用户工作台",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "empty", "loading"],
+    "copy_tone": "专业, 欢迎"
+  },
+  "state_examples": {
+    "default": "展示欢迎语, 待办计数(5), 进行中案件(12), 即将到期(2), 快捷入口卡片",
+    "empty": "统计数据为0, 功能区展示空状态插画和CTA",
+    "loading": "内容区骨架屏展示"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 }, "layout": { "align": "center" } },
+            { "id": "NAV-U200", "type": "text", "content": { "text": "工作台" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" }, "layout": { "padding": [12, 24, 12, 24] } },
+            { "id": "NAV-U300", "type": "text", "content": { "text": "服务目录" }, "layout": { "padding": [12, 24, 12, 24] } },
+            { "id": "NAV-U400", "type": "text", "content": { "text": "订单中心" }, "layout": { "padding": [12, 24, 12, 24] } },
+            { "id": "NAV-U500", "type": "text", "content": { "text": "我的服务" }, "layout": { "padding": [12, 24, 12, 24] } },
+            { "id": "NAV-U600", "type": "text", "content": { "text": "个人中心" }, "layout": { "padding": [12, 24, 12, 24] } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 工作台" } },
+                {
+                  "id": "TOP-RIGHT",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16 },
+                  "children": [
+                    { "id": "ICON-MSG", "type": "icon", "icon": { "name": "bell", "size": 20 } },
+                    { "id": "USER-PROFILE", "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center" }, "children": [{ "type": "icon", "icon": { "name": "user-circle", "size": 24 } }, { "type": "text", "content": { "text": "张三" } }] }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [32, 48, 32, 48], "gap": 32, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "欢迎与数据概览",
+                  "type": "frame",
+                  "role": "header",
+                  "layout": { "mode": "vertical", "gap": 24, "width": "fill" },
+                  "children": [
+                    { "id": "E-001", "type": "text", "content": { "text": "您好，张三" }, "style": { "font_size": 24, "font_weight": "bold" } },
+                    {
+                      "id": "E-002",
+                      "name": "统计指标卡片组",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16, "width": "fill" },
+                      "children": [
+                        { "id": "STAT-TODO", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "待办事项" }, "style": { "font_size": 14, "fill": "local.color.text.secondary" } }, { "type": "text", "content": { "text": "5" }, "style": { "font_size": 28, "font_weight": "bold" } }] },
+                        { "id": "STAT-PROGRESS", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "进行中案件" }, "style": { "font_size": 14, "fill": "local.color.text.secondary" } }, { "type": "text", "content": { "text": "12" }, "style": { "font_size": 28, "font_weight": "bold" } }] },
+                        { "id": "STAT-EXPIRING", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "即将到期" }, "style": { "font_size": 14, "fill": "local.color.text.secondary" } }, { "type": "text", "content": { "text": "2" }, "style": { "font_size": 28, "font_weight": "bold", "fill": "local.color.status.error" } }] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "核心功能卡片组",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24, "width": "fill" },
+                  "children": [
+                    {
+                      "id": "E-003",
+                      "name": "待办提醒区块",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "mode": "vertical", "width": "fill", "padding": 24, "gap": 16, "min_height": 200 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "待办事项" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "查看全部 >" }, "style": { "fill": "local.color.brand.primary", "font_size": 12 } }] },
+                        { "id": "TODO-LIST-MINI", "type": "frame", "layout": { "mode": "vertical", "gap": 12 }, "children": [
+                          { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center" }, "children": [{ "type": "icon", "icon": { "name": "alert-circle", "size": 16, "color": "red" } }, { "type": "text", "content": { "text": "资料审核驳回: 欧洲商标申请资料待完善" } }] },
+                          { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center" }, "children": [{ "type": "icon", "icon": { "name": "clock", "size": 16 } }, { "type": "text", "content": { "text": "即将到期: 美国 VAT 申报截止" } }] }
+                        ]}
+                      ]
+                    },
+                    {
+                      "id": "E-004",
+                      "name": "进度概览区块",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "mode": "vertical", "width": "fill", "padding": 24, "gap": 16, "min_height": 200 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "最新进展" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "查看全部 >" }, "style": { "fill": "local.color.brand.primary", "font_size": 12 } }] },
+                        { "id": "PROGRESS-LIST-MINI", "type": "frame", "layout": { "mode": "vertical", "gap": 12 }, "children": [
+                          { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center" }, "children": [{ "type": "badge", "content": { "text": "进行中" }, "style": { "fill": "local.color.status.info" } }, { "type": "text", "content": { "text": "案号: TK20260514001 - 商标注册" } }] }
+                        ]}
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "SHELL-003",
+      "name": "Floating Service",
+      "type": "icon",
+      "role": "floating-action",
+      "icon": { "name": "message-circle", "size": 48 },
+      "style": { "fill": "local.color.brand.primary", "shadow": "local.shadow.float" },
+      "layout": { "position": "absolute", "right": 32, "bottom": 32 }
+    }
+  ]
+}

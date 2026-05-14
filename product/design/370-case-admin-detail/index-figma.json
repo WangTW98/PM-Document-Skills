@@ -1,0 +1,130 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/370-case-admin-detail/index.md",
+    "output_file": "product/design/370-case-admin-detail/index-figma.json",
+    "page_id": "M-620",
+    "page_name": "案件详情维护",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-004",
+    "responsive_rule_summary": "admin case detail maintenance page with full lifecycle tracking and node-specific operations"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 流程横向步骤条(含风险状态) + 分段式详情卡片 + 动态操作区 + 内部备注时间轴"
+  },
+  "page": {
+    "frame_name": "M-620 案件交付维护详情",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "node_risk", "loading"],
+    "copy_tone": "精确, 协作导向"
+  },
+  "state_examples": {
+    "default": "展示案件全生命周期节点、当前节点处理表单及内部备注记录",
+    "node_risk": "当某个节点处理超时时，步骤条上的该节点显示红色感叹号风险标志",
+    "loading": "各区块内容显示骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-CASE", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "briefcase", "fill": "white" } }, { "type": "text", "content": { "text": "案件详情维护" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "案件管理 / 案件详情 / CAS20260514001" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "流程进度轴",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 16 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "id": "E-001", "type": "steps", "content": { "text": "资料提交 -> 审核 -> 申报中 -> 官方下发" }, "style": { "width": "fill" } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "案件主干信息",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "padding": 20, "gap": 40 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "客户主体：北京某某科技有限公司" }, "style": { "font_weight": "bold" } },
+                    { "type": "text", "content": { "text": "服务项：美国商标注册 (单国)" } },
+                    { "type": "text", "content": { "text": "负责专家：张专家" } }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "节点操作交互区",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.brand.primary" },
+                  "children": [
+                    { "type": "text", "content": { "text": "当前节点：资料审核" }, "style": { "font_size": 16, "font_weight": "bold" } },
+                    { "id": "E-003", "type": "frame", "layout": { "mode": "vertical", "gap": 16 }, "children": [{ "type": "text", "content": "待审核内容预览区域..." }, { "type": "frame", "layout": { "mode": "horizontal", "gap": 12 }, "children": [{ "type": "button", "content": { "text": "进入审核详情" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [8, 24] } }] }] }
+                  ]
+                },
+                {
+                  "id": "S-004",
+                  "name": "内部备注与日志",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "内部协作备注" }, "style": { "font_weight": "bold" } },
+                    { "id": "E-004", "type": "textarea", "content": { "text": "输入内部备注内容..." }, "style": { "height": 80, "stroke": "local.color.border.default" } },
+                    { "id": "E-005", "type": "button", "content": { "text": "提交备注" }, "style": { "fill": "local.color.brand.primary-light", "radius": 4, "padding": [6, 16], "align_self": "flex-end" } },
+                    { "id": "LOG-LIST", "type": "frame", "layout": { "mode": "vertical", "gap": 12 }, "children": [{ "type": "text", "content": "2026-05-14 10:00:01 | 张专家 | 客户补充了营业执照扫描件", "style": { "font_size": 13, "fill": "local.color.text.secondary" } }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

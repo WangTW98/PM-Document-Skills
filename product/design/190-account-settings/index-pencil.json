@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/190-account-settings/index.md",
+    "output_file": "product/design/190-account-settings/index-pencil.json",
+    "page_id": "U-620",
+    "page_name": "账号设置",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "editing", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示账号基本资料、通知偏好及常用公司列表",
+    "editing": "输入框获得焦点状态",
+    "loading": "各分组卡片骨架屏"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-620 账号设置 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "个人中心", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 个人中心 / 账号设置", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 32,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "账号设置", "fontSize": 24, "fontWeight": "bold" },
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "vertical",
+                "padding": 24,
+                "gap": 20,
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 12,
+                "children": [
+                  { "type": "text", "content": "基础与安全", "fontWeight": "bold" },
+                  { "type": "frame", "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "登录手机号" }, { "type": "text", "content": "138****0001" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

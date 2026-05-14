@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/380-material-review-view/index.md",
+    "output_file": "product/design/380-material-review-view/index-pencil.json",
+    "page_id": "M-621",
+    "page_name": "材料审核视图",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-003"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示客户提交内容预览、分项审核清单与操作按钮",
+    "loading": "各区块显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-621 材料审核 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "材料分项审核", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "案件管理 / 材料审核", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "材料审核：CAS20260514001", "fontSize": 24, "fontWeight": "bold" },
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 24,
+                "children": [
+                  { "type": "frame", "padding": 20, "width": "fill_container", "fill": "white", "children": [{ "type": "text", "content": "文本资料预览" }] },
+                  { "type": "frame", "padding": 20, "width": 400, "fill": "white", "children": [{ "type": "text", "content": "图片/附件预览" }] }
+                ]
+              },
+              {
+                "id": "S-002",
+                "type": "frame",
+                "padding": 24,
+                "fill": "white",
+                "cornerRadius": 8,
+                "children": [{ "type": "text", "content": "分项审核清单 (通过/驳回 选择器区域)" }]
+              },
+              {
+                "id": "S-003",
+                "type": "frame",
+                "padding": 20,
+                "fill": "white",
+                "children": [{ "type": "text", "content": "底部操作栏：[确认并下发结论]" }]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

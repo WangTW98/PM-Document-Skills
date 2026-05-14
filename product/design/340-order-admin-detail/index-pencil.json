@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/340-order-admin-detail/index.md",
+    "output_file": "product/design/340-order-admin-detail/index-pencil.json",
+    "page_id": "M-520",
+    "page_name": "订单详情/转线上",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示订单详情、状态条、支付凭证审核区及日志流水",
+    "loading": "各区块显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-520 订单详情 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "订单详情审核", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "订单管理 / 详情审核", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "订单详情：ORD20260514001", "fontSize": 24, "fontWeight": "bold" },
+              { "type": "frame", "padding": 24, "fill": "white", "cornerRadius": 8, "children": [{ "type": "text", "content": "步骤条：下单 -> 支付 -> 审核 -> 交付" }] },
+              { "type": "frame", "layout": "horizontal", "gap": 24, "children": [{ "type": "frame", "padding": 20, "width": "fill_container", "fill": "white", "children": [{ "type": "text", "content": "商品详情" }] }, { "type": "frame", "padding": 20, "width": "fill_container", "fill": "white", "children": [{ "type": "text", "content": "财务详情" }] }] },
+              { "type": "frame", "padding": 24, "fill": "white", "children": [{ "type": "text", "content": "支付凭证审核区：[下载凭证] [通过] [驳回]" }] },
+              { "type": "frame", "padding": 24, "fill": "white", "children": [{ "type": "text", "content": "操作日志时间轴区域" }] }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

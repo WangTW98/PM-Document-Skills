@@ -1,0 +1,110 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/290-service-catalog-admin/index.md",
+    "output_file": "product/design/290-service-catalog-admin/index-pencil.json",
+    "page_id": "M-410",
+    "page_name": "服务目录配置",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示左侧类目树与右侧编辑表单",
+    "loading": "各区域显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-410 服务目录配置 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "目录配置", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "服务与商品 / 目录配置", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "CONTENT-AREA",
+            "type": "frame",
+            "layout": "horizontal",
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "name": "Tree Panel",
+                "type": "frame",
+                "layout": "vertical",
+                "width": 300,
+                "height": "fill_container",
+                "padding": 20,
+                "fill": "$local-color-surface-white",
+                "stroke": "$local-color-border-light",
+                "children": [
+                  { "type": "text", "content": "类目树组件区域", "fontSize": 14 }
+                ]
+              },
+              {
+                "id": "S-002",
+                "name": "Editor Panel",
+                "type": "frame",
+                "layout": "vertical",
+                "width": "fill_container",
+                "padding": 40,
+                "gap": 24,
+                "children": [
+                  { "type": "text", "content": "美国商标注册", "fontSize": 20, "fontWeight": "bold" },
+                  { "type": "text", "content": "类目详情配置表单区域" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/070-order-checkout/index.md",
+    "output_file": "product/design/070-order-checkout/index-pencil.json",
+    "page_id": "U-320",
+    "page_name": "下单确认",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "submitting", "error"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-003"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示商品规格摘要、单价、数量、总计金额及提交按钮",
+    "submitting": "提交按钮进入 Loading 状态",
+    "error": "显示创建订单失败的全局提示"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-320 下单确认 Root",
+    "layout": "vertical",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-auth",
+    "children": [
+      {
+        "id": "S-001-MINIMAL-NAV",
+        "name": "极简顶栏",
+        "type": "frame",
+        "layout": "horizontal",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "padding": 48,
+        "width": "fill_container",
+        "height": 64,
+        "fill": "$local-color-surface-white",
+        "stroke": "$local-color-border-light",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "1. 确认订单 -> 2. 支付 -> 3. 完成", "fontSize": 14, "fill": "$local-color-text-tertiary" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT",
+        "type": "frame",
+        "layout": "vertical",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "padding": 80,
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "CHECKOUT-CARD",
+            "type": "frame",
+            "layout": "vertical",
+            "width": 640,
+            "padding": 40,
+            "gap": 32,
+            "fill": "$local-color-surface-white",
+            "cornerRadius": 8,
+            "children": [
+              { "type": "text", "content": "确认订单信息", "fontSize": 24, "fontWeight": "bold" },
+              {
+                "id": "E-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 16,
+                "alignItems": "center",
+                "padding": 16,
+                "fill": "$local-color-surface-bg-light",
+                "cornerRadius": 4,
+                "children": [
+                  { "type": "rectangle", "width": 80, "height": 60, "cornerRadius": 4, "fill": "$local-color-placeholder-img" },
+                  {
+                    "type": "frame",
+                    "layout": "vertical",
+                    "gap": 4,
+                    "children": [
+                      { "type": "text", "content": "美国商标注册", "fontSize": 16, "fontWeight": "bold" },
+                      { "type": "text", "content": "规格：标准版 (律师初审)", "fontSize": 14, "fill": "$local-color-text-secondary" }
+                    ]
+                  }
+                ]
+              },
+              {
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 16,
+                "children": [
+                  { "type": "frame", "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "单价" }, { "type": "text", "content": "¥ 2,800.00" }] },
+                  { "type": "frame", "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "购买数量" }, { "type": "text", "content": "x 1" }] }
+                ]
+              },
+              {
+                "id": "S-002",
+                "type": "frame",
+                "layout": "vertical",
+                "alignItems": "flex-end",
+                "gap": 16,
+                "children": [
+                  { "type": "text", "content": "实付金额：¥ 2,800.00", "fontSize": 28, "fontWeight": "bold", "fill": "$local-color-brand-primary" },
+                  { "type": "frame", "width": 200, "height": 48, "justifyContent": "center", "alignItems": "center", "fill": "$local-color-brand-primary", "cornerRadius": 4, "children": [{ "type": "text", "content": "提交订单", "fill": "$local-color-text-white", "fontWeight": "bold" }] },
+                  { "type": "text", "content": "请在 20 分钟内完成支付", "fontSize": 12, "fill": "$local-color-text-tertiary" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

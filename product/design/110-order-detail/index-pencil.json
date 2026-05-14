@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/110-order-detail/index.md",
+    "output_file": "product/design/110-order-detail/index-pencil.json",
+    "page_id": "U-420",
+    "page_name": "订单详情",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "refund_requested", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示已支付状态订单，包含时间轴、商品和价格明细",
+    "refund_requested": "状态显示为'退款中'",
+    "loading": "骨架屏展示"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-420 订单详情 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "订单中心", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 订单中心 / 订单详情", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "justifyContent": "space-between",
+                "alignItems": "center",
+                "padding": 24,
+                "width": "fill_container",
+                "fill": "$local-color-brand-light",
+                "cornerRadius": 8,
+                "children": [
+                  { "type": "text", "content": "订单状态：已支付", "fontSize": 20, "fontWeight": "bold", "fill": "$local-color-brand-primary" },
+                  { "type": "frame", "padding": 8, "stroke": "$local-color-brand-primary", "cornerRadius": 4, "children": [{ "type": "text", "content": "申请退款", "fill": "$local-color-brand-primary" }] }
+                ]
+              },
+              {
+                "id": "S-002-DETAILS",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 24,
+                "children": [
+                  { "type": "frame", "padding": 24, "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "订单进度", "fontWeight": "bold" }] },
+                  { "type": "frame", "padding": 24, "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "美国商标注册", "fontWeight": "bold" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

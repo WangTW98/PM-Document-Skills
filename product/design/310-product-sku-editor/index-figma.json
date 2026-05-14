@@ -1,0 +1,144 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/310-product-sku-editor/index.md",
+    "output_file": "product/design/310-product-sku-editor/index-figma.json",
+    "page_id": "M-430",
+    "page_name": "商品与SKU编辑",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin management page with structured form for product and SKU configuration"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 分段式表单区块 + SKU 阶梯定价表格 + 图片上传预览 + 模板引用下拉"
+  },
+  "page": {
+    "frame_name": "M-430 商品与SKU编辑",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "editing_sku", "error_validation", "loading"],
+    "copy_tone": "精确, 商业"
+  },
+  "state_examples": {
+    "default": "展示商品基础信息（主图、基价）及已配置的 SKU 分类与规格列表",
+    "editing_sku": "弹出模态框编辑特定 SKU 的加价金额及关联流程模板",
+    "error_validation": "基价或 SKU 加价项输入负数时，输入框显示红色警告边框"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-PRODUCT", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "tag", "fill": "white" } }, { "type": "text", "content": { "text": "定价中心" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "服务与商品 / 商品与SKU编辑" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 32, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "商品基础属性",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 24, "padding": 24 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "基础信息" }, "style": { "font_size": 16, "font_weight": "bold" } },
+                    {
+                      "id": "BASIC-FORM",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 40 },
+                      "children": [
+                        { "id": "E-001", "type": "image", "name": "商品主图", "size": { "width": 120, "height": 120 }, "style": { "radius": 4, "stroke": "local.color.border.default" } },
+                        {
+                          "id": "INPUTS",
+                          "type": "frame",
+                          "layout": { "mode": "vertical", "gap": 16, "width": 400 },
+                          "children": [
+                            { "id": "E-002", "type": "input", "content": { "text": "美国商标注册" }, "style": { "height": 36, "stroke": "local.color.border.default" } },
+                            { "id": "E-004", "type": "input", "content": { "text": "¥ 2999.00" }, "style": { "height": 36, "stroke": "local.color.border.default" } }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "SKU 分类管理",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 24 },
+                  "children": [
+                    {
+                      "id": "CAT-WRAP",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "padding": 24, "gap": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [
+                        {
+                          "id": "E-005",
+                          "type": "frame",
+                          "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" },
+                          "children": [{ "type": "text", "content": { "text": "规格分类：国家/地区" }, "style": { "font_weight": "bold" } }, { "type": "button", "content": { "text": "+ 新增 SKU" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [6, 12] } }]
+                        },
+                        {
+                          "id": "E-006",
+                          "type": "frame",
+                          "role": "table",
+                          "layout": { "mode": "vertical", "width": "fill" },
+                          "children": [
+                            { "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 16] }, "style": { "fill": "local.color.surface.bg-light" }, "children": [{ "type": "text", "content": "规格名称 | 加价金额 | 关联模板 | 状态 | 操作" }] },
+                            { "type": "frame", "layout": { "mode": "horizontal", "padding": [16, 16], "align": "center" }, "children": [{ "type": "text", "content": "美国单国 | +¥ 0.00 | 标准模板 | [ON] | 编辑 | 删除" }] }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                },
+                { "id": "SAVE-BAR", "type": "frame", "layout": { "mode": "horizontal", "justify": "flex-end" }, "children": [{ "id": "ACT-003", "type": "button", "content": { "text": "保存并发布配置" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [12, 40] } }] }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

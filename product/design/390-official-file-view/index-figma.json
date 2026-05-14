@@ -1,0 +1,127 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/390-official-file-view/index.md",
+    "output_file": "product/design/390-official-file-view/index-figma.json",
+    "page_id": "M-622",
+    "page_name": "官方文件管理视图",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin document management interface for official file uploads and customer distribution"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 拖拽上传区(虚线边框) + 文件属性录入表单 + 历史交付物列表表格"
+  },
+  "page": {
+    "frame_name": "M-622 官方文件下发管理",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "file_uploaded", "loading"],
+    "copy_tone": "精确, 事务性"
+  },
+  "state_examples": {
+    "default": "展示空白的拖拽上传区域及已有的历史交付文件列表",
+    "file_uploaded": "上传成功后，展示文件名及元数据录入表单（证书号、日期），并激活'确认并发送'按钮",
+    "loading": "列表区域显示加载状态"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-FILE", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "file-plus", "fill": "white" } }, { "type": "text", "content": { "text": "官方文件管理" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "案件管理 / 详情 / 官方文件管理" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "新文件上传",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 40, "align": "center", "gap": 16 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8, "stroke": "local.color.border.dashed" },
+                  "children": [
+                    { "id": "E-001", "type": "icon", "icon": { "name": "upload-cloud", "size": 48, "fill": "local.color.text.tertiary" } },
+                    { "type": "text", "content": { "text": "点击或拖拽文件上传官方下发件\n支持 PDF, PNG, JPG, ZIP (max 50MB)" }, "style": { "text_align": "center", "fill": "local.color.text.secondary" } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "文件信息录入",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "交付信息完善" }, "style": { "font_weight": "bold" } },
+                    {
+                      "id": "FORM",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 24 },
+                      "children": [
+                        { "id": "F1", "type": "frame", "layout": { "mode": "vertical", "gap": 8, "width": "fill" }, "children": [{ "type": "text", "content": "证书号/受理号" }, { "id": "E-003", "type": "input", "content": { "text": "请输入号码" }, "style": { "height": 36 } }] },
+                        { "id": "F2", "type": "frame", "layout": { "mode": "vertical", "gap": 8, "width": "fill" }, "children": [{ "type": "text", "content": "下发日期" }, { "type": "date-picker", "style": { "height": 36, "width": "fill" } }] }
+                      ]
+                    },
+                    { "id": "E-004", "type": "button", "content": { "text": "确认并发送给客户" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [10, 40], "align_self": "flex-end" } }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "历史交付物列表",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 20] }, "style": { "fill": "local.color.surface.bg-light" }, "children": [{ "type": "text", "content": "文件名 | 关键信息 | 上传时间 | 状态 | 操作" }] },
+                    { "id": "E-005", "type": "frame", "layout": { "mode": "horizontal", "padding": [16, 20] }, "children": [{ "type": "text", "content": "受理通知书.pdf | 受理号：20261102 | 2026-05-14 10:00 | 已下发 | 预览" }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

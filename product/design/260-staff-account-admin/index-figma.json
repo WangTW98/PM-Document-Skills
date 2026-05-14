@@ -1,0 +1,152 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/260-staff-account-admin/index.md",
+    "output_file": "product/design/260-staff-account-admin/index-figma.json",
+    "page_id": "M-310",
+    "page_name": "服务人员账号分配",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin list page with filters and data table for staff management"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 检索栏 + 带有在办案件链接的数据表格 + 状态切换开关 + 弹窗式创建表单"
+  },
+  "page": {
+    "frame_name": "M-310 内部人员管理",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "creating_staff", "high_load_alert", "loading"],
+    "copy_tone": "精确, 监控"
+  },
+  "state_examples": {
+    "default": "展示服务人员列表，包含姓名、角色、在办案件数及激活状态",
+    "high_load_alert": "在办案件数超过阈值的专家，数值显示为红色，并有提示文字",
+    "loading": "表格行骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-STAFF", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "user-check", "fill": "white" } }, { "type": "text", "content": { "text": "内部人员管理" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "账号中心 / 内部人员管理" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "组合检索栏",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" },
+                  "children": [
+                    {
+                      "id": "FILTERS",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16 },
+                      "children": [
+                        { "id": "E-001", "type": "input", "content": { "text": "姓名/手机号/账号" }, "style": { "width": 240, "height": 36, "stroke": "local.color.border.default" } },
+                        { "type": "select", "content": { "text": "所有角色" }, "style": { "width": 140, "height": 36, "stroke": "local.color.border.default" } }
+                      ]
+                    },
+                    { "id": "E-002", "type": "button", "content": { "text": "+ 新增人员" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [8, 16] } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "人员数据表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    {
+                      "id": "T-HDR",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 20], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "姓名" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "手机号" }, "style": { "width": 140, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "所属角色" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "在办案件数" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "状态" }, "style": { "width": 80, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "操作" }, "style": { "width": "fill", "font_weight": "bold" } }
+                      ]
+                    },
+                    {
+                      "id": "T-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 20], "width": "fill", "align": "center" },
+                      "children": [
+                        { "type": "text", "content": { "text": "张专家" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "13800000001" }, "style": { "width": 140 } },
+                        { "type": "text", "content": { "text": "服务专家" }, "style": { "width": 120 } },
+                        { "id": "E-004", "type": "text", "content": { "text": "12" }, "style": { "width": 120, "fill": "local.color.brand.primary", "border_bottom": 1 } },
+                        { "id": "E-005", "type": "switch", "style": { "fill": "local.color.brand.primary" } },
+                        { "type": "text", "content": { "text": "编辑 | 权限 | 重置密码" }, "style": { "width": "fill", "fill": "local.color.brand.primary" } }
+                      ]
+                    },
+                    {
+                      "id": "T-ROW-LOAD",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 20], "width": "fill", "align": "center" },
+                      "children": [
+                        { "type": "text", "content": { "text": "李繁忙" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "13800000002" }, "style": { "width": 140 } },
+                        { "type": "text", "content": { "text": "审核员" }, "style": { "width": 120 } },
+                        { "id": "E-004-ALERT", "type": "text", "content": { "text": "68" }, "style": { "width": 120, "fill": "local.color.status.error", "font_weight": "bold" } },
+                        { "type": "switch" },
+                        { "type": "text", "content": { "text": "编辑 | 权限 | 重置密码" }, "style": { "width": "fill", "fill": "local.color.brand.primary" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

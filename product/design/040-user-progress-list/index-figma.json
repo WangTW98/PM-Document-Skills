@@ -1,0 +1,173 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/040-user-progress-list/index.md",
+    "output_file": "product/design/040-user-progress-list/index-figma.json",
+    "page_id": "U-220",
+    "page_name": "进度查询列表",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "list page with multi-dimensional filters"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + Tab切换 + 复合筛选栏 + 数据表格"
+  },
+  "page": {
+    "frame_name": "U-220 进度查询列表",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "empty", "loading"],
+    "copy_tone": "专业, 透明"
+  },
+  "state_examples": {
+    "default": "展示多行案件：商标注册(进行中)、VAT申报(已完结)、专利申请(待补充)",
+    "empty": "显示无结果插画",
+    "loading": "表格骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 }, "layout": { "align": "center" } },
+            { "id": "NAV-U200", "type": "text", "content": { "text": "工作台" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" }, "layout": { "padding": [12, 24, 12, 24] } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 工作台 / 进度查询" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 48, 24, 48], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "页面头部与 Tab",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16 },
+                  "children": [
+                    { "id": "E-001", "type": "text", "content": { "text": "工作台" }, "style": { "font_size": 24, "font_weight": "bold" } },
+                    {
+                      "id": "E-002",
+                      "name": "业务 Tab",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 32 },
+                      "children": [
+                        { "type": "text", "content": { "text": "待办事项" }, "style": { "fill": "local.color.text.secondary" } },
+                        { "type": "text", "content": { "text": "进度查询 (12)" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "多维筛选栏",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16, "width": "fill" },
+                  "children": [
+                    {
+                      "id": "ROW-FILTER-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16, "align": "center" },
+                      "children": [
+                        { "type": "text", "content": { "text": "服务类型:" }, "style": { "font_size": 14, "fill": "local.color.text.secondary" } },
+                        { "id": "E-003", "type": "frame", "role": "segmented", "layout": { "mode": "horizontal", "gap": 8 }, "children": [
+                          { "type": "frame", "layout": { "padding": [4, 12] }, "style": { "fill": "local.color.brand.primary", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "全部" }, "style": { "fill": "local.color.text.white" } }] },
+                          { "type": "frame", "layout": { "padding": [4, 12] }, "children": [{ "type": "text", "content": { "text": "商标" } }] },
+                          { "type": "frame", "layout": { "padding": [4, 12] }, "children": [{ "type": "text", "content": { "text": "专利" } }] }
+                        ]}
+                      ]
+                    },
+                    {
+                      "id": "ROW-FILTER-2",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16, "align": "center" },
+                      "children": [
+                        { "id": "E-004", "type": "frame", "role": "select", "layout": { "width": 140, "height": 32, "padding": [0, 8, 0, 8], "align": "center", "mode": "horizontal", "justify": "space-between" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "全部国家" } }, { "type": "icon", "icon": { "name": "chevron-down", "size": 16 } }] },
+                        { "id": "E-005", "type": "frame", "role": "select", "layout": { "width": 140, "height": 32, "padding": [0, 8, 0, 8], "align": "center", "mode": "horizontal", "justify": "space-between" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "全部状态" } }, { "type": "icon", "icon": { "name": "chevron-down", "size": 16 } }] },
+                        { "id": "E-006", "type": "frame", "role": "input", "layout": { "width": 260, "height": 32, "padding": [0, 8, 0, 8], "align": "center", "mode": "horizontal", "gap": 8 }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "icon", "icon": { "name": "search", "size": 16 } }, { "type": "text", "content": { "text": "搜索案件号/公司名" } }] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "案件列表表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "children": [
+                    {
+                      "id": "TABLE-HEADER",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 16], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "案件号" }, "layout": { "width": 150 } },
+                        { "type": "text", "content": { "text": "服务内容" }, "layout": { "width": "fill" } },
+                        { "type": "text", "content": { "text": "所属公司" }, "layout": { "width": 180 } },
+                        { "type": "text", "content": { "text": "当前阶段" }, "layout": { "width": 150 } },
+                        { "type": "text", "content": { "text": "状态" }, "layout": { "width": 100 } },
+                        { "type": "text", "content": { "text": "更新时间" }, "layout": { "width": 120 } },
+                        { "type": "text", "content": { "text": "操作" }, "layout": { "width": 80 } }
+                      ]
+                    },
+                    {
+                      "id": "TABLE-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 16], "width": "fill", "align": "center" },
+                      "style": { "stroke_bottom": "local.color.border.light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "TK20260514001" }, "layout": { "width": 150 } },
+                        { "type": "text", "content": { "text": "欧盟商标注册 - 单类别" }, "layout": { "width": "fill" } },
+                        { "type": "text", "content": { "text": "某跨境电商有限公司" }, "layout": { "width": 180 } },
+                        { "type": "text", "content": { "text": "资料提交中" }, "layout": { "width": 150 } },
+                        { "type": "badge", "content": { "text": "进行中" }, "style": { "fill": "local.color.status.info" }, "layout": { "width": 100 } },
+                        { "type": "text", "content": { "text": "2026-05-14" }, "layout": { "width": 120 }, "style": { "font_size": 12, "fill": "local.color.text.tertiary" } },
+                        { "id": "E-008", "type": "text", "content": { "text": "查看" }, "style": { "fill": "local.color.brand.primary" }, "layout": { "width": 80 } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

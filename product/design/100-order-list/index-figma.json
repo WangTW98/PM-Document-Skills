@@ -1,0 +1,174 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/100-order-list/index.md",
+    "output_file": "product/design/100-order-list/index-figma.json",
+    "page_id": "U-410",
+    "page_name": "订单列表",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "list page with order status tabs"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + 状态Tab导航 + 组合搜索工具栏 + 订单详情卡片"
+  },
+  "page": {
+    "frame_name": "U-410 订单列表",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "empty", "loading"],
+    "copy_tone": "简洁, 专业"
+  },
+  "state_examples": {
+    "default": "展示全部订单，包含待支付、已支付、已取消等各种状态的卡片",
+    "empty": "显示'暂无订单记录'的空状态插画",
+    "loading": "列表区骨架屏展示"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-ORDER", "type": "text", "content": { "text": "订单中心" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 订单中心 / 订单列表" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 48, 24, 48], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "订单状态导航",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16 },
+                  "children": [
+                    { "id": "PAGE-TITLE", "type": "text", "content": { "text": "我的订单" }, "style": { "font_size": 24, "font_weight": "bold" } },
+                    {
+                      "id": "E-001",
+                      "name": "状态 Tab",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 32 },
+                      "children": [
+                        { "type": "text", "content": { "text": "全部" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+                        { "type": "text", "content": { "text": "待支付" }, "style": { "fill": "local.color.text.secondary" } },
+                        { "type": "text", "content": { "text": "处理中" }, "style": { "fill": "local.color.text.secondary" } },
+                        { "type": "text", "content": { "text": "已完结" }, "style": { "fill": "local.color.text.secondary" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "组合搜索栏",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16, "align": "center" },
+                  "children": [
+                    { "id": "E-002", "type": "frame", "role": "date-range", "layout": { "width": 240, "height": 32, "padding": [0, 8, 0, 8], "align": "center", "mode": "horizontal" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "下单时间：近三月" } }] },
+                    { "id": "E-003", "type": "frame", "role": "input", "layout": { "width": 240, "height": 32, "padding": [0, 8, 0, 8], "align": "center", "mode": "horizontal", "gap": 8 }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "icon", "icon": { "name": "search", "size": 16 } }, { "type": "text", "content": { "text": "搜索订单号/商品名" } }] }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "订单数据区",
+                  "type": "frame",
+                  "role": "list",
+                  "layout": { "mode": "vertical", "gap": 16, "width": "fill" },
+                  "children": [
+                    {
+                      "id": "ORDER-CARD-1",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "mode": "vertical", "width": "fill" },
+                      "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card", "overflow": "hidden" },
+                      "children": [
+                        {
+                          "id": "CARD-HEAD",
+                          "type": "frame",
+                          "layout": { "mode": "horizontal", "justify": "space-between", "padding": [12, 20], "width": "fill" },
+                          "style": { "fill": "local.color.surface.bg-light" },
+                          "children": [
+                            { "type": "text", "content": { "text": "2026-05-14 10:30 | 订单号: ORD202605140001" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } },
+                            { "id": "E-004-STATUS", "type": "text", "content": { "text": "待支付" }, "style": { "fill": "local.color.status.warning", "font_weight": "bold" } }
+                          ]
+                        },
+                        {
+                          "id": "CARD-BODY",
+                          "type": "frame",
+                          "layout": { "mode": "horizontal", "padding": 20, "justify": "space-between", "align": "center", "width": "fill" },
+                          "children": [
+                            {
+                              "type": "frame",
+                              "layout": { "mode": "horizontal", "gap": 16, "align": "center" },
+                              "children": [
+                                { "type": "rectangle", "width": 64, "height": 64, "style": { "radius": 4, "fill": "local.color.surface.bg-light" } },
+                                {
+                                  "type": "frame",
+                                  "layout": { "mode": "vertical", "gap": 4 },
+                                  "children": [
+                                    { "type": "text", "content": { "text": "美国商标注册" }, "style": { "font_weight": "bold" } },
+                                    { "type": "text", "content": { "text": "规格：标准版" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } }
+                                  ]
+                                }
+                              ]
+                            },
+                            { "type": "text", "content": { "text": "¥ 2,800.00" }, "style": { "font_weight": "bold", "font_size": 18 } },
+                            {
+                              "type": "frame",
+                              "layout": { "mode": "horizontal", "gap": 12 },
+                              "children": [
+                                { "id": "E-006", "type": "text", "content": { "text": "查看详情" }, "style": { "fill": "local.color.text.secondary" } },
+                                { "id": "E-005", "type": "frame", "layout": { "padding": [6, 16] }, "style": { "fill": "local.color.brand.primary", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "去支付" }, "style": { "fill": "local.color.text.white" } }] }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

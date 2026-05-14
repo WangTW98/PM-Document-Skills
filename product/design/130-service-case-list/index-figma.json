@@ -1,0 +1,151 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/130-service-case-list/index.md",
+    "output_file": "product/design/130-service-case-list/index-figma.json",
+    "page_id": "U-510",
+    "page_name": "服务案件列表",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "list page with multi-dimensional case filters"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + 复杂筛选组(下拉+Tab) + 数据表格 + 状态高亮"
+  },
+  "page": {
+    "frame_name": "U-510 服务案件列表",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "empty", "loading"],
+    "copy_tone": "严谨, 列表"
+  },
+  "state_examples": {
+    "default": "展示案件列表表格，包含商标注册、VAT申报等项目，突出显示'资料待补'状态",
+    "empty": "显示'没找到相关案件'的空状态",
+    "loading": "表格区骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-SERVICE", "type": "text", "content": { "text": "我的服务" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 我的服务 / 案件列表" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 48, 24, 48], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                { "id": "PAGE-TITLE", "type": "text", "content": { "text": "案件管理" }, "style": { "font_size": 24, "font_weight": "bold" } },
+                {
+                  "id": "S-001",
+                  "name": "组合筛选栏",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 20, "padding": 24 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    {
+                      "id": "FILTER-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16 },
+                      "children": [
+                        { "id": "E-001", "type": "frame", "role": "select", "layout": { "width": 200, "height": 36, "padding": [0, 12], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "所有服务大类" } }] },
+                        { "id": "E-002", "type": "frame", "role": "select", "layout": { "width": 200, "height": 36, "padding": [0, 12], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "所有国家/地区" } }] },
+                        { "id": "E-004", "type": "frame", "role": "input", "layout": { "width": 300, "height": 36, "padding": [0, 12], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "输入案号/服务名称搜索" } }] }
+                      ]
+                    },
+                    {
+                      "id": "E-003",
+                      "name": "状态 Tab",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 32 },
+                      "children": [
+                        { "type": "text", "content": { "text": "进行中" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+                        { "type": "text", "content": { "text": "资料待补 (3)" }, "style": { "fill": "local.color.status.error" } },
+                        { "type": "text", "content": { "text": "已完结" }, "style": { "fill": "local.color.text.secondary" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "案件数据表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8, "overflow": "hidden" },
+                  "children": [
+                    {
+                      "id": "TABLE-HEADER",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 24], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "服务案件信息" }, "style": { "width": "fill", "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "国家/地区" }, "style": { "width": 120, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "当前进度" }, "style": { "width": 180, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "更新时间" }, "style": { "width": 160, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "操作" }, "style": { "width": 80, "font_weight": "bold", "font_size": 13 } }
+                      ]
+                    },
+                    {
+                      "id": "TABLE-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 24], "width": "fill", "align": "center" },
+                      "style": { "stroke_bottom": "local.color.border.light" },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "vertical", "gap": 4, "width": "fill" }, "children": [{ "type": "text", "content": { "text": "美国商标注册" }, "style": { "font_weight": "bold" } }, { "type": "text", "content": { "text": "案号: CASE20260514001" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } }] },
+                        { "type": "text", "content": { "text": "美国" }, "style": { "width": 120 } },
+                        { "type": "badge", "content": { "text": "待补资料" }, "style": { "fill": "local.color.status.error", "width": 180 } },
+                        { "type": "text", "content": { "text": "2026-05-14 11:30" }, "style": { "width": 160, "fill": "local.color.text.secondary", "font_size": 13 } },
+                        { "id": "E-006", "type": "text", "content": { "text": "查看" }, "style": { "width": 80, "fill": "local.color.brand.primary" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

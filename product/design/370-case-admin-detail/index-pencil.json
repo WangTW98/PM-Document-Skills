@@ -1,0 +1,91 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/370-case-admin-detail/index.md",
+    "output_file": "product/design/370-case-admin-detail/index-pencil.json",
+    "page_id": "M-620",
+    "page_name": "案件详情维护",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示案件进度轴、基础信息、节点操作区与协作备注",
+    "loading": "各区块显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-620 案件维护详情 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "案件详情维护", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "案件管理 / 详情维护", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "案件详情维护：CAS20260514001", "fontSize": 24, "fontWeight": "bold" },
+              { "type": "frame", "padding": 24, "fill": "white", "cornerRadius": 8, "children": [{ "type": "text", "content": "全生命周期步骤条 (资料 -> 审核 -> 申报 -> 下发)" }] },
+              { "type": "frame", "padding": 20, "fill": "white", "children": [{ "type": "text", "content": "客户主体：北京某某科技有限公司 | 服务：美国商标" }] },
+              { "type": "frame", "padding": 24, "fill": "white", "stroke": "blue", "children": [{ "type": "text", "content": "当前节点操作区：[查看内容] [审核结论录入]" }] },
+              { "type": "frame", "padding": 24, "fill": "white", "children": [{ "type": "text", "content": "内部备注输入框..." }, { "type": "text", "content": "操作日志列表区域" }] }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

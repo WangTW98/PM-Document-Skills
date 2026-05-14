@@ -1,0 +1,128 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/190-account-settings/index.md",
+    "output_file": "product/design/190-account-settings/index-figma.json",
+    "page_id": "U-620",
+    "page_name": "账号设置",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-004",
+    "responsive_rule_summary": "settings page with categorized form sections"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + 分组卡片(基础安全/消息通知/公司管理) + 开关UI + 弹窗式表单交互"
+  },
+  "page": {
+    "frame_name": "U-620 账号设置",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "editing_nickname", "adding_company", "loading"],
+    "copy_tone": "严谨, 私密"
+  },
+  "state_examples": {
+    "default": "展示当前账号的基本资料、绑定的主手机、通知偏好开关及已保存的公司列表",
+    "adding_company": "在常用公司管理区块显示新增公司的表单或弹窗",
+    "loading": "各分组卡片骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-ME", "type": "text", "content": { "text": "个人中心" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 个人中心 / 账号设置" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [32, 48, 32, 48], "gap": 32, "overflow": "scroll-y" },
+              "children": [
+                { "id": "PAGE-TITLE", "type": "text", "content": { "text": "账号设置" }, "style": { "font_size": 24, "font_weight": "bold" } },
+                {
+                  "id": "S-001",
+                  "name": "基础与安全设置",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 12 },
+                  "children": [
+                    { "type": "text", "content": { "text": "基础与安全" }, "style": { "font_weight": "bold", "font_size": 16 } },
+                    { "id": "FIELD-NICKNAME", "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "用户昵称" } }, { "id": "E-001", "type": "text", "content": { "text": "John Doe" }, "style": { "fill": "local.color.brand.primary" } }] },
+                    { "id": "FIELD-MOBILE", "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "登录手机号" } }, { "type": "frame", "layout": { "mode": "horizontal", "gap": 12 }, "children": [{ "id": "E-002", "type": "text", "content": { "text": "138****0001" } }, { "id": "E-004", "type": "text", "content": { "text": "更换" }, "style": { "fill": "local.color.brand.primary" } }] }] },
+                    { "id": "FIELD-PWD", "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "登录密码" } }, { "id": "E-003", "type": "text", "content": { "text": "修改" }, "style": { "fill": "local.color.brand.primary" } }] }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "消息通知偏好",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 12 },
+                  "children": [
+                    { "type": "text", "content": { "text": "消息通知偏好" }, "style": { "font_weight": "bold", "font_size": 16 } },
+                    {
+                      "id": "E-007",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 16 },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "站内通知" } }, { "type": "switch", "style": { "fill": "local.color.brand.primary" } }] },
+                        { "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [{ "type": "text", "content": { "text": "邮件提醒" } }, { "type": "switch", "style": { "fill": "local.color.status.disabled" } }] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "常用公司管理",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 12 },
+                  "children": [
+                    { "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" }, "children": [{ "type": "text", "content": { "text": "常用公司管理" }, "style": { "font_weight": "bold", "font_size": 16 } }, { "id": "E-006", "type": "button", "content": { "text": "+ 新增公司" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [4, 12] } }] },
+                    { "id": "E-005", "type": "text", "content": { "text": "暂无公司信息，请点击右上角新增。" }, "style": { "fill": "local.color.text.tertiary", "text_align": "center", "padding": [20, 0] } }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

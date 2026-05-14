@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/270-user-account-admin/index.md",
+    "output_file": "product/design/270-user-account-admin/index-figma.json",
+    "page_id": "M-320",
+    "page_name": "用户账号管理",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin list page with data table and side drawer for user profile"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 检索栏 + 用户列表表格(含徽标) + 状态开关 + 侧滑用户全量画像抽屉"
+  },
+  "page": {
+    "frame_name": "M-320 客户账号管理",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "drawer_open", "loading"],
+    "copy_tone": "细致, 管理感"
+  },
+  "state_examples": {
+    "default": "展示客户列表，包含头像昵称、实名状态、订单及案件统计和账号开关",
+    "drawer_open": "右侧滑出抽屉，展示用户的基础资料、实名信息以及该用户所有的订单与案件列表",
+    "loading": "表格行骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-USER", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "users", "fill": "white" } }, { "type": "text", "content": { "text": "客户账号管理" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "账号中心 / 客户账号管理" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "组合检索工具栏",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16, "align": "center" },
+                  "children": [
+                    { "id": "E-001", "type": "input", "content": { "text": "搜索昵称/手机号" }, "style": { "width": 200, "height": 36, "stroke": "local.color.border.default" } },
+                    { "id": "E-002", "type": "select", "content": { "text": "全部实名状态" }, "style": { "width": 140, "height": 36, "stroke": "local.color.border.default" } },
+                    { "type": "date-range", "content": { "text": "注册时间范围" }, "style": { "width": 240, "height": 36, "stroke": "local.color.border.default" } },
+                    { "type": "button", "content": { "text": "查询" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [0, 20], "height": 36 } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "用户数据表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    {
+                      "id": "T-HDR",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 20], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "用户昵称" }, "style": { "width": 150, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "绑定手机" }, "style": { "width": 140, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "实名状态" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "订单/案件" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "注册时间" }, "style": { "width": 160, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "状态" }, "style": { "width": 80, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "操作" }, "style": { "width": "fill", "font_weight": "bold" } }
+                      ]
+                    },
+                    {
+                      "id": "T-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 20], "width": "fill", "align": "center" },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "align": "center", "width": 150 }, "children": [{ "type": "ellipse", "size": 32, "style": { "fill": "local.color.surface.bg-light" } }, { "type": "text", "content": { "text": "客户A" }, "style": { "font_weight": "bold" } }] },
+                        { "type": "text", "content": { "text": "13912345678" }, "style": { "width": 140 } },
+                        { "type": "frame", "layout": { "mode": "horizontal", "padding": [2, 8], "width": 120 }, "children": [{ "type": "text", "content": { "text": "已实名" }, "style": { "fill": "local.color.status.success", "font_size": 12 } }] },
+                        { "type": "text", "content": { "text": "5 / 3" }, "style": { "width": 120 } },
+                        { "type": "text", "content": { "text": "2026-05-10" }, "style": { "width": 160 } },
+                        { "id": "E-004", "type": "switch", "style": { "fill": "local.color.brand.primary" } },
+                        { "type": "text", "content": { "text": "查看 | 冻结 | 重置密码" }, "style": { "width": "fill", "fill": "local.color.brand.primary" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

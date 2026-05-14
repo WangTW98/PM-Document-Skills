@@ -1,0 +1,107 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/430-analytics-center/index.md",
+    "output_file": "product/design/430-analytics-center/index-figma.json",
+    "page_id": "M-800",
+    "page_name": "数据统计中心",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-005",
+    "responsive_rule_summary": "admin analytics dashboard with revenue indicators, trend line charts, and regional pie distribution"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 核心指标卡片(带升降趋势箭头) + 折线走势图 + 饼状分布图 + 日期筛选器"
+  },
+  "page": {
+    "frame_name": "M-800 经营数据统计看板",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "loading", "empty_data"],
+    "copy_tone": "专业, 分析式"
+  },
+  "state_examples": {
+    "default": "展示累计 GMV、付费用户数等核心指标卡片，及营收趋势折线图和地区占比饼图",
+    "loading": "各图表区域显示加载动画或骨架屏",
+    "empty_data": "当选定日期范围内无业务数据时，图表显示空状态插图及'暂无数据'提示"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-STAT", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "bar-chart-2", "fill": "white" } }, { "type": "text", "content": { "text": "数据统计" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "数据中心 / 经营看板" } },
+                { "id": "DATE-RANGE", "type": "date-picker", "content": { "text": "2026-04-14 ~ 2026-05-14" }, "style": { "width": 260 } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "经营核心看板",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16 },
+                  "children": [
+                    { "id": "C-GMV", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "累计 GMV" } }, { "type": "text", "content": { "text": "¥ 2,456,000.00" }, "style": { "font_size": 24, "font_weight": "bold" } }, { "type": "text", "content": { "text": "↑ 12% 较上周期" }, "style": { "fill": "local.color.status.success", "font_size": 12 } }] },
+                    { "id": "C-USER", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "付费用户数" } }, { "type": "text", "content": { "text": "1,245" }, "style": { "font_size": 24, "font_weight": "bold" } }, { "type": "text", "content": { "text": "↑ 5% 较上周期" }, "style": { "fill": "local.color.status.success", "font_size": 12 } }] },
+                    { "id": "C-ARPU", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "客单价 (ARPU)" } }, { "type": "text", "content": { "text": "¥ 1,972.00" }, "style": { "font_size": 24, "font_weight": "bold" } }] },
+                    { "id": "C-REFUND", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "退款金额" } }, { "type": "text", "content": { "text": "¥ 12,400.00" }, "style": { "font_size": 24, "font_weight": "bold" } }, { "type": "text", "content": { "text": "↓ 2% 较上周期" }, "style": { "fill": "local.color.status.success", "font_size": 12 } }] }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "趋势与分布图表",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24, "height": 400 },
+                  "children": [
+                    { "id": "E-002", "type": "frame", "role": "chart", "name": "营收走势图", "layout": { "width": "fill", "height": "fill" }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": "15d 营收趋势折线图占位" }] },
+                    { "id": "E-003", "type": "frame", "role": "chart", "name": "地区分布饼图", "layout": { "width": 400, "height": "fill" }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": "国家销量占比饼图占位" }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/020-user-dashboard/index.md",
+    "output_file": "product/design/020-user-dashboard/index-pencil.json",
+    "page_id": "U-200",
+    "page_name": "用户工作台",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "empty", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示欢迎语, 待办计数(5), 进行中案件(12), 即将到期(2), 快捷入口卡片",
+    "empty": "统计数据为0, 功能区展示空状态插画和CTA",
+    "loading": "内容区骨架屏展示"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-200 用户工作台 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "工作台", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" },
+          { "type": "text", "content": "服务目录", "fontSize": 14, "fill": "$local-color-text-secondary" },
+          { "type": "text", "content": "订单中心", "fontSize": 14, "fill": "$local-color-text-secondary" },
+          { "type": "text", "content": "我的服务", "fontSize": 14, "fill": "$local-color-text-secondary" },
+          { "type": "text", "content": "个人中心", "fontSize": 14, "fill": "$local-color-text-secondary" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 工作台", "fontSize": 14 },
+              {
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 16,
+                "alignItems": "center",
+                "children": [
+                  { "type": "icon_font", "iconFontName": "bell", "size": 20 },
+                  { "type": "text", "content": "张三", "fontSize": 14 }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 32,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "name": "欢迎与统计",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 24,
+                "width": "fill_container",
+                "children": [
+                  { "type": "text", "content": "您好，张三", "fontSize": 24, "fontWeight": "bold" },
+                  {
+                    "type": "frame",
+                    "layout": "horizontal",
+                    "gap": 16,
+                    "width": "fill_container",
+                    "children": [
+                      { "type": "frame", "padding": 20, "gap": 8, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "待办事项", "fontSize": 12 }, { "type": "text", "content": "5", "fontSize": 24, "fontWeight": "bold" }] },
+                      { "type": "frame", "padding": 20, "gap": 8, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "进行中案件", "fontSize": 12 }, { "type": "text", "content": "12", "fontSize": 24, "fontWeight": "bold" }] },
+                      { "type": "frame", "padding": 20, "gap": 8, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "即将到期", "fontSize": 12 }, { "type": "text", "content": "2", "fontSize": 24, "fontWeight": "bold", "fill": "$local-color-status-error" }] }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "S-002",
+                "name": "功能卡片",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 24,
+                "width": "fill_container",
+                "children": [
+                  {
+                    "id": "E-003",
+                    "name": "待办卡片",
+                    "type": "frame",
+                    "padding": 24,
+                    "gap": 16,
+                    "width": "fill_container",
+                    "fill": "$local-color-surface-white",
+                    "cornerRadius": 8,
+                    "children": [
+                      { "type": "text", "content": "待办事项", "fontSize": 16, "fontWeight": "bold" },
+                      { "type": "text", "content": "资料审核驳回: 欧洲商标申请资料待完善", "fontSize": 14 }
+                    ]
+                  },
+                  {
+                    "id": "E-004",
+                    "name": "进度卡片",
+                    "type": "frame",
+                    "padding": 24,
+                    "gap": 16,
+                    "width": "fill_container",
+                    "fill": "$local-color-surface-white",
+                    "cornerRadius": 8,
+                    "children": [
+                      { "type": "text", "content": "最新进展", "fontSize": 16, "fontWeight": "bold" },
+                      { "type": "text", "content": "案号: TK20260514001 - 商标注册", "fontSize": 14 }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

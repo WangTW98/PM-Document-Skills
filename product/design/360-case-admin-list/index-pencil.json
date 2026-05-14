@@ -1,0 +1,101 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/360-case-admin-list/index.md",
+    "output_file": "product/design/360-case-admin-list/index-pencil.json",
+    "page_id": "M-610",
+    "page_name": "案件总览",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示案件总览表格、状态 Tab 与高级筛选栏",
+    "loading": "表格区显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-610 案件总览 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "全量案件管理", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "交付监控 / 案件总览", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "全量案件管理", "fontSize": 24, "fontWeight": "bold" },
+              { "type": "frame", "layout": "horizontal", "gap": 24, "children": [{ "type": "text", "content": "全部" }, { "type": "text", "content": "待补件" }, { "type": "text", "content": "申报中" }] },
+              { "type": "frame", "layout": "horizontal", "padding": 20, "fill": "white", "children": [{ "type": "text", "content": "搜索案件 ID/手机号/主体..." }] },
+              {
+                "id": "CASE-TABLE",
+                "type": "frame",
+                "layout": "vertical",
+                "width": "fill_container",
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 8,
+                "children": [
+                  { "type": "frame", "padding": 12, "fill": "$local-color-surface-bg-light", "children": [{ "type": "text", "content": "案件 ID | 服务项 | 节点 | 专家 | 停留时长" }] },
+                  { "type": "frame", "padding": 16, "fill": "$local-color-status-error-light", "children": [{ "type": "text", "content": "CAS20260514001 | 美国商标 | 待审核 | 张专家 | 168h" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

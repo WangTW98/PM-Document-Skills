@@ -1,0 +1,137 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/100-order-list/index.md",
+    "output_file": "product/design/100-order-list/index-pencil.json",
+    "page_id": "U-410",
+    "page_name": "订单列表",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "empty", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示全部订单，包含待支付、已支付、已取消等各种状态的卡片",
+    "empty": "显示'暂无订单记录'的空状态插画",
+    "loading": "列表区骨架屏展示"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-410 订单列表 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "订单中心", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 订单中心 / 订单列表", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "PAGE-HEADER",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 16,
+                "children": [
+                  { "type": "text", "content": "我的订单", "fontSize": 24, "fontWeight": "bold" },
+                  {
+                    "type": "frame",
+                    "layout": "horizontal",
+                    "gap": 32,
+                    "children": [
+                      { "type": "text", "content": "全部", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" },
+                      { "type": "text", "content": "待支付", "fontSize": 14, "fill": "$local-color-text-secondary" },
+                      { "type": "text", "content": "处理中", "fontSize": 14, "fill": "$local-color-text-secondary" }
+                    ]
+                  }
+                ]
+              },
+              {
+                "id": "FILTER-BAR",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 16,
+                "alignItems": "center",
+                "children": [
+                  { "type": "frame", "width": 240, "height": 32, "stroke": "$local-color-border-default", "cornerRadius": 4, "padding": 8, "children": [{ "type": "text", "content": "下单时间：近三月", "fontSize": 12 }] },
+                  { "type": "frame", "width": 240, "height": 32, "stroke": "$local-color-border-default", "cornerRadius": 4, "padding": 8, "children": [{ "type": "text", "content": "搜索订单号/商品名", "fontSize": 12 }] }
+                ]
+              },
+              {
+                "id": "LIST-CONTAINER",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 16,
+                "width": "fill_container",
+                "children": [
+                  {
+                    "type": "frame",
+                    "layout": "vertical",
+                    "fill": "$local-color-surface-white",
+                    "cornerRadius": 8,
+                    "width": "fill_container",
+                    "children": [
+                      { "type": "frame", "padding": [12, 20], "fill": "$local-color-surface-bg-light", "children": [{ "type": "text", "content": "ORD202605140001", "fontSize": 12 }] },
+                      { "type": "frame", "padding": 20, "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "美国商标注册", "fontWeight": "bold" }, { "type": "text", "content": "¥ 2,800.00", "fontWeight": "bold" }] }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

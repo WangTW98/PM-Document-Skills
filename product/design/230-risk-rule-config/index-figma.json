@@ -1,0 +1,161 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/230-risk-rule-config/index.md",
+    "output_file": "product/design/230-risk-rule-config/index-figma.json",
+    "page_id": "M-210",
+    "page_name": "待办/风险规则配置",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin list page with side drawer for complex rule configuration"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "深色管理端侧边栏 + 顶栏 + 规则类型Tabs + 紧凑表格(带开关UI) + 侧滑抽屉表单(条件组配置)"
+  },
+  "page": {
+    "frame_name": "M-210 规则配置",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "drawer_open", "loading"],
+    "copy_tone": "精确, 逻辑性"
+  },
+  "state_examples": {
+    "default": "展示规则列表表格，包含规则名称、触发条件摘要及启用/禁用状态开关",
+    "drawer_open": "右侧滑出抽屉，展示可视化条件组配置器(IF-THEN逻辑)",
+    "loading": "表格行显示加载状态"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-CONFIG", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "settings", "fill": "white" } }, { "type": "text", "content": { "text": "规则配置" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "工作台 / 规则配置" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "规则检索与操作",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "justify": "space-between", "align": "flex-end" },
+                  "children": [
+                    {
+                      "id": "E-001",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 32 },
+                      "children": [
+                        { "type": "text", "content": { "text": "风险预警规则" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+                        { "type": "text", "content": { "text": "待办触发规则" }, "style": { "fill": "local.color.text.secondary" } }
+                      ]
+                    },
+                    { "id": "E-002", "type": "button", "content": { "text": "+ 新增规则" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [8, 16] } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "规则数据表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8, "overflow": "hidden" },
+                  "children": [
+                    {
+                      "id": "TABLE-HEADER",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 24], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "规则名称" }, "style": { "width": 200, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "触发逻辑摘要" }, "style": { "width": "fill", "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "目标对象" }, "style": { "width": 120, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "状态" }, "style": { "width": 80, "font_weight": "bold", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "操作" }, "style": { "width": 100, "font_weight": "bold", "font_size": 13 } }
+                      ]
+                    },
+                    {
+                      "id": "TABLE-ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 24], "width": "fill", "align": "center" },
+                      "style": { "stroke_bottom": "local.color.border.light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "支付后资料未上传" }, "style": { "width": 200, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "IF (案件已支付 AND 节点=资料上传 AND 超过 72 小时)" }, "style": { "width": "fill", "fill": "local.color.text.secondary", "font_size": 13 } },
+                        { "type": "text", "content": { "text": "所有案件" }, "style": { "width": 120 } },
+                        { "id": "E-004", "type": "switch", "style": { "fill": "local.color.brand.primary" } },
+                        { "type": "text", "content": { "text": "编辑 | 日志" }, "style": { "width": 100, "fill": "local.color.brand.primary" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "id": "S-003",
+          "name": "规则编辑抽屉",
+          "type": "frame",
+          "role": "drawer",
+          "layout": { "mode": "vertical", "width": 600, "height": "fill", "padding": 24, "gap": 32, "position": "fixed", "right": -600 },
+          "style": { "fill": "local.color.surface.white", "shadow": "local.shadow.drawer" },
+          "children": [
+            { "type": "text", "content": { "text": "编辑规则" }, "style": { "font_size": 18, "font_weight": "bold" } },
+            {
+              "id": "E-005",
+              "name": "逻辑配置器",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 16, "padding": 16 },
+              "style": { "fill": "local.color.surface.bg-light", "radius": 4 },
+              "children": [
+                { "type": "text", "content": { "text": "触发条件：" }, "style": { "font_weight": "bold" } },
+                { "type": "frame", "layout": { "mode": "horizontal", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "节点停滞时间" } }, { "type": "text", "content": { "text": ">" } }, { "type": "text", "content": { "text": "72" } }, { "type": "text", "content": { "text": "小时" } }] }
+              ]
+            },
+            { "id": "E-006", "type": "button", "content": { "text": "确认保存" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [10, 40], "align_self": "center" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

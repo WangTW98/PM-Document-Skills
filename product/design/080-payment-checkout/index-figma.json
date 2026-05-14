@@ -1,0 +1,102 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/080-payment-checkout/index.md",
+    "output_file": "product/design/080-payment-checkout/index-figma.json",
+    "page_id": "U-330",
+    "page_name": "支付收银台",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "minimal-nav",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "centered payment QR flow"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "极简顶栏 + 支付卡片 + 微信支付二维码 + 支付倒计时"
+  },
+  "page": {
+    "frame_name": "U-330 支付收银台",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "expired", "success"],
+    "copy_tone": "安全, 快速"
+  },
+  "state_examples": {
+    "default": "展示订单金额、倒计时、微信支付二维码",
+    "expired": "二维码带模糊遮罩，显示'已失效'并提供刷新按钮",
+    "success": "支付成功后的自动跳转中间态"
+  },
+  "nodes": [
+    {
+      "id": "S-001-MINIMAL-NAV",
+      "name": "极简顶栏",
+      "type": "frame",
+      "role": "header",
+      "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 48, 0, 48] },
+      "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+      "children": [
+        { "id": "LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+        { "id": "STEPS-SUMMARY", "type": "text", "content": { "text": "1. 确认订单 -> 2. 支付 -> 3. 完成" }, "style": { "fill": "local.color.text.tertiary", "font_size": 14 } }
+      ]
+    },
+    {
+      "id": "MAIN-CONTAINER",
+      "name": "内容区",
+      "type": "frame",
+      "role": "main",
+      "layout": { "mode": "vertical", "justify": "center", "align": "center", "width": "fill", "height": "fill", "padding": [48, 0, 48, 0] },
+      "children": [
+        {
+          "id": "PAYMENT-CARD",
+          "name": "支付卡片",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": 480, "padding": 40, "gap": 32, "align": "center" },
+          "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+          "children": [
+            {
+              "id": "S-001",
+              "name": "订单简要信息",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 12, "align": "center" },
+              "children": [
+                { "id": "E-001", "type": "text", "content": { "text": "订单编号：ORD202605140001" }, "style": { "fill": "local.color.text.secondary", "font_size": 14 } },
+                { "id": "E-002", "type": "text", "content": { "text": "¥ 2,800.00" }, "style": { "font_size": 36, "font_weight": "bold", "fill": "local.color.status.error" } },
+                { "id": "E-003", "type": "text", "content": { "text": "支付剩余时间：19:55" }, "style": { "fill": "local.color.status.warning", "font_size": 14 } }
+              ]
+            },
+            { "id": "DIVIDER", "type": "frame", "layout": { "height": 1, "width": "fill" }, "style": { "fill": "local.color.border.light" } },
+            {
+              "id": "S-002",
+              "name": "微信支付主区",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 20, "align": "center" },
+              "children": [
+                {
+                  "id": "QR-CONTAINER",
+                  "type": "frame",
+                  "layout": { "width": 240, "height": 240, "justify": "center", "align": "center", "padding": 12 },
+                  "style": { "stroke": "local.color.border.default", "radius": 8 },
+                  "children": [{ "id": "E-004", "type": "image", "size": { "width": 216, "height": 216 } }]
+                },
+                {
+                  "id": "PAY-HINT",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 12, "align": "center" },
+                  "children": [
+                    { "id": "WX-LOGO", "type": "icon", "icon": { "name": "wechat-pay", "size": 24 } },
+                    { "id": "E-005", "type": "text", "content": { "text": "请使用微信扫一扫完成支付" }, "style": { "font_size": 16 } }
+                  ]
+                }
+              ]
+            },
+            { "id": "ACT-EXIT", "type": "text", "content": { "text": "取消并返回" }, "style": { "fill": "local.color.text.tertiary", "font_size": 14 } }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/210-admin-login/index.md",
+    "output_file": "product/design/210-admin-login/index-pencil.json",
+    "page_id": "M-100",
+    "page_name": "后台登录",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading", "error_locked"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-002"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示登录卡片",
+    "error_locked": "红色高亮错误提示",
+    "loading": "按钮显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-100 后台登录 Root",
+    "layout": "vertical",
+    "alignItems": "center",
+    "justifyContent": "center",
+    "width": 1440,
+    "height": 900,
+    "fill": "$local-color-background-admin-auth",
+    "children": [
+      {
+        "id": "LOGIN-CARD",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 400,
+        "padding": 48,
+        "gap": 32,
+        "fill": "$local-color-surface-white",
+        "cornerRadius": 12,
+        "children": [
+          { "type": "rectangle", "width": 160, "height": 40, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "后台管理系统", "fontSize": 20, "fontWeight": "bold" },
+          { "type": "frame", "layout": "vertical", "gap": 24, "children": [
+            { "type": "rectangle", "height": 48, "width": "fill_container", "stroke": "$local-color-border-default", "cornerRadius": 4 },
+            { "type": "rectangle", "height": 48, "width": "fill_container", "stroke": "$local-color-border-default", "cornerRadius": 4 },
+            { "type": "frame", "layout": "horizontal", "gap": 16, "children": [{ "type": "rectangle", "height": 48, "width": "fill_container", "stroke": "$local-color-border-default" }, { "type": "rectangle", "height": 48, "width": 100 }] }
+          ]},
+          { "type": "frame", "padding": 16, "fill": "$local-color-brand-primary", "cornerRadius": 4, "children": [{ "type": "text", "content": "立即登录", "fill": "white", "fontWeight": "bold", "textAlign": "center" }] }
+        ]
+      }
+    ]
+  }
+}

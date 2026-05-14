@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/360-case-admin-list/index.md",
+    "output_file": "product/design/360-case-admin-list/index-figma.json",
+    "page_id": "M-610",
+    "page_name": "案件总览",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin list page with multi-status tabs and expert assignment tools for cases"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 状态切换Tab + 组合检索栏 + 风险案件高亮(浅红背景) + 指派弹窗入口"
+  },
+  "page": {
+    "frame_name": "M-610 案件总览列表",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "risk_highlight", "loading"],
+    "copy_tone": "精确, 管理导向"
+  },
+  "state_examples": {
+    "default": "展示全量案件列表，支持多条件检索、专家指派与状态过滤",
+    "risk_highlight": "当案件停留时长超过阈值时，该行显示浅红色底色背景，并伴随风险徽标提示",
+    "loading": "表格行骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-CASE", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "briefcase", "fill": "white" } }, { "type": "text", "content": { "text": "全量案件管理" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "交付监控 / 案件总览" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "案件状态 Tab",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 32 },
+                  "children": [
+                    { "type": "text", "content": { "text": "全部" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 } },
+                    { "type": "text", "content": { "text": "待补件" } },
+                    { "type": "text", "content": { "text": "待审核" } },
+                    { "type": "text", "content": { "text": "申报中" } },
+                    { "type": "text", "content": { "text": "已结案" } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "多维搜索与筛选",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16, "padding": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    {
+                      "id": "ROW-1",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16, "align": "center" },
+                      "children": [
+                        { "id": "E-002", "type": "input", "content": { "text": "案件 ID/手机号/主体" }, "style": { "width": 240, "height": 36, "stroke": "local.color.border.default" } },
+                        { "type": "select", "content": { "text": "所属国家" }, "style": { "width": 140, "height": 36, "stroke": "local.color.border.default" } },
+                        { "type": "select", "content": { "text": "负责专家" }, "style": { "width": 140, "height": 36, "stroke": "local.color.border.default" } },
+                        { "type": "button", "content": { "text": "搜索" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [0, 20], "height": 36 } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "案件数据表格",
+                  "type": "frame",
+                  "role": "table",
+                  "layout": { "mode": "vertical", "width": "fill" },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    {
+                      "id": "T-HDR",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [12, 20], "width": "fill" },
+                      "style": { "fill": "local.color.surface.bg-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "案件 ID" }, "style": { "width": 160, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "服务项" }, "style": { "width": 180, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "当前节点" }, "style": { "width": 120, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "负责专家" }, "style": { "width": 100, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "停留时长" }, "style": { "width": 100, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "操作" }, "style": { "width": "fill", "font_weight": "bold" } }
+                      ]
+                    },
+                    {
+                      "id": "T-ROW-RISK",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "padding": [16, 20], "width": "fill", "align": "center" },
+                      "style": { "fill": "local.color.status.error-light" },
+                      "children": [
+                        { "type": "text", "content": { "text": "CAS20260514001" }, "style": { "width": 160 } },
+                        { "type": "text", "content": { "text": "美国商标注册" }, "style": { "width": 180 } },
+                        { "type": "frame", "layout": { "mode": "horizontal", "padding": [2, 8] }, "children": [{ "type": "text", "content": { "text": "待审核" }, "style": { "fill": "local.color.status.warning", "font_size": 12 } }] },
+                        { "type": "text", "content": { "text": "张专家" }, "style": { "width": 100 } },
+                        { "type": "text", "content": { "text": "168h" }, "style": { "width": 100, "fill": "local.color.status.error", "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "详情 | 指派 | 加急" }, "style": { "width": "fill", "fill": "local.color.brand.primary" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

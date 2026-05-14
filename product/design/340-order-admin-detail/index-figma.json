@@ -1,0 +1,153 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/340-order-admin-detail/index.md",
+    "output_file": "product/design/340-order-admin-detail/index-figma.json",
+    "page_id": "M-520",
+    "page_name": "订单详情/转线上",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-004",
+    "responsive_rule_summary": "admin detail page with status tracking, audit controls, and audit logs"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 状态步骤条 + 分栏详情卡片 + 支付凭证预览/审核操作 + 垂直日志时间轴"
+  },
+  "page": {
+    "frame_name": "M-520 订单详情审核",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "offline_audit_pending", "loading"],
+    "copy_tone": "精确, 决策导向"
+  },
+  "state_examples": {
+    "default": "展示订单基本信息、支付方式、客户资料及操作日志",
+    "offline_audit_pending": "展示线下支付凭证下载按钮，以及'审核通过'与'驳回'操作组",
+    "loading": "各详情区块显示骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-ORDER", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "shopping-cart", "fill": "white" } }, { "type": "text", "content": { "text": "订单审核" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "订单管理 / 订单详情 / ORD20260514001" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "订单状态概览",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 24 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "id": "E-001", "type": "steps", "content": { "text": "待审核" }, "style": { "width": "fill" } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "基本信息",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24 },
+                  "children": [
+                    {
+                      "id": "PRODUCT-CARD",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "width": "fill", "padding": 20, "gap": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [
+                        { "type": "text", "content": { "text": "商品信息" }, "style": { "font_weight": "bold" } },
+                        { "id": "E-002", "type": "frame", "layout": { "mode": "horizontal", "gap": 12 }, "children": [{ "type": "image", "size": 64 }, { "type": "text", "content": { "text": "美国商标注册 (单国)\nSKU ID: 1001\n¥ 2999.00" } }] }
+                      ]
+                    },
+                    {
+                      "id": "FINANCE-INFO",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "width": "fill", "padding": 20, "gap": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [
+                        { "type": "text", "content": { "text": "财务明细" }, "style": { "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "应付金额：¥ 2999.00\n优惠金额：-¥ 0.00\n实付金额：¥ 2999.00" } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "支付凭证审核区",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "支付凭证 (线下支付)" }, "style": { "font_weight": "bold" } },
+                    { "id": "E-003", "type": "button", "content": { "text": "查看/下载凭证文件" }, "style": { "stroke": "local.color.brand.primary", "radius": 4, "padding": [8, 16], "align_self": "flex-start" } },
+                    {
+                      "id": "E-004",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "gap": 16 },
+                      "children": [
+                        { "id": "AUDIT-PASS", "type": "button", "content": { "text": "确认款项，审核通过" }, "style": { "fill": "local.color.status.success", "radius": 4, "padding": [10, 32] } },
+                        { "id": "AUDIT-FAIL", "type": "button", "content": { "text": "凭证无效，驳回" }, "style": { "stroke": "local.color.status.error", "radius": 4, "padding": [10, 32] } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-004",
+                  "name": "订单操作日志",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "padding": 24, "gap": 16 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "操作记录" }, "style": { "font_weight": "bold" } },
+                    { "id": "E-005", "type": "frame", "role": "timeline", "layout": { "mode": "vertical", "gap": 12 }, "children": [{ "type": "text", "content": "2026-05-14 10:00:01 | 系统 | 创建订单\n2026-05-14 10:15:30 | 客户 | 上传支付凭证", "style": { "font_size": 13, "fill": "local.color.text.secondary" } }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

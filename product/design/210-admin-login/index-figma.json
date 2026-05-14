@@ -1,0 +1,84 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/210-admin-login/index.md",
+    "output_file": "product/design/210-admin-login/index-figma.json",
+    "page_id": "M-100",
+    "page_name": "后台登录",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "minimal-centered",
+    "page_template": "TPL-002",
+    "responsive_rule_summary": "centered auth card on business background"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "商务稳重全屏背景 + 居中白色卡片(400px) + 极简表单 + 品牌蓝色主按钮"
+  },
+  "page": {
+    "frame_name": "M-100 后台登录",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "loading", "error_locked"],
+    "copy_tone": "专业, 稳重"
+  },
+  "state_examples": {
+    "default": "展示登录卡片，包含系统名称、账号密码输入框及图形验证码",
+    "error_locked": "输入框下方显示红色错误提示'账号已锁定'",
+    "loading": "登录按钮显示旋转加载状态"
+  },
+  "nodes": [
+    {
+      "id": "FULL-PAGE-BG",
+      "name": "Background",
+      "type": "frame",
+      "layout": { "mode": "vertical", "align": "center", "justify": "center", "width": "viewport", "height": "viewport" },
+      "style": { "fill": "local.color.background.admin-auth" },
+      "children": [
+        {
+          "id": "LOGIN-CARD",
+          "name": "登录卡片",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": 400, "padding": [48, 40, 48, 40], "gap": 32 },
+          "style": { "fill": "local.color.surface.white", "radius": 12, "shadow": "local.shadow.card-heavy" },
+          "children": [
+            {
+              "id": "S-001",
+              "name": "品牌标题区",
+              "type": "frame",
+              "layout": { "mode": "vertical", "align": "center", "gap": 16 },
+              "children": [
+                { "id": "E-001", "type": "image", "size": { "width": 160, "height": 40 } },
+                { "id": "APP-NAME", "type": "text", "content": { "text": "后台管理系统" }, "style": { "font_size": 20, "font_weight": "bold", "fill": "local.color.text.main" } }
+              ]
+            },
+            {
+              "id": "S-002",
+              "name": "登录交互区",
+              "type": "frame",
+              "layout": { "mode": "vertical", "gap": 24 },
+              "children": [
+                { "id": "E-002", "type": "frame", "role": "input", "layout": { "height": 48, "padding": [0, 16], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "请输入内部账号/手机号" }, "style": { "fill": "local.color.text.tertiary" } }] },
+                { "id": "E-003", "type": "frame", "role": "input", "layout": { "height": 48, "padding": [0, 16], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "请输入密码" }, "style": { "fill": "local.color.text.tertiary" } }] },
+                {
+                  "id": "E-004-WRAP",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 12 },
+                  "children": [
+                    { "id": "E-004", "type": "frame", "layout": { "width": "fill", "height": 48, "padding": [0, 16], "align": "center" }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "验证码" }, "style": { "fill": "local.color.text.tertiary" } }] },
+                    { "type": "image", "size": { "width": 100, "height": 48 }, "style": { "radius": 4, "fill": "local.color.surface.bg-light" } }
+                  ]
+                },
+                { "id": "E-005", "type": "frame", "role": "button", "layout": { "height": 52, "justify": "center", "align": "center" }, "style": { "fill": "local.color.brand.primary", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "立即登录" }, "style": { "fill": "white", "font_weight": "bold", "font_size": 16 } }] }
+              ]
+            },
+            { "id": "FORGET-PWD", "type": "text", "content": { "text": "忘记密码？" }, "style": { "fill": "local.color.text.tertiary", "font_size": 13, "text_align": "center" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

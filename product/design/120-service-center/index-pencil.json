@@ -1,0 +1,120 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/120-service-center/index.md",
+    "output_file": "product/design/120-service-center/index-pencil.json",
+    "page_id": "U-500",
+    "page_name": "我的服务",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "risk_alert", "empty"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示各项服务状态计数，活跃案件进度预览",
+    "risk_alert": "风险预警卡片高亮显示红色",
+    "empty": "显示无服务插画"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-500 我的服务 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "我的服务", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 我的服务", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 32,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 16,
+                "width": "fill_container",
+                "children": [
+                  { "type": "frame", "padding": 24, "gap": 8, "width": "fill_container", "fill": "$local-color-status-warning-light", "stroke": "$local-color-status-warning", "cornerRadius": 8, "children": [{ "type": "text", "content": "资料待补充", "fill": "$local-color-status-warning" }, { "type": "text", "content": "3", "fontSize": 28, "fontWeight": "bold", "fill": "$local-color-status-warning" }] },
+                  { "type": "frame", "padding": 24, "gap": 8, "width": "fill_container", "fill": "$local-color-status-error-light", "stroke": "$local-color-status-error", "cornerRadius": 8, "children": [{ "type": "text", "content": "风险预警", "fill": "$local-color-status-error" }, { "type": "text", "content": "1", "fontSize": 28, "fontWeight": "bold", "fill": "$local-color-status-error" }] }
+                ]
+              },
+              {
+                "id": "ACTIVE-CASES",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 16,
+                "width": "fill_container",
+                "children": [
+                  { "type": "text", "content": "最近活跃案件", "fontSize": 18, "fontWeight": "bold" },
+                  {
+                    "type": "frame",
+                    "padding": 24,
+                    "gap": 20,
+                    "fill": "$local-color-surface-white",
+                    "cornerRadius": 8,
+                    "width": "fill_container",
+                    "children": [
+                      { "type": "text", "content": "美国商标注册 - ORD202605140001", "fontWeight": "bold" },
+                      { "type": "rectangle", "height": 8, "width": "fill_container", "fill": "$local-color-surface-bg-light" }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

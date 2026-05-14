@@ -1,0 +1,155 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/060-service-detail/index.md",
+    "output_file": "product/design/060-service-detail/index-figma.json",
+    "page_id": "U-310",
+    "page_name": "服务商品详情",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-002",
+    "responsive_rule_summary": "two-column detail with sticky buy card"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "左侧图文详情 + 右侧规格选购区(吸顶) + 步骤流程条"
+  },
+  "page": {
+    "frame_name": "U-310 服务商品详情",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "sku_selected", "out_of_stock"],
+    "copy_tone": "信任, 转化"
+  },
+  "state_examples": {
+    "default": "展示商品详情、默认选中第一个 SKU、展示服务流程",
+    "sku_selected": "切换 SKU 后价格变动展示",
+    "out_of_stock": "下单按钮置灰显示已售罄"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-CATALOG", "type": "text", "content": { "text": "服务目录" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 服务目录 / 美国商标注册" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "horizontal", "width": "fill", "height": "fill", "padding": [32, 48, 32, 48], "gap": 32, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-002",
+                  "name": "详情介绍区",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": "fill", "gap": 48 },
+                  "children": [
+                    { "id": "E-006", "type": "image", "size": { "width": "fill", "height": 400 }, "style": { "fill": "local.color.surface.bg-light", "radius": 8 } },
+                    {
+                      "id": "SECTION-FLOW",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 24 },
+                      "children": [
+                        { "type": "text", "content": { "text": "服务流程" }, "style": { "font_size": 20, "font_weight": "bold" } },
+                        { "id": "E-008", "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between" }, "children": [
+                          { "type": "frame", "layout": { "mode": "vertical", "align": "center", "gap": 8 }, "children": [{ "type": "icon", "icon": { "name": "edit" } }, { "type": "text", "content": { "text": "提交资料" } }] },
+                          { "type": "icon", "icon": { "name": "arrow-right" } },
+                          { "type": "frame", "layout": { "mode": "vertical", "align": "center", "gap": 8 }, "children": [{ "type": "icon", "icon": { "name": "search" } }, { "type": "text", "content": { "text": "律师审核" } }] },
+                          { "type": "icon", "icon": { "name": "arrow-right" } },
+                          { "type": "frame", "layout": { "mode": "vertical", "align": "center", "gap": 8 }, "children": [{ "type": "icon", "icon": { "name": "check-circle" } }, { "type": "text", "content": { "text": "官方受理" } }] }
+                        ]}
+                      ]
+                    },
+                    {
+                      "id": "E-007",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 16 },
+                      "children": [
+                        { "type": "text", "content": { "text": "商品详情" }, "style": { "font_size": 20, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "此处为商品详细介绍的富文本内容，包含合规要求、所需材料清单等..." }, "style": { "fill": "local.color.text.secondary", "line_height": 1.6 } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-001",
+                  "name": "选购卡片",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": 360, "padding": 24, "gap": 24, "height": "hug" },
+                  "style": { "fill": "local.color.surface.white", "radius": 12, "shadow": "local.shadow.card", "position": "sticky", "top": 0 },
+                  "children": [
+                    { "id": "E-001", "type": "text", "content": { "text": "美国商标注册 - 专业律师版" }, "style": { "font_size": 22, "font_weight": "bold" } },
+                    { "id": "E-002", "type": "text", "content": { "text": "¥ 2,800" }, "style": { "font_size": 32, "font_weight": "bold", "fill": "local.color.brand.primary" } },
+                    {
+                      "id": "E-003-SECTION",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 12 },
+                      "children": [
+                        { "type": "text", "content": { "text": "选择规格" }, "style": { "font_size": 14, "fill": "local.color.text.tertiary" } },
+                        { "id": "E-003", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [
+                          { "type": "frame", "layout": { "padding": [10, 16] }, "style": { "stroke": "local.color.brand.primary", "fill": "local.color.brand.light", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "标准版 (律师初审)" }, "style": { "fill": "local.color.brand.primary" } }] },
+                          { "type": "frame", "layout": { "padding": [10, 16] }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "text", "content": { "text": "加急版 (24小时受理)" } }] }
+                        ]}
+                      ]
+                    },
+                    {
+                      "id": "E-004-SECTION",
+                      "type": "frame",
+                      "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" },
+                      "children": [
+                        { "type": "text", "content": { "text": "购买数量" } },
+                        { "id": "E-004", "type": "frame", "layout": { "mode": "horizontal", "align": "center", "gap": 8 }, "children": [
+                          { "type": "frame", "layout": { "width": 32, "height": 32, "justify": "center", "align": "center" }, "style": { "stroke": "local.color.border.default" }, "children": [{ "type": "text", "content": { "text": "-" } }] },
+                          { "type": "text", "content": { "text": "1" }, "style": { "width": 40, "text_align": "center" } },
+                          { "type": "frame", "layout": { "width": 32, "height": 32, "justify": "center", "align": "center" }, "style": { "stroke": "local.color.border.default" }, "children": [{ "type": "text", "content": { "text": "+" } }] }
+                        ]}
+                      ]
+                    },
+                    { "id": "E-005", "type": "frame", "role": "button", "layout": { "width": "fill", "height": 48, "justify": "center", "align": "center" }, "style": { "fill": "local.color.brand.primary", "radius": 6 }, "children": [{ "type": "text", "content": { "text": "立即下单" }, "style": { "fill": "local.color.text.white", "font_weight": "bold" } }] },
+                    { "type": "text", "content": { "text": "咨询在线客服" }, "style": { "fill": "local.color.brand.primary", "text_align": "center", "font_size": 14 } }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

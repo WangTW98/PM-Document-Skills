@@ -1,0 +1,248 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/010-user-login/index.md",
+    "output_file": "product/design/010-user-login/index-figma.json",
+    "page_id": "U-100",
+    "page_name": "登录注册",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "auth-only",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "centered auth"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "Centered垂直布局, 圆角投影, 极简顶栏"
+  },
+  "page": {
+    "frame_name": "U-100 登录注册",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "phone_login", "password_login", "wechat_login", "qr_expired", "countdown"],
+    "copy_tone": "极简, 安全"
+  },
+  "state_examples": {
+    "default": "展示手机号登录Tab及其表单",
+    "phone_login": "手机号输入框, 获取验证码按钮, 登录按钮",
+    "password_login": "账号输入框, 密码输入框, 登录按钮",
+    "wechat_login": "微信二维码展示区",
+    "qr_expired": "二维码带失效遮罩和刷新按钮",
+    "countdown": "获取验证码按钮显示倒计时"
+  },
+  "nodes": [
+    {
+      "id": "S-001",
+      "name": "极简顶栏",
+      "type": "frame",
+      "role": "header",
+      "layout": {
+        "mode": "horizontal",
+        "justify": "space-between",
+        "align": "center",
+        "padding": [0, 48, 0, 48],
+        "width": "fill",
+        "height": 64,
+        "overflow": "visible"
+      },
+      "style": {
+        "fill": "local.color.surface.header",
+        "stroke": "local.color.border.light"
+      },
+      "children": [
+        {
+          "id": "E-001",
+          "name": "品牌 Logo",
+          "type": "image",
+          "role": "image",
+          "size": { "width": 120, "height": 32 },
+          "content": { "alt": "Platform Logo" }
+        },
+        {
+          "id": "E-002",
+          "name": "服务目录链接",
+          "type": "text",
+          "role": "nav",
+          "content": { "text": "服务目录" },
+          "style": { "fill": "local.color.text.secondary", "font_size": 14 }
+        }
+      ]
+    },
+    {
+      "id": "MAIN-CONTAINER",
+      "name": "内容区容器",
+      "type": "frame",
+      "role": "main",
+      "layout": {
+        "mode": "vertical",
+        "justify": "center",
+        "align": "center",
+        "width": "fill",
+        "height": "fill",
+        "padding": [48, 0, 48, 0]
+      },
+      "children": [
+        {
+          "id": "S-002",
+          "name": "登录卡片",
+          "type": "frame",
+          "role": "card",
+          "layout": {
+            "mode": "vertical",
+            "gap": 32,
+            "padding": [40, 40, 40, 40],
+            "width": 400,
+            "height": "hug",
+            "align": "center"
+          },
+          "style": {
+            "fill": "local.color.surface.white",
+            "radius": 8,
+            "shadow": "local.shadow.card"
+          },
+          "children": [
+            {
+              "id": "E-003",
+              "name": "登录方式切换",
+              "type": "frame",
+              "role": "tab-strip",
+              "layout": { "mode": "horizontal", "gap": 24, "width": "fill", "justify": "center" },
+              "children": [
+                {
+                  "id": "TAB-PHONE",
+                  "name": "手机号登录",
+                  "type": "text",
+                  "role": "tab",
+                  "content": { "text": "手机号登录" },
+                  "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_bottom": 2 }
+                },
+                {
+                  "id": "TAB-PASSWORD",
+                  "name": "账号登录",
+                  "type": "text",
+                  "role": "tab",
+                  "content": { "text": "账号登录" },
+                  "style": { "fill": "local.color.text.secondary" }
+                },
+                {
+                  "id": "TAB-WECHAT",
+                  "name": "微信登录",
+                  "type": "text",
+                  "role": "tab",
+                  "content": { "text": "微信登录" },
+                  "style": { "fill": "local.color.text.secondary" }
+                }
+              ]
+            },
+            {
+              "id": "FORM-PHONE",
+              "name": "手机号登录表单",
+              "type": "frame",
+              "role": "form",
+              "layout": { "mode": "vertical", "gap": 16, "width": "fill" },
+              "states": [{ "name": "visible", "on": "login_method='phone'" }],
+              "children": [
+                {
+                  "id": "E-004",
+                  "name": "手机号输入框",
+                  "type": "frame",
+                  "role": "input",
+                  "layout": { "width": "fill", "height": 40, "padding": [0, 12, 0, 12], "align": "center", "mode": "horizontal" },
+                  "style": { "stroke": "local.color.border.default", "radius": 4 },
+                  "content": { "text": "请输入手机号" }
+                },
+                {
+                  "id": "ROW-VERIFY",
+                  "name": "验证码行",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 12, "width": "fill" },
+                  "children": [
+                    {
+                      "id": "E-005",
+                      "name": "验证码输入框",
+                      "type": "frame",
+                      "role": "input",
+                      "layout": { "width": "fill", "height": 40, "padding": [0, 12, 0, 12], "align": "center", "mode": "horizontal" },
+                      "style": { "stroke": "local.color.border.default", "radius": 4 },
+                      "content": { "text": "请输入 6 位验证码" }
+                    },
+                    {
+                      "id": "E-006",
+                      "name": "获取验证码按钮",
+                      "type": "frame",
+                      "role": "button",
+                      "layout": { "width": 120, "height": 40, "justify": "center", "align": "center" },
+                      "style": { "stroke": "local.color.brand.primary", "radius": 4 },
+                      "content": { "text": "获取验证码" }
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "id": "E-007",
+              "name": "登录按钮",
+              "type": "frame",
+              "role": "cta",
+              "layout": { "width": "fill", "height": 40, "justify": "center", "align": "center" },
+              "style": { "fill": "local.color.brand.primary", "radius": 4 },
+              "content": { "text": "登录 / 注册" }
+            },
+            {
+              "id": "PROTOCOL-AREA",
+              "name": "协议勾选区",
+              "type": "frame",
+              "role": "group",
+              "layout": { "mode": "horizontal", "gap": 8, "width": "fill", "align": "center" },
+              "children": [
+                {
+                  "id": "E-010",
+                  "name": "协议勾选框",
+                  "type": "icon",
+                  "icon": { "name": "checkbox-blank", "style": "outlined", "size": 16, "fallback_shape": "square" }
+                },
+                {
+                  "id": "PROTOCOL-TEXT",
+                  "name": "协议文本",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 4 },
+                  "children": [
+                    { "type": "text", "content": { "text": "已阅读并同意" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } },
+                    { "id": "E-011", "type": "text", "content": { "text": "《用户协议》" }, "style": { "fill": "local.color.brand.primary", "font_size": 12 } },
+                    { "type": "text", "content": { "text": "与" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } },
+                    { "id": "E-012", "type": "text", "content": { "text": "《隐私政策》" }, "style": { "fill": "local.color.brand.primary", "font_size": 12 } }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S-003",
+      "name": "法律声明",
+      "type": "frame",
+      "role": "footer",
+      "layout": {
+        "mode": "vertical",
+        "align": "center",
+        "width": "fill",
+        "height": "hug",
+        "padding": [24, 0, 24, 0]
+      },
+      "children": [
+        {
+          "id": "E-013",
+          "name": "备案信息",
+          "type": "text",
+          "content": { "text": "© 2026 知识产权与合规服务平台 | 京ICP备12345678号" },
+          "style": { "fill": "local.color.text.quaternary", "font_size": 12 }
+        }
+      ]
+    }
+  ]
+}

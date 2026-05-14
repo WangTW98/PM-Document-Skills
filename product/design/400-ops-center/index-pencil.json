@@ -1,0 +1,122 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/400-ops-center/index.md",
+    "output_file": "product/design/400-ops-center/index-pencil.json",
+    "page_id": "M-700",
+    "page_name": "运营配置中心",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-005"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示配置功能导航卡片、侧边运行摘要与最近变更日志",
+    "loading": "各区块显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-700 运营中心 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "配置中心首页", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "系统管理 / 运营中心", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "horizontal",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "LEFT-PANE",
+                "type": "frame",
+                "layout": "vertical",
+                "width": "fill_container",
+                "gap": 24,
+                "children": [
+                  { "type": "text", "content": "运营配置中心", "fontSize": 24, "fontWeight": "bold" },
+                  {
+                    "id": "S-001",
+                    "type": "frame",
+                    "layout": "grid",
+                    "children": [
+                      { "type": "frame", "padding": 24, "fill": "white", "cornerRadius": 8, "children": [{ "type": "text", "content": "消息模版配置" }] },
+                      { "type": "frame", "padding": 24, "fill": "white", "cornerRadius": 8, "children": [{ "type": "text", "content": "法律协议管理" }] },
+                      { "type": "frame", "padding": 24, "fill": "white", "cornerRadius": 8, "children": [{ "type": "text", "content": "基础参数设置" }] }
+                    ]
+                  },
+                  {
+                    "id": "S-003",
+                    "type": "frame",
+                    "padding": 24,
+                    "fill": "white",
+                    "children": [{ "type": "text", "content": "配置变更日志列表表格" }]
+                  }
+                ]
+              },
+              {
+                "id": "S-002",
+                "type": "frame",
+                "width": 280,
+                "padding": 24,
+                "fill": "white",
+                "cornerRadius": 8,
+                "children": [{ "type": "text", "content": "运行指标看板区域" }]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

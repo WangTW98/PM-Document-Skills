@@ -1,0 +1,147 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/280-service-product-center/index.md",
+    "output_file": "product/design/280-service-product-center/index-figma.json",
+    "page_id": "M-400",
+    "page_name": "服务与商品中心",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-005",
+    "responsive_rule_summary": "admin center page with summary cards and functional entry matrix"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 商品数据看板(绿色系) + 磁贴式功能入口(目录/模板/定价) + 紧凑型最近变更日志"
+  },
+  "page": {
+    "frame_name": "M-400 服务与商品中心",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "loading"],
+    "copy_tone": "商业, 系统化"
+  },
+  "state_examples": {
+    "default": "展示在线服务大类、生效 SKU 总数及管理子模块的入口磁贴",
+    "loading": "各区块显示骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-SERVICE", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "package", "fill": "white" } }, { "type": "text", "content": { "text": "服务与商品" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "后台首页 / 服务与商品中心" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 32, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "商品运营看板",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16 },
+                  "children": [
+                    { "id": "E-001-1", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "在线服务大类" } }, { "type": "text", "content": { "text": "12" }, "style": { "font_size": 28, "font_weight": "bold" } }] },
+                    { "id": "E-001-2", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "生效中 SKU 总数" } }, { "type": "text", "content": { "text": "148" }, "style": { "font_size": 28, "font_weight": "bold" } }] },
+                    { "id": "E-001-3", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 12 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "服务模板总数" } }, { "type": "text", "content": { "text": "36" }, "style": { "font_size": 28, "font_weight": "bold" } }] }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "管理矩阵导航",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24 },
+                  "children": [
+                    {
+                      "id": "E-002",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "width": "fill", "padding": 32, "gap": 16, "align": "center" },
+                      "style": { "fill": "local.color.surface.white", "radius": 12, "stroke": "local.color.border.light", "cursor": "pointer" },
+                      "children": [
+                        { "type": "icon", "icon": { "name": "folder", "size": 40, "fill": "local.color.brand.primary" } },
+                        { "type": "text", "content": { "text": "服务目录配置" }, "style": { "font_size": 18, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "维护类目树、关联国家/地区及展示规则" }, "style": { "fill": "local.color.text.tertiary", "text_align": "center", "font_size": 12 } }
+                      ]
+                    },
+                    {
+                      "id": "E-003",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "width": "fill", "padding": 32, "gap": 16, "align": "center" },
+                      "style": { "fill": "local.color.surface.white", "radius": 12, "stroke": "local.color.border.light", "cursor": "pointer" },
+                      "children": [
+                        { "type": "icon", "icon": { "name": "file-text", "size": 40, "fill": "local.color.brand.primary" } },
+                        { "type": "text", "content": { "text": "服务模板管理" }, "style": { "font_size": 18, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "定义交付节点、引用表单 Schema" }, "style": { "fill": "local.color.text.tertiary", "text_align": "center", "font_size": 12 } }
+                      ]
+                    },
+                    {
+                      "id": "E-004",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "width": "fill", "padding": 32, "gap": 16, "align": "center" },
+                      "style": { "fill": "local.color.surface.white", "radius": 12, "stroke": "local.color.border.light", "cursor": "pointer" },
+                      "children": [
+                        { "type": "icon", "icon": { "name": "dollar-sign", "size": 40, "fill": "local.color.brand.primary" } },
+                        { "type": "text", "content": { "text": "SKU 与定价中心" }, "style": { "font_size": 18, "font_weight": "bold" } },
+                        { "type": "text", "content": { "text": "管理阶梯定价、促销配置及库存状态" }, "style": { "fill": "local.color.text.tertiary", "text_align": "center", "font_size": 12 } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "最近变更流水",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "gap": 16 },
+                  "children": [
+                    { "id": "E-005", "type": "frame", "role": "table", "layout": { "mode": "vertical", "width": "fill" }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "最近配置变更记录" }, "style": { "font_weight": "bold", "padding": 16 } }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

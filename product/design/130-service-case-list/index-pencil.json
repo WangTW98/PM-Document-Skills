@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/130-service-case-list/index.md",
+    "output_file": "product/design/130-service-case-list/index-pencil.json",
+    "page_id": "U-510",
+    "page_name": "服务案件列表",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "empty", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示案件列表表格，突出显示'资料待补'状态",
+    "empty": "显示'没找到相关案件'的空状态",
+    "loading": "表格区骨架屏"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-510 服务案件列表 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "我的服务", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 我的服务 / 案件列表", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "案件管理", "fontSize": 24, "fontWeight": "bold" },
+              {
+                "id": "FILTER-BAR",
+                "type": "frame",
+                "layout": "vertical",
+                "padding": 24,
+                "gap": 20,
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 8,
+                "children": [
+                  { "type": "frame", "layout": "horizontal", "gap": 16, "children": [{ "type": "text", "content": "所有服务大类" }, { "type": "text", "content": "所有国家" }] }
+                ]
+              },
+              {
+                "id": "TABLE-CONTAINER",
+                "type": "frame",
+                "layout": "vertical",
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 8,
+                "width": "fill_container",
+                "children": [
+                  { "type": "frame", "padding": 16, "fill": "$local-color-surface-bg-light", "children": [{ "type": "text", "content": "服务案件信息", "fontWeight": "bold" }] },
+                  { "type": "frame", "padding": 16, "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "美国商标注册" }, { "type": "text", "content": "待补资料", "fill": "$local-color-status-error" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

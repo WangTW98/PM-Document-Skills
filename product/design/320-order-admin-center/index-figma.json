@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/320-order-admin-center/index.md",
+    "output_file": "product/design/320-order-admin-center/index-figma.json",
+    "page_id": "M-500",
+    "page_name": "订单管理",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-005",
+    "responsive_rule_summary": "admin dashboard center with core metrics and task-oriented lists"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 橙/红色指标卡片 + 紧凑型待办列表 + 可视化趋势图表(JSON驱动)"
+  },
+  "page": {
+    "frame_name": "M-500 订单控制台",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "critical_load", "loading"],
+    "copy_tone": "专业, 警示"
+  },
+  "state_examples": {
+    "default": "展示今日成交额、待审核、退款中等核心指标，以及待处理订单列表与销量分析图表",
+    "critical_load": "当待处理订单数超过 20 时，相应指标卡片显示红色闪烁效果",
+    "loading": "图表与列表区域显示骨架屏"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-ORDER", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "shopping-cart", "fill": "white" } }, { "type": "text", "content": { "text": "订单管理" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "工作台 / 订单管理" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "指标看板",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 16 },
+                  "children": [
+                    { "id": "GMV-CARD", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "今日成交 GMV" } }, { "type": "text", "content": { "text": "¥ 12,840.00" }, "style": { "font_size": 24, "font_weight": "bold" } }] },
+                    { "id": "AUDIT-CARD", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.status.warning-light", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "待支付核销" } }, { "type": "text", "content": { "text": "8" }, "style": { "font_size": 24, "font_weight": "bold", "fill": "local.color.status.warning" } }] },
+                    { "id": "REFUND-CARD", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.status.error-light", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "退款待处理" } }, { "type": "text", "content": { "text": "3" }, "style": { "font_size": 24, "font_weight": "bold", "fill": "local.color.status.error" } }] }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "工作台与快捷搜索",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24 },
+                  "children": [
+                    {
+                      "id": "E-002",
+                      "type": "frame",
+                      "role": "card",
+                      "layout": { "mode": "vertical", "width": "fill", "padding": 24, "gap": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [
+                        { "type": "text", "content": { "text": "待办订单 (最近 5 笔)" }, "style": { "font_weight": "bold" } },
+                        { "type": "frame", "role": "table", "layout": { "mode": "vertical" }, "children": [{ "type": "text", "content": "ORD20260514001 | 商标注册 | ¥ 2999 | 待支付核销 | 2026-05-14 10:00" }] }
+                      ]
+                    },
+                    {
+                      "id": "QUICK-SEARCH",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "width": 300, "gap": 12 },
+                      "children": [
+                        { "type": "text", "content": { "text": "订单快速检索" }, "style": { "font_weight": "bold" } },
+                        { "id": "E-003", "type": "input", "content": { "text": "输入完整订单号" }, "style": { "height": 40, "stroke": "local.color.border.default" } },
+                        { "type": "button", "content": { "text": "直达详情" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": 10 } }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-003",
+                  "name": "销售趋势分析",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24, "height": 300 },
+                  "children": [
+                    { "id": "E-004-1", "type": "frame", "role": "chart", "name": "订单量曲线", "layout": { "width": "fill", "height": "fill" }, "style": { "fill": "local.color.surface.white", "radius": 8 } },
+                    { "id": "E-004-2", "type": "frame", "role": "chart", "name": "分类占比", "layout": { "width": 350, "height": "fill" }, "style": { "fill": "local.color.surface.white", "radius": 8 } }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

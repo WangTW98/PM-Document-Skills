@@ -1,0 +1,123 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/290-service-catalog-admin/index.md",
+    "output_file": "product/design/290-service-catalog-admin/index-figma.json",
+    "page_id": "M-410",
+    "page_name": "服务目录配置",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "admin management page with two-column split layout (tree + details)"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 左侧树形导航(300px) + 右侧详情编辑表单 + 品牌蓝色激活态"
+  },
+  "page": {
+    "frame_name": "M-410 服务目录配置",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "node_selected", "dragging", "loading"],
+    "copy_tone": "精确, 体系化"
+  },
+  "state_examples": {
+    "default": "展示左侧完整的类目树结构，右侧为空态提示'请在左侧选择类目进行编辑'",
+    "node_selected": "选中树节点后，右侧展示该类目的基础信息、覆盖国家多选及交付模板关联表单",
+    "loading": "树组件和表单显示加载状态"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-CATALOG", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "folder", "fill": "white" } }, { "type": "text", "content": { "text": "目录配置" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "服务与商品 / 目录配置" } }
+              ]
+            },
+            {
+              "id": "CONTENT-WRAP",
+              "type": "frame",
+              "layout": { "mode": "horizontal", "width": "fill", "height": "fill" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "类目树导航区",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": 300, "height": "fill", "padding": 20, "gap": 16 },
+                  "style": { "stroke_right": "local.color.border.light", "fill": "local.color.surface.white" },
+                  "children": [
+                    { "id": "TREE-ACTIONS", "type": "frame", "layout": { "mode": "horizontal", "gap": 12 }, "children": [{ "type": "button", "content": { "text": "+ 新增一级" }, "style": { "font_size": 12, "fill": "local.color.brand.primary" } }] },
+                    {
+                      "id": "E-001",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 4 },
+                      "children": [
+                        { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "padding": [8, 12] }, "style": { "fill": "local.color.surface.bg-light", "radius": 4 }, "children": [{ "type": "icon", "icon": { "name": "chevron-down" } }, { "type": "text", "content": { "text": "商标服务" }, "style": { "font_weight": "bold" } }] },
+                        { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "padding": [8, 12, 8, 32] }, "children": [{ "type": "text", "content": { "text": "美国商标注册" }, "style": { "fill": "local.color.brand.primary" } }] },
+                        { "type": "frame", "layout": { "mode": "horizontal", "gap": 8, "padding": [8, 12, 8, 32] }, "children": [{ "type": "text", "content": { "text": "欧盟商标注册" } }] }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "类目详情编辑区",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": 40, "gap": 32, "overflow": "scroll-y" },
+                  "style": { "fill": "local.color.surface.white" },
+                  "children": [
+                    { "type": "text", "content": { "text": "编辑类目：美国商标注册" }, "style": { "font_size": 18, "font_weight": "bold" } },
+                    {
+                      "id": "FORM",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 24, "width": 600 },
+                      "children": [
+                        { "id": "F-NAME", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "类目名称" }, "style": { "font_weight": "bold" } }, { "id": "E-002", "type": "input", "content": { "text": "美国商标注册" }, "style": { "height": 40, "stroke": "local.color.border.default" } }] },
+                        { "id": "F-COUNTRY", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "覆盖国家/地区" }, "style": { "font_weight": "bold" } }, { "id": "E-003", "type": "select-multi", "content": { "text": "美国, 欧盟, 中国" }, "style": { "min_height": 40, "stroke": "local.color.border.default" } }] },
+                        { "id": "F-TPL", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "关联交付模板" }, "style": { "font_weight": "bold" } }, { "id": "E-004", "type": "select", "content": { "text": "标准商标流程模板" }, "style": { "height": 40, "stroke": "local.color.border.default" } }] },
+                        { "id": "E-005", "type": "button", "content": { "text": "确认保存" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [10, 40], "align_self": "flex-start" } }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

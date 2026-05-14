@@ -1,0 +1,117 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/320-order-admin-center/index.md",
+    "output_file": "product/design/320-order-admin-center/index-pencil.json",
+    "page_id": "M-500",
+    "page_name": "订单管理",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-005"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示订单概览统计、待办列表与趋势图表",
+    "loading": "图表与列表区域显示骨架屏"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-500 订单控制台 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "订单管理", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "工作台 / 订单管理", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "订单管理中心", "fontSize": 24, "fontWeight": "bold" },
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 16,
+                "children": [
+                  { "type": "frame", "padding": 20, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "今日 GMV" }, { "type": "text", "content": "¥ 12,840", "fontSize": 24, "fontWeight": "bold" }] },
+                  { "type": "frame", "padding": 20, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "待支付核销" }, { "type": "text", "content": "8", "fontSize": 24, "fontWeight": "bold" }] }
+                ]
+              },
+              {
+                "id": "S-002",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 24,
+                "children": [
+                  { "type": "frame", "padding": 24, "width": "fill_container", "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "待办订单列表区域" }] },
+                  { "type": "frame", "width": 300, "gap": 12, "children": [{ "type": "text", "content": "快捷查询" }, { "type": "rectangle", "height": 40, "fill": "white", "stroke": "grey" }] }
+                ]
+              },
+              {
+                "id": "S-003",
+                "type": "frame",
+                "layout": "horizontal",
+                "gap": 24,
+                "height": 200,
+                "children": [
+                  { "type": "frame", "width": "fill_container", "fill": "white", "children": [{ "type": "text", "content": "趋势图表区域" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

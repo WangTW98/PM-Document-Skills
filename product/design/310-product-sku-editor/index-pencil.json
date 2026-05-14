@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/310-product-sku-editor/index.md",
+    "output_file": "product/design/310-product-sku-editor/index-pencil.json",
+    "page_id": "M-430",
+    "page_name": "商品与SKU编辑",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示商品基础信息与 SKU 规格列表",
+    "loading": "各区域显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-430 商品与SKU编辑 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "定价中心", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "服务与商品 / 商品与SKU编辑", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "商品与SKU编辑", "fontSize": 24, "fontWeight": "bold" },
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "vertical",
+                "padding": 24,
+                "gap": 16,
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 8,
+                "children": [
+                  { "type": "text", "content": "基础信息：美国商标注册" },
+                  { "type": "text", "content": "基准价格：¥ 2999.00" }
+                ]
+              },
+              {
+                "id": "S-002",
+                "type": "frame",
+                "layout": "vertical",
+                "padding": 24,
+                "gap": 16,
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 8,
+                "children": [
+                  { "type": "text", "content": "SKU 规格配置表格区域" }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

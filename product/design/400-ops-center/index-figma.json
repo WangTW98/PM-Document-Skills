@@ -1,0 +1,124 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/400-ops-center/index.md",
+    "output_file": "product/design/400-ops-center/index-figma.json",
+    "page_id": "M-700",
+    "page_name": "运营配置中心",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-005",
+    "responsive_rule_summary": "admin operation portal with navigation cards, side statistics, and audit logs"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 3/4列功能导航卡片(带悬浮阴影) + 侧边迷你统计列表 + 紧凑型审计日志表格"
+  },
+  "page": {
+    "frame_name": "M-700 运营配置中心",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "permission_locked", "loading"],
+    "copy_tone": "精确, 门户化"
+  },
+  "state_examples": {
+    "default": "展示核心运营配置分类导航卡片、侧边运行指标摘要及底部变更日志",
+    "permission_locked": "部分敏感配置项（如汇率）卡片显示置灰状态并伴随小锁图标，点击提示无权限",
+    "loading": "卡片区域显示占位骨架"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-OPS", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "settings", "fill": "white" } }, { "type": "text", "content": { "text": "运营配置" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "系统管理 / 运营配置中心" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "horizontal", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "LEFT-COLUMN",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": "fill", "gap": 24 },
+                  "children": [
+                    {
+                      "id": "S-001",
+                      "name": "配置功能导航",
+                      "type": "frame",
+                      "layout": { "mode": "grid", "columns": 3, "gap": 20 },
+                      "children": [
+                        { "id": "NAV-MSG", "type": "frame", "role": "card", "layout": { "padding": 24, "gap": 12, "align": "center" }, "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "soft" }, "children": [{ "type": "icon", "icon": { "name": "mail", "size": 32 } }, { "type": "text", "content": { "text": "消息模板配置" }, "style": { "font_weight": "bold" } }] },
+                        { "id": "NAV-AGR", "type": "frame", "role": "card", "layout": { "padding": 24, "gap": 12, "align": "center" }, "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "soft" }, "children": [{ "type": "icon", "icon": { "name": "file-text", "size": 32 } }, { "type": "text", "content": { "text": "法律协议管理" }, "style": { "font_weight": "bold" } }] },
+                        { "id": "NAV-PARAM", "type": "frame", "role": "card", "layout": { "padding": 24, "gap": 12, "align": "center" }, "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "soft" }, "children": [{ "type": "icon", "icon": { "name": "database", "size": 32 } }, { "type": "text", "content": { "text": "基础参数设置" }, "style": { "font_weight": "bold" } }] }
+                      ]
+                    },
+                    {
+                      "id": "S-003",
+                      "name": "最近变更日志",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "padding": 24, "gap": 16 },
+                      "style": { "fill": "local.color.surface.white", "radius": 8 },
+                      "children": [
+                        { "type": "text", "content": { "text": "近期配置变更日志" }, "style": { "font_weight": "bold" } },
+                        { "id": "E-003", "type": "table", "content": "2026-05-14 10:00 | 张管理员 | 更新了《用户服务协议》V2.1 | [查看]" }
+                      ]
+                    }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "配置运行摘要",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": 280, "padding": 24, "gap": 20 },
+                  "style": { "fill": "local.color.surface.white", "radius": 8 },
+                  "children": [
+                    { "type": "text", "content": { "text": "运行监控摘要" }, "style": { "font_weight": "bold" } },
+                    { "id": "E-002", "type": "list", "children": [{ "type": "text", "content": "今日下发消息：1,245 条" }, { "type": "text", "content": "生效中协议：12 份" }] }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

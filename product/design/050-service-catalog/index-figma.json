@@ -1,0 +1,135 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/050-service-catalog/index.md",
+    "output_file": "product/design/050-service-catalog/index-figma.json",
+    "page_id": "U-300",
+    "page_name": "服务目录",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-001",
+    "responsive_rule_summary": "catalog grid with sidebar navigation"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏分类 + 顶部搜索 + 3/4列商品网格"
+  },
+  "page": {
+    "frame_name": "U-300 服务目录",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "search_result", "empty"],
+    "copy_tone": "丰富, 易用"
+  },
+  "state_examples": {
+    "default": "展示多个分类：商标、专利、合规，以及各分类下的前几项商品",
+    "search_result": "展示搜索关键字后的商品过滤结果",
+    "empty": "显示该分类下暂无商品插画"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 }, "layout": { "align": "center" } },
+            { "id": "NAV-U200", "type": "text", "content": { "text": "工作台" } },
+            { "id": "NAV-U300", "type": "text", "content": { "text": "服务目录" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 服务目录" } },
+                { "id": "E-004", "type": "frame", "role": "input", "layout": { "width": 300, "height": 32, "padding": [0, 8, 0, 8], "align": "center", "mode": "horizontal", "gap": 8 }, "style": { "stroke": "local.color.border.default", "radius": 4 }, "children": [{ "type": "icon", "icon": { "name": "search", "size": 16 } }, { "type": "text", "content": { "text": "搜索您需要的服务" } }] }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "horizontal", "width": "fill", "height": "fill", "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "分类侧边栏",
+                  "type": "frame",
+                  "role": "nav",
+                  "layout": { "mode": "vertical", "width": 160, "padding": [24, 0, 24, 0], "gap": 4 },
+                  "style": { "fill": "local.color.surface.bg-light" },
+                  "children": [
+                    { "id": "CAT-1", "type": "text", "content": { "text": "商标服务" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "border_left": 4 }, "layout": { "padding": [12, 24, 12, 24] } },
+                    { "id": "CAT-2", "type": "text", "content": { "text": "专利服务" }, "layout": { "padding": [12, 24, 12, 24] } },
+                    { "id": "CAT-3", "type": "text", "content": { "text": "合规服务 (VAT/EPR)" }, "layout": { "padding": [12, 24, 12, 24] } }
+                  ]
+                },
+                {
+                  "id": "S-002",
+                  "name": "商品展示网格",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": "fill", "padding": 32, "gap": 24 },
+                  "children": [
+                    { "id": "SECTION-TITLE", "type": "text", "content": { "text": "商标服务" }, "style": { "font_size": 20, "font_weight": "bold" } },
+                    {
+                      "id": "GRID-CONTAINER",
+                      "type": "frame",
+                      "layout": { "mode": "grid", "grid_columns": 3, "gap": 24, "width": "fill" },
+                      "children": [
+                        {
+                          "id": "E-002-1",
+                          "type": "frame",
+                          "role": "card",
+                          "layout": { "mode": "vertical", "width": "fill", "gap": 12 },
+                          "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card", "overflow": "hidden" },
+                          "children": [
+                            { "id": "E-002-IMG", "type": "image", "size": { "width": "fill", "height": 180 }, "style": { "fill": "local.color.surface.bg-light" } },
+                            {
+                              "id": "CARD-BODY",
+                              "type": "frame",
+                              "layout": { "mode": "vertical", "padding": 16, "gap": 8 },
+                              "children": [
+                                { "id": "PRODUCT-TITLE", "type": "text", "content": { "text": "美国商标注册 - 单类别" }, "style": { "font_weight": "bold", "font_size": 16 } },
+                                { "id": "PRODUCT-DESC", "type": "text", "content": { "text": "专业律师审核，高通过率" }, "style": { "font_size": 12, "fill": "local.color.text.tertiary" } },
+                                { "id": "E-003", "type": "text", "content": { "text": "¥2800 起" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold", "font_size": 18 } }
+                              ]
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

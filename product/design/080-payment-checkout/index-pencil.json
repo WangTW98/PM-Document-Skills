@@ -1,0 +1,93 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/080-payment-checkout/index.md",
+    "output_file": "product/design/080-payment-checkout/index-pencil.json",
+    "page_id": "U-330",
+    "page_name": "支付收银台",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "expired", "success"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-003"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示订单金额、倒计时、微信支付二维码",
+    "expired": "二维码带模糊遮罩，显示'已失效'并提供刷新按钮",
+    "success": "支付成功后的自动跳转中间态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-330 支付收银台 Root",
+    "layout": "vertical",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-auth",
+    "children": [
+      {
+        "id": "S-001-MINIMAL-NAV",
+        "name": "极简顶栏",
+        "type": "frame",
+        "layout": "horizontal",
+        "justifyContent": "space-between",
+        "alignItems": "center",
+        "padding": 48,
+        "width": "fill_container",
+        "height": 64,
+        "fill": "$local-color-surface-white",
+        "stroke": "$local-color-border-light",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "1. 确认订单 -> 2. 支付 -> 3. 完成", "fontSize": 14, "fill": "$local-color-text-tertiary" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT",
+        "type": "frame",
+        "layout": "vertical",
+        "justifyContent": "center",
+        "alignItems": "center",
+        "padding": 80,
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "PAYMENT-CARD",
+            "type": "frame",
+            "layout": "vertical",
+            "width": 480,
+            "padding": 40,
+            "gap": 32,
+            "alignItems": "center",
+            "fill": "$local-color-surface-white",
+            "cornerRadius": 8,
+            "children": [
+              {
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 12,
+                "alignItems": "center",
+                "children": [
+                  { "type": "text", "content": "订单编号：ORD202605140001", "fontSize": 14, "fill": "$local-color-text-secondary" },
+                  { "type": "text", "content": "¥ 2,800.00", "fontSize": 36, "fontWeight": "bold", "fill": "$local-color-status-error" },
+                  { "type": "text", "content": "支付剩余时间：19:55", "fontSize": 14, "fill": "$local-color-status-warning" }
+                ]
+              },
+              { "type": "frame", "layout": "vertical", "gap": 20, "alignItems": "center", "children": [
+                { "type": "rectangle", "width": 240, "height": 240, "stroke": "$local-color-border-default", "cornerRadius": 8, "fill": "$local-color-placeholder-img" },
+                { "type": "text", "content": "请使用微信扫一扫完成支付", "fontSize": 16 }
+              ]},
+              { "type": "text", "content": "取消并返回", "fontSize": 14, "fill": "$local-color-text-tertiary" }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

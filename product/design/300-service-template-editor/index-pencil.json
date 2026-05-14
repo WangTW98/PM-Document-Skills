@@ -1,0 +1,113 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/300-service-template-editor/index.md",
+    "output_file": "product/design/300-service-template-editor/index-pencil.json",
+    "page_id": "M-420",
+    "page_name": "服务模板编辑器",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示左侧模版列表与右侧流程编辑器",
+    "loading": "各区域显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-420 服务模板编辑器 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "模版管理", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "服务与商品 / 模板编辑器", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "CONTENT-AREA",
+            "type": "frame",
+            "layout": "horizontal",
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "name": "Template Panel",
+                "type": "frame",
+                "layout": "vertical",
+                "width": 300,
+                "height": "fill_container",
+                "padding": 20,
+                "fill": "$local-color-surface-white",
+                "stroke": "$local-color-border-light",
+                "children": [
+                  { "type": "text", "content": "模版列表区域", "fontSize": 14 }
+                ]
+              },
+              {
+                "id": "S-002",
+                "name": "Flow Panel",
+                "type": "frame",
+                "layout": "vertical",
+                "width": "fill_container",
+                "padding": 40,
+                "gap": 32,
+                "alignItems": "center",
+                "children": [
+                  { "type": "text", "content": "标准商标流程模版", "fontSize": 18, "fontWeight": "bold" },
+                  { "type": "frame", "width": 400, "height": 120, "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "节点 1：资料提交" }] },
+                  { "type": "text", "content": "↓" },
+                  { "type": "frame", "width": 400, "height": 120, "fill": "$local-color-surface-white", "cornerRadius": 8, "children": [{ "type": "text", "content": "节点 2：内部审核" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

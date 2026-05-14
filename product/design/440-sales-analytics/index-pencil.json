@@ -1,0 +1,100 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/440-sales-analytics/index.md",
+    "output_file": "product/design/440-sales-analytics/index-pencil.json",
+    "page_id": "M-810",
+    "page_name": "销售与服务统计",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示维度切换、日期筛选与明细表格",
+    "loading": "各区域显示加载状态"
+  },
+  "document": {
+    "type": "frame",
+    "name": "M-810 深度分析 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "ADMIN-SIDEBAR",
+        "name": "Admin Sidebar",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 240,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 4,
+        "fill": "$local-color-surface-admin-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 140, "height": 36, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "深度分析报表", "fontSize": 14, "fill": "white", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 60,
+            "fill": "$local-color-surface-white",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "数据统计 / 深度报表", "fontSize": 13 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 24,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              { "type": "text", "content": "多维绩效统计分析", "fontSize": 24, "fontWeight": "bold" },
+              { "type": "frame", "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "维度：专家 | 国家 | 类目" }, { "type": "text", "content": "日期范围：2026-05-01 ~ 2026-05-14" }] },
+              {
+                "id": "S-002",
+                "type": "frame",
+                "layout": "vertical",
+                "width": "fill_container",
+                "fill": "white",
+                "children": [
+                  { "type": "frame", "padding": 12, "fill": "$local-color-surface-bg-light", "children": [{ "type": "text", "content": "名称 | 负责数 | 结案数 | 结案率 | 平均耗时" }] },
+                  { "type": "frame", "padding": 16, "children": [{ "type": "text", "content": "张专家 | 45 | 22 | 48%", "fill": "red" }, { "type": "text", "content": " | 14d" }] }
+                ]
+              },
+              { "type": "frame", "padding": 20, "fill": "$local-color-surface-bg-light", "children": [{ "type": "text", "content": "全平台均值对照信息..." }] }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

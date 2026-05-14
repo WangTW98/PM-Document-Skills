@@ -1,0 +1,112 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/170-user-center/index.md",
+    "output_file": "product/design/170-user-center/index-pencil.json",
+    "page_id": "U-600",
+    "page_name": "消息与个人中心",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "unread_messages", "loading"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-004"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示用户基础信息及各项设置入口",
+    "unread_messages": "消息通知入口显示红色数字徽标",
+    "loading": "内容区骨架屏"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-600 消息与个人中心 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "个人中心", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 个人中心", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "SHELL-002",
+            "name": "Main Area",
+            "type": "frame",
+            "layout": "vertical",
+            "padding": 32,
+            "gap": 32,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "type": "frame",
+                "layout": "horizontal",
+                "padding": 32,
+                "gap": 24,
+                "alignItems": "center",
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 12,
+                "children": [
+                  { "type": "ellipse", "width": 80, "height": 80, "fill": "$local-color-surface-bg-light" },
+                  { "type": "text", "content": "John Doe", "fontSize": 20, "fontWeight": "bold" }
+                ]
+              },
+              {
+                "id": "MENU-LIST",
+                "type": "frame",
+                "layout": "vertical",
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 12,
+                "children": [
+                  { "type": "frame", "padding": 20, "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "消息通知", "fontWeight": "bold" }, { "type": "text", "content": "5", "fill": "$local-color-status-error" }] },
+                  { "type": "frame", "padding": 20, "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "账号设置", "fontWeight": "bold" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

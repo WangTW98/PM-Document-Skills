@@ -1,0 +1,141 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/120-service-center/index.md",
+    "output_file": "product/design/120-service-center/index-figma.json",
+    "page_id": "U-500",
+    "page_name": "我的服务",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "surface": "SF-001",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-004",
+    "responsive_rule_summary": "dashboard style service overview with status alerts"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "侧边栏 + 顶栏 + 四列服务状态卡片(含报警色) + 活跃案件进度卡片 + 下载中心入口"
+  },
+  "page": {
+    "frame_name": "U-500 我的服务",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "risk_alert", "empty"],
+    "copy_tone": "信任, 提醒"
+  },
+  "state_examples": {
+    "default": "展示各项服务状态计数，最近3个活跃案件及其进度条预览",
+    "risk_alert": "风险预警卡片高亮显示红色，提醒用户及时处理",
+    "empty": "显示无服务插画，引导前往服务目录"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Global Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Side Navigation",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 200, "height": "fill", "padding": [24, 0, 24, 0], "gap": 8 },
+          "style": { "fill": "local.color.surface.sidebar" },
+          "children": [
+            { "id": "SIDE-LOGO", "type": "image", "size": { "width": 120, "height": 32 } },
+            { "id": "NAV-SERVICE", "type": "text", "content": { "text": "我的服务" }, "style": { "fill": "local.color.brand.primary", "font_weight": "bold" } }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Top Navigation",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 64, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.topbar", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "首页 / 我的服务" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Main Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [32, 48, 32, 48], "gap": 32, "overflow": "scroll-y" },
+              "children": [
+                {
+                  "id": "S-001",
+                  "name": "服务状态统计",
+                  "type": "frame",
+                  "role": "header",
+                  "layout": { "mode": "horizontal", "gap": 16, "width": "fill" },
+                  "children": [
+                    { "id": "STAT-PENDING-DATA", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.status.warning-light", "radius": 8, "stroke": "local.color.status.warning" }, "children": [{ "type": "text", "content": { "text": "资料待补充" }, "style": { "font_size": 14, "fill": "local.color.status.warning" } }, { "type": "text", "content": { "text": "3" }, "style": { "font_size": 28, "font_weight": "bold", "fill": "local.color.status.warning" } }] },
+                    { "id": "STAT-RISK", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.status.error-light", "radius": 8, "stroke": "local.color.status.error" }, "children": [{ "type": "text", "content": { "text": "风险预警" }, "style": { "font_size": 14, "fill": "local.color.status.error" } }, { "type": "text", "content": { "text": "1" }, "style": { "font_size": 28, "font_weight": "bold", "fill": "local.color.status.error" } }] },
+                    { "id": "STAT-PROCESSING", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "进行中" }, "style": { "font_size": 14, "fill": "local.color.text.secondary" } }, { "type": "text", "content": { "text": "12" }, "style": { "font_size": 28, "font_weight": "bold" } }] },
+                    { "id": "STAT-DONE", "type": "frame", "role": "card", "layout": { "width": "fill", "padding": 24, "gap": 8 }, "style": { "fill": "local.color.surface.white", "radius": 8 }, "children": [{ "type": "text", "content": { "text": "已完结" }, "style": { "font_size": 14, "fill": "local.color.text.secondary" } }, { "type": "text", "content": { "text": "45" }, "style": { "font_size": 28, "font_weight": "bold" } }] }
+                  ]
+                },
+                {
+                  "id": "MIDDLE-SECTION",
+                  "type": "frame",
+                  "layout": { "mode": "horizontal", "gap": 24, "width": "fill" },
+                  "children": [
+                    {
+                      "id": "S-002",
+                      "name": "活跃案件追踪",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 16, "width": "fill" },
+                      "children": [
+                        { "id": "LIST-HEADER", "type": "frame", "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" }, "children": [{ "type": "text", "content": { "text": "最近活跃案件" }, "style": { "font_size": 18, "font_weight": "bold" } }, { "id": "E-003", "type": "text", "content": { "text": "查看全部案件 >" }, "style": { "fill": "local.color.brand.primary", "font_size": 14 } }] },
+                        {
+                          "id": "E-002-1",
+                          "type": "frame",
+                          "role": "card",
+                          "layout": { "mode": "vertical", "padding": 24, "gap": 20, "width": "fill" },
+                          "style": { "fill": "local.color.surface.white", "radius": 8, "shadow": "local.shadow.card" },
+                          "children": [
+                            {
+                              "type": "frame",
+                              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center" },
+                              "children": [
+                                { "type": "text", "content": { "text": "美国商标注册 - ORD202605140001" }, "style": { "font_weight": "bold" } },
+                                { "type": "badge", "content": { "text": "资料待补充" }, "style": { "fill": "local.color.status.warning" } }
+                              ]
+                            },
+                            { "type": "frame", "role": "progress", "layout": { "height": 8, "width": "fill" }, "style": { "fill": "local.color.surface.bg-light", "radius": 4 }, "children": [{ "type": "frame", "layout": { "width": "40%", "height": "fill" }, "style": { "fill": "local.color.brand.primary", "radius": 4 } }] },
+                            { "type": "text", "content": { "text": "当前节点：客户提交材料 | 上次更新：2026-05-14 11:20" }, "style": { "fill": "local.color.text.tertiary", "font_size": 12 } }
+                          ]
+                        }
+                      ]
+                    },
+                    {
+                      "id": "S-003",
+                      "name": "快捷入口区",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "width": 300, "gap": 16 },
+                      "children": [
+                        { "id": "E-004", "type": "frame", "layout": { "mode": "vertical", "padding": 24, "gap": 12, "align": "center" }, "style": { "fill": "local.color.brand.primary", "radius": 8 }, "children": [{ "type": "icon", "icon": { "name": "download", "size": 32, "fill": "white" } }, { "type": "text", "content": { "text": "官方文件下载中心" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

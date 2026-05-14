@@ -1,0 +1,134 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/060-service-detail/index.md",
+    "output_file": "product/design/060-service-detail/index-pencil.json",
+    "page_id": "U-310",
+    "page_name": "服务商品详情",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "sku_selected", "out_of_stock"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-002"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示商品详情、默认选中第一个 SKU、展示服务流程",
+    "sku_selected": "切换 SKU 后价格变动展示",
+    "out_of_stock": "下单按钮置灰显示已售罄"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-310 服务商品详情 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "服务目录", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 服务目录 / 美国商标注册", "fontSize": 14 }
+            ]
+          },
+          {
+            "id": "DETAIL-BODY",
+            "type": "frame",
+            "layout": "horizontal",
+            "padding": 32,
+            "gap": 32,
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-002",
+                "name": "左侧详情",
+                "type": "frame",
+                "layout": "vertical",
+                "gap": 48,
+                "width": "fill_container",
+                "children": [
+                  { "id": "E-006", "type": "rectangle", "width": "fill_container", "height": 400, "fill": "$local-color-surface-bg-light", "cornerRadius": 8 },
+                  {
+                    "id": "FLOW",
+                    "type": "frame",
+                    "layout": "vertical",
+                    "gap": 24,
+                    "children": [
+                      { "type": "text", "content": "服务流程", "fontSize": 20, "fontWeight": "bold" },
+                      { "type": "frame", "layout": "horizontal", "justifyContent": "space-between", "children": [{ "type": "text", "content": "提交资料" }, { "type": "text", "content": "律师审核" }, { "type": "text", "content": "官方受理" }] }
+                    ]
+                  },
+                  { "id": "E-007", "type": "text", "content": "此处为商品详细介绍的富文本内容...", "fontSize": 16, "fill": "$local-color-text-secondary" }
+                ]
+              },
+              {
+                "id": "S-001",
+                "name": "右侧选购卡片",
+                "type": "frame",
+                "layout": "vertical",
+                "width": 360,
+                "padding": 24,
+                "gap": 24,
+                "fill": "$local-color-surface-white",
+                "cornerRadius": 12,
+                "children": [
+                  { "id": "E-001", "type": "text", "content": "美国商标注册 - 专业律师版", "fontSize": 22, "fontWeight": "bold" },
+                  { "id": "E-002", "type": "text", "content": "¥ 2,800", "fontSize": 32, "fontWeight": "bold", "fill": "$local-color-brand-primary" },
+                  {
+                    "id": "E-003",
+                    "type": "frame",
+                    "layout": "vertical",
+                    "gap": 12,
+                    "children": [
+                      { "type": "text", "content": "选择规格", "fontSize": 14 },
+                      { "type": "frame", "padding": 12, "stroke": "$local-color-brand-primary", "cornerRadius": 4, "children": [{ "type": "text", "content": "标准版 (律师初审)", "fill": "$local-color-brand-primary" }] }
+                    ]
+                  },
+                  { "id": "E-005", "type": "frame", "height": 48, "justifyContent": "center", "alignItems": "center", "fill": "$local-color-brand-primary", "cornerRadius": 6, "children": [{ "type": "text", "content": "立即下单", "fill": "$local-color-text-white", "fontWeight": "bold" }] }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

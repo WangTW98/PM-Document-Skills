@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/345-refund-review-view/index.md",
+    "output_file": "product/design/345-refund-review-view/index-figma.json",
+    "page_id": "M-521",
+    "page_name": "退款审核视图",
+    "generated_mode": "layout-inferred-style"
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-admin-web.md",
+    "layout_key": "admin-web",
+    "surface": "SF-002",
+    "shell_type": "sidebar + top-nav",
+    "page_template": "TPL-003",
+    "responsive_rule_summary": "admin review form for processing customer refund requests with financial validation"
+  },
+  "style_source": {
+    "design_spec_path": null,
+    "token_refs": [],
+    "style_notes": "管理端侧边栏 + 顶栏 + 居中表单卡片 + 警示徽标 + 金额输入校验 + 审批动作组"
+  },
+  "page": {
+    "frame_name": "M-521 退款审批页",
+    "frame_type": "desktop-page",
+    "visible_state_set": ["default", "amount_error", "loading"],
+    "copy_tone": "客观, 严谨"
+  },
+  "state_examples": {
+    "default": "展示退款原因、申请金额、关联案件风险提示及审核表单",
+    "amount_error": "当实退金额超过订单实付金额时，输入框显示红色警告且无法提交",
+    "loading": "表单区域显示加载状态"
+  },
+  "nodes": [
+    {
+      "id": "SHELL",
+      "name": "Admin Shell",
+      "type": "frame",
+      "role": "shell",
+      "layout": { "mode": "horizontal", "width": "viewport", "height": "viewport" },
+      "children": [
+        {
+          "id": "SHELL-006",
+          "name": "Admin Sidebar",
+          "type": "frame",
+          "role": "side-nav",
+          "layout": { "mode": "vertical", "width": 240, "height": "fill", "padding": [24, 0, 24, 0], "gap": 4 },
+          "style": { "fill": "local.color.surface.admin-sidebar" },
+          "children": [
+            { "id": "LOGO", "type": "image", "size": { "width": 140, "height": 36 } },
+            { "id": "NAV-ORDER", "type": "frame", "layout": { "mode": "horizontal", "padding": [12, 24], "align": "center", "gap": 12 }, "style": { "fill": "local.color.brand.admin-active" }, "children": [{ "type": "icon", "icon": { "name": "dollar-sign", "fill": "white" } }, { "type": "text", "content": { "text": "退款审核" }, "style": { "fill": "white", "font_weight": "bold" } }] }
+          ]
+        },
+        {
+          "id": "MAIN-AREA",
+          "name": "Main Area",
+          "type": "frame",
+          "layout": { "mode": "vertical", "width": "fill", "height": "fill" },
+          "children": [
+            {
+              "id": "SHELL-001",
+              "name": "Admin Top Nav",
+              "type": "frame",
+              "role": "top-nav",
+              "layout": { "mode": "horizontal", "justify": "space-between", "align": "center", "height": 60, "width": "fill", "padding": [0, 24, 0, 24] },
+              "style": { "fill": "local.color.surface.white", "stroke": "local.color.border.light" },
+              "children": [
+                { "id": "BREADCRUMB", "type": "text", "content": { "text": "订单详情 / 退款审核" } }
+              ]
+            },
+            {
+              "id": "SHELL-002",
+              "name": "Page Content",
+              "type": "frame",
+              "role": "main-scroll",
+              "layout": { "mode": "vertical", "width": "fill", "height": "fill", "padding": [24, 32, 24, 32], "gap": 24, "overflow": "scroll-y", "align": "center" },
+              "children": [
+                {
+                  "id": "FORM-CARD",
+                  "type": "frame",
+                  "layout": { "mode": "vertical", "width": 800, "padding": 40, "gap": 32 },
+                  "style": { "fill": "local.color.surface.white", "radius": 12, "shadow": "soft" },
+                  "children": [
+                    { "type": "text", "content": { "text": "退款申请审批" }, "style": { "font_size": 20, "font_weight": "bold" } },
+                    {
+                      "id": "S-001",
+                      "name": "退款申请详情",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 16, "padding": 24 },
+                      "style": { "fill": "local.color.surface.bg-light", "radius": 8 },
+                      "children": [
+                        { "id": "E-001", "type": "text", "content": { "text": "退款原因：不想买了，重新下单" }, "style": { "font_weight": "bold" } },
+                        { "id": "E-002", "type": "text", "content": { "text": "申请退款金额：¥ 2999.00" }, "style": { "fill": "local.color.status.error", "font_weight": "bold", "font_size": 18 } },
+                        { "type": "text", "content": { "text": "支付方式：线下银行汇款" }, "style": { "font_size": 13, "fill": "local.color.text.secondary" } }
+                      ]
+                    },
+                    {
+                      "id": "S-002",
+                      "name": "风险核查",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 12 },
+                      "children": [
+                        { "id": "E-003", "type": "frame", "role": "alert", "layout": { "mode": "horizontal", "padding": [12, 16], "align": "center", "gap": 8 }, "style": { "fill": "local.color.status.warning-light", "radius": 4, "stroke": "local.color.status.warning" }, "children": [{ "type": "icon", "icon": { "name": "alert-circle", "fill": "local.color.status.warning" } }, { "type": "text", "content": { "text": "风险提示：关联案件已进入“官费缴纳”阶段，请核实是否已产生不可退费用。" } }] }
+                      ]
+                    },
+                    {
+                      "id": "S-003",
+                      "name": "审核决策区",
+                      "type": "frame",
+                      "layout": { "mode": "vertical", "gap": 24 },
+                      "children": [
+                        { "id": "F-AMOUNT", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "确认实退金额" }, "style": { "font_weight": "bold" } }, { "id": "E-004", "type": "input", "content": { "text": "2999.00" }, "style": { "height": 40, "stroke": "local.color.border.default" } }] },
+                        { "id": "F-MEMO", "type": "frame", "layout": { "mode": "vertical", "gap": 8 }, "children": [{ "type": "text", "content": { "text": "审核意见/备注" }, "style": { "font_weight": "bold" } }, { "id": "E-005", "type": "textarea", "content": { "text": "同意退款申请" }, "style": { "height": 100, "stroke": "local.color.border.default" } }] },
+                        {
+                          "id": "ACTIONS",
+                          "type": "frame",
+                          "layout": { "mode": "horizontal", "gap": 16 },
+                          "children": [
+                            { "id": "E-006", "type": "button", "content": { "text": "同意退款并原路退回" }, "style": { "fill": "local.color.brand.primary", "radius": 4, "padding": [12, 40], "width": "fill" } },
+                            { "id": "E-007", "type": "button", "content": { "text": "驳回申请" }, "style": { "stroke": "local.color.status.error", "radius": 4, "padding": [12, 40], "width": 150 } }
+                          ]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

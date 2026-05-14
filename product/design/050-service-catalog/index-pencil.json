@@ -1,0 +1,133 @@
+{
+  "meta": {
+    "source_md": "product/release/pages/050-service-catalog/index.md",
+    "output_file": "product/design/050-service-catalog/index-pencil.json",
+    "page_id": "U-300",
+    "page_name": "服务目录",
+    "generated_mode": "layout-inferred-style",
+    "visible_states": ["default", "search_result", "empty"]
+  },
+  "layout_match": {
+    "layout_file": "product/release/layout/product-layout-release-user-web.md",
+    "layout_key": "user-web",
+    "page_template": "TPL-001"
+  },
+  "style_source": {
+    "design_spec_path": null
+  },
+  "state_examples": {
+    "default": "展示多个分类：商标、专利、合规，以及各分类下的前几项商品",
+    "search_result": "展示搜索关键字后的商品过滤结果",
+    "empty": "显示该分类下暂无商品插画"
+  },
+  "document": {
+    "type": "frame",
+    "name": "U-300 服务目录 Root",
+    "layout": "horizontal",
+    "gap": 0,
+    "padding": 0,
+    "width": 1440,
+    "height": "hug",
+    "fill": "$local-color-background-canvas",
+    "children": [
+      {
+        "id": "SHELL-006",
+        "name": "Side Navigation",
+        "type": "frame",
+        "layout": "vertical",
+        "width": 200,
+        "height": "fill_container",
+        "padding": 24,
+        "gap": 8,
+        "fill": "$local-color-surface-sidebar",
+        "children": [
+          { "type": "rectangle", "width": 120, "height": 32, "fill": "$local-color-placeholder-logo" },
+          { "type": "text", "content": "工作台", "fontSize": 14 },
+          { "type": "text", "content": "服务目录", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" }
+        ]
+      },
+      {
+        "id": "MAIN-CONTENT-WRAPPER",
+        "type": "frame",
+        "layout": "vertical",
+        "width": "fill_container",
+        "height": "hug",
+        "children": [
+          {
+            "id": "SHELL-001",
+            "name": "Top Navigation",
+            "type": "frame",
+            "layout": "horizontal",
+            "justifyContent": "space-between",
+            "alignItems": "center",
+            "padding": 24,
+            "width": "fill_container",
+            "height": 64,
+            "fill": "$local-color-surface-topbar",
+            "stroke": "$local-color-border-light",
+            "children": [
+              { "type": "text", "content": "首页 / 服务目录", "fontSize": 14 },
+              { "type": "frame", "width": 300, "height": 32, "stroke": "$local-color-border-default", "cornerRadius": 4, "padding": 8, "children": [{ "type": "text", "content": "搜索您需要的服务", "fontSize": 12 }] }
+            ]
+          },
+          {
+            "id": "CATALOG-BODY",
+            "type": "frame",
+            "layout": "horizontal",
+            "width": "fill_container",
+            "height": "hug",
+            "children": [
+              {
+                "id": "S-001",
+                "name": "分类导航",
+                "type": "frame",
+                "layout": "vertical",
+                "width": 160,
+                "padding": 24,
+                "gap": 4,
+                "fill": "$local-color-surface-bg-light",
+                "children": [
+                  { "type": "text", "content": "商标服务", "fontSize": 14, "fill": "$local-color-brand-primary", "fontWeight": "bold" },
+                  { "type": "text", "content": "专利服务", "fontSize": 14 },
+                  { "type": "text", "content": "合规服务", "fontSize": 14 }
+                ]
+              },
+              {
+                "id": "S-002",
+                "name": "商品网格",
+                "type": "frame",
+                "layout": "vertical",
+                "padding": 32,
+                "gap": 24,
+                "width": "fill_container",
+                "children": [
+                  { "type": "text", "content": "商标服务", "fontSize": 20, "fontWeight": "bold" },
+                  {
+                    "id": "GRID",
+                    "type": "frame",
+                    "layout": "horizontal",
+                    "gap": 24,
+                    "children": [
+                      {
+                        "type": "frame",
+                        "width": 240,
+                        "height": 300,
+                        "fill": "$local-color-surface-white",
+                        "cornerRadius": 8,
+                        "children": [
+                          { "type": "rectangle", "width": "fill_container", "height": 180, "fill": "$local-color-surface-bg-light" },
+                          { "type": "text", "content": "美国商标注册", "fontSize": 16, "fontWeight": "bold" },
+                          { "type": "text", "content": "¥2800 起", "fontSize": 18, "fill": "$local-color-brand-primary" }
+                        ]
+                      }
+                    ]
+                  }
+                ]
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
